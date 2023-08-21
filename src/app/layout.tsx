@@ -1,7 +1,9 @@
+import HeaderTop from "@/components/HeaderTop";
 import "./globals.css";
-import Footer from "../components/footer";
-import Navbar from "../components/navbar";
 import { Urbanist } from "next/font/google";
+import HeaderMain from "@/components/HeaderMain";
+import Navbar from "@/components/Navbar";
+
 const font = Urbanist({ subsets: ["latin"] });
 export const metadata = {
   title: "Farida Store",
@@ -16,11 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
+        <HeaderTop />
+        <HeaderMain />
         <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );
 }
-

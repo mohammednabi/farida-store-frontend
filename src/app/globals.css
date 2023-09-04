@@ -2,32 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    overflow-x: hidden;
-  }
-}
 @layer components {
-  .header_top__icon_wrapper {
-    @apply bg-gray-200 rounded-md p-[6px] text-[14px] cursor-pointer hover:bg-acent;
+  .navbar_icon_wrapper {
+    @apply border-[2px] w-8 h-8 bg-gray-100 mr-2 rounded-full flex items-center justify-center
+     border-gray-400 hover:border-blue-800;
   }
-  .navbar__link:hover {
-    color: #ff8f9c;
-    transition: all 0.4s;
-  }
-  .navbar__link::after {
-    position: absolute;
-    content: "";
-    background-color: #ff8f9c;
-    height: 3px;
-    width: 100%;
-    bottom: -5px;
-    left: 0;
-    scale: 0;
-    transform-origin: left;
-    transition: all 0.4s;
-  }
-  .navbar__link:hover::after {
-    scale: 1;
+  .link_hover{
+    @apply hover:text-yellow-600
   }
 }
+/* .icon_padding {
+  @apply to-gray-200 rounded-full border-[1.5px] border-gray-400 w-7 h-7;
+}
+.icon_padding:hover {
+  border-color:red;
+} */

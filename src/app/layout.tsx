@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+
 import "./globals.css";
 import { Urbanist } from "next/font/google";
 

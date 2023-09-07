@@ -11,7 +11,7 @@ export const theme = {
       padding: "15px",
     },
     colors: {
-      acent: "#ff8f9c",
+      accent: "#ff8f9c",
       blackish: "#1b1b1b",
     },
   },

@@ -14,7 +14,7 @@ import SideNavbar from "./Sidenavbar";
 
 const Navbar = () => {
   const [sidenav, setSidenav] = useState(false);
-  const hadelSideNav = () => {
+  const handelSideNav = () => {
     setSidenav(!sidenav);
   };
   return (
@@ -23,8 +23,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center  ">
           {/* icons */}
           <div className="icon_size relative">
-
-            <AiOutlineShoppingCart  />
+            <AiOutlineShoppingCart />
           </div>
 
           <div className="icon_size">
@@ -62,11 +61,11 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex cursor-pointer pl-24 z-20">
-          <AiOutlineMenu size={25} onClick={hadelSideNav} />
+          <AiOutlineMenu size={25} onClick={handelSideNav} />
           <div
             className={sidenav ? "fixed bg-gray-500 cursor-pointer" : "hidden"}
           >
-            <SideNavbar data={hadelSideNav} />
+            <SideNavbar data={handelSideNav} />
           </div>
         </div>
       </div>

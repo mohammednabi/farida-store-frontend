@@ -14,11 +14,11 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegComments } from "react-icons/fa";
 import { BiMessageSquareDots } from "react-icons/bi";
 
-
-
-const SideNavbar = (props: {
+interface iprops {
   data: React.MouseEventHandler<SVGElement> | undefined;
-}) => {
+}
+
+const SideNavbar = (props: iprops) => {
   return (
     <div>
       <Disclosure as="nav">

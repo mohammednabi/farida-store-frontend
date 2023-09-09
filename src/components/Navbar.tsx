@@ -10,20 +10,21 @@ import {
   AiOutlineUser,
 } from "react-icons/ai";
 
+import SideNavbar from "./Sidenavbar";
+
 const Navbar = () => {
-  const [menuOpen, setmenuOpen] = useState(false);
-
-  const handelNav = () => {
-    setmenuOpen(!menuOpen);
+  const [sidenav, setSidenav] = useState(false);
+  const hadelSideNav = () => {
+    setSidenav(!sidenav);
   };
-
   return (
-    <nav className="fixed w-full h-24 shadow-xl bg-gray-400">
+    <nav className="fixed  w-full h-24 shadow-xl bg-gray-400 ">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-6">
         <div className="flex justify-between items-center  ">
           {/* icons */}
-          <div className="icon_size">
-            <AiOutlineShoppingCart />
+          <div className="icon_size relative">
+
+            <AiOutlineShoppingCart  />
           </div>
 
           <div className="icon_size">
@@ -60,8 +61,13 @@ const Navbar = () => {
             </ul>
           </div>
         </div>
-        <div onClick={handelNav} className="flex cursor-pointer pl-24">
-          <AiOutlineMenu size={25} />
+        <div className="flex cursor-pointer pl-24 z-20">
+          <AiOutlineMenu size={25} onClick={hadelSideNav} />
+          <div
+            className={sidenav ? "fixed bg-gray-500 cursor-pointer" : "hidden"}
+          >
+            <SideNavbar data={hadelSideNav} />
+          </div>
         </div>
       </div>
     </nav>

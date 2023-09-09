@@ -1,60 +1,76 @@
+"use client";
 import Link from "next/link";
-import React from "react";
-import { BsCartCheck } from "react-icons/bs";
-import Image from "next/image";
-import download from "/public/download.png";
+import { useState } from "react";
+
 import {
   AiOutlineHeart,
-  AiOutlineUserAdd,
+  AiOutlineMenu,
   AiOutlineSearch,
+  AiOutlineShoppingCart,
+  AiOutlineUser,
 } from "react-icons/ai";
 
+import SideNavbar from "./Sidenavbar";
+
 const Navbar = () => {
+  const [sidenav, setSidenav] = useState(false);
+  const handelSideNav = () => {
+    setSidenav(!sidenav);
+  };
   return (
-    <div className="border-b border-gray-200 hidden sm:block">
-      <div className="container py-4">
-        <div className="flex justify-between items-center">
-          <div className="hidden gap-1 lg:flex">
-            <div className="navbar_icon_wrapper">
-              <BsCartCheck />
-            </div>
-            <div className="navbar_icon_wrapper">
-              <AiOutlineHeart />
-            </div>
-            <div className="navbar_icon_wrapper">
-              <AiOutlineUserAdd />
-            </div>
-            <div className="navbar_icon_wrapper">
-              <AiOutlineSearch />
-            </div>
+    <nav className="fixed  w-full h-24 shadow-xl bg-gray-400 ">
+      <div className="flex justify-between items-center h-full w-full px-4 2xl:px-6">
+        <div className="flex justify-between items-center  ">
+          {/* icons */}
+          <div className="icon_size relative">
+            <AiOutlineShoppingCart />
           </div>
-          <div className="flex gap-4 text-2xl">
-            <Link className="link_hover" href="#">
-              اتصل بنا
-            </Link>
-            <Link className="link_hover" href="#">
-              تتبع الطلب
-            </Link>
-            <Link className="link_hover" href="#">
-              منتجاتنا
-            </Link>
-            <Link className="link_hover" href="#">
-              الرئيسية
-            </Link>
+
+          <div className="icon_size">
+            <AiOutlineUser />
           </div>
-          <div className="flex">
-            <Image
-              src={download}
-              width={100}
-              height={100}
-              alt="bunner"
-              className="rounded-2xl"
-            />
+          <div className="icon_size">
+            <AiOutlineHeart />
           </div>
-          <div className="flex gap-4"></div>
+          <AiOutlineSearch className="icon_size" />
+        </div>
+        <div>
+          <div>
+            <ul className="hidden lg:flex">
+              <Link href="/about">
+                <li className="ml-10 uppercase hover:border-b text-xl">
+                  Why us
+                </li>
+              </Link>
+              <Link href="/contact">
+                <li className="ml-10 uppercase hover:border-b text-xl">
+                  contact
+                </li>
+              </Link>
+              <Link href="/services">
+                <li className="ml-10 uppercase hover:border-b text-xl">
+                  services
+                </li>
+              </Link>
+              <Link href="/ourservices">
+                <li className="mx-10 uppercase hover:border-b text-xl">
+                  our-services
+                </li>
+              </Link>
+            </ul>
+          </div>
+        </div>
+        <div className="flex cursor-pointer pl-24 z-20">
+          <AiOutlineMenu size={25} onClick={handelSideNav} />
+          <div
+            className={sidenav ? "fixed bg-gray-500 cursor-pointer" : "hidden"}
+          >
+            <SideNavbar data={handelSideNav} />
+          </div>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
+
 export default Navbar;

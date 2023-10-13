@@ -1,6 +1,9 @@
+/* eslint-disable react/no-children-prop */
+
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import Tooltip from "./Tooltip";
 
 import {
   AiOutlineHeart,
@@ -17,15 +20,19 @@ const Navbar = () => {
   const handelSideNav = () => {
     setSidenav(!sidenav);
   };
+
   return (
-    <nav className="fixed  w-full h-24 shadow-xl bg-gray-400 ">
+    <nav className="fixed flex-grow-0  w-full h-24 shadow-xl block">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-6">
         <div className="flex justify-between items-center  ">
           {/* icons */}
-          <div className="icon_size relative">
-            <AiOutlineShoppingCart />
+          <div className="icon_size relative group inline-block">
+            <AiOutlineShoppingCart
+            />
+            <div className="pt-3 opacity-0 hover:opacity-100">
+              <Tooltip tooltip="iam on top" children={undefined} />
+            </div>
           </div>
-
           <div className="icon_size">
             <AiOutlineUser />
           </div>
@@ -38,22 +45,22 @@ const Navbar = () => {
           <div>
             <ul className="hidden lg:flex">
               <Link href="/about">
-                <li className="ml-10 uppercase hover:border-b text-xl">
+                <li className="ml-10 uppercase hover:border-b  border-gray-600 text-xl">
                   Why us
                 </li>
               </Link>
               <Link href="/contact">
-                <li className="ml-10 uppercase hover:border-b text-xl">
+                <li className="ml-10 uppercase hover:border-b border-gray-600 text-xl">
                   contact
                 </li>
               </Link>
               <Link href="/services">
-                <li className="ml-10 uppercase hover:border-b text-xl">
+                <li className="ml-10 uppercase hover:border-b  border-gray-600 text-xl">
                   services
                 </li>
               </Link>
               <Link href="/ourservices">
-                <li className="mx-10 uppercase hover:border-b text-xl">
+                <li className="mx-10 uppercase hover:border-b  border-gray-600 text-xl">
                   our-services
                 </li>
               </Link>
@@ -72,5 +79,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default Navbar;

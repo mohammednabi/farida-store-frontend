@@ -1,6 +1,9 @@
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Urbanist } from "next/font/google";
+import Footer from "@/components/Footer";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const font = Urbanist({ subsets: ["latin"] });
 export const metadata = {
@@ -15,9 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>
-        <Navbar />
-        {children}
+      <body className={`${font.className} flex flex-col `}>
+        <div className="flex-grow-0">
+          <Navbar />
+        </div>
+        <div> {children}</div>
+        <div>
+          <Footer />
+        </div>
       </body>
     </html>
   );

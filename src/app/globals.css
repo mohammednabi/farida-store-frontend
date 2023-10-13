@@ -3,17 +3,11 @@
 @tailwind utilities;
 
 @layer components {
-  .navbar_icon_wrapper {
-    @apply border-[2px] w-8 h-8 bg-gray-100 mr-2 rounded-full flex items-center justify-center
-     border-gray-400 hover:border-blue-800;
+  .icon_size {
+    @apply flex border-[2px] w-10 h-10 mr-4 border-gray-300 hover:border-green-800 
+    border-solid rounded-full items-center justify-center p-2;
   }
-  .link_hover{
-    @apply hover:text-yellow-600
+  .link_hover {
+    @apply hover:text-yellow-600;
   }
 }
-/* .icon_padding {
-  @apply to-gray-200 rounded-full border-[1.5px] border-gray-400 w-7 h-7;
-}
-.icon_padding:hover {
-  border-color:red;
-} */

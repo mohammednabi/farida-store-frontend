@@ -9,8 +9,8 @@ const Tooltip: FC<props> = ({ children, tooltip }) => {
     <div>
       {children}
       <span
-        className="visible group-hover:visible  group-hover:opacity-100
-       bg-blue-400 text-white p-1 rounded top-full mt-2 whitespace-nowrap"
+        className="visible text-black border-solid border-black border
+       p-1 rounded top-full mt-2 whitespace-nowrap"
       >
         {tooltip}
       </span>

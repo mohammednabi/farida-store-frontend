@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer components {
-  .icon_size {
-    @apply flex border-[2px] w-10 h-10 mr-4 border-gray-300 hover:border-green-800 
+  .border_circle {
+    @apply flex border-[2px] w-10 h-10 mr-4 border-gray-300 hover:border-red-600 
     border-solid rounded-full items-center justify-center p-2;
   }
   .link_hover {

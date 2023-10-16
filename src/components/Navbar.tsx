@@ -1,6 +1,9 @@
+/* eslint-disable react/no-children-prop */
+
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import Tooltip from "./Tooltip";
 
 import {
   AiOutlineHeart,
@@ -11,55 +14,83 @@ import {
 } from "react-icons/ai";
 
 import SideNavbar from "./Sidenavbar";
+import Cartdrop from "./Cartdrop";
+import NavLinks from "./NavLinks";
 
 const Navbar = () => {
   const [sidenav, setSidenav] = useState(false);
   const handelSideNav = () => {
     setSidenav(!sidenav);
   };
+  const [showtool, setshowtool] = useState(false);
+  const handtool = () => {
+    setshowtool(!showtool);
+  };
+
+  const [cartshow, setCartshow] = useState(false);
+  const handelCart = () => {
+    setCartshow(!cartshow);
+  };
+
   return (
-    <nav className="fixed  w-full h-24 shadow-xl bg-gray-400 ">
+    <nav className="flex-grow-0  w-full h-24 shadow-lg md:flex md:items-center  bg-slate-200  md:justify-between ">
       <div className="flex justify-between items-center h-full w-full px-4 2xl:px-6">
-        <div className="flex justify-between items-center  ">
+        {/* Div of icons */}
+        <div className="relative flex justify-between items-center  cursor-pointer ">
           {/* icons */}
-          <div className="icon_size relative">
-            <AiOutlineShoppingCart />
+          <div
+            className={`absolute left-[100%] top-[100%] origin-top-left rotate-12 duration-150 ease-in-out  ${
+              cartshow ? "fixed" : "hidden"
+            }`}
+          >
+            <Cartdrop />
           </div>
 
-          <div className="icon_size">
+          <div>
+            <div className="relative group inline-block ">
+              <div
+                className="border_circle"
+                onMouseEnter={handtool}
+                onMouseLeave={handtool}
+              >
+                <AiOutlineShoppingCart
+                  onMouseLeave={handelCart}
+                  onMouseEnter={handelCart}
+                />
+              </div>
+              {/* Budget */}
+              <div className="absolute items-center -top-3 left-2 w-5 h-5 rounded-full bg-blue-900  flex justify-center">
+                <span className="text-white sm:font-sans text-sm">0</span>
+              </div>
+
+              {/* Tool tip for Car */}
+
+              <div dir="ltr">
+                <div
+                  className={`mt-1 absolute start-6  ${
+                    showtool ? "fixed" : "hidden"
+                  }`}
+                >
+                  <Tooltip
+                    tooltip="عرض عربةالتسوق الخاص بك"
+                    children={undefined}
+                  />
+                </div>
+              </div>
+              {/* Care menu when hover */}
+            </div>
+          </div>
+          <div className="border_circle">
             <AiOutlineUser />
           </div>
-          <div className="icon_size">
+          <div className="border_circle">
             <AiOutlineHeart />
           </div>
-          <AiOutlineSearch className="icon_size" />
-        </div>
-        <div>
-          <div>
-            <ul className="hidden lg:flex">
-              <Link href="/about">
-                <li className="ml-10 uppercase hover:border-b text-xl">
-                  Why us
-                </li>
-              </Link>
-              <Link href="/contact">
-                <li className="ml-10 uppercase hover:border-b text-xl">
-                  contact
-                </li>
-              </Link>
-              <Link href="/services">
-                <li className="ml-10 uppercase hover:border-b text-xl">
-                  services
-                </li>
-              </Link>
-              <Link href="/ourservices">
-                <li className="mx-10 uppercase hover:border-b text-xl">
-                  our-services
-                </li>
-              </Link>
-            </ul>
+          <div className="border_circle">
+            <AiOutlineSearch />
           </div>
         </div>
+        <NavLinks />
         <div className="flex cursor-pointer pl-24 z-20">
           <AiOutlineMenu size={25} onClick={handelSideNav} />
           <div
@@ -72,5 +103,4 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default Navbar;

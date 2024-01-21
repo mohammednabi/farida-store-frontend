@@ -7,7 +7,7 @@ const NavLinks = () => {
       <div>
         <ul className="hidden md:flex md:items-center">
           <Link href="/about">
-            <li className="mx-4 uppercase hover:border-b  border-gray-600 text-xl">
+            <li className="mx-4 uppercase hover:border-b font-cairo  border-gray-600 text-xl">
               Why us
             </li>
           </Link>

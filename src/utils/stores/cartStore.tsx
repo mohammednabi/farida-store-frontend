@@ -1,21 +1,17 @@
 "use client"
 
-import { action, makeObservable,makeAutoObservable ,observable } from "mobx"
+import { makeAutoObservable  } from "mobx"
 
 
-class CartStore
+export class CartStore
 {
-    productsCount: number = 0
-    
+    productsCount: number = 3
+    isCartMenuDisplayed :boolean = false
+
+
     constructor()
     {
-        makeObservable(this, {
-            productsCount: observable,
-            addProduct: action,
-            deleteProduct: action,
-            deleteAllProducts:action
-            
-        })
+        makeAutoObservable(this)
     }
 
 
@@ -30,6 +26,17 @@ class CartStore
         this.productsCount = 0
     }
 
+    displayCartMenu = () => {
+        this.isCartMenuDisplayed = true
+    }
+
+ hideCartMenu = () => {
+        this.isCartMenuDisplayed = false
+    }
+
+
 
 
 }
+
+

@@ -17,6 +17,7 @@ export const theme = {
       mainBlack: "#161616",
       mainPink: "#e5087e",
       mainDarkBlue: "#171d2f",
+      mainGray: "#f6f5f6",
     },
     fontFamily: {
       cairo: ["cairo", "sans-serif"],

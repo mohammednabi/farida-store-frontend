@@ -4,8 +4,13 @@ import { Urbanist } from "next/font/google";
 import Footer from "@/components/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import NavBar2 from "@/components/NavBar2";
+import CartStoreContextProvider from "@/contexts/CartStoreContext";
+import UserDropStoreContextProvider from "@/contexts/UserDropStoreContext";
 
-const font = Urbanist({ subsets: ["latin"] });
+
+
+
 export const metadata = {
   title: "Farida Store",
   description: "The Market of Farida Store",
@@ -18,14 +23,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${font.className} flex flex-col `}>
+      <body className={`font-cairo flex flex-col `}>
         <div className="h-full  flex flex-col">
           <div className="">
-            <Navbar />
+         
+            <CartStoreContextProvider>
+              <UserDropStoreContextProvider>
+
+            <NavBar2 />
+              </UserDropStoreContextProvider>
+</CartStoreContextProvider>
+           
+            {/* <Navbar /> */}
           </div>
           <div className="flex-1 block"> {children}</div>
           <div className="">
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </div>
       </body>

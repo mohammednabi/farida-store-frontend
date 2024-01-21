@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-mainWhite;
+}
+
 @layer components {
   .border_circle {
     @apply flex border-[2px] w-10 h-10 mr-4 border-gray-300 hover:border-red-600 
@@ -9,6 +13,15 @@
   }
   .link_hover {
     @apply hover:text-yellow-600;
+  }
+  .nav-link {
+    @apply transition-all hover:text-mainPink;
+  }
+  .input-label {
+    @apply text-mainBlack/50;
+  }
+  .nav-input {
+    @apply text-mainBlack p-2 focus:border-none focus:outline-none rounded-lg;
   }
 }
 

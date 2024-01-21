@@ -11,3 +11,16 @@
     @apply hover:text-yellow-600;
   }
 }
+
+/* custom fonts  */
+
+@font-face {
+  font-family: "cairo";
+  src: url(/fonts/cairo/Cairo-VariableFont_slnt\,wght.ttf);
+}
+
+/* onther option font that may be not used  */
+@font-face {
+  font-family: "rubik";
+  src: url(/fonts/rubik/Rubik-VariableFont_wght.ttf);
+}

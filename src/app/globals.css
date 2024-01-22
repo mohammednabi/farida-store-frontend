@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-mainWhite;
+}
+
 @layer components {
   .border_circle {
     @apply flex border-[2px] w-10 h-10 mr-4 border-gray-300 hover:border-red-600 
@@ -10,4 +14,49 @@
   .link_hover {
     @apply hover:text-yellow-600;
   }
+  .nav-link {
+    @apply transition-all hover:text-mainPink;
+  }
+  .input-label {
+    @apply text-mainBlack/50;
+  }
+  .nav-input {
+    @apply text-mainBlack p-2 focus:border-none focus:outline-none rounded-lg;
+  }
+}
+
+/* custom fonts  */
+
+@font-face {
+  font-family: "cairo";
+  src: url(/fonts/cairo/Cairo-VariableFont_slnt\,wght.ttf);
+}
+
+/* onther option font that may be not used  */
+@font-face {
+  font-family: "rubik";
+  src: url(/fonts/rubik/Rubik-VariableFont_wght.ttf);
+}
+
+/* custom scroll bar  */
+
+/* width */
+::-webkit-scrollbar {
+  @apply w-[2px] h-[5px];
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* background: #f1f1f1; */
+  @apply bg-mainGray;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-mainPink;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-mainPink/50;
 }

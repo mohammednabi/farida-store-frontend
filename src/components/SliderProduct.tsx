@@ -1,6 +1,7 @@
 
 import Image from 'next/image'
-import React  from 'react'
+import React from 'react'
+import { Sliderify } from "react-sliderify";
 
 const SliderProduct = () => {
  

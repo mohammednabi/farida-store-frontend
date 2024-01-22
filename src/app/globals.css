@@ -42,7 +42,7 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  @apply w-[2px] h-[5px];
+  @apply w-[8px] h-[5px];
 }
 
 /* Track */

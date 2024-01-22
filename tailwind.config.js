@@ -13,6 +13,15 @@ export const theme = {
     colors: {
       accent: "#ff8f9c",
       blackish: "#1b1b1b",
+      mainWhite: "#ffffff",
+      mainBlack: "#161616",
+      mainPink: "#e5087e",
+      mainDarkBlue: "#171d2f",
+      mainGray: "#f6f5f6",
+    },
+    fontFamily: {
+      cairo: ["cairo", "sans-serif"],
+      rubik: ["rubik", "sans-serif"],
     },
   },
 };

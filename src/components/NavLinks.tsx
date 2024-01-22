@@ -1,35 +1,25 @@
-import Link from 'next/link';
+import Link from 'next/link'
 import React from 'react'
 
-const NavLinks = () => {
+const NavLinks2 = () => {
   return (
-    <div >
-      <div>
-        <ul className="hidden md:flex md:items-center">
-          <Link href="/about">
-            <li className="mx-4 uppercase hover:border-b font-cairo  border-gray-600 text-xl">
-              Why us
-            </li>
+      <div className='capitalize flex flex-1 shrink   text-lg  '>
+        <div className=' pl-36 flex flex-1 shrink  items-center justify-center gap-10'>
+              <Link href={"#"} className='nav-link' >
+          home
           </Link>
-          <Link href="/contact">
-            <li className="mx-4 uppercase hover:border-b border-gray-600 text-xl">
-              Contact
-            </li>
+          <Link href={"#"} className='nav-link'>
+          products
           </Link>
-          <Link href="/services">
-            <li className="mx-4 uppercase hover:border-b  border-gray-600 text-xl">
-              services
-            </li>
+          <Link href={"#"} className='nav-link'>
+          order
           </Link>
-          <Link href="/ourservices">
-            <li className="mx-4 uppercase hover:border-b  border-gray-600 text-xl">
-              our-services
-            </li>
+          <Link href={"#"} className='nav-link'>
+          contact
           </Link>
-        </ul>
-      </div>
-    </div>
-  );
+        </div>
+   </div>
+  )
 }
 
-export default NavLinks
+export default NavLinks2

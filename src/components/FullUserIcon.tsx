@@ -3,13 +3,17 @@ import React, { useContext } from 'react'
 import Icon from './Icon'
 import { FaRegUser } from "react-icons/fa";
 import UserDrop from './UserDrop';
-import { UserDropContext } from '@/contexts/UserDropStoreContext';
+
 import { motion } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
+import { StoreContext } from '@/contexts/StoreContext';
+
     
+
+
 const FullUserIcon = () => {
 
-const userDrop = useContext(UserDropContext)
+const {userDrop} = useContext(StoreContext)
 
   return (
      <div onMouseOver={userDrop.displayUserMenu} onMouseLeave={userDrop.hideUserMenu}>

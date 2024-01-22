@@ -17,7 +17,9 @@ export class CartStore
 
     addProduct = () =>
     {
-        this.productsCount++
+        
+            this.productsCount++
+       
     }
     deleteProduct = () => {
         this.productsCount--

@@ -37,3 +37,26 @@ body {
   font-family: "rubik";
   src: url(/fonts/rubik/Rubik-VariableFont_wght.ttf);
 }
+
+/* custom scroll bar  */
+
+/* width */
+::-webkit-scrollbar {
+  @apply w-[2px] h-[5px];
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* background: #f1f1f1; */
+  @apply bg-mainGray;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-mainPink;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-mainPink/50;
+}

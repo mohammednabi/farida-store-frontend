@@ -1,12 +1,13 @@
-import Navbar from "@/components/Navbar";
+
 import "./globals.css";
-import { Urbanist } from "next/font/google";
-import Footer from "@/components/Footer";
+
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import NavBar2 from "@/components/NavBar2";
-import CartStoreContextProvider from "@/contexts/CartStoreContext";
-import UserDropStoreContextProvider from "@/contexts/UserDropStoreContext";
+import NavBar from "@/components/NavBar";
+
+
+import StoreContextProvider from "@/stores";
 
 
 
@@ -24,15 +25,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-cairo flex flex-col `}>
+         <StoreContextProvider>
         <div className="h-full  flex flex-col">
           <div className="">
          
-            <CartStoreContextProvider>
-              <UserDropStoreContextProvider>
+            
+               
+                  
+            <NavBar />
 
-            <NavBar2 />
-              </UserDropStoreContextProvider>
-</CartStoreContextProvider>
+            
            
             {/* <Navbar /> */}
           </div>
@@ -40,7 +42,8 @@ export default function RootLayout({
           <div className="">
             {/* <Footer /> */}
           </div>
-        </div>
+          </div>
+          </StoreContextProvider>
       </body>
     </html>
   );

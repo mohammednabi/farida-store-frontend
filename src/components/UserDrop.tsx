@@ -1,18 +1,20 @@
 "use client"
 import Link from 'next/link'
 import React, { useContext } from 'react'
-import { UserDropContext } from '@/contexts/UserDropStoreContext';
+
 import { motion } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
 
+import { StoreContext } from '@/contexts/StoreContext';
+
 const UserDrop = () => {
 
- const userDrop = useContext(UserDropContext)
+ const {userDrop} = useContext(StoreContext)
   return (
      <motion.div 
       initial = {{scaleY:0,opacity:0}}
       animate={{scaleY:userDrop.isUserMenuDisplayed?1:0,opacity:userDrop.isUserMenuDisplayed?1:0}} 
-          className='origin-top flex flex-col gap-5 bg-mainGray min-w-[20rem] capitalize w-auto h-auto p-3 px-5 text-mainBlack absolute top-20 right-36 z-10'>
+          className='origin-top flex flex-col gap-5 bg-white min-w-[20rem] capitalize w-auto h-auto p-3 px-5 text-mainBlack absolute top-20 right-36 z-10'>
          <h1 className='text-xl font-bold'>login</h1>
 
           <form className='flex flex-col gap-5'>

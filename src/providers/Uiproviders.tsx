@@ -2,7 +2,7 @@
 
 import {NextUIProvider} from '@nextui-org/react'
 
-const Uiproviders = ({children}: { children: React.ReactNode }) => {
+const UiProviders = ({children}: { children: React.ReactNode }) => {
   return (
     <NextUIProvider>
       {children}
@@ -10,4 +10,4 @@ const Uiproviders = ({children}: { children: React.ReactNode }) => {
   )
 }
 
-export default Uiproviders
+export default UiProviders

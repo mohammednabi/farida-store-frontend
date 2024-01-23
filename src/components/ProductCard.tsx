@@ -1,11 +1,15 @@
 "use client"
-import Image from 'next/image'
+import NextImage from 'next/image'
 import React, { useContext } from 'react'
 import ReactStars from 'react-rating-star-with-type'
 import { RiStarSmileFill } from "react-icons/ri";
 import { SiStarship } from "react-icons/si";
 import { LiaStarSolid } from "react-icons/lia";
 import { StoreContext } from '@/contexts/StoreContext';
+import { Button, Image } from '@nextui-org/react';
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaRegHeart } from "react-icons/fa";
+import Icon from './Icon';
 
 
 interface productCardProps{
@@ -14,11 +18,14 @@ interface productCardProps{
     title: string
     prePrice: number
     currentPrice: number
-    ratingsNumber:number
+    ratingsNumber: number
+    isSale?: boolean
+    isBestSeller?:boolean
+    isTopDeal?:boolean
 }
 
 
-const ProductCard = ({image,rating,title,prePrice,currentPrice,ratingsNumber}:productCardProps) => {
+const ProductCard = ({image,rating,title,prePrice,currentPrice,ratingsNumber,isSale,isBestSeller,isTopDeal}:productCardProps) => {
 
 const {cart} = useContext(StoreContext)
 
@@ -27,10 +34,30 @@ cart.addProduct()
     }
 
   return (
-      <div className='flex flex-col w-[18rem] '>
+      <div className='relative flex flex-col w-[18rem] '>
           
-              <div className='transition-all cursor-pointer w-full aspect-square bg-mainWhite hover:bg-mainBlack/10 '>
-                  <Image src={image} width={500} height={500} quality={100} alt='' className='w-full object-cover'/>
+         {isSale &&!isBestSeller &&!isTopDeal && <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-red-700 text-white flex justify-center items-center '>
+              <h1 className='text-center text-lg'>sale</h1>
+          </div>}
+              {isTopDeal && !isSale && !isBestSeller &&    <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-green-700 text-white flex justify-center items-center '>
+              <h1 className='text-center text-lg'>top deal</h1>
+          </div> }
+      {isBestSeller && !isSale && !isTopDeal &&           <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-yellow-700 text-white flex justify-center items-center '>
+              <h1 className='text-center text-lg'>best seller</h1>
+          </div>}
+          <div className='  absolute top-0 right-0 z-20 flex justify-center items-center '>
+              <Icon icon={<FaRegHeart />} hasBorder />
+          </div>
+              <div className='transition-all cursor-pointer w-full aspect-square flex items-center justify-center  '>
+              <Image as={NextImage}
+                  src={image}
+                  width={500}
+                  height={500}
+                  quality={100}
+                  alt='product image'
+                  
+                  
+                  className='w-full object-cover' />
               </div>
 
           <div className='p-2 flex flex-col gap-10'>
@@ -57,10 +84,12 @@ cart.addProduct()
                       </div>
                   </div>
               </div>
-              <button className='p-5 bg-mainPink text-mainWhite w-full rounded-md transition-all hover:bg-mainPink/90'
               
-              onClick={addProductToCart}
-              >add to cart</button>
+              <Button className=' h-16 bg-mainPink text-mainWhite w-full rounded-md transition-all hover:bg-mainPink/90'
+                  endContent={<AiOutlineShoppingCart />}
+                  size='lg'
+                  
+                  onClick={addProductToCart}>add to cart</Button>
           </div>
          
    </div>

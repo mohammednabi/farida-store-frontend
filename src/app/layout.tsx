@@ -8,6 +8,7 @@ import NavBar from "@/components/Navbar";
 
 
 import StoreContextProvider from "@/stores";
+import Uiproviders from "@/providers/UiProviders";
 
 
 
@@ -25,6 +26,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-cairo flex flex-col `}>
+        <Uiproviders>
+
          <StoreContextProvider>
         <div className="h-full  flex flex-col">
           <div className="">
@@ -44,6 +47,7 @@ export default function RootLayout({
           </div>
           </div>
           </StoreContextProvider>
+        </Uiproviders>
       </body>
     </html>
   );

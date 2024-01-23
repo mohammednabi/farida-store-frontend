@@ -10,9 +10,9 @@ import NavBar from "@/components/Navbar";
 
 
 import StoreContextProvider from "@/stores";
-import Uiproviders from "@/providers/Uiproviders";
 
 
+import Uiproviders from "@/providers/UiProviders";
 
 
 export const metadata = {

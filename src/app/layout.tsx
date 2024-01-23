@@ -5,11 +5,12 @@ import "./globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/Navbar";
 
 
 import StoreContextProvider from "@/stores";
 import Uiproviders from "@/providers/UiProviders";
+
 
 
 

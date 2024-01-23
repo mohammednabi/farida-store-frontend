@@ -13,6 +13,7 @@ import StoreContextProvider from "@/stores";
 
 
 import Uiproviders from "@/providers/UiProviders";
+import Footer from "@/components/Footer";
 
 
 export const metadata = {
@@ -46,6 +47,8 @@ export default function RootLayout({
           <div className="flex-1 block"> {children}</div>
           <div className="">
             {/* <Footer /> */}
+
+                <Footer />
           </div>
           </div>
           </StoreContextProvider>

@@ -5,6 +5,9 @@ import ReactStars from 'react-rating-star-with-type'
 import { RiStarSmileFill } from "react-icons/ri";
 import { SiStarship } from "react-icons/si";
 import { LiaStarSolid } from "react-icons/lia";
+import { FaStar } from "react-icons/fa";
+import { FaStarHalfAlt } from "react-icons/fa";
+import { FaRegStar } from "react-icons/fa";
 import { StoreContext } from '@/contexts/StoreContext';
 import { Button, Image } from '@nextui-org/react';
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -71,7 +74,7 @@ cart.addProduct()
                       <div className='flex items-center gap-2'>
                           
 
-                          <ReactStars value={rating} count={5} filledIcon={<LiaStarSolid />} halfIcon={<LiaStarSolid />} size={"1.3rem"} />
+                          <ReactStars value={rating} count={5} filledIcon={<FaStar />} halfIcon={<FaStarHalfAlt />} size={"1.3rem"} emptyIcon={<FaRegStar /> } />
                           <h1 className='text-mainBlack/50'>({ratingsNumber})</h1>
                       </div>
                       <div className='flex items-center gap-5'>

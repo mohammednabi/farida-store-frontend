@@ -5,6 +5,8 @@ import { UserDropStore } from "./userDropStore";
 
 import React from 'react'
 import { userStore } from "./userStore";
+import { SideBarStore } from "./sidebarStore";
+
 
 // cart store instance 
 
@@ -14,8 +16,13 @@ import { userStore } from "./userStore";
 
  const userDropInstance = new UserDropStore()
 
+// user information store 
 
 const userStoreInstance = new userStore()
+
+// sidebar state store
+
+const sidebarInstance = new SideBarStore()
 
 // ==========================================================
 // this object is for all stores that will for all states
@@ -23,7 +30,10 @@ const userStoreInstance = new userStore()
 export const store ={
     cart: cartProducts,
     userDrop: userDropInstance,
-    user :userStoreInstance
+    user: userStoreInstance,
+    sidebar:sidebarInstance
+
+    
 }
 
 interface indexChildren {

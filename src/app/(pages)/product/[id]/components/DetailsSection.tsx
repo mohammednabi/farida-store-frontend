@@ -7,7 +7,22 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { Divider } from '@nextui-org/react';
 
-const DetailsSection = () => {
+
+interface productProps{
+    product?: {
+    
+    id: string;
+    title: string;
+    price: number;
+    category: string;
+    description: string;
+    image?: string | undefined;
+
+}
+}
+
+
+const DetailsSection = ({product}:productProps) => {
 
     const allDetails:string[] = ["Size 1: length 24 cm, width 11 cm, height 7 cm","Size 2: length 27.5 cm, width 13 cm, height 7 cm","Size: 3, length 31 cm, width 14.5 cm, height 8 cm","1 piece","Silver color","The material is pure aluminum","5 year warranty","Made in Egypt"]
 
@@ -16,7 +31,7 @@ const DetailsSection = () => {
           
           <div className='flex flex-col gap-3'>
               
-          <h1 className='text-2xl '>Ariston Refrigerator Freestanding Fridge Freezer 335 Liter </h1>
+              <h1 className='text-2xl '>{product?.title }</h1>
            <div className='flex items-center gap-2'>
                           
 
@@ -50,14 +65,14 @@ const DetailsSection = () => {
                               <div className='absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3'/>
                               <h2 className='text-3xl text-mainBlack/30 font-bold  text-center'>1000$</h2>
                           </div>
-                          <h2 className='text-3xl text-mainBlack/70 font-bold'>500 $</h2>
+                          <h2 className='text-3xl text-mainBlack/70 font-bold'>{product?.price} $</h2>
                       </div>
           </div>
 
           <div className='flex flex-col gap-2'>
           <Divider />
 
-              <h1 className='text-lg capitalize'>category :<span className='text-mainBlack/50'>electronics</span> </h1>
+              <h1 className='text-lg capitalize'>category :<span className='text-mainBlack/50'>{product?.category}</span> </h1>
           </div>
              
     </div>

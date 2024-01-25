@@ -3,6 +3,7 @@ import { Divider } from '@nextui-org/react'
 import React from 'react'
 import {Tabs, Tab, Chip} from "@nextui-org/react";
 import { VscPreview } from "react-icons/vsc";
+import { MdOutlineDescription } from "react-icons/md";
 import UserReview from './UserReview';
 
 type review = {
@@ -16,6 +17,8 @@ type review = {
 
 const ReviewsSection = () => {
 
+
+
     const reviews: review[] = [
         { userName: "mohammed nabil", rating: 3, reviewDescription: "not good enough" }
         , { userName: "master card", rating: 5, reviewDescription: "amazing work was made on this product", userAvatar: "/MasterCard_Logo.svg.webp" },
@@ -24,6 +27,11 @@ const ReviewsSection = () => {
         { userName: "mohammed nabil", rating: 2, reviewDescription: "not good enough" },
         { userName: "mohammed nabil", rating:0, reviewDescription: "very very bad" }
     ]
+
+ const allDetails:string[] = ["Size 1: length 24 cm, width 11 cm, height 7 cm","Size 2: length 27.5 cm, width 13 cm, height 7 cm","Size: 3, length 31 cm, width 14.5 cm, height 8 cm","1 piece","Silver color","The material is pure aluminum","5 year warranty","Made in Egypt"]
+
+
+    
 
   return (
       <div className='flex flex-col'>
@@ -43,7 +51,8 @@ const ReviewsSection = () => {
         }}
       >
         <Tab
-          key="reviews"
+                      key="reviews"
+                      value={"reviews"}
           title={
             <div className="flex items-center space-x-2">
             <VscPreview className='text-2xl'/>
@@ -51,26 +60,11 @@ const ReviewsSection = () => {
                   <Chip size="md" variant="shadow" className='bg-mainDarkBlue text-mainWhite'>{reviews.length }</Chip>
             </div>
           }
-        />
-
-                 <Tab
-          key="more-info"
-          title={
-            <div className="flex items-center space-x-2">
-            <VscPreview className='text-2xl'/>
-              <span className='text-2xl'>More Information</span>
-              
-            </div>
-          }
-        />
-     
-       
-      </Tabs>
-          </div>
-
-
-
-          <div className='flex flex-col gap-5 pt-5'>
+                       onClick={(e) => {
+                          console.log(e.target)
+                      }}
+                  >
+                      <div className='flex flex-col gap-5 pt-5'>
               {reviews.map((r, i) => (
                   <div key={i}>
                       <UserReview userAvatar={r.userAvatar} review={r.reviewDescription} name={r.userName} rating={r.rating} date={r.date} id={r.userId } />
@@ -81,6 +75,43 @@ const ReviewsSection = () => {
 
             
           </div>
+                  </Tab>
+                  
+
+                 <Tab
+                      key="more-info"
+                       value={"description"}
+          title={
+            <div className="flex items-center space-x-2">
+            <MdOutlineDescription className='text-2xl'/>
+              <span className='text-2xl'>Description</span>
+              
+            </div>
+          }
+                      onClick={(e) => {
+                          console.log(e.target)
+                      }}
+                  >
+                    <div className='flex flex-col gap-3'>
+              
+          <h1 className='capitalize text-xl font-semibold'>description :-</h1>
+          <ul>
+              
+          {allDetails.map((d, i) => (
+              <li key={i} className='text-xl '>{d}</li>
+              ))}
+          </ul>
+              </div>
+        </Tab>
+     
+       
+      </Tabs>
+          </div>
+
+
+
+         
+         
       </div>
   )
 }

@@ -5,7 +5,7 @@ import React from 'react'
 
 type viewImg = {
     id: string
-    url:string
+    url?:string
 }
 
 interface imagesProps{

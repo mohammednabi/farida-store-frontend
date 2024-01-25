@@ -3,16 +3,16 @@ import React from 'react'
 import {Breadcrumbs, BreadcrumbItem} from "@nextui-org/react";
 
 interface breadProps{
-    id:string
+    productId:string
 }
 
-const Breads = ({id}:breadProps) => {
+const Breads = ({productId}:breadProps) => {
   return (
       <div>
           <Breadcrumbs size={"lg"}>
           <BreadcrumbItem href='/'>Home</BreadcrumbItem>
           <BreadcrumbItem>Product</BreadcrumbItem>
-              <BreadcrumbItem>{id}</BreadcrumbItem>
+              <BreadcrumbItem>{productId}</BreadcrumbItem>
          
           </Breadcrumbs>
       </div>

@@ -5,10 +5,10 @@ import { Divider } from '@nextui-org/react'
 
 const BestSellerMenu = () => {
 
-    const products:number[] =[1,1,1,1,1,1,1,1,1,1,1,1,1]
+    const products:number[] =[1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,1]
 
   return (
-      <div className='w-full min-h-screen border-2 border-mainGray border-solid'>
+      <div className='w-full h-auto border-2 border-mainGray border-solid'>
           {products.map((p,i) => (
               
               <div key={i}>

@@ -1,6 +1,6 @@
 "use client"
 import { Divider } from '@nextui-org/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaGoogle } from "react-icons/fa";
 
 import { signInWithPopup,GoogleAuthProvider } from 'firebase/auth';
@@ -9,36 +9,57 @@ import { useRouter } from 'next/navigation';
 import { auth } from '@/firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '@/firebase/db';
-
+import { StoreContext } from '@/contexts/StoreContext';
+import { observer } from 'mobx-react-lite';
 
 
 const GoogleProvider = () => {
 
   
-const router = useRouter()
+  const router = useRouter()
+  const {user} =useContext(StoreContext)
   
   const googleSign = () => {
     
     const provider = new GoogleAuthProvider()
 
     signInWithPopup(auth, provider).then((result) => {
-      addUserToUsersCollection(result.user.uid, {
-        firstName: result.user.displayName,
-        lastName:result.user.displayName
+     user.addUserToUsersCollection(result.user.uid, {
+        firstName: result.user.displayName ,
+       lastName: result.user.displayName,
+       cart: {
+         items: [],
+         discount: "",
+         shipping: 0,
+         subTotal: 0,
+         tax: 0,
+         total: 0,
+         totalItems:0
+       }
+       ,
+       address: {
+         city: "",
+         country: "",
+         postalCode: ""
+         , state: "",
+       street:""
+       },
+       orders: [
+         
+       ]
+       ,
+       paymentMethods: [],
+       wishList:[]
+       
+     }).then(() => {
+        
+       router.push("/")
       })
-      router.push("/")
     } ).catch((err)=>console.log(err))
 }
 
   
-   const addUserToUsersCollection = (userId:string,data: { firstName: string | null; lastName?: string | null; }) => {
 
-        const docRef = doc(db,"users",userId)
-
-        return setDoc(docRef, {
-            ...data
-        })
-    }
 
   return (
       <div className='w-1/3'>
@@ -56,4 +77,4 @@ const router = useRouter()
   )
 }
 
-export default GoogleProvider
+export default observer( GoogleProvider)

@@ -1,7 +1,7 @@
 "use client"
 import { Button, Divider, Input } from '@nextui-org/react'
 import Link from 'next/link';
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import GoogleProvider from '../../GoogleProvider';
@@ -10,7 +10,8 @@ import { auth } from '@/firebase/auth';
 import { useRouter } from 'next/navigation';
 import {doc,setDoc} from 'firebase/firestore'
 import { db } from '@/firebase/db';
-
+import { StoreContext } from '@/contexts/StoreContext';
+import { observer } from 'mobx-react-lite';
 
 const RegisterForm = () => {
 
@@ -31,6 +32,7 @@ const RegisterForm = () => {
 const [errorMessage,setErrorMessage] = React.useState("")
 const [isLoading,setIsLoading] = React.useState(false)
     
+    const {user} = useContext(StoreContext)
     
     const router = useRouter()
     
@@ -47,12 +49,38 @@ const [isLoading,setIsLoading] = React.useState(false)
             setIsLoading(true)
              createUserWithEmailAndPassword(auth, formData.email, formData.pass).then((userCredential) => {
                 //  const user = userCredential.user
-                 addUserToUsersCollection(userCredential.user.uid, {
-                     firstName: formData.firstName,
-                     lastName:formData.lastName
+                user.addUserToUsersCollection(userCredential.user.uid, {
+        firstName: formData.firstName ,
+       lastName: formData.lastName,
+       cart: {
+         items: [],
+         discount: "",
+         shipping: 0,
+         subTotal: 0,
+         tax: 0,
+         total: 0,
+         totalItems:0
+       }
+       ,
+       address: {
+         city: "",
+         country: "",
+         postalCode: ""
+         , state: "",
+       street:""
+       },
+       orders: [
+         
+       ]
+       ,
+       paymentMethods: [],
+       wishList:[]
+       
+     }).then(() => {
+                    setIsLoading(false)
+                    router.push("/")
+                     
                  })
-                 setIsLoading(false)
-                 router.push("/")
         }).catch((err) => {
                   setIsLoading(false)
             console.log(err)
@@ -63,17 +91,6 @@ const [isLoading,setIsLoading] = React.useState(false)
        
     }
 
-
-    const addUserToUsersCollection = (userId:string,data: { firstName: string; lastName: string; }) => {
-
-        const docRef = doc(db,"users",userId)
-
-        return setDoc(docRef, {
-            ...data
-        })
-    }
-
-    
   const isInvalid = React.useMemo(() => {
     if (formData.email === "") return false;
 
@@ -245,4 +262,4 @@ errorMessage={formData.confirmPass !== formData.pass ?"Not the same password":""
   )
 }
 
-export default RegisterForm
+export default observer( RegisterForm)

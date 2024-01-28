@@ -47,7 +47,7 @@ const ProductPage = ({params}:productProps) => {
 
               <div className='grid grid-cols-2 grid-rows-1 gap-10'>
                   
-                  <ImagesSection   images={[ { id: `${Math.random()}`, url: products.targetProduct?.image }]} />
+                  <ImagesSection   images={[ { id: `${Math.random()}`, url: products.targetProduct?.image },{ id: `${Math.random()}`, url: products.targetProduct?.image }]} />
                             <DetailsSection product={ products.targetProduct} />
               </div>
 

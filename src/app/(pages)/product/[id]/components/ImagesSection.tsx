@@ -17,8 +17,14 @@ const ImagesSection = ({ images }: imagesProps) => {
     const [selectedImage, setSelectedImage] = React.useState<viewImg>(images[0])
     
     const filteredImages = React.useMemo(() => {
-        return images.filter((img)=>{return img!== selectedImage})
-    }, [images, selectedImage])
+
+       
+        return images?.filter((img) => {
+            return img !== selectedImage
+        })    
+       
+        
+    }, [ images,selectedImage])
     
     const [isanimate, setIsAnimate] = React.useState(false)
     

@@ -12,26 +12,28 @@ import UserLoggedInUi from './UserLoggedInUi';
 
 const UserDrop = () => {
 
-    const { userDrop } = useContext(StoreContext)
-    
-const [user,setUser]= useState<User|null>()
-
-    onAuthStateChanged(auth, (user) => {
-    
-        user && setUser(user)
-
-})
-
-    
+    const { userDrop, user } = useContext(StoreContext)
     
 
 
-  return (
-     <motion.div 
-      initial = {{scaleY:0,opacity:0}}
-      animate={{scaleY:userDrop.isUserMenuDisplayed?1:0,opacity:userDrop.isUserMenuDisplayed?1:0}} 
-          className='origin-top flex flex-col gap-5 bg-white min-w-[20rem] capitalize w-auto h-auto p-3 px-5 text-mainBlack absolute top-20 right-36 z-10'>
-{      !user  ?  <div>
+    onAuthStateChanged(auth, (currentUser) => {
+    
+        
+     user.setUserData(currentUser)
+
+    })
+
+    
+    const uiCondition = ! user?.userData?.uid?.length ?? 0 > 0
+    
+
+
+    return (
+        <motion.div
+            initial={{ scaleY: 0, opacity: 0 }}
+            animate={{ scaleY: userDrop.isUserMenuDisplayed ? 1 : 0, opacity: userDrop.isUserMenuDisplayed ? 1 : 0 }}
+            className={`origin-top flex flex-col gap-5 bg-white min-w-[20rem] capitalize w-auto h-auto ${uiCondition?"p-3 px-5":""} text-mainBlack absolute top-20 right-36 z-10`}>
+{    uiCondition ?  <div>
               
          
          <h1 className='text-xl font-bold'>login</h1>
@@ -55,7 +57,7 @@ const [user,setUser]= useState<User|null>()
                   </div>
               </div>
               </form>
-          </div> : ""}
+          </div> : <UserLoggedInUi />}
          
    </motion.div >
   )

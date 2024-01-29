@@ -13,7 +13,11 @@ import { StoreContext } from '@/contexts/StoreContext';
 import { observer } from 'mobx-react-lite';
 
 
-const GoogleProvider = () => {
+interface providerProps{
+format?:"small"|"large"
+}
+
+const GoogleProvider = ({ format="large"}:providerProps) => {
 
   
   const router = useRouter()
@@ -62,18 +66,27 @@ const GoogleProvider = () => {
 
 
   return (
-      <div className='w-1/3'>
+    <>
+    { format ==="large" ?  <div className='w-1/3'>
       
 
       <div
         className='cursor-pointer h-12 w-full text-lg transition-all border-mainBlack hover:border-mainBlack/50 border-2 border-solid flex items-center justify-center gap-5 p-5'
-      onClick={googleSign}
-      >
+        onClick={googleSign}
+        >
               
               <h1 className='capitalize '>continue with google</h1>
 <FaGoogle  className='text-3xl '/>
           </div>
-    </div>
+      </div> :
+        
+          <div
+        className='cursor-pointer h-auto w-max text-lg transition-all border-mainBlack hover:border-mainBlack/50 border-2 border-solid flex items-center justify-center p-2 rounded-full'
+        onClick={googleSign}
+        >
+          <FaGoogle  className='text-3xl '/>
+      </div>}
+        </>
   )
 }
 

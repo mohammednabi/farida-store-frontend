@@ -21,7 +21,7 @@ body {
     @apply text-mainBlack/50;
   }
   .nav-input {
-    @apply text-mainBlack p-2 focus:border-none focus:outline-none rounded-lg;
+    @apply text-mainBlack p-2  border-mainBlack/25 border-2 border-solid rounded-lg focus:outline-mainBlack;
   }
   .appDownload-image {
     @apply w-[10rem] cursor-pointer;

@@ -7,6 +7,9 @@ interface cartLayoutProps {
 }
 
 const layout = ({children}:cartLayoutProps) => {
+
+  
+
   return (
       <div>
           

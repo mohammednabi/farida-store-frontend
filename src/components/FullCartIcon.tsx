@@ -10,6 +10,7 @@ import CartDrop from './Cartdrop';
 import { observer } from 'mobx-react-lite';
 
 import { StoreContext } from '@/contexts/StoreContext';
+import Link from 'next/link';
 
 const FullCartIcon = () => {
  const {cart} = useContext(StoreContext)
@@ -17,10 +18,12 @@ const FullCartIcon = () => {
 
   return (
       <div onMouseOver={cart.displayCartMenu} onMouseLeave={cart.hideCartMenu}>
-          <div  >
+          <Link href={ "/cart"}>
+              
               
           <Icon icon={<AiOutlineShoppingCart />} hasBorder={true} showPop={true} count={cart.productsCount} />
-          </div>
+          </Link>
+          
         
               
       <CartDrop />

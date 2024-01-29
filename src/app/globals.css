@@ -35,6 +35,10 @@ body {
   .side-link {
     @apply text-xl;
   }
+  .product-table td,
+  .product-table th {
+    @apply border-2 border-mainBlack border-dashed;
+  }
 }
 
 /* custom fonts  */

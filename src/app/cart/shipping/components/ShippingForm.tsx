@@ -1,14 +1,24 @@
 "use client"
-import { Button, Input, Textarea } from '@nextui-org/react'
+import { Accordion, AccordionItem, Button, Input, Textarea } from '@nextui-org/react'
 import React from 'react'
+import { MdOutlineDiscount } from "react-icons/md";
 
 const ShippingForm = () => {
   return (
    <div className='flex flex-col '>
           <h1 className='text-2xl font-bold capitalize'>order details</h1>    
           
-              
-             <h1 className='text-2xl capitalize mt-10'>promo code</h1> 
+           <Accordion variant='bordered' className='mt-10'>
+              <AccordionItem
+                  title="Promo Code"
+                  subtitle="Do you have promo code? press here"
+                  indicator={<MdOutlineDiscount  />}
+                  classNames={{
+                      subtitle: "text-mainPink",
+                  indicator:"text-2xl text-mainPink"
+                  }}
+              >
+                       <h1 className='text-2xl capitalize pb-5'>if you have promo code use it here </h1> 
           <div className='flex items-center gap-5'>
                <Input
                     
@@ -28,6 +38,10 @@ const ShippingForm = () => {
                   use code
              </Button>
           </div>
+                  </AccordionItem>
+              </Accordion>    
+          
+            
 
           <form className='mt-20   flex flex-col gap-10 '>
           
@@ -52,7 +66,7 @@ const ShippingForm = () => {
                       label={"phone"}
                       labelPlacement='outside'
                       inputMode='tel'
-                      placeholder='your telephone number'
+                      placeholder='your phone number'
                       radius='sm'
                       isRequired
 
@@ -65,10 +79,10 @@ const ShippingForm = () => {
 
                    
                   <Input
-                      label={"another telphone "}
+                      label={"another phone "}
                       labelPlacement='outside'
                       inputMode='text'
-                      placeholder='another telephone number'
+                      placeholder='another phone number'
                       radius='sm'
                       
 
@@ -127,14 +141,24 @@ const ShippingForm = () => {
 
           </form>   
 
-          <div className='flex flex-col mt-50 gap-5'>
+
+             
+
+          <div className='flex flex-col pt-10 gap-5'>
               
+              <div>
+                  
               <h1 className='text-2xl font-bold capitalize'>more information</h1>  
+              <h1 className='text-xl text-mainBlack/50 capitalize'>Order notes (optional)</h1>  
+              </div>
               
+          
+
               <div>
                   <Textarea
                       variant='bordered'
                       radius='none'
+                      placeholder='If you have any notes about your order, write it here '
                     
                   />
               </div>

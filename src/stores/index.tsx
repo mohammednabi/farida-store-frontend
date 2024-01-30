@@ -7,6 +7,7 @@ import React from 'react'
 import { userStore } from "./userStore";
 import { SideBarStore } from "./sidebarStore";
 import { ProductsStore } from "./productsStore";
+import { CartSidebarStore } from "./cartSidebarStore";
 
 
 // cart store instance 
@@ -25,6 +26,10 @@ const userStoreInstance = new userStore()
 
 const sidebarInstance = new SideBarStore()
 
+// cart sidebar state store
+
+const cartSidebarInstance = new CartSidebarStore()
+
 // products store
 
 const allProducts = new ProductsStore()
@@ -36,7 +41,8 @@ export const store ={
     cart: cartProducts,
     userDrop: userDropInstance,
     user: userStoreInstance,
-    sidebar:sidebarInstance,
+    sidebar: sidebarInstance,
+    cartSidebar:cartSidebarInstance,
 products:allProducts
     
 }

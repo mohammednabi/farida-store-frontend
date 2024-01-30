@@ -39,7 +39,7 @@ const ProductPage = ({params}:productProps) => {
       <div className='relative'>
           <AddToCartButton />
             
-      <div className='relative px-10 pb-5'>
+      <div className='relative px-10 pb-5 mt-5'>
           <Breads productId={params.id} />
           <div className='grid grid-cols-[1.5fr_6fr] grid-rows-1 pt-10 gap-10'>
                     <InformationSection />

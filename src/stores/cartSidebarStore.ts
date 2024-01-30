@@ -1,8 +1,8 @@
 import { makeAutoObservable } from "mobx";
 
-export class SideBarStore {
+export class CartSidebarStore {
   showBackdrop: boolean = false;
-  showSideBar: boolean = false;
+
   showCartSideBar: boolean = false;
 
   constructor() {
@@ -19,21 +19,21 @@ export class SideBarStore {
     }
   }
 
-  set displaySideBar(state: boolean) {
-    state ? (this.showSideBar = state) : (this.showSideBar = state);
+  set displayCartSideBar(state: boolean) {
+    state ? (this.showCartSideBar = state) : (this.showCartSideBar = state);
   }
 
-  hideWholeSidebar = () => {
-    this.displaySideBar = false;
+  hideWholeCartSidebar = () => {
+    this.displayCartSideBar = false;
     setTimeout(() => {
       this.displayBackdrop = false;
     }, 500);
   };
 
-  displayWholeSidebar = () => {
+  displayWholeCartSidebar = () => {
     this.displayBackdrop = true;
     setTimeout(() => {
-      this.displaySideBar = true;
+      this.displayCartSideBar = true;
     }, 500);
   };
 }

@@ -16,6 +16,8 @@ import StoreContextProvider from "@/stores";
 import Uiproviders from "@/providers/Uiproviders";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
+import CartFloatingButton from "@/components/CartFloatingButton";
+import CartSideBar from "@/components/CartSideBar";
 
 
 export const metadata = {
@@ -34,17 +36,20 @@ export default function RootLayout({
         <Uiproviders>
 
          <StoreContextProvider>
-        <div className="h-full  flex flex-col">
-          <div className="">
+            <div className="h-full   flex flex-col">
+              
+              
+          <div className="relative ">
          
             
                
                   
             <Sidebar />
+                <CartSideBar />
             <NavBar />
+                <CartFloatingButton />
 
-           
-            {/* <Navbar /> */}
+         
           </div>
           <div className="flex-1 block"> {children}</div>
           <div className="">

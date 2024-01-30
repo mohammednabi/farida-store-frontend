@@ -17,11 +17,11 @@ interface productProps {
 const ProductPage = ({params}:productProps) => {
 
     const images = [
-        { id: `${Math.random()}`, url: "/fridge2.webp" }
-        , { id: `${Math.random()}`, url: "/tv product.webp" },
-        { id: `${Math.random()}`, url: "/PayPal.svg.png" },
-        { id: `${Math.random()}`, url: "/Visa_Inc._logo.svg.png" },
-        {id:`${Math.random()}`,url:"/MasterCard_Logo.svg.webp"}
+        { id: `1`, url: "/fridge2.webp" }
+        , { id: `2`, url: "/tv product.webp" },
+        { id: `3`, url: "/PayPal.svg.png" },
+        { id: `4`, url: "/Visa_Inc._logo.svg.png" },
+        {id:`5`,url:"/MasterCard_Logo.svg.webp"}
     ]
 
     
@@ -47,7 +47,8 @@ const ProductPage = ({params}:productProps) => {
 
               <div className='grid grid-cols-2 grid-rows-1 gap-10'>
                   
-                  <ImagesSection   images={[ { id: `${Math.random()}`, url: products.targetProduct?.image },{ id: `${Math.random()}`, url: products.targetProduct?.image }]} />
+                  <ImagesSection   images={[ { id: params.id, url: products.targetProduct?.image }]} />
+                  {/* <ImagesSection   images={images} /> */}
                             <DetailsSection product={ products.targetProduct} />
               </div>
 

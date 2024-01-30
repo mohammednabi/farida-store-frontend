@@ -1,6 +1,8 @@
 "use client"
 import { Image } from '@nextui-org/react'
-import React from 'react'
+import React, { useEffect } from 'react'
+
+import ZoomedImage from './ZoomedImage';
 
 
 type viewImg = {
@@ -20,33 +22,41 @@ const ImagesSection = ({ images }: imagesProps) => {
 
        
         return images?.filter((img) => {
-            return img !== selectedImage
+            if ( img.id !== selectedImage.id) {
+                
+                return img
+            }
+                
         })    
        
         
-    }, [ images,selectedImage])
+    }, [images, selectedImage.id])
     
-    const [isanimate, setIsAnimate] = React.useState(false)
+    useEffect(() => {
+     setSelectedImage(images[0])
+ },[images])
     
-    React.useEffect(() => {
-
-        setIsAnimate(false)
-        setTimeout(() => {
-            
-            setIsAnimate(true)
-        }, 1000);
-    },[selectedImage])
+    
 
 
   return (
       <div className='flex flex-col gap-5'>
         
               
-          <div
-             
-              className='w-full h-auto aspect-square flex justify-center items-center overflow-hidden'>
-              <Image src={selectedImage.url} alt='' className='w-full h-auto '/>
-          </div>
+           <ZoomedImage src={selectedImage.url?selectedImage.url:""}/>
+          
+{/* 
+               <InnerImageZoom
+ src={selectedImage.url?selectedImage.url:""}
+  zoomSrc={selectedImage.url?selectedImage.url:""}
+  zoomType="hover"
+                  zoomPreload={true}
+                //   className='w-full h-auto aspect-square flex justify-center items-center overflow-hidden'
+/> */}
+          
+         
+
+   
                  
           <div className='grid grid-cols-5 gap-2  '>
               {filteredImages.map((img) => (

@@ -1,8 +1,6 @@
 
 import Image from 'next/image'
 
-import React  from 'react'
-
 import React from 'react'
 import { Sliderify } from "react-sliderify";
 
@@ -23,7 +21,7 @@ const SliderProduct = () => {
         />
 </div>
 
-      <h1 className='text-3xl capitalize'>product mini</h1>
+      <h1 className='text-3xl capitalize'>product</h1>
 
      
     </div>

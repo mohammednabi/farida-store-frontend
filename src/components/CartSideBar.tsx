@@ -37,7 +37,7 @@ const {cartSidebar} = useContext(StoreContext)
                   duration:.5
 }}
                 
-             className='origin-right bg-mainWhite w-80 h-screen absolute top-0 right-0 z-[100] '>
+             className='origin-right bg-mainWhite w-80 h-screen fixed top-0 right-0 z-[100] '>
              <CartSideBarContent />
           </motion.div>
                   

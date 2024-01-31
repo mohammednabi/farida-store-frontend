@@ -2,6 +2,8 @@
 import AdsSlider from "@/components/AdsSlider";
 
 import MiniProducts from "@/components/MiniProducts";
+import ProductsSection from "@/components/ProductsSection";
+
 
 const HomePage = () => {
   return (
@@ -9,6 +11,9 @@ const HomePage = () => {
       <MiniProducts />
 
       <AdsSlider />
+
+      <ProductsSection />
+
 
     </main>
   );

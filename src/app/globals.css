@@ -23,6 +23,12 @@ body {
   .nav-input {
     @apply text-mainBlack p-2 focus:border-none focus:outline-none rounded-lg;
   }
+  .appDownload-image {
+    @apply w-[10rem] cursor-pointer;
+  }
+  .payment-image {
+    @apply w-[3rem] grayscale;
+  }
 }
 
 /* custom fonts  */
@@ -43,11 +49,12 @@ body {
 /* width */
 ::-webkit-scrollbar {
 
-  @apply w-[8px] h-[5px];
 
   @apply w-[8px] h-[5px];
 
-}
+  @apply w-[8px] h-[5px];
+
+
 
 /* Track */
 ::-webkit-scrollbar-track {

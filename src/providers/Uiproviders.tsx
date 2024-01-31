@@ -2,11 +2,9 @@
 
 import {NextUIProvider} from '@nextui-org/react'
 
-
 const Uiproviders = ({children}: { children: React.ReactNode }) => {
   return (
     <NextUIProvider>
-
       {children}
     </NextUIProvider>
   )

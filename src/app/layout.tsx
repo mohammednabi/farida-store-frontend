@@ -12,6 +12,9 @@ import NavBar from "@/components/Navbar";
 import StoreContextProvider from "@/stores";
 
 
+// import Uiproviders from "@/providers/UiProviders";
+import Uiproviders from "@/providers/Uiproviders";
+import Footer from "@/components/Footer";
 
 
 export const metadata = {
@@ -27,6 +30,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-cairo flex flex-col `}>
+        <Uiproviders>
+
          <StoreContextProvider>
         <div className="h-full  flex flex-col">
           <div className="">
@@ -43,9 +48,12 @@ export default function RootLayout({
           <div className="flex-1 block"> {children}</div>
           <div className="">
             {/* <Footer /> */}
+
+                <Footer />
           </div>
           </div>
           </StoreContextProvider>
+        </Uiproviders>
       </body>
     </html>
   );

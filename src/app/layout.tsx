@@ -18,6 +18,7 @@ import Uiproviders from "@/providers/UiProviders";
 // import Uiproviders from "@/providers/UiProviders";
 import Uiproviders from "@/providers/Uiproviders";
 import Footer from "@/components/Footer";
+import Sidebar from "@/components/Sidebar";
 
 
 export const metadata = {
@@ -44,9 +45,9 @@ export default function RootLayout({
             
                
                   
+            <Sidebar />
             <NavBar />
 
-            
            
             {/* <Navbar /> */}
           </div>

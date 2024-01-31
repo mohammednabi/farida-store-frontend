@@ -29,6 +29,12 @@ body {
   .payment-image {
     @apply w-[3rem] grayscale;
   }
+  .backdrop {
+    @apply bg-mainBlack/50 absolute top-0 left-0 w-full h-screen z-30;
+  }
+  .side-link {
+    @apply text-xl;
+  }
 }
 
 /* custom fonts  */

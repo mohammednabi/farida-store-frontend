@@ -26,6 +26,10 @@ const ProductsSlider = () => {
          <SliderProduct />
          <SliderProduct />
          <SliderProduct />
+
+         <SliderProduct />
+         <SliderProduct />
+
     
     </div>
   )

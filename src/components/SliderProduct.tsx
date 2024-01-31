@@ -1,14 +1,18 @@
 
 import Image from 'next/image'
+
+import React  from 'react'
+
 import React from 'react'
 import { Sliderify } from "react-sliderify";
+
 
 const SliderProduct = () => {
  
   return (
     <div className='bg-white min-w-[30rem] h-auto flex items-center p-5 gap-10'>
       <div className='w-40 aspect-square'>
-        {/* <Image  src='' alt=''/> */}
+
         <Image
           src='/download.png'
           alt='fridge image'
@@ -18,7 +22,9 @@ const SliderProduct = () => {
         className='w-full object-cover '
         />
 </div>
-      <h1 className='text-3xl capitalize'>product</h1>
+
+      <h1 className='text-3xl capitalize'>product mini</h1>
+
      
     </div>
   )

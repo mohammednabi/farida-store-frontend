@@ -1,12 +1,10 @@
 "use client"
-import { Avatar, User } from '@nextui-org/react'
+import { Avatar, Skeleton } from '@nextui-org/react'
 import React from 'react'
-import { RxAvatar } from "react-icons/rx";
+
 import { FaUserLarge } from "react-icons/fa6";
-import ReactStars from 'react-rating-star-with-type'
-import { FaStar } from "react-icons/fa";
-import { FaStarHalfAlt } from "react-icons/fa";
-import { FaRegStar } from "react-icons/fa";
+
+import Rating from '@/components/Rating';
 
 
 interface userProps {
@@ -20,7 +18,7 @@ interface userProps {
 
 const UserReview = ({id,name,date,rating,review,userAvatar}:userProps) => {
 
-    const today =new Date()
+    
 
   return (
       <div>
@@ -37,14 +35,24 @@ const UserReview = ({id,name,date,rating,review,userAvatar}:userProps) => {
               }}    
               />
               <div className='flex flex-col gap-1'>
+                  <Skeleton isLoaded={name.length !==0} className='w-max'>
+                      
                   <div className='flex items-center gap-2'>
                       <h1 className='text-xl'>{name }</h1>
                       <h1 className='text-sm text-mainBlack/50'>{date?.toLocaleDateString() }</h1>
                   </div>
-                      <ReactStars value={rating} count={5} filledIcon={<FaStar />} halfIcon={<FaStarHalfAlt />} size={"1rem"} emptyIcon={<FaRegStar /> } />
+                  </Skeleton>
+                  <Skeleton isLoaded={rating !==0} className='w-max'>
+                      
+                      <Rating rating={rating}/>
+                  </Skeleton>
+
+                  <Skeleton isLoaded={review.length !==0} className='w-max'>
+                      
                   <div className='flex items-center gap-2'>
                       <h1 className='text-lg text-mainBlack/50'>{review}</h1>
                   </div>
+                  </Skeleton>
 </div>
               
          </div>

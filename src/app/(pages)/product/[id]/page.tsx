@@ -16,14 +16,6 @@ interface productProps {
 
 const ProductPage = ({params}:productProps) => {
 
-    const images = [
-        { id: `1`, url: "/fridge2.webp" }
-        , { id: `2`, url: "/tv product.webp" },
-        { id: `3`, url: "/PayPal.svg.png" },
-        { id: `4`, url: "/Visa_Inc._logo.svg.png" },
-        {id:`5`,url:"/MasterCard_Logo.svg.webp"}
-    ]
-
     
 
     const {products} =useContext(StoreContext)
@@ -32,7 +24,7 @@ const ProductPage = ({params}:productProps) => {
         products.getSingleProduct(params.id)
         console.log(products.targetProduct)
         console.log("this is the product id from params : " , params.id)
-    },[params.id, products, products.targetProduct])
+    },[params.id])
     
 
     return (
@@ -40,19 +32,19 @@ const ProductPage = ({params}:productProps) => {
           <AddToCartButton />
             
       <div className='relative px-10 pb-5 mt-5'>
-          <Breads productId={params.id} />
+                <Breads  title={products.targetProduct?.title } />
           <div className='grid grid-cols-[1.5fr_6fr] grid-rows-1 pt-10 gap-10'>
                     <InformationSection />
                     <div className='flex flex-col gap-20'>
 
               <div className='grid grid-cols-2 grid-rows-1 gap-10'>
                   
-                  <ImagesSection   images={[ { id: params.id, url: products.targetProduct?.image }]} />
-                  {/* <ImagesSection   images={images} /> */}
+                 
+                  <ImagesSection   allImages={products.targetProduct?.images} />
                             <DetailsSection product={ products.targetProduct} />
               </div>
 
-                        <ReviewsSection />
+                        <ReviewsSection description={products.targetProduct?.description} ratings={products.targetProduct?.rating.ratings} />
                     </div>
           </div>
 

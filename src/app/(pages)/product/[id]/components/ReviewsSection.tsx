@@ -1,10 +1,11 @@
 "use client"
-import { Divider } from '@nextui-org/react'
+import { Divider, Skeleton } from '@nextui-org/react'
 import React from 'react'
 import {Tabs, Tab, Chip} from "@nextui-org/react";
 import { VscPreview } from "react-icons/vsc";
 import { MdOutlineDescription } from "react-icons/md";
 import UserReview from './UserReview';
+import { userRate } from '@/stores/productsStore';
 
 type review = {
        userId?: string
@@ -15,7 +16,13 @@ type review = {
     userAvatar?:string
 }
 
-const ReviewsSection = () => {
+interface reviewProps {
+  description?: string
+  ratings?:userRate[]
+}
+
+
+const ReviewsSection = ({description,ratings}:reviewProps) => {
 
 
 
@@ -57,7 +64,7 @@ const ReviewsSection = () => {
             <div className="flex items-center space-x-2">
             <VscPreview className='text-2xl'/>
               <span className='text-2xl'>Reviews</span>
-                  <Chip size="md" variant="shadow" className='bg-mainDarkBlue text-mainWhite'>{reviews.length }</Chip>
+                  <Chip size="md" variant="shadow" className='bg-mainDarkBlue text-mainWhite'>{ratings?.length }</Chip>
             </div>
           }
                        onClick={(e) => {
@@ -65,9 +72,9 @@ const ReviewsSection = () => {
                       }}
                   >
                       <div className='flex flex-col gap-5 pt-5'>
-              {reviews.map((r, i) => (
-                  <div key={i}>
-                      <UserReview userAvatar={r.userAvatar} review={r.reviewDescription} name={r.userName} rating={r.rating} date={r.date} id={r.userId } />
+              {ratings?.map((r) => (
+                  <div key={r.id}>
+                      <UserReview userAvatar={""} review={r.rateDescription} name={r.rateTitle} rating={r.rateValue}  id={r.userId } />
                       <Divider />
                       
                   </div>
@@ -94,13 +101,16 @@ const ReviewsSection = () => {
                   >
                     <div className='flex flex-col gap-3'>
               
+              <Skeleton isLoaded={description?.length !==0} className='w-max'>
+
           <h1 className='capitalize text-xl font-semibold'>description :-</h1>
-          <ul>
-              
-          {allDetails.map((d, i) => (
-              <li key={i} className='text-xl '>{d}</li>
-              ))}
-          </ul>
+              </Skeleton>
+    
+              <Skeleton isLoaded={description?.length !==0}>
+
+ <h1  className='text-xl '>{description?description:"slkdslk"}</h1>
+              </Skeleton>
+
               </div>
         </Tab>
      

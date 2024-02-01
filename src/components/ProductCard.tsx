@@ -9,13 +9,15 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import Icon from './Icon';
 import Rating from './Rating';
+import Link from 'next/link';
 
 
 interface productCardProps{
+    id:string
     image: string
     rating: number
     title: string
-    prePrice: number
+    prePrice?: number
     currentPrice: number
     ratingsNumber: number
     isSale?: boolean
@@ -24,7 +26,7 @@ interface productCardProps{
 }
 
 
-const ProductCard = ({image,rating,title,prePrice,currentPrice,ratingsNumber,isSale,isBestSeller,isTopDeal}:productCardProps) => {
+const ProductCard = ({id,image,rating,title,prePrice,currentPrice,ratingsNumber,isSale,isBestSeller,isTopDeal}:productCardProps) => {
 
 const {cart} = useContext(StoreContext)
 
@@ -47,17 +49,18 @@ cart.addProduct()
           <div className='  absolute top-0 right-0 z-20 flex justify-center items-center '>
               <Icon icon={<FaRegHeart />} hasBorder />
           </div>
-              <div className='transition-all cursor-pointer w-full aspect-square flex items-center justify-center  '>
-              <Image as={NextImage}
+              <Link href={`/product/${id}`} className='transition-all  w-full aspect-square flex items-center justify-center  '>
+              <Image
+                //   as={NextImage}
                   src={image}
                   width={500}
                   height={500}
-                  quality={100}
+                //   quality={100}
                   alt='product image'
                   
                   
                   className='w-full object-cover' />
-              </div>
+              </Link>
 
           <div className='p-2 flex flex-col gap-10'>
               

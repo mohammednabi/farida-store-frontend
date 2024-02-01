@@ -6,7 +6,7 @@ import { FaRegStar } from "react-icons/fa";
 import ReactStars from 'react-rating-star-with-type'
 
 interface iprops {
-    rating: number
+    rating?: number
     size?:string
 }
 

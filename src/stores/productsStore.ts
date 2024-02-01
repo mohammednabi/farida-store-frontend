@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import axios from "axios";
 import { fetchProducts } from "@/api/fetchProducts";
+import { fetchSingleProduct } from "@/api/fetchSingleProduct";
 
 type userRate = {
     id: string
@@ -60,6 +61,21 @@ export class ProductsStore {
 
     products?: product[] = []
     
+    targetProduct?: {
+                id:string,
+                title:string,
+                price:number,
+                category:string,
+                description:string,
+                image?:string
+    } = {
+                 id:"",
+                title:"",
+                price:0,
+                category:"",
+                description:"",
+            
+            }
 
     constructor() {
         makeAutoObservable(this)
@@ -89,7 +105,11 @@ export class ProductsStore {
         
     }
 
-   
+     getSingleProduct = (id:string) => {
+         fetchSingleProduct(id).then((mydata) => 
+             this.targetProduct = mydata
+        )
+       }
 
     
 }

@@ -20,7 +20,7 @@ const {cart} = useContext(StoreContext)
 
           
 
-          className='origin-top flex flex-col gap-5 bg-white min-w-[20rem] capitalize w-auto h-auto p-5  text-mainBlack absolute top-20 right-0 z-10'>
+          className='origin-top flex flex-col gap-5 bg-white min-w-[20rem] capitalize w-auto h-auto p-5  text-mainBlack absolute top-20 right-0 z-10 border-1 border-solid border-mainBlack border-t-0'>
          <h1 className='text-xl'>cart ({cart.productsCount}) </h1>
 
           <div>

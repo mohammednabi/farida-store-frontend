@@ -6,6 +6,7 @@ import { UserDropStore } from "./userDropStore";
 import React from 'react'
 import { userStore } from "./userStore";
 import { SideBarStore } from "./sidebarStore";
+import { ProductsStore } from "./productsStore";
 
 
 // cart store instance 
@@ -24,6 +25,10 @@ const userStoreInstance = new userStore()
 
 const sidebarInstance = new SideBarStore()
 
+// products store
+
+const allProducts = new ProductsStore()
+
 // ==========================================================
 // this object is for all stores that will for all states
 
@@ -31,8 +36,8 @@ export const store ={
     cart: cartProducts,
     userDrop: userDropInstance,
     user: userStoreInstance,
-    sidebar:sidebarInstance
-
+    sidebar:sidebarInstance,
+products:allProducts
     
 }
 

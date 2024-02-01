@@ -2,19 +2,27 @@
 import React from 'react'
 import CartTab from './CartTab'
 import {Progress} from "@nextui-org/react";
+import { usePathname } from 'next/navigation';
+
+
 
 const LayoutTabs = () => {
+
+const currentLink = usePathname()
+    
+    
     return (
       <div className='flex flex-col gap-2 w-full h-auto px-32 py-3'>
             
-      <div className='w-full  grid grid-cols-3 '>
-          <CartTab step={1} title='shopping cart' description='View your items'/>
-          <CartTab step={2} title='Shipping and payment' description='Add some details about you' opacity='opacity-50'/>
-          <CartTab step={3} title='Confirmation' description='Review your orders' opacity='opacity-50'/>
+            <div className='w-full  grid grid-cols-3 '>
+                
+                <CartTab step={1} title='shopping cart' description='View your items' targetLink={"/cart"} opacity={currentLink==="/cart"?"opacity-100":"opacity-50" } />
+          <CartTab step={2} title='Shipping and payment' description='Add some details about you' opacity={currentLink==="/cart/shipping"?"opacity-100":"opacity-50" } targetLink={"/cart/shipping"} />
+          <CartTab step={3} title='Confirmation' description='Review your orders' opacity={currentLink==="/"?"opacity-100":"opacity-50" } targetLink='/'/>
       </div>
             <Progress
                 aria-label="Loading..."
-                value={100 / 3}
+                value={currentLink==="/cart" ? 100 / 3 : currentLink==="/cart/shipping" ? 100/3 *2 : currentLink==="/" ? 100 : 0}
                 size='sm'
 
 radius='none'

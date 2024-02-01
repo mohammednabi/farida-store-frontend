@@ -8,6 +8,8 @@ import { userStore } from "./userStore";
 import { SideBarStore } from "./sidebarStore";
 import { ProductsStore } from "./productsStore";
 import { CartSidebarStore } from "./cartSidebarStore";
+import { FilterSidebarStore } from "./filterSidebarStore";
+import { ProductsView } from "./productsViewStore";
 
 
 // cart store instance 
@@ -30,9 +32,17 @@ const sidebarInstance = new SideBarStore()
 
 const cartSidebarInstance = new CartSidebarStore()
 
+// cart sidebar state store
+
+const filterSidebarInstance = new FilterSidebarStore()
+
 // products store
 
 const allProducts = new ProductsStore()
+
+// products view style store
+
+const productsViewStyle = new ProductsView()
 
 // ==========================================================
 // this object is for all stores that will for all states
@@ -43,8 +53,9 @@ export const store ={
     user: userStoreInstance,
     sidebar: sidebarInstance,
     cartSidebar:cartSidebarInstance,
-products:allProducts
-    
+products:allProducts,
+    filter: filterSidebarInstance,
+    viewStyle:productsViewStyle
 }
 
 interface indexChildren {

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-mainWhite;
+  @apply bg-mainWhite scroll-smooth;
 }
 
 @layer components {
@@ -38,6 +38,10 @@ body {
   .product-table td,
   .product-table th {
     @apply border-2 border-mainBlack border-dashed;
+  }
+
+  .filter-link {
+    @apply text-xl flex gap-3;
   }
 }
 

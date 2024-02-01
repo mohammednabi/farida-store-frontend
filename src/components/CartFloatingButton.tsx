@@ -10,7 +10,7 @@ const CartFloatingButton = () => {
     const {cartSidebar} = useContext(StoreContext) 
 
   return (
-      <div className='fixed bottom-20 right-5 z-50 w-max '>
+      <div className='fixed bottom-20 right-5 z-[100] w-max '>
           
           <Button
               radius='full'

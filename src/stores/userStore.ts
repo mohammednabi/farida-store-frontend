@@ -1,5 +1,6 @@
 "use client";
 import { db } from "@/firebase/db";
+import { User } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { makeAutoObservable } from "mobx";
 
@@ -44,14 +45,14 @@ type singleOrder = {
 type allUserData = {
   uid?: string;
   providerId?: string;
-  email?: string;
+  email?: string | null;
   emailVerified?: boolean;
-  phoneNumber?: string;
+  phoneNumber?: string | null;
   password?: string;
-  displayName?: string;
+  displayName?: string | null;
   firstName?: string | null;
   lastName?: string | null;
-  photoURL?: string;
+  photoURL?: string | null;
   disabled?: boolean; // Whether or not the user is disabled. true for disabled; false for enabled. If not provided, the default is false.
   metaData?: {
     creationTime: string;
@@ -82,7 +83,43 @@ type allUserData = {
 };
 
 export class userStore {
-  userData!: allUserData;
+  userData: allUserData = {
+    uid: "",
+    displayName: "",
+    email: "",
+    emailVerified: false,
+    firstName: "",
+    lastName: "",
+    photoURL: "",
+    providerId: "",
+    phoneNumber: "",
+    password: "",
+    orders: [],
+    paymentMethods: [],
+    cart: {
+      items: [],
+      discount: "",
+      shipping: 0,
+      subTotal: 0,
+      tax: 0,
+      total: 0,
+      totalItems: 0,
+    },
+    disabled: false,
+    address: {
+      state: "",
+      city: "",
+      country: "",
+      postalCode: "",
+      street: "",
+    },
+    wishList: [],
+    metaData: {
+      creationTime: "",
+      lastRefreshTime: "",
+      lastSignInTime: "",
+    },
+  };
 
   constructor() {
     makeAutoObservable(this);
@@ -96,6 +133,21 @@ export class userStore {
     return setDoc(docRef, {
       ...data,
     });
+  };
+
+  // set user data
+
+  setUserData = (user: User | null) => {
+    //   this.userData.uid = user?.uid;
+    //   const {uid } = this.userData
+
+    this.userData.uid = user?.uid;
+    this.userData.displayName = user?.displayName;
+    this.userData.photoURL = user?.photoURL;
+    this.userData.email = user?.email;
+    this.userData.emailVerified = user?.emailVerified;
+    this.userData.providerId = user?.providerId;
+    this.userData.phoneNumber = user?.phoneNumber;
   };
 
   // user products methods

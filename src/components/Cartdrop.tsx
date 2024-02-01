@@ -26,7 +26,7 @@ const {cart} = useContext(StoreContext)
           <div>
               
          <h2 className='text-mainBlack/50'>your cart is empty </h2>
-         <Link href={"#"}>continue → </Link>
+         <Link href={"/"}>continue → </Link>
           </div>
          
    </motion.div>

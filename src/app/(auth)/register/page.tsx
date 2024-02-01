@@ -1,11 +1,13 @@
 import React from 'react'
-import RegisterTitle from './components/RegisterTitle'
+
 import RegisterForm from './components/RegisterForm'
+import PageTitle from '@/components/PageTitle'
 
 const RegisterPage = () => {
   return (
        <div className='w-full h-auto'>
-          <RegisterTitle />
+    
+      <PageTitle title='register'/>
           <RegisterForm />
    </div>
   )

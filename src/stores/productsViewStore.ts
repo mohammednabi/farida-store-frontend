@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 export class ProductsView {
-  gridView: boolean = false;
+  gridView: boolean = true;
   // rowView: boolean = false;
 
   constructor() {

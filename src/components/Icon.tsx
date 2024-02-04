@@ -18,7 +18,7 @@ type size = "xs"|"sm"|"md"|"lg"|"xl"|"2xl"|"3xl"|"4xl"|"5xl"|"6xl"|"7xl"|"8xl"|"
 interface iconProps {
     size?: size,
   color?: color,
-  backColor?:color
+  backColor?:string
   hasBorder?: boolean 
   hasBorderHover?:boolean
   borderColor?: color

@@ -7,6 +7,7 @@ import CartSidebarEmptyCart from './CartSidebarEmptyCart';
 import CartSidebarHeader from './CartSidebarHeader';
 import CartSidebarFooter from './CartSidebarFooter';
 import CartSidebarProductsMenu from './CartSidebarProductsMenu';
+import { observer } from 'mobx-react-lite';
 
 
 
@@ -18,6 +19,7 @@ const CartSideBarContent = () => {
   return (
       <div className='flex flex-col justify-between h-full'>
           
+      
           <CartSidebarHeader close={cartSidebar.hideWholeCartSidebar}/>
 
 { cart.productsCount ===0 ?<CartSidebarEmptyCart />
@@ -29,4 +31,4 @@ const CartSideBarContent = () => {
   )
 }
 
-export default CartSideBarContent
+export default observer(CartSideBarContent)

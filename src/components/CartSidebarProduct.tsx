@@ -1,8 +1,10 @@
 "use client"
+import { StoreContext } from '@/contexts/StoreContext';
 import { product } from '@/stores/productsStore';
 import { Image } from '@nextui-org/react'
+import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { MdDelete } from "react-icons/md";
 
 interface CartSidebarProductProps{
@@ -14,10 +16,15 @@ interface CartSidebarProductProps{
 const CartSidebarProduct = ({product}:CartSidebarProductProps) => {
 
     const [counter, setCounter] = useState(1)
+
+   const  {cart} = useContext(StoreContext)
     
     const increase = ()=>{ setCounter((c)=>c+1)}
     const decrease = ()=>{counter>1 && setCounter((c)=>c-1)}
-const deleteItem =(id:string)=>{alert(`item : ${id}`)}
+const deleteItem =()=>{
+
+cart.deleteProduct(product.id)
+}
 
 
   return (
@@ -41,7 +48,7 @@ const deleteItem =(id:string)=>{alert(`item : ${id}`)}
           </div>
           <div className='flex flex-col justify-between items-center'>
               <MdDelete className='text-2xl transition-all text-red-500 hover:text-red-700 cursor-pointer'
-              onClick={()=>{deleteItem(product.id)}}
+              onClick={deleteItem}
               />
               <h1 className='text-green-500 font-bold text-lg'>{ product.price.currentPrice}$</h1>
           </div>
@@ -50,4 +57,4 @@ const deleteItem =(id:string)=>{alert(`item : ${id}`)}
   )
 }
 
-export default CartSidebarProduct
+export default observer(CartSidebarProduct)

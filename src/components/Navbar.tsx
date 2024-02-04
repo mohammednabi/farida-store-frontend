@@ -16,7 +16,7 @@ const NavBar2 = () => {
     <>
       <SearchMenu />
       <div className='relative p-5 px-10 w-full min-h-[3.75rem] max-h-[5rem] border-b-[1px] border-b-mainDarkBlue border-solid'>
-      <div className='flex  items-center'>
+      <div className=' flex  items-center'>
         
            <NavMenuIcon />
               <NavLinks />

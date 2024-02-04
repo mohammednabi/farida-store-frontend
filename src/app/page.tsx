@@ -14,6 +14,7 @@ const HomePage = () => {
       <FiltersSection />
       <ProductsSection />
 
+
     </main>
   );
 };

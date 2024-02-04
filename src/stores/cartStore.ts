@@ -1,44 +1,76 @@
-"use client"
+"use client";
 
-import { makeAutoObservable  } from "mobx"
+import Cookies from "js-cookie";
+import { makeAutoObservable } from "mobx";
+import { product } from "./productsStore";
 
+export class CartStore {
+  productsCount: number = 0;
+  isCartMenuDisplayed: boolean = false;
 
-export class CartStore
-{
-    productsCount: number = 3
-    isCartMenuDisplayed :boolean = false
+  constructor() {
+    makeAutoObservable(this);
+    const parseCart = JSON.parse(
+      localStorage.getItem("cart") ?? "[]"
+    ) as product[];
+    this.productsCount = parseCart.length;
+  }
 
+  addProduct = (product: product) => {
+    const newProduct: product = {
+      id: "",
+      title: "",
+      description: "",
+      price: {
+        currentPrice: 0,
+        prePrice: undefined,
+        discount: undefined,
+        discountDuration: undefined,
+      },
+      images: {
+        thumbnail: {
+          id: "",
+          url: "",
+        },
+        images: [],
+      },
+      rating: {
+        averageRate: 0,
+        ratings: [],
+      },
+      availabelInstock: 0,
+      category: {
+        id: "",
+        name: "",
+      },
+      similarProducts: [],
+    };
 
-    constructor()
-    {
-        makeAutoObservable(this)
-    }
+    let allAddedProducts: product[] = JSON.parse(
+      localStorage.getItem("cart") ?? "[]"
+    );
 
+    const productWasFounded = allAddedProducts.find((p) => {
+      return p.id === newProduct.id;
+    });
 
-    addProduct = () =>
-    {
-        
-            this.productsCount++
-       
-    }
-    deleteProduct = () => {
-        this.productsCount--
-    }
-    deleteAllProducts = () => {
-        this.productsCount = 0
-    }
+    !productWasFounded && allAddedProducts.push(newProduct);
 
-    displayCartMenu = () => {
-        this.isCartMenuDisplayed = true
-    }
+    localStorage.setItem("cart", JSON.stringify(allAddedProducts));
+    this.productsCount = allAddedProducts.length;
+  };
+  deleteProduct = () => {
+    this.productsCount--;
+  };
+  deleteAllProducts = () => {
+    this.productsCount = 0;
+  };
 
- hideCartMenu = () => {
-        this.isCartMenuDisplayed = false
-    }
+  displayCartMenu = () => {
+    this.isCartMenuDisplayed = true;
+  };
 
-
-
-
+  hideCartMenu = () => {
+    this.isCartMenuDisplayed = false;
+  };
 }
-
-

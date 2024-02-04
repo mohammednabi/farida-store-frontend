@@ -38,8 +38,19 @@ export class CartStore {
 
   // delete product from cart
 
-  deleteProduct = () => {
-    this.productsCount--;
+  deleteProduct = (productId: string) => {
+    let allCartProducts: product[] = JSON.parse(
+      localStorage.getItem("cart") ?? "[]"
+    );
+
+    const filteredProducts = allCartProducts.filter((product) => {
+      return product.id !== productId;
+    });
+
+    localStorage.setItem("cart", JSON.stringify(filteredProducts));
+
+    this.productsCount = filteredProducts.length;
+    this.cartProducts = filteredProducts;
   };
 
   // delete all products from cart

@@ -52,7 +52,7 @@ cart.addProduct(product)
               <h1 className='text-center text-lg'>best seller</h1>
           </div>}
           <div className='  absolute top-0 right-0 z-20 flex justify-center items-center '>
-              <Icon icon={<FaRegHeart />} hasBorder />
+              <Icon icon={<FaRegHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder  />
           </div>
               <Link href={`/product/${product.id}`} className='transition-all  w-full aspect-square flex items-center justify-center  '>
               <Image

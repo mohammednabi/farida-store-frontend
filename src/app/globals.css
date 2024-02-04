@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* styles of all elements */
+
 body {
   @apply bg-mainWhite scroll-smooth;
 }

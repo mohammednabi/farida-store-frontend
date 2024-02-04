@@ -25,14 +25,8 @@ const RowStyleView = () => {
   
           <RawProductCard
            isSale
-            id={product.id}
             key={product.id}
-            title={product.title}
-            image={product.images.thumbnail.url}
-            rating={product.rating.averageRate}
-            ratingsNumber={product.rating.ratings.length}
-            prePrice={product.price.prePrice}
-            currentPrice={product.price.currentPrice}
+            product={product}
           />
 
           

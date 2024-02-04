@@ -8,13 +8,13 @@ const NavLinks2 = () => {
               <Link href={"/"} className='nav-link' >
           home
           </Link>
-          <Link href={"#"} className='nav-link'>
+          <Link href={"/"} className='nav-link'>
           products
           </Link>
-          <Link href={"#"} className='nav-link'>
+          <Link href={"/order"} className='nav-link'>
           order
           </Link>
-          <Link href={"#"} className='nav-link'>
+          <Link href={"/contact"} className='nav-link'>
           contact
           </Link>
         </div>

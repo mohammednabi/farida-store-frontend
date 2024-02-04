@@ -10,6 +10,7 @@ import { ProductsStore } from "./productsStore";
 import { CartSidebarStore } from "./cartSidebarStore";
 import { FilterSidebarStore } from "./filterSidebarStore";
 import { ProductsView } from "./productsViewStore";
+import { SearchBoxStore } from "./searchBoxStore";
 
 
 // cart store instance 
@@ -36,6 +37,10 @@ const cartSidebarInstance = new CartSidebarStore()
 
 const filterSidebarInstance = new FilterSidebarStore()
 
+// search box state store
+
+const searchBoxInstance = new SearchBoxStore()
+
 // products store
 
 const allProducts = new ProductsStore()
@@ -55,7 +60,8 @@ export const store ={
     cartSidebar:cartSidebarInstance,
 products:allProducts,
     filter: filterSidebarInstance,
-    viewStyle:productsViewStyle
+    viewStyle: productsViewStyle,
+    searchBox:searchBoxInstance
 }
 
 interface indexChildren {

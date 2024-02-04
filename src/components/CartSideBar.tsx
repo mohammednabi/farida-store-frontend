@@ -20,7 +20,7 @@ const {cartSidebar} = useContext(StoreContext)
               initial={{ opacity:0 }}
                   animate={{ opacity: 1}}
                   exit={{opacity:0}}
-              className='backdrop'
+              className='backdrop z-[90]'
               onClick={cartSidebar.hideWholeCartSidebar}/>}
 
           

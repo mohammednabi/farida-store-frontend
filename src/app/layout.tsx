@@ -10,17 +10,12 @@ import NavBar from "@/components/Navbar";
 
 
 import StoreContextProvider from "@/stores";
-import Uiproviders from "@/providers/UiProviders";
 
-
-
-
-// import Uiproviders from "@/providers/UiProviders";
-import Uiproviders from "@/providers/Uiproviders";
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import CartFloatingButton from "@/components/CartFloatingButton";
 import CartSideBar from "@/components/CartSideBar";
+import Uiproviders from "@/providers/UiProviders";
 
 
 export const metadata = {

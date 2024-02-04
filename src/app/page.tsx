@@ -1,8 +1,8 @@
 
-import AdsSlider from "@/components/AdsSlider";
-
-import MiniProducts from "@/components/MiniProducts";
-import ProductsSection from "@/components/ProductsSection";
+import AdsSlider from "@/app/components/AdsSlider";
+import FiltersSection from "@/app/components/FiltersSection";
+import MiniProducts from "@/app/components/MiniProducts";
+import ProductsSection from "@/app/components/ProductsSection";
 
 
 const HomePage = () => {
@@ -11,7 +11,7 @@ const HomePage = () => {
       <MiniProducts />
 
       <AdsSlider />
-
+      <FiltersSection />
       <ProductsSection />
 
 

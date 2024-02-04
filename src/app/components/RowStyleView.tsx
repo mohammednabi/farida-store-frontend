@@ -1,31 +1,30 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
-import ProductCard from './ProductCard'
-import ProductsPagination from './ProductsPagination'
 import { StoreContext } from '@/contexts/StoreContext'
+import React, { useContext, useEffect } from 'react'
+import RawProductCard from './RawProductCard'
+import { Spinner } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite'
-import { CircularProgress, Spinner } from '@nextui-org/react'
 
-const ProductsSection = () => {
+const RowStyleView = () => {
 
-const {products} = useContext(StoreContext)
+    const {products} = useContext(StoreContext)
 
-  useEffect(() => {
+      useEffect(() => {
   products.getAllProducts()
 
   
 },[products])
-  
-  return (
-    <div className='flex flex-col gap-5'>
 
-     {products.products ? <div className='w-full min-h-screen grid grid-cols-4 gap-10 px-28 py-0'>
+  return (
+      <>
+          
+         {products.products ? <div className='min-h-[200vh] w-full h-auto grid grid-cols-2 gap-10 px-28 py-0'>
 
    
         { products.products?.map((product) => (
   
-          <ProductCard
-            isSale
+          <RawProductCard
+           isSale
             id={product.id}
             key={product.id}
             title={product.title}
@@ -52,9 +51,8 @@ const {products} = useContext(StoreContext)
           }} />
        
       </div>}
-      <ProductsPagination />
-    </div>
+      </>
   )
 }
 
-export default observer( ProductsSection)
+export default observer(RowStyleView)

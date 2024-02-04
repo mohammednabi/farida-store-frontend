@@ -1,5 +1,5 @@
 import React from 'react'
-import SliderProduct from './SliderProduct'
+import SliderProduct from '../../components/SliderProduct'
 
 
 const ProductsSlider = () => {

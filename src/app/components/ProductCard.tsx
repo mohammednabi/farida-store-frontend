@@ -7,8 +7,8 @@ import { StoreContext } from '@/contexts/StoreContext';
 import { Button, Image } from '@nextui-org/react';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
-import Icon from './Icon';
-import Rating from './Rating';
+import Icon from '../../components/Icon';
+import Rating from '../../components/Rating';
 import Link from 'next/link';
 
 
@@ -55,6 +55,7 @@ cart.addProduct()
                   src={image}
                   width={500}
                   height={500}
+                  radius='sm'
                 //   quality={100}
                   alt='product image'
                   

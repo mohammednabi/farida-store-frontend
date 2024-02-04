@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-mainWhite;
+  @apply bg-mainWhite scroll-smooth;
 }
 
 @layer components {
@@ -39,6 +39,10 @@ body {
   .product-table th {
     @apply border-2 border-mainBlack border-dashed;
   }
+
+  .filter-link {
+    @apply text-xl flex gap-3;
+  }
 }
 
 /* custom fonts  */
@@ -58,13 +62,8 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-
-
   @apply w-[8px] h-[5px];
-
-  @apply w-[8px] h-[5px];
-
-
+}
 
 /* Track */
 ::-webkit-scrollbar-track {

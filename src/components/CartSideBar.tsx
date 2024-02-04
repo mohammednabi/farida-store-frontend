@@ -29,15 +29,19 @@ const {cartSidebar} = useContext(StoreContext)
          
               
            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: cartSidebar.showCartSideBar?1:0}}
-              exit={{scaleX:0}}
+              // initial={{ scaleX: 0 }}
+              // animate={{ scaleX: cartSidebar.showCartSideBar?1:0}}
+              // exit={{scaleX:0}}
+   initial={{ x: 1000 }}
+              animate={{ x: cartSidebar.showCartSideBar?0:1000}}
+              exit={{x:1000}}
+        
               transition={{
                   type: 'tween',
                   duration:.5
 }}
                 
-             className='origin-right bg-mainWhite w-80 h-screen fixed top-0 right-0 z-[100] '>
+             className='origin-right bg-mainWhite w-[25vw] h-screen fixed top-0 right-0 z-[100] '>
              <CartSideBarContent />
           </motion.div>
                   

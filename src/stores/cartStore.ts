@@ -7,6 +7,7 @@ import { product } from "./productsStore";
 export class CartStore {
   productsCount: number = 0;
   isCartMenuDisplayed: boolean = false;
+  cartProducts: product[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -14,61 +15,46 @@ export class CartStore {
       localStorage.getItem("cart") ?? "[]"
     ) as product[];
     this.productsCount = parseCart.length;
+    this.cartProducts = parseCart;
   }
 
-  addProduct = (product: product) => {
-    const newProduct: product = {
-      id: "",
-      title: "",
-      description: "",
-      price: {
-        currentPrice: 0,
-        prePrice: undefined,
-        discount: undefined,
-        discountDuration: undefined,
-      },
-      images: {
-        thumbnail: {
-          id: "",
-          url: "",
-        },
-        images: [],
-      },
-      rating: {
-        averageRate: 0,
-        ratings: [],
-      },
-      availabelInstock: 0,
-      category: {
-        id: "",
-        name: "",
-      },
-      similarProducts: [],
-    };
+  // adding product to cart
 
+  addProduct = (activeProduct: product) => {
     let allAddedProducts: product[] = JSON.parse(
       localStorage.getItem("cart") ?? "[]"
     );
 
     const productWasFounded = allAddedProducts.find((p) => {
-      return p.id === newProduct.id;
+      return p.id === activeProduct.id;
     });
 
-    !productWasFounded && allAddedProducts.push(newProduct);
+    !productWasFounded && allAddedProducts.push(activeProduct);
 
     localStorage.setItem("cart", JSON.stringify(allAddedProducts));
     this.productsCount = allAddedProducts.length;
+    this.cartProducts = allAddedProducts;
   };
+
+  // delete product from cart
+
   deleteProduct = () => {
     this.productsCount--;
   };
+
+  // delete all products from cart
+
   deleteAllProducts = () => {
     this.productsCount = 0;
   };
 
+  // display cart menu
+
   displayCartMenu = () => {
     this.isCartMenuDisplayed = true;
   };
+
+  // hide cart menu
 
   hideCartMenu = () => {
     this.isCartMenuDisplayed = false;

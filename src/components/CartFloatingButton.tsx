@@ -4,13 +4,21 @@ import { Button } from '@nextui-org/react'
 import React, { useContext } from 'react'
 import { FaCartArrowDown } from "react-icons/fa6";
 import { observer } from 'mobx-react-lite';
+import { motion } from 'framer-motion';
 
 const CartFloatingButton = () => {
 
     const {cartSidebar} = useContext(StoreContext) 
 
   return (
-      <div className='fixed bottom-20 right-5 z-[100] w-max '>
+      <motion.div
+          initial={{ x: 1000 }}
+          animate={{x:cartSidebar.showCartSideBar?1000: 0}}
+          transition={{
+              duration:1
+          }}
+
+          className='fixed bottom-20 right-5 z-[100] w-max '>
           
           <Button
               radius='full'
@@ -23,7 +31,7 @@ const CartFloatingButton = () => {
 
   
 
-                  </div>
+                  </motion.div>
     
   )
 }

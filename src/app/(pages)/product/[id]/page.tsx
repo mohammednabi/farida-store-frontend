@@ -9,6 +9,7 @@ import ReviewsSection from './components/ReviewsSection'
 import { StoreContext } from '@/contexts/StoreContext'
 import { useContext, useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
+import { product } from '@/stores/productsStore'
 
 interface productProps {
     params:{id:string}
@@ -29,7 +30,7 @@ const ProductPage = ({params}:productProps) => {
 
     return (
       <div className='relative'>
-          <AddToCartButton />
+          <AddToCartButton product={products.targetProduct??{}as product}/>
             
       <div className='relative px-10 pb-5 mt-5'>
                 <Breads  title={products.targetProduct?.title } />

@@ -24,14 +24,10 @@ const GridStyleView = () => {
   
           <ProductCard
             isSale
-            id={product.id}
+            product={product}
+           
             key={product.id}
-            title={product.title}
-            image={product.images.thumbnail.url}
-            rating={product.rating.averageRate}
-            ratingsNumber={product.rating.ratings.length}
-            prePrice={product.price.prePrice}
-            currentPrice={product.price.currentPrice}
+          
           />
 
           

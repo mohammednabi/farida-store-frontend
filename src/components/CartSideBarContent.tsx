@@ -12,15 +12,15 @@ import CartSidebarProductsMenu from './CartSidebarProductsMenu';
 
 const CartSideBarContent = () => {
 
-    const {cartSidebar} = useContext(StoreContext)
-const empty = false
+    const {cartSidebar,cart} = useContext(StoreContext)
+
 
   return (
       <div className='flex flex-col justify-between h-full'>
           
           <CartSidebarHeader close={cartSidebar.hideWholeCartSidebar}/>
 
-{ empty ?<CartSidebarEmptyCart />
+{ cart.productsCount ===0 ?<CartSidebarEmptyCart />
       :<CartSidebarProductsMenu />}
           
 <CartSidebarFooter totalPrice='1000'/>

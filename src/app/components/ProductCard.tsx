@@ -10,28 +10,33 @@ import { FaRegHeart } from "react-icons/fa";
 import Icon from '../../components/Icon';
 import Rating from '../../components/Rating';
 import Link from 'next/link';
+import { product } from '@/stores/productsStore';
 
 
 interface productCardProps{
-    id:string
-    image: string
-    rating: number
-    title: string
-    prePrice?: number
-    currentPrice: number
-    ratingsNumber: number
+    // id:string
+    // image: string
+    // rating: number
+    // title: string
+    // prePrice?: number
+    // currentPrice: number
+    // ratingsNumber: number
+    product:product
     isSale?: boolean
     isBestSeller?:boolean
     isTopDeal?:boolean
 }
 
 
-const ProductCard = ({id,image,rating,title,prePrice,currentPrice,ratingsNumber,isSale,isBestSeller,isTopDeal}:productCardProps) => {
+const ProductCard = ({product,isSale,isBestSeller,isTopDeal}:productCardProps) => {
 
 const {cart} = useContext(StoreContext)
 
     const addProductToCart = ()=>{
-cart.addProduct()
+
+        
+
+cart.addProduct(product)
     }
 
   return (
@@ -49,10 +54,10 @@ cart.addProduct()
           <div className='  absolute top-0 right-0 z-20 flex justify-center items-center '>
               <Icon icon={<FaRegHeart />} hasBorder />
           </div>
-              <Link href={`/product/${id}`} className='transition-all  w-full aspect-square flex items-center justify-center  '>
+              <Link href={`/product/${product.id}`} className='transition-all  w-full aspect-square flex items-center justify-center  '>
               <Image
                 //   as={NextImage}
-                  src={image}
+                  src={product.images.thumbnail.url}
                   width={500}
                   height={500}
                   radius='sm'
@@ -67,23 +72,23 @@ cart.addProduct()
               
               <div className='flex flex-col gap-3'>
                   
-                  <h1 className='text-2xl h-[8rem] overflow-hidden'>{title} </h1>
+                  <h1 className='text-2xl h-[8rem] overflow-hidden'>{product.title} </h1>
                   <div className='flex flex-col gap-1'>
                       
                       
                       <div className='flex items-center gap-2'>
                           
 
-                          <Rating rating={rating}/>
-                          <h1 className='text-mainBlack/50'>({ratingsNumber})</h1>
+                          <Rating rating={product.rating.averageRate}/>
+                          <h1 className='text-mainBlack/50'>({product.rating.ratings.length})</h1>
                       </div>
                       <div className='flex items-center gap-5'>
                           
                           <div className='relative '>
                               <div className='absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3'/>
-                              <h2 className='text-2xl text-mainBlack/30 font-bold  text-center'>{prePrice }$</h2>
+                              <h2 className='text-2xl text-mainBlack/30 font-bold  text-center'>{product.price.prePrice }$</h2>
                           </div>
-                          <h2 className='text-2xl text-mainBlack/70 font-bold'>{currentPrice }$</h2>
+                          <h2 className='text-2xl text-mainBlack/70 font-bold'>{product.price.currentPrice }$</h2>
                       </div>
                   </div>
               </div>

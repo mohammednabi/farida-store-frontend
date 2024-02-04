@@ -1,31 +1,23 @@
 "use client"
-import React from 'react'
+import React, { useContext } from 'react'
 import CartSidebarProduct from './CartSidebarProduct'
 import { Divider } from '@nextui-org/react'
+import { StoreContext } from '@/contexts/StoreContext'
 
 
 const CartSidebarProductsMenu = () => {
+
+const {cart} = useContext(StoreContext)
+
   return (
-      <div className='flex flex-col  gap-3 p-5 overflow-auto'>
-          <CartSidebarProduct id='1' imageUrl='/fridge2.webp' price='500' title='fridge'/>
+    <div className='flex flex-col  gap-3 p-5 overflow-auto'>
+      {cart.cartProducts.map((product) => (
+        <div key={product.id} className='flex flex-col gap-3'>
+          <CartSidebarProduct    product={product}/>
+
           <Divider />
-          <CartSidebarProduct id='2' imageUrl='/tv product.webp' price='700' title='tv'/>
-          <Divider />
-          <CartSidebarProduct id='3' imageUrl='/fridge2.webp' price='500' title='fridge'/>
-          <Divider />
-          <CartSidebarProduct id='4' imageUrl='/fridge2.webp' price='500' title='fridge'/>
-          <Divider />
-          <CartSidebarProduct id='5' imageUrl='/fridge2.webp' price='500' title='fridge'/>
-          <Divider />
-          <CartSidebarProduct id='5' imageUrl='/fridge2.webp' price='500' title='fridge'/>
-          <Divider />
-          <CartSidebarProduct id='5' imageUrl='/fridge2.webp' price='500' title='fridge'/>
-          <Divider />
-          <CartSidebarProduct id='5' imageUrl='/fridge2.webp' price='500' title='fridge'/>
-          <Divider />
-          <CartSidebarProduct id='5' imageUrl='/fridge2.webp' price='500' title='fridge'/>
-          <Divider />
-          <CartSidebarProduct id='5' imageUrl='/fridge2.webp' price='500' title='fridge'/>
+        </div>
+      ))}
             
 
     </div>

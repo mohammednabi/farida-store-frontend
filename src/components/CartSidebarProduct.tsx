@@ -32,7 +32,7 @@ cart.deleteProduct(product.id)
           <div className='w-full h-auto grid place-items-center'>
               
               <Link href={`/product/${product.id}`}>
-<Image src={product.images.thumbnail.url} alt='' className='w-full h-full' />
+<Image src={product.images.thumbnail.url} alt='' className='w-full h-full aspect-square object-contain' />
               </Link>
           </div>
           <div className='flex flex-col justify-between gap-2 w-full overflow-hidden '>

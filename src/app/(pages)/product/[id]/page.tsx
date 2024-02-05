@@ -33,7 +33,7 @@ const ProductPage = ({params}:productProps) => {
           <AddToCartButton product={products.targetProduct??{}as product}/>
             
       <div className='relative px-10 pb-5 mt-5'>
-                <Breads  title={products.targetProduct?.title } />
+                <Breads  title={products.targetProduct?.title.slice(0,40)+"..." } />
           <div className='grid grid-cols-[1.5fr_6fr] grid-rows-1 pt-10 gap-10'>
                     <InformationSection />
                     <div className='flex flex-col gap-20'>

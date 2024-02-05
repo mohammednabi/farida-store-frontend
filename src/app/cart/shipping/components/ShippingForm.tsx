@@ -159,7 +159,7 @@ const ShippingForm = () => {
                       variant='bordered'
                       radius='none'
                       placeholder='If you have any notes about your order, write it here '
-                    
+                    minRows={20}
                   />
               </div>
           </div>

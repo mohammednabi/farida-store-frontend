@@ -21,7 +21,7 @@ const Sidebar = () => {
               initial={{ opacity:0 }}
                   animate={{ opacity: 1}}
                   exit={{opacity:0}}
-              className='backdrop'
+              className='backdrop z-[90]'
               onClick={sidebar.hideWholeSidebar}/>}
 
           
@@ -36,7 +36,7 @@ const Sidebar = () => {
                       duration:.5
 }}
                   
-              className='bg-white h-screen w-[20rem] fixed top-0 left-0 z-50 overflow-auto '>
+              className='bg-white h-screen w-[20rem] fixed top-0 left-0 z-[100] overflow-auto '>
              <SidebarContent />
           </motion.div>
    </div>

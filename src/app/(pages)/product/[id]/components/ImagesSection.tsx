@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 
 import ZoomedImage from './ZoomedImage';
 import { imgType } from '@/stores/productsStore';
-
+import { observer } from 'mobx-react-lite';
 
 
 
@@ -65,7 +65,7 @@ const ImagesSection = ({ allImages }: imagesProps) => {
                   <div key={img?.id} className='w-full aspect-square  transition-all bg-mainGray border-dashed border-2 border-mainGray hover:border-mainPink p-2 flex items-center justify-center rounded-md cursor-pointer'
                   onClick={()=>{setSelectedImage(img)}}
                   >
-                   <Image  src={img?.url} alt='' className='w-full h-auto'/>
+                   <Image  src={img?.url} alt='' className='w-full h-auto aspect-square object-contain'/>
               </div>     
               ))}
              
@@ -78,4 +78,4 @@ const ImagesSection = ({ allImages }: imagesProps) => {
   )
 }
 
-export default ImagesSection
+export default observer( ImagesSection)

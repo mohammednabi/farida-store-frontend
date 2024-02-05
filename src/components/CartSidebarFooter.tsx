@@ -1,12 +1,24 @@
 "use client"
+import { StoreContext } from '@/contexts/StoreContext'
 import { Button, Divider } from '@nextui-org/react'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useContext } from 'react'
 
 interface footerProps {
     totalPrice:string
 }
 
-const CartSidebarFooter = ({totalPrice}:footerProps) => {
+const CartSidebarFooter = ({ totalPrice }: footerProps) => {
+    
+    const {cartSidebar} = useContext(StoreContext)
+    const router = useRouter()
+    
+
+    const goToCartShippingPage = () => {
+        router.push("/cart/shipping")
+    cartSidebar.hideWholeCartSidebar()
+    }
+    
   return (
   <div>
               
@@ -17,9 +29,12 @@ const CartSidebarFooter = ({totalPrice}:footerProps) => {
                   <h1 className='text-green-500'>{totalPrice} $</h1>
               </div>
 
+              
               <Button
               radius='none'
-                  className='bg-mainBlack text-mainWhite capitalize'>
+                  className='bg-mainBlack text-mainWhite capitalize'
+              onClick={goToCartShippingPage}
+              >
                   complete your order
               </Button>
           </div>

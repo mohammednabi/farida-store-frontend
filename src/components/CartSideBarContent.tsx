@@ -25,7 +25,7 @@ const CartSideBarContent = () => {
 { cart.productsCount ===0 ?<CartSidebarEmptyCart />
       :<CartSidebarProductsMenu />}
           
-<CartSidebarFooter totalPrice='1000'/>
+      <CartSidebarFooter  />
           
     </div>
   )

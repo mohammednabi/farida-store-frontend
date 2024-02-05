@@ -36,11 +36,11 @@ const {cart} = useContext(StoreContext)
 
         
 
-cart.addProduct(product)
+cart.addProduct({...product,quantity:1})
     }
 
   return (
-      <div className='relative flex flex-col w-[18rem] '>
+      <div className='relative flex flex-col w-full '>
           
          {isSale &&!isBestSeller &&!isTopDeal && <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-red-700 text-white flex justify-center items-center '>
               <h1 className='text-center text-lg'>sale</h1>

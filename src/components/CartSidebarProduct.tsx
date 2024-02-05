@@ -1,32 +1,49 @@
 "use client"
 import { StoreContext } from '@/contexts/StoreContext';
+import { cartProduct } from '@/stores/generalTypes';
 import { product } from '@/stores/productsStore';
 import { Image } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MdDelete } from "react-icons/md";
 
 interface CartSidebarProductProps{
    
-    product:product
+    product:cartProduct
 }
 
 
 const CartSidebarProduct = ({product}:CartSidebarProductProps) => {
 
-    const [counter, setCounter] = useState(1)
+    const [counter, setCounter] = useState(product.quantity)
 
    const  {cart} = useContext(StoreContext)
     
-    const increase = ()=>{ setCounter((c)=>c+1)}
-    const decrease = ()=>{counter>1 && setCounter((c)=>c-1)}
+    const increase = () => {
+        setCounter((c) => c + 1)
+        cart.changeQuantity(product.id,counter+1)
+
+    }
+    const decrease = () => {
+        if (counter > 1) {
+            setCounter((c) => c - 1)
+            cart.changeQuantity(product.id,counter-1)
+    
+        } else {
+            return
+        }
+
+    }
 const deleteItem =()=>{
 
 cart.deleteProduct(product.id)
 }
 
-
+  useEffect(() => {
+        setCounter(product.quantity)
+    },[product.quantity])
+    
   return (
       <div className='grid grid-cols-[2fr_3fr_1fr] gap-5'>
           <div className='w-full h-auto grid place-items-center'>

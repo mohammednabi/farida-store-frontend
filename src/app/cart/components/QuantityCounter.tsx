@@ -1,14 +1,41 @@
 "use client"
-import React, { useState } from 'react'
+import { StoreContext } from '@/contexts/StoreContext'
+import { cartProduct } from '@/stores/generalTypes'
+import { observer } from 'mobx-react-lite'
+import React, { useContext, useEffect, useState } from 'react'
 
-const QuantityCounter = () => {
-    const [counter, setCounter] = useState(1)
+interface quantityCounterProps{
+    product:cartProduct
+}
+
+const QuantityCounter = ({ product }: quantityCounterProps) => {
+    
+const {cart} = useContext(StoreContext)
+
+    const [counter, setCounter] = useState(product.quantity)
     
 
     const increase = () => {
-       setCounter((c) => c + 1)
+        setCounter((c) => c + 1)
+        cart.changeQuantity(product.id,counter+1)
+
+
+
     }
-    const decrease=()=>{ counter >1 &&setCounter((c)=>c-1)}
+    const decrease = () => {
+        if (counter > 1) {
+            setCounter((c) => c - 1)
+            cart.changeQuantity(product.id,counter-1)
+    
+        } else {
+            return
+        }
+
+    }
+
+    useEffect(() => {
+        setCounter(product.quantity)
+    },[product.quantity])
 
   return (
       <div className='flex items-center justify-center'>
@@ -29,4 +56,4 @@ const QuantityCounter = () => {
   )
 }
 
-export default QuantityCounter
+export default observer( QuantityCounter)

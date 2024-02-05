@@ -14,7 +14,7 @@ const AddToCartButton = ({product}:AddToCartButtonProps) => {
 
     const {cart} = useContext(StoreContext) 
   const addProductToCart = () => {
-  cart.addProduct(product)
+  cart.addProduct({...product,quantity:1})
 }
 
   

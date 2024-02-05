@@ -7,6 +7,9 @@ import CartFooter from './CartFooter'
 
 
 const CartContent = () => {
+
+
+  
   return (
     <div className='grid grid-cols-[3fr_auto_1fr] px-32 '>
       <div className='flex flex-col gap-2'>

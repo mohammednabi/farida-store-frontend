@@ -5,10 +5,11 @@ import React, { useContext } from 'react'
 import { FaCartArrowDown } from "react-icons/fa6";
 import { observer } from 'mobx-react-lite';
 import { motion } from 'framer-motion';
+import Icon from './Icon';
 
 const CartFloatingButton = () => {
 
-    const {cartSidebar} = useContext(StoreContext) 
+    const {cartSidebar,cart} = useContext(StoreContext) 
 
   return (
       <motion.div
@@ -20,14 +21,16 @@ const CartFloatingButton = () => {
 
           className='fixed bottom-20 right-5 z-[100] w-max '>
           
-          <Button
-              radius='full'
-              isIconOnly
-              className='bg-mainBlack  w-16 h-16 '
-              onClick={()=>{cartSidebar.displayWholeCartSidebar()}}
+          <div
+             
+              className='bg-mainBlack cursor-pointer  w-16 h-16 relative rounded-full flex items-center justify-center transition-all hover:bg-mainBlack/75'
+              onClick={() => { cartSidebar.displayWholeCartSidebar() }}
+         
           >
-              <FaCartArrowDown className='text-mainWhite text-2xl'/>
-          </Button>
+             
+             <Icon icon={ <FaCartArrowDown className='text-mainWhite text-2xl' />} showPop  count={cart.productsCount} />
+
+          </div>
 
   
 

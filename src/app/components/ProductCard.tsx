@@ -54,25 +54,24 @@ cart.addProduct(product)
           <div className='  absolute top-0 right-0 z-20 flex justify-center items-center '>
               <Icon icon={<FaRegHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder  />
           </div>
-              <Link href={`/product/${product.id}`} className='transition-all  w-full aspect-square flex items-center justify-center  '>
+              <Link href={`/product/${product.id}`} className='transition-all overflow-hidden  w-full  aspect-square flex items-center justify-center  '>
               <Image
                 //   as={NextImage}
                   src={product.images.thumbnail.url}
-                  width={500}
-                  height={500}
+             
                   radius='sm'
                 //   quality={100}
                   alt='product image'
                   
                   
-                  className='w-full object-cover' />
+                  className='w-full h-full aspect-square object-contain' />
               </Link>
 
           <div className='p-2 flex flex-col gap-10'>
               
               <div className='flex flex-col gap-3'>
                   
-                  <h1 className='text-2xl h-[8rem] overflow-hidden'>{product.title} </h1>
+                  <h1 className='text-2xl h-[8rem]  line-clamp-4'>{product.title} </h1>
                   <div className='flex flex-col gap-1'>
                       
                       

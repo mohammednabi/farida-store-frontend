@@ -1,22 +1,27 @@
-
-import React from 'react'
+"use client"
+import React, { useContext } from 'react'
 import EmptyCart from './components/EmptyCart'
 import ProductsTable from './components/ProductsTable'
 import TotalPrice from './components/TotalPrice'
 import { Divider } from '@nextui-org/react'
 import CartContent from './components/CartContent'
+import { StoreContext } from '@/contexts/StoreContext'
+import { observer } from 'mobx-react-lite'
 
 const CartPage = () => {
+
+  const {cart} = useContext(StoreContext)
+
   return (
       <div>
          
-{/* <EmptyCart /> */}
+{cart.productsCount ===0 ? <EmptyCart />
 
          
-         <CartContent />
+        : <CartContent />}
        
     </div>
   )
 }
 
-export default CartPage
+export default observer(CartPage)

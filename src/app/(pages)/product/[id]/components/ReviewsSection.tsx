@@ -73,7 +73,7 @@ const ReviewsSection = ({description,ratings}:reviewProps) => {
                   >
                       <div className='flex flex-col gap-5 pt-5'>
               {ratings?.map((r) => (
-                  <div key={r.id}>
+                  <div key={r.id} >
                       <UserReview userAvatar={""} review={r.rateDescription} name={r.rateTitle} rating={r.rateValue}  id={r.userId } />
                       <Divider />
                       

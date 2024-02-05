@@ -21,8 +21,8 @@ const UserReview = ({id,name,date,rating,review,userAvatar}:userProps) => {
     
 
   return (
-      <div>
-          <div className='flex gap-2  items-center'>
+      <div >
+          <div className='grid grid-cols-[1fr_10fr] gap-2  items-center'>
               <Avatar
                   icon={<FaUserLarge />}
                   src={userAvatar?userAvatar:""}
@@ -47,11 +47,11 @@ const UserReview = ({id,name,date,rating,review,userAvatar}:userProps) => {
                       <Rating rating={rating}/>
                   </Skeleton>
 
-                  <Skeleton isLoaded={review.length !==0} className='w-max'>
+                  <Skeleton isLoaded={review.length !==0} className='w-full'>
                       
-                  <div className='flex items-center gap-2'>
-                      <h1 className='text-lg text-mainBlack/50'>{review}</h1>
-                  </div>
+                  
+                      <h1 className='text-lg text-mainBlack/50 w-full'>{review}</h1>
+                  
                   </Skeleton>
 </div>
               

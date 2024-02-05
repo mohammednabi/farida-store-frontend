@@ -1,14 +1,18 @@
 "use client"
+import { StoreContext } from '@/contexts/StoreContext'
 import { Button, Input } from '@nextui-org/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { BiSend } from 'react-icons/bi'
 import { MdDeleteForever } from 'react-icons/md'
 
 
 
 const CartFooter = () => {
+
+const {cart} = useContext(StoreContext)
+
   return (
-      <div className='flex justify-between items-center'>
+      <div className='flex justify-between items-center px-5'>
           <Input
               type='text'
               placeholder='promo code'
@@ -25,7 +29,9 @@ const CartFooter = () => {
 
           <div className='flex items-center gap-5'>
               
-              <div className='flex gap-2 items-center cursor-pointer capitalize'>
+              <div className='flex gap-2 items-center cursor-pointer capitalize'
+              onClick={cart.deleteAllProducts}
+              >
                   <h1>remove all </h1>
                   <MdDeleteForever className='text-2xl' />
               </div>

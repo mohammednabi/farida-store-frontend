@@ -56,7 +56,10 @@ export class CartStore {
   // delete all products from cart
 
   deleteAllProducts = () => {
+    localStorage.setItem("cart", "[]");
+
     this.productsCount = 0;
+    this.cartProducts = [];
   };
 
   // display cart menu

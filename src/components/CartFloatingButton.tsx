@@ -4,17 +4,20 @@ import { Button } from '@nextui-org/react'
 import React, { useContext } from 'react'
 import { FaCartArrowDown } from "react-icons/fa6";
 import { observer } from 'mobx-react-lite';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Icon from './Icon';
 
 const CartFloatingButton = () => {
 
     const {cartSidebar,cart} = useContext(StoreContext) 
 
-  return (
-      <motion.div
+    return (
+      <AnimatePresence mode='wait'>
+            
+{ !cartSidebar.showCartSideBar && !cart.isCartMenuDisplayed &&    <motion.div
           initial={{ x: 1000 }}
-          animate={{x:cartSidebar.showCartSideBar?1000: 0}}
+                animate={{ x: 0 }}
+                exit={{x:1000}}
           transition={{
               duration:1
           }}
@@ -35,7 +38,8 @@ const CartFloatingButton = () => {
   
 
                   </motion.div>
-    
+    }
+              </AnimatePresence>
   )
 }
 

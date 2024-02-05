@@ -1,16 +1,15 @@
 "use client"
 import { StoreContext } from '@/contexts/StoreContext'
 import { Button, Divider } from '@nextui-org/react'
+import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/navigation'
 import React, { useContext } from 'react'
 
-interface footerProps {
-    totalPrice:string
-}
 
-const CartSidebarFooter = ({ totalPrice }: footerProps) => {
+
+const CartSidebarFooter = () => {
     
-    const {cartSidebar} = useContext(StoreContext)
+    const {cartSidebar,cart} = useContext(StoreContext)
     const router = useRouter()
     
 
@@ -26,7 +25,7 @@ const CartSidebarFooter = ({ totalPrice }: footerProps) => {
           <div className='p-5 flex flex-col gap-5'>
               <div className='flex justify-between items-center capitalize text-xl'>
                   <h1>total :</h1>
-                  <h1 className='text-green-500'>{totalPrice} $</h1>
+                  <h1 className='text-green-500'>{cart.totalPrice.toFixed(2)} $</h1>
               </div>
 
               
@@ -42,4 +41,4 @@ const CartSidebarFooter = ({ totalPrice }: footerProps) => {
   )
 }
 
-export default CartSidebarFooter
+export default observer( CartSidebarFooter)

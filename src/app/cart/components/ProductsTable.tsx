@@ -7,6 +7,7 @@ import { MdDelete } from 'react-icons/md';
 import { IconBaseProps, IconType } from 'react-icons/lib';
 import { StoreContext } from '@/contexts/StoreContext';
 import { observer } from 'mobx-react-lite';
+import TotalSingleCartProductPrice from './TotalSingleCartProductPrice';
 
 
 type productRow = {
@@ -14,7 +15,7 @@ type productRow = {
   product: React.JSX.Element
   price: string
    quantity: React.JSX.Element
-  total: string
+  total: React.JSX.Element
   delete: React.JSX.Element
 }
 
@@ -34,8 +35,8 @@ const ProductsTable = () => {
           title={product.title}
           description={product.description} />,
         price: `${product.price.currentPrice}$`,
-        quantity:<QuantityCounter />,
-        total: `${product.price.currentPrice}$`,
+        quantity:<QuantityCounter product={product}/>,
+        total: <TotalSingleCartProductPrice totalPrice={product.price.currentPrice * product.quantity}/>,
         delete: <MdDelete
           className='text-red-500 transition-all hover:text-red-700 text-3xl cursor-pointer'
           onClick={()=>{cart.deleteProduct(product.id)}}
@@ -43,7 +44,7 @@ const ProductsTable = () => {
       } 
       return newProduct
     })
-  },[cart])
+  },[cart.productsCount,cart.cartProducts])
   
   
 

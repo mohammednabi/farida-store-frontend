@@ -1,5 +1,6 @@
 "use client"
 import { Divider, Image, TableCell, TableRow } from '@nextui-org/react'
+import { observer } from 'mobx-react-lite'
 import NextImage from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -14,6 +15,9 @@ interface CartProductProps {
 }
 
 const CartProductCard = ({id,title,imageUrl,description}:CartProductProps) => {
+
+
+
   return (
     
                                 <div>
@@ -37,4 +41,4 @@ const CartProductCard = ({id,title,imageUrl,description}:CartProductProps) => {
   )
 }
 
-export default CartProductCard
+export default observer( CartProductCard)

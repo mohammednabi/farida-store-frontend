@@ -33,7 +33,7 @@ const [counter,setCounter] = useState(1)
   const decrease = ()=>{counter>1 && setCounter((c)=>c-1)}
 
     const addProductToCart = ()=>{
-cart.addProduct(product)
+cart.addProduct({...product,quantity:1})
     }
 
   return (
@@ -61,13 +61,13 @@ cart.addProduct(product)
                   alt='product image'
                   radius='sm'
                   
-                  className='w-full object-cover' />
+                  className='w-full h-full aspect-square object-contain' />
               </Link>
       </div>
 
 
       <div className='flex flex-col gap-3 py-5'>
-        <h1 className='text-2xl max-h-[4rem] w-full overflow-hidden text-ellipsis'>{product.title }</h1>
+        <h1 className='text-2xl  w-full line-clamp-2'>{product.title }</h1>
         <div className='flex items-center gap-2'>
 
           <Rating rating={product.rating.averageRate} />

@@ -6,6 +6,10 @@ import React, { useContext, useState } from 'react'
 import {observer} from "mobx-react-lite"
 import {motion} from "framer-motion"
 import { StoreContext } from '@/contexts/StoreContext'
+import EmptyCartDrop from './EmptyCartDrop'
+import CartDropProductsMenu from './CartDropProductsMenu'
+import CartDropTotalPrice from './CartDropTotalPrice'
+import { Divider } from '@nextui-org/react'
 
 
 const CartDrop2 = () => {
@@ -20,15 +24,15 @@ const {cart} = useContext(StoreContext)
 
           
 
-          className='origin-top flex flex-col gap-5 bg-white min-w-[20rem] capitalize w-auto h-auto p-5  text-mainBlack absolute top-20 right-0 z-10 border-1 border-solid border-mainBlack border-t-0'>
-         <h1 className='text-xl'>cart ({cart.productsCount}) </h1>
+          className='origin-top flex flex-col gap-5 bg-white min-w-[25rem]  w-[25rem] max-w-[25rem] h-auto p-5  text-mainBlack absolute top-20 right-0 z-10 border-1 border-solid border-mainBlack border-t-0'>
+         <h1 className='text-xl capitalize'>cart ({cart.productsCount}) </h1>
 
-          <div>
-              
-         <h2 className='text-mainBlack/50'>your cart is empty </h2>
-         <Link href={"/"}>continue → </Link>
-          </div>
+{ cart.productsCount === 0?      <EmptyCartDrop />
+     : <CartDropProductsMenu />}
          
+      <Divider />
+          <CartDropTotalPrice />
+
    </motion.div>
   )
 }

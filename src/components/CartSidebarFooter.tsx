@@ -25,7 +25,7 @@ const CartSidebarFooter = () => {
           <div className='p-5 flex flex-col gap-5'>
               <div className='flex justify-between items-center capitalize text-xl'>
                   <h1>total :</h1>
-                  <h1 className='text-green-500'>{cart.totalPrice.toFixed(2)} $</h1>
+                  <h1 className='text-green-500 font-bold'>{cart.totalPrice.toFixed(2)} $</h1>
               </div>
 
               

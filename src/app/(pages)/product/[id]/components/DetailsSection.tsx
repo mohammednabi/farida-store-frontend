@@ -38,9 +38,9 @@ const DetailsSection = ({product}:productProps) => {
                   
               <h1 className='text-2xl '>{product?.title !==""?product?.title:"kdsjdskjdskjdskd" }</h1>
               </Skeleton>
-              {/* {product?.title !=="" &&  <h1 className='text-2xl '>{product?.title }</h1>} */}
+            
                   
-              <Skeleton   isLoaded={product?.rating.ratings.length !==0 }  >
+              <Skeleton   isLoaded={product?.rating.averageRate?true:false }  >
            <div className='flex items-center gap-2'>
                           
 

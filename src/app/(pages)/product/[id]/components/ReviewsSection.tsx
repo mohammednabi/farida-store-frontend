@@ -7,14 +7,7 @@ import { MdOutlineDescription } from "react-icons/md";
 import UserReview from './UserReview';
 import { userRate } from '@/stores/productsStore';
 
-type review = {
-       userId?: string
-    userName:string
-    date?:Date
-    rating:number
-    reviewDescription: string
-    userAvatar?:string
-}
+
 
 interface reviewProps {
   description?: string
@@ -26,19 +19,6 @@ const ReviewsSection = ({description,ratings}:reviewProps) => {
 
 
 
-    const reviews: review[] = [
-        { userName: "mohammed nabil", rating: 3, reviewDescription: "not good enough" }
-        , { userName: "master card", rating: 5, reviewDescription: "amazing work was made on this product", userAvatar: "/MasterCard_Logo.svg.webp" },
-        { userName: "mohammed nabil", rating: 4, reviewDescription: "not good enough" },
-        { userName: "mohammed nabil", rating: 1, reviewDescription: "not good enough" },
-        { userName: "mohammed nabil", rating: 2, reviewDescription: "not good enough" },
-        { userName: "mohammed nabil", rating:0, reviewDescription: "very very bad" }
-    ]
-
- const allDetails:string[] = ["Size 1: length 24 cm, width 11 cm, height 7 cm","Size 2: length 27.5 cm, width 13 cm, height 7 cm","Size: 3, length 31 cm, width 14.5 cm, height 8 cm","1 piece","Silver color","The material is pure aluminum","5 year warranty","Made in Egypt"]
-
-
-    
 
   return (
       <div className='flex flex-col'>

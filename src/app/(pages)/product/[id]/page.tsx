@@ -23,8 +23,9 @@ const ProductPage = ({params}:productProps) => {
 
     useEffect(() => {
         products.getSingleProduct(params.id)
-        console.log(products.targetProduct)
-        console.log("this is the product id from params : " , params.id)
+        // console.log(products.targetProduct)
+        // console.log("this is the product id from params : " , params.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[params.id])
     
 

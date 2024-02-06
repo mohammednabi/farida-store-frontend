@@ -1,3 +1,4 @@
+
 import PageTitle from "@/components/PageTitle"
 import WishlistContent from "./components/WishlistContent"
 import WishListSections from "./components/WishListSections"

@@ -1,38 +1,16 @@
 "use client"
 import { Divider } from '@nextui-org/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import WishListItem from './WishListItem'
+import { StoreContext } from '@/contexts/StoreContext'
+import { observer } from 'mobx-react-lite'
+import WishListIsEmpty from './WishListIsEmpty'
 
 const WishlistContent = () => {
 
-  const items = [{
-    id: "1",
-    title: "Tv",
-    miniDescription: "this is a many description loremds;;ldsl;dsds;d",
-    price: "500",
-    rating: 5,
-    imageUrl: "/tv product.webp",
-    reviews:10
-  },
-  {
-    id: "2",
-    title: "Tv",
-    miniDescription: "this is a many description loremds;;ldsl;dsds;d",
-    price: "500",
-    rating: 3.5,
-    imageUrl: "/tv product.webp"
-    ,reviews:5
-    },
-  {
-    id: "3",
-    title: "Tv",
-    miniDescription: "this is a many description loremds;;ldsl;dsds;d",
-    price: "500",
-    rating: 1.5,
-    imageUrl: "/tv product.webp",
-    reviews:1
-  }
-  ]
+
+
+const {wishlist} = useContext(StoreContext)
 
   return (
 
@@ -41,21 +19,25 @@ const WishlistContent = () => {
           <div className='w-full bg-mainPink text-white p-5 flex items-center justify-center text-xl font-bold capitalize rounded-xl'>
               <h1>wish list items</h1>
 
-          </div>
-      <div className='flex flex-col gap-3'>
+      </div>
+      
+      {wishlist.itemsCount === 0
+        ? <WishListIsEmpty />
+   
+        : <div className='flex flex-col gap-3'>
         
-        {items.map((item) => (
+        {wishlist.items.map((item) => (
           <div key={item.id}>
-            <WishListItem id={item.id} imageUrl={item.imageUrl} title={item.title} price={item.price} rating={item.rating} miniDescription={item.miniDescription } reviews={item.reviews}/>
+            <WishListItem product={item}/>
             <Divider/>
 
           </div>
         ))}
           
-          </div>
+          </div>}
 
     </div>
   )
 }
 
-export default WishlistContent
+export default observer(WishlistContent)

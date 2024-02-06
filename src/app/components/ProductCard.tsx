@@ -1,26 +1,22 @@
 "use client"
 import NextImage from 'next/image'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 
 import { StoreContext } from '@/contexts/StoreContext';
 import { Button, Image } from '@nextui-org/react';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+
 import Icon from '../../components/Icon';
 import Rating from '../../components/Rating';
 import Link from 'next/link';
 import { product } from '@/stores/productsStore';
+import { observer } from 'mobx-react-lite';
 
 
 interface productCardProps{
-    // id:string
-    // image: string
-    // rating: number
-    // title: string
-    // prePrice?: number
-    // currentPrice: number
-    // ratingsNumber: number
     product:product
     isSale?: boolean
     isBestSeller?:boolean
@@ -29,8 +25,10 @@ interface productCardProps{
 
 
 const ProductCard = ({product,isSale,isBestSeller,isTopDeal}:productCardProps) => {
+    
+    const {cart,wishlist} = useContext(StoreContext)
+const [foundInWishlist,setFoundInWishlist] = useState(wishlist.isInWishlist(product.id) )
 
-const {cart} = useContext(StoreContext)
 
     const addProductToCart = ()=>{
 
@@ -38,6 +36,21 @@ const {cart} = useContext(StoreContext)
 
 cart.addProduct({...product,quantity:1})
     }
+
+    const addProducToWishlist=()=>{
+    wishlist.addToWishlist(product)
+    }
+
+    const removeProductFromWishlist=()=>{
+        wishlist.removeFromWishlist(product.id)
+    }
+    
+
+    useEffect(() => {
+        setFoundInWishlist(wishlist.isInWishlist(product.id))
+    },[ wishlist.items])
+    
+
 
   return (
       <div className='relative flex flex-col w-full '>
@@ -52,7 +65,8 @@ cart.addProduct({...product,quantity:1})
               <h1 className='text-center text-lg'>best seller</h1>
           </div>}
           <div className='  absolute top-0 right-0 z-20 flex justify-center items-center '>
-              <Icon icon={<FaRegHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder  />
+         { !foundInWishlist ? <Icon icon={<FaRegHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder whenClick={addProducToWishlist} />
+             : <Icon icon={<FaHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder  whenClick={removeProductFromWishlist} />}
           </div>
               <Link href={`/product/${product.id}`} className='transition-all overflow-hidden  w-full  aspect-square flex items-center justify-center  '>
               <Image
@@ -103,4 +117,4 @@ cart.addProduct({...product,quantity:1})
   )
 }
 
-export default ProductCard
+export default observer(ProductCard)

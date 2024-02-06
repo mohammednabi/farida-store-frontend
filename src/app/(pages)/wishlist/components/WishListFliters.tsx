@@ -1,5 +1,6 @@
 "use client"
 import { Autocomplete, AutocompleteItem, Button, Input } from '@nextui-org/react'
+import { useRouter } from 'next/navigation';
 import React from 'react'
 
 import { IoAddCircleOutline } from "react-icons/io5";
@@ -8,7 +9,12 @@ import { IoFilterOutline } from "react-icons/io5";
 
 const WishListFliters = () => {
 
- const filters = [{id:1,type:"Default"},{id:2,type:"Rating"},{id:3,type:"Price"},{id:4,type:"Reviews"},{id:5,type:"A-Z"}]
+  const filters = [{ id: 1, type: "Default" }, { id: 2, type: "Rating" }, { id: 3, type: "Price" }, { id: 4, type: "Reviews" }, { id: 5, type: "A-Z" }]
+  
+    const router = useRouter()
+    
+    const goToHomePage=()=>{router.push("/")}
+
 
   return (
     <div className=' relative'>
@@ -17,7 +23,7 @@ const WishListFliters = () => {
 
       <Button
       endContent={<IoAddCircleOutline />}
-      className='bg-mainBlack text-mainWhite p-5 py-8 text-2xl capitalize'>
+      className='bg-mainBlack text-mainWhite p-5 py-8 text-2xl capitalize' onClick={goToHomePage}>
         add new item 
 </Button>
 

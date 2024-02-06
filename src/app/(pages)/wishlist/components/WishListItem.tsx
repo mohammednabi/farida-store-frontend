@@ -1,44 +1,52 @@
 "use client"
 import Rating from '@/components/Rating'
+import { StoreContext } from '@/contexts/StoreContext';
+import { product } from '@/stores/productsStore';
 import { Button, Image } from '@nextui-org/react'
-import React from 'react'
+import { observer } from 'mobx-react-lite';
+import Link from 'next/link';
+import React, { useContext } from 'react'
 import { MdAddShoppingCart, MdDelete } from "react-icons/md";
 
 
 interface wishlistItemProps{
-    id:string
-    imageUrl: string
-    title: string
-    miniDescription: string
-    price: string
-    rating: number,
-    reviews:number
+  
+    product:product
 }
 
-const WishListItem = ({ id, imageUrl, miniDescription, price, rating, title,reviews }: wishlistItemProps) => {
+const WishListItem = ({ product }: wishlistItemProps) => {
     
 
-    const addToCart = (id:string)=>{alert(`added to cart ${id}`)}
-    const removeFromWishlist = (id:string)=>{alert(`removed from wish list ${id}`)}
+     const {cart,wishlist} = useContext(StoreContext)
+
+    const addToCart = () => {
+        cart.addProduct({...product,quantity:1})
+    }
+    const removeFromWishlist = () => {
+        wishlist.removeFromWishlist(product.id)
+    }
 
   return (
-    <div className='grid grid-cols-[auto_auto_auto_auto] gap-5'>
-          <div className='w-64 h-64 flex items-center justify-center'>
-              <Image src={imageUrl} alt='' className='w-full h-auto object-contain'/>
-</div>
+    <div className='grid grid-cols-[auto_auto_auto_auto] gap-5 py-3'>
+          <Link href={`/product/${product.id}`} className='w-64 h-64 flex items-center justify-center'>
+              <Image src={product.images.thumbnail.url} alt='' className='w-full h-auto aspect-square object-contain'/>
+</Link>
           <div className='flex flex-col gap-1  justify-center'>
-              <h1 className='text-2xl capitalize'>{title}</h1>
+              <Link href={`/product/${product.id}`}>
+                  
+              <h1 className='text-2xl capitalize line-clamp-3'>{product.title}</h1>
+              </Link>
               <div className='flex items-center gap-2'>
-              <Rating rating={rating} size='2rem'/>
-                  <h1>({reviews })</h1>
+              <Rating rating={product.rating.averageRate} size='2rem'/>
+                  <h1>({product.rating.ratings.length })</h1>
               </div>
-              <h1 className='text-xl capitalize text-mainBlack/50  h-20 overflow-hidden w-full text-ellipsis'>{ miniDescription}</h1>
+              <h1 className='text-xl capitalize text-mainBlack/50   w-full line-clamp-2'>{ product.description}</h1>
               
           </div>    
           <div className='grid place-items-center'>
               
 
-              <h1 className='text-4xl font-bold capitalize text-green-500'>{price} $</h1>
+              <h1 className='text-4xl font-bold capitalize text-green-500'>{product.price.currentPrice} $</h1>
           </div>
 
           <div className='flex flex-col gap-2   justify-center items-center '>
@@ -51,7 +59,7 @@ const WishListItem = ({ id, imageUrl, miniDescription, price, rating, title,revi
                   <MdAddShoppingCart  className='text-mainWhite'/>
               }
               
-              onClick={()=>{addToCart(id)}}
+              onClick={addToCart}
               >
                   add to cart
               </Button>
@@ -63,7 +71,7 @@ const WishListItem = ({ id, imageUrl, miniDescription, price, rating, title,revi
                   endContent={
                   <MdDelete className='text-mainWhite'/>
               }
-                onClick={()=>{removeFromWishlist(id)}}
+                onClick={removeFromWishlist}
               >
                   delete
               </Button>
@@ -72,4 +80,4 @@ const WishListItem = ({ id, imageUrl, miniDescription, price, rating, title,revi
   )
 }
 
-export default WishListItem
+export default observer(WishListItem)

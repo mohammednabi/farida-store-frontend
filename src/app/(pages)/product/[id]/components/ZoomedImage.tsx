@@ -5,7 +5,7 @@ import InnerImageZoom from 'react-inner-image-zoom'
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
 
 interface zoomProps{
-    src:string
+    src?:string
 }
 
 const ZoomedImage = ({src}:zoomProps) => {
@@ -14,14 +14,17 @@ const ZoomedImage = ({src}:zoomProps) => {
 
    <div
              
-             className='w-full h-auto aspect-square flex justify-center items-center '>
+             className='w-full h-auto  flex justify-center items-center '>
                 
                  <InnerImageZoom
-  src={src}
+  src={src??""}
   hasSpacer={true}
   zoomType='hover'
-  
-  className='w-full h-auto  object-cover'
+          imgAttributes={{
+         className:"w-full h-full object-cover"
+       }}
+          className='w-full h-full  object-cover '
+          zoomPreload
   />
           </div>  
   </Skeleton>

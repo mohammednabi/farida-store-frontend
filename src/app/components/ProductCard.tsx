@@ -8,6 +8,8 @@ import { Button, Image } from '@nextui-org/react';
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+
 
 import Icon from '../../components/Icon';
 import Rating from '../../components/Rating';
@@ -28,6 +30,7 @@ const ProductCard = ({product,isSale,isBestSeller,isTopDeal}:productCardProps) =
     
     const {cart,wishlist} = useContext(StoreContext)
 const [foundInWishlist,setFoundInWishlist] = useState(wishlist.isInWishlist(product.id) )
+const [foundInCart,setFoundInCart] = useState(cart.isInCart(product.id) )
 
 
     const addProductToCart = ()=>{
@@ -48,8 +51,13 @@ cart.addProduct({...product,quantity:1})
 
     useEffect(() => {
         setFoundInWishlist(wishlist.isInWishlist(product.id))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[ wishlist.items])
     
+    useEffect(() => {
+        setFoundInCart(cart.isInCart(product.id))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[cart.cartProducts])
 
 
   return (
@@ -106,11 +114,11 @@ cart.addProduct({...product,quantity:1})
                   </div>
               </div>
               
-              <Button className=' h-16 bg-mainPink text-mainWhite w-full rounded-md transition-all hover:bg-mainPink/90'
-                  endContent={<AiOutlineShoppingCart />}
+              <Button className={`h-16 ${foundInCart?`bg-emerald-500`:`bg-mainPink`} text-mainWhite w-full rounded-md transition-all capitalize hover:bg-mainPink/90`}
+                  endContent={foundInCart?<FaCheck /> :<AiOutlineShoppingCart />}
                   size='lg'
                   
-                  onClick={addProductToCart}>add to cart</Button>
+                  onClick={addProductToCart}>{foundInCart?"added":"add"} to cart</Button>
           </div>
          
    </div>

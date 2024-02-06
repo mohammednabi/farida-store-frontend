@@ -73,6 +73,20 @@ export class CartStore {
     this.totalPrice = 0;
   };
 
+  // is founded in the cart
+
+  isInCart(productId: string) {
+    const allCartProducts: cartProduct[] = JSON.parse(
+      localStorage.getItem("cart") ?? "[]"
+    );
+
+    const founded = allCartProducts.find((product) => {
+      return product.id === productId;
+    });
+
+    return founded;
+  }
+
   // get total products prices
 
   getTotalPrice() {

@@ -11,6 +11,7 @@ import { CartSidebarStore } from "./cartSidebarStore";
 import { FilterSidebarStore } from "./filterSidebarStore";
 import { ProductsView } from "./productsViewStore";
 import { SearchBoxStore } from "./searchBoxStore";
+import { WishListStore } from "./wishListStore";
 
 
 // cart store instance 
@@ -49,6 +50,10 @@ const allProducts = new ProductsStore()
 
 const productsViewStyle = new ProductsView()
 
+// products view style store
+
+const wishlistProducts = new WishListStore()
+
 // ==========================================================
 // this object is for all stores that will for all states
 
@@ -61,7 +66,8 @@ export const store ={
 products:allProducts,
     filter: filterSidebarInstance,
     viewStyle: productsViewStyle,
-    searchBox:searchBoxInstance
+    searchBox: searchBoxInstance,
+    wishlist:wishlistProducts
 }
 
 interface indexChildren {

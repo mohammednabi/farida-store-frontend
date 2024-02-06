@@ -4,7 +4,7 @@ import React, { ReactElement } from 'react'
 import { AiOutlineSearch } from "react-icons/ai";
 import { IconType } from 'react-icons/lib';
 import {motion} from "framer-motion"
-
+import { observer } from 'mobx-react-lite';
 
 type color = "mainPink"|"mainWhite"|"mainDarkBlue"|"mainBlack"|"mainGray"|"transparent"
 
@@ -56,4 +56,4 @@ const Icon = ({ icon, size, color, hasBorder = false, borderColor="mainGray" ,co
   )
 }
 
-export default Icon 
+export default observer(Icon) 

@@ -3,6 +3,7 @@ import Icon from '@/components/Icon'
 import Rating from '@/components/Rating'
 import { StoreContext } from '@/contexts/StoreContext'
 import { product } from '@/stores/productsStore'
+import { strapiProductType } from '@/stores/specificTypes/strapiProductType'
 import { Button, Image } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -15,7 +16,7 @@ import { FaCheck } from "react-icons/fa";
 
 interface rawProductProps{
  
-    product:product
+    product:strapiProductType
     isSale?: boolean
     isBestSeller?:boolean
     isTopDeal?:boolean
@@ -23,7 +24,7 @@ interface rawProductProps{
 
 const RawProductCard = ({product,isSale,isBestSeller,isTopDeal}:rawProductProps) => {
 
-  const { cart, wishlist } = useContext(StoreContext)
+  const { products,cart, wishlist } = useContext(StoreContext)
 
   const [foundInWishlist, setFoundInWishlist] = useState(wishlist.isInWishlist(product.id))
   const [foundInCart,setFoundInCart] = useState(cart.isInCart(product.id) )
@@ -34,31 +35,36 @@ const [counter,setCounter] = useState(1)
   const increase = ()=>{setCounter((c)=>c+1)}
   const decrease = ()=>{counter>1 && setCounter((c)=>c-1)}
 
-    const addProductToCart = ()=>{
-cart.addProduct({...product,quantity:counter})
-  }
+//     const addProductToCart = ()=>{
+// cart.addProduct({...product,quantity:counter})
+//   }
   
-    const addProducToWishlist=()=>{
-    wishlist.addToWishlist(product)
-  }
+  //   const addProducToWishlist=()=>{
+  //   wishlist.addToWishlist(product)
+  // }
   
-   const removeProductFromWishlist=()=>{
-        wishlist.removeFromWishlist(product.id)
-    }
+  //  const removeProductFromWishlist=()=>{
+  //       wishlist.removeFromWishlist(product.id)
+  //   }
     
     
-   useEffect(() => {
-     setFoundInWishlist(wishlist.isInWishlist(product.id))
+  //  useEffect(() => {
+  //    setFoundInWishlist(wishlist.isInWishlist(product.id))
 
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [wishlist.items])
+  //    // eslint-disable-next-line react-hooks/exhaustive-deps
+  //  }, [wishlist.items])
   
-   useEffect(() => {
-     setFoundInCart(cart.isInCart(product.id))
+  //  useEffect(() => {
+  //    setFoundInCart(cart.isInCart(product.id))
      
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[cart.cartProducts])
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  //   },[cart.cartProducts])
     
+
+   const getPriceAfterDiscount = () => {
+   return   products.getPriceAfterDiscount(product.attributes.discount.data,product.attributes.price)
+        
+   }
 
 
   return (
@@ -79,7 +85,7 @@ cart.addProduct({...product,quantity:counter})
               <Link href={`/product/${product.id}`} className='transition-all  w-full aspect-square flex items-center justify-center  '>
               <Image
                 //   as={NextImage}
-                  src={product.images.thumbnail.url}
+                 src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
                   width={500}
                   height={500}
                 //   quality={100}
@@ -92,11 +98,11 @@ cart.addProduct({...product,quantity:counter})
 
 
       <div className='flex flex-col gap-3 py-5'>
-        <h1 className='text-2xl h-[8rem]  w-full line-clamp-4'>{product.title }</h1>
+        <h1 className='text-2xl h-[8rem]  w-full line-clamp-4'>{product.attributes.title }</h1>
         <div className='flex items-center gap-2'>
 
-          <Rating rating={product.rating.averageRate} />
-          <h1>({product.rating.ratings.length})</h1>
+          <Rating rating={products.getAverageRatings(product.attributes.reviews.data)} />
+          <h1>({product.attributes.reviews.data.length})</h1>
         </div>
 
         <div className='flex items-center justify-between'>
@@ -107,25 +113,29 @@ cart.addProduct({...product,quantity:counter})
           <button disabled={foundInCart?true:false} className={`p-3 ${foundInCart?`border-mainBlack/20 text-mainBlack/20 `:`border-mainBlack`} border-1 border-solid text-xl`} onClick={decrease} >-</button>
         </div>
   <div className='  flex justify-center items-center '>
-            { !foundInWishlist ?<Icon size='3xl' icon={<FaRegHeart />}  whenClick={addProducToWishlist} />
-             : <Icon size='3xl' icon={<FaHeart className='text-mainPink' />}  whenClick={removeProductFromWishlist} />}
+            {!foundInWishlist ? <Icon size='3xl' icon={<FaRegHeart />}
+              // whenClick={addProducToWishlist}
+            />
+              : <Icon size='3xl' icon={<FaHeart className='text-mainPink' />}
+                // whenClick={removeProductFromWishlist}
+              />}
           </div>
         </div>
 
          <div className='flex items-center gap-5'>
                           
-                          <div className='relative '>
+                       { getPriceAfterDiscount() &&    <div className='relative '>
                               <div className='absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3'/>
-            <h2 className='text-2xl text-mainBlack/30 font-bold  text-center'>{ product.price.prePrice}$</h2>
-                          </div>
-          <h2 className='text-2xl text-mainBlack/70 font-bold'>{product.price.currentPrice }$</h2>
+            <h2 className='text-2xl text-mainBlack/30 font-bold  text-center'>{ product.attributes.price.toFixed(2)  }$</h2>
+                          </div>}
+          <h2 className='text-2xl text-mainBlack/70 font-bold'>{getPriceAfterDiscount()?getPriceAfterDiscount():product.attributes.price.toFixed(2) }$</h2>
                       </div>
         
  <Button className={`h-16 ${foundInCart?`bg-emerald-500`:`bg-mainPink`} text-mainWhite w-full rounded-md transition-all capitalize hover:bg-mainPink/90`}
                     endContent={foundInCart?<FaCheck /> :<AiOutlineShoppingCart />}
                   size='lg'
                   
-          onClick={addProductToCart}
+          // onClick={addProductToCart}
         
         >{foundInCart?"added":"add"} to cart</Button>
 

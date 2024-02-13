@@ -17,7 +17,7 @@ const GridStyleView = () => {
 
     return (
   <>
-      {products.products ? <div className='w-full min-h-[200vh] grid grid-cols-4 gap-10 px-28 py-0'>
+      {products.products?.length > 0   ? <div className='w-full min-h-[200vh] grid grid-cols-4 gap-10 px-28 py-0'>
 
    
         { products.products?.map((product) => (

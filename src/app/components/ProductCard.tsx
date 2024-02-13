@@ -16,10 +16,11 @@ import Rating from '../../components/Rating';
 import Link from 'next/link';
 import { product } from '@/stores/productsStore';
 import { observer } from 'mobx-react-lite';
+import { strapiProductType } from '@/stores/specificTypes/strapiProductType';
 
 
 interface productCardProps{
-    product:product
+    product:strapiProductType
     isSale?: boolean
     isBestSeller?:boolean
     isTopDeal?:boolean
@@ -28,36 +29,55 @@ interface productCardProps{
 
 const ProductCard = ({product,isSale,isBestSeller,isTopDeal}:productCardProps) => {
     
-    const {cart,wishlist} = useContext(StoreContext)
+    const {products,cart,wishlist} = useContext(StoreContext)
 const [foundInWishlist,setFoundInWishlist] = useState(wishlist.isInWishlist(product.id) )
 const [foundInCart,setFoundInCart] = useState(cart.isInCart(product.id) )
 
 
-    const addProductToCart = ()=>{
+//     const addProductToCart = ()=>{
 
         
 
-cart.addProduct({...product,quantity:1})
-    }
+// cart.addProduct({...product,quantity:1})
+//     }
 
-    const addProducToWishlist=()=>{
-    wishlist.addToWishlist(product)
-    }
+    // const addProducToWishlist=()=>{
+    // wishlist.addToWishlist(product)
+    // }
 
-    const removeProductFromWishlist=()=>{
-        wishlist.removeFromWishlist(product.id)
-    }
+    // const removeProductFromWishlist=()=>{
+    //     wishlist.removeFromWishlist(product.id)
+    // }
     
 
-    useEffect(() => {
-        setFoundInWishlist(wishlist.isInWishlist(product.id))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[ wishlist.items])
+    // const getAverageRatings = () => {
+    //     let sum = 0 
+    //     let avg = 0 
+    //     product.attributes.reviews.data.map((p) => {
+    //     sum = sum + p.attributes.rating
+    //     })
+
+    //     avg =  sum / product.attributes.reviews.data.length
+        
+    //     return avg
+
+    // }
     
-    useEffect(() => {
-        setFoundInCart(cart.isInCart(product.id))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[cart.cartProducts])
+
+    const getPriceAfterDiscount = () => {
+   return   products.getPriceAfterDiscount(product.attributes.discount.data,product.attributes.price)
+        
+   }
+
+    // useEffect(() => {
+    //     setFoundInWishlist(wishlist.isInWishlist(product.id))
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[ wishlist.items])
+    
+    // useEffect(() => {
+    //     setFoundInCart(cart.isInCart(product.id))
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // },[cart.cartProducts])
 
 
   return (
@@ -73,13 +93,17 @@ cart.addProduct({...product,quantity:1})
               <h1 className='text-center text-lg'>best seller</h1>
           </div>}
           <div className='  absolute top-0 right-0 z-20 flex justify-center items-center '>
-         { !foundInWishlist ? <Icon icon={<FaRegHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder whenClick={addProducToWishlist} />
-             : <Icon icon={<FaHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder  whenClick={removeProductFromWishlist} />}
+              {!foundInWishlist ? <Icon icon={<FaRegHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder
+                //   whenClick={addProducToWishlist}
+              />
+                  : <Icon icon={<FaHeart className='text-mainPink ' />} backColor='#ffffff' hasBorder
+                    //   whenClick={removeProductFromWishlist}
+                  />}
           </div>
               <Link href={`/product/${product.id}`} className='transition-all overflow-hidden  w-full  aspect-square flex items-center justify-center  '>
               <Image
                 //   as={NextImage}
-                  src={product.images.thumbnail.url}
+                 src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
              
                   radius='sm'
                 //   quality={100}
@@ -93,23 +117,23 @@ cart.addProduct({...product,quantity:1})
               
               <div className='flex flex-col gap-3'>
                   
-                  <h1 className='text-2xl h-[8rem]  line-clamp-4'>{product.title} </h1>
+                  <h1 className='text-2xl h-[8rem]  line-clamp-4'>{product.attributes.title} </h1>
                   <div className='flex flex-col gap-1'>
                       
                       
                       <div className='flex items-center gap-2'>
                           
 
-                          <Rating rating={product.rating.averageRate}/>
-                          <h1 className='text-mainBlack/50'>({product.rating.ratings.length})</h1>
+                          <Rating rating={products.getAverageRatings(product.attributes.reviews.data)}/>
+                          <h1 className='text-mainBlack/50'>({product.attributes.reviews.data.length})</h1>
                       </div>
                       <div className='flex items-center gap-5'>
                           
-                          <div className='relative '>
+                     { getPriceAfterDiscount() &&    <div className='relative '>
                               <div className='absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3'/>
-                              <h2 className='text-2xl text-mainBlack/30 font-bold  text-center'>{product.price.prePrice }$</h2>
-                          </div>
-                          <h2 className='text-2xl text-mainBlack/70 font-bold'>{product.price.currentPrice }$</h2>
+                              <h2 className='text-2xl text-mainBlack/30 font-bold  text-center'>{ product.attributes.price.toFixed(2)  }$</h2>
+                          </div>}
+                          <h2 className='text-2xl text-mainBlack/70 font-bold'>{getPriceAfterDiscount()?getPriceAfterDiscount():product.attributes.price.toFixed(2) }$</h2>
                       </div>
                   </div>
               </div>
@@ -118,7 +142,10 @@ cart.addProduct({...product,quantity:1})
                   endContent={foundInCart?<FaCheck /> :<AiOutlineShoppingCart />}
                   size='lg'
                   
-                  onClick={addProductToCart}>{foundInCart?"added":"add"} to cart</Button>
+                //   onClick={addProductToCart}
+              >
+                  {foundInCart ? "added" : "add"} to cart
+              </Button>
           </div>
          
    </div>

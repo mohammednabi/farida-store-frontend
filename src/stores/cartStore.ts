@@ -47,7 +47,7 @@ export class CartStore {
 
   // delete product from cart
 
-  deleteProduct = (productId: string) => {
+  deleteProduct = (productId: number) => {
     let allCartProducts: cartProduct[] = JSON.parse(
       localStorage.getItem("cart") ?? "[]"
     );
@@ -75,7 +75,7 @@ export class CartStore {
 
   // is founded in the cart
 
-  isInCart(productId: string) {
+  isInCart(productId: number) {
     const allCartProducts: cartProduct[] = JSON.parse(
       localStorage.getItem("cart") ?? "[]"
     );
@@ -100,7 +100,7 @@ export class CartStore {
 
   // change the quantity of the cart product
 
-  changeQuantity(productId: string, newQuantity: number) {
+  changeQuantity(productId: number, newQuantity: number) {
     const parsedCart: cartProduct[] = JSON.parse(
       localStorage.getItem("cart") ?? "[]"
     );

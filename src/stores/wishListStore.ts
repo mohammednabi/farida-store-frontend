@@ -26,7 +26,7 @@ export class WishListStore {
     }
   }
 
-  removeFromWishlist(productId: string) {
+  removeFromWishlist(productId: number) {
     const allWishlistProducts: product[] = JSON.parse(
       localStorage.getItem("wishlist") ?? "[]"
     );
@@ -44,7 +44,7 @@ export class WishListStore {
     this.itemsCount = 0;
   }
 
-  isInWishlist(productId: string) {
+  isInWishlist(productId: number) {
     const allWishlistProducts: product[] = JSON.parse(
       localStorage.getItem("wishlist") ?? "[]"
     );

@@ -18,7 +18,9 @@ const RowStyleView = () => {
   return (
       <>
           {/* <div className='w-full min-h-[200vh] grid grid-cols-4 gap-10 px-28 py-0'></div> */}
-         {products.products ? <div className='min-h-[200vh] w-full h-auto grid grid-cols-2 gap-10 px-28 py-0'>
+         {products.products ?
+         
+        <div className='min-h-[200vh] w-full h-auto grid grid-cols-2 gap-10 px-28 py-0'>
 
    
         { products.products?.map((product) => (

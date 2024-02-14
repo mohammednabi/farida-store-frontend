@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 
 import Image from 'next/image'
 
@@ -5,23 +6,26 @@ import React from 'react'
 import { Sliderify } from "react-sliderify";
 
 
-const SliderProduct = () => {
+interface sliderProductProps{
+  img: string
+  title:string
+}
+
+const SliderProduct = ({img,title}:sliderProductProps) => {
  
   return (
     <div className='bg-white min-w-[30rem] h-auto flex items-center p-5 gap-10'>
-      <div className='w-40 aspect-square'>
+      <div className='w-24 aspect-square flex items-center justify-center'>
 
-        <Image
-          src='/download.png'
-          alt='fridge image'
-          width={100}
-          height={100}
-          quality={100}
+        <img
+          src={`${process.env.NEXT_PUBLIC_HOST}${img}`}
+          alt='product image'
+         
         className='w-full object-cover '
         />
 </div>
 
-      <h1 className='text-3xl capitalize'>product</h1>
+      <h1 className='text-3xl capitalize'>{title }</h1>
 
      
     </div>

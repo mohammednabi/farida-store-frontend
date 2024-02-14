@@ -9,11 +9,7 @@ const RowStyleView = () => {
 
     const {products} = useContext(StoreContext)
 
-      useEffect(() => {
-  products.getAllProducts()
-
-  
-},[products])
+   
 
   return (
       <>

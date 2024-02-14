@@ -73,9 +73,22 @@ export type product = {
   colors?: color[];
 };
 
+export type Pagination = {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+};
+
 export class ProductsStore {
   // products?: product[] = [];
   products: strapiProductType[] = [];
+  pagination: Pagination = {
+    page: 1,
+    pageSize: 12,
+    pageCount: 1,
+    total: 1,
+  };
 
   targetProduct?: product = {
     id: 0,
@@ -215,13 +228,14 @@ export class ProductsStore {
     };
 
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       options
     )
       .then((res) => res.json())
       .then((data) => {
         console.log("this is the data of the promise we get : ", data);
         this.products = data.data;
+        this.pagination = data.meta.pagination;
       })
       .catch((err) => console.log(err));
   };
@@ -246,5 +260,12 @@ export class ProductsStore {
     } else {
       return null;
     }
+  }
+
+  setPaginationPage(val: number) {
+    this.pagination = {
+      ...this.pagination,
+      page: val,
+    };
   }
 }

@@ -9,11 +9,7 @@ const GridStyleView = () => {
 
     const { products } = useContext(StoreContext)
     
-      useEffect(() => {
-  products.getAllProducts()
-
-  
-},[products])
+     
 
     return (
   <>

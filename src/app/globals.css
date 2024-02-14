@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --swiper-theme-color: #e5087e !important;
+}
+
 body {
   @apply bg-mainWhite scroll-smooth;
 }

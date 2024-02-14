@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-/* styles of all elements */
+
+:root {
+  --swiper-theme-color: #e5087e !important;
+}
+
 
 body {
   @apply bg-mainWhite scroll-smooth;

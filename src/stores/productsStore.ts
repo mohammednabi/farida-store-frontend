@@ -210,7 +210,7 @@ export class ProductsStore {
       headers: {
         "Content-Type": "application/json",
         Authorization:
-          "Bearer ebbb14213da379224bf0f253d64b7b60e6e846b7b4aa765b463c87d040f7ed18abbcc3a576e14c2c6df028a6c6af75057e9132be125242ea99d10360a1d26703728b67576d9ef4b88913c48477a0e014640d13c56c2d4f84eeec830cae7fd6781ea35b4183738faecb88ca67b8231ed953e247cebf06c68042537a95bee7e91f ",
+          "Bearer 71626ce261d5c9478bea67fac56a43f6f7022b0ca56cae14c0f6a6cad41e69a23aa8c59a01e532651914afea91f9ba7dce303070afb7a789d2a84c3a93e0d0bd13e75981d0d5faba0e6091a1a28a170a278bdd4b5426232d3b2bbab440cc70bb83d8bffe70b95dee1e8df22b2ecf6642c46e7f7ea12cbddf37286d5625ab3c71 ",
       },
     };
 

@@ -13,6 +13,7 @@ export type ProductAttributes = {
   publishedAt: Date;
   thumbnail: Thumbnail;
   images: Images;
+  type: "none" | "sale" | "deal" | "best_seller";
   inventory: Inventory;
   category: Category;
   reviews: Reviews;

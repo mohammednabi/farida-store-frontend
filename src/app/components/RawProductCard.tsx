@@ -2,7 +2,7 @@
 import Icon from '@/components/Icon'
 import Rating from '@/components/Rating'
 import { StoreContext } from '@/contexts/StoreContext'
-import { product } from '@/stores/productsStore'
+
 import { strapiProductType } from '@/stores/specificTypes/strapiProductType'
 import { Button, Image } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite'
@@ -72,13 +72,13 @@ const [counter,setCounter] = useState(1)
 
       <div className='relative w-full h-auto'>
 
-  {isSale &&!isBestSeller &&!isTopDeal && <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-red-700 text-white flex justify-center items-center '>
+  {product.attributes.type === "sale" && <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-red-700 text-white flex justify-center items-center '>
               <h1 className='text-center text-lg'>sale</h1>
           </div>}
-              {isTopDeal && !isSale && !isBestSeller &&    <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-green-700 text-white flex justify-center items-center '>
+              {product.attributes.type === "deal" &&    <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-green-700 text-white flex justify-center items-center '>
               <h1 className='text-center text-lg'>top deal</h1>
           </div> }
-      {isBestSeller && !isSale && !isTopDeal &&           <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-yellow-700 text-white flex justify-center items-center '>
+      {product.attributes.type === "best_seller" &&           <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-yellow-700 text-white flex justify-center items-center '>
               <h1 className='text-center text-lg'>best seller</h1>
           </div>}
         

@@ -147,6 +147,7 @@ export class ProductsStore {
       colors: {
         data: [],
       },
+      type: "none",
     },
   };
   pagination: Pagination = {

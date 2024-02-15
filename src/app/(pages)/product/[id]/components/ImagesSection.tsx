@@ -3,71 +3,33 @@ import { Image } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 
 import ZoomedImage from './ZoomedImage';
-import { imgType } from '@/stores/productsStore';
+
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'next/navigation';
+import { Images, ImagesData } from '@/stores/specificTypes/strapiProductType';
 
 
 
 interface imagesProps{
-    allImages?: {
-        thumbnail: imgType
-        images :imgType[] 
-}
+   allImages:Images
 }
 
 const ImagesSection = ({ allImages }: imagesProps) => {
     
-//     const [images,setImages] = React.useState<any>()
-//     const [selectedImage, setSelectedImage] = React.useState<any>({id:"",url:""})
-    
-//     const pageParams = useParams()
 
-
-//     const filteredImages = React.useMemo(() => {
-
-       
-//         return images?.filter((img: { id: any; }) => {
-//             if ( img?.id !== selectedImage?.id) {
-                
-//                 return img
-//             }
-                
-//         })
-       
-        
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//     }, [allImages?.thumbnail.id, selectedImage?.id,pageParams.id])
     
-//     useEffect(() => {
-
-//         if (selectedImage.id === "") {
-    
-//             setSelectedImage(allImages?.thumbnail)
-
-//             setImages([allImages?.thumbnail,...(allImages?.images || [])])
-// }
-//   // eslint-disable-next-line react-hooks/exhaustive-deps
-//   },[ allImages?.thumbnail.id, selectedImage.id,pageParams.id])
-    
-    
-    
-    // const images: imgType[] = [] 
-    
-    const [images, setImages] = useState<imgType[]>([])
-    const [selectedImage,setSelectedImage] = useState<imgType>({id:"",url:""})
+  
+    const [selectedImage,setSelectedImage] = useState<ImagesData>(allImages.data[0])
 
     
     
     useEffect(() => {
-        // images.push(allImages?.thumbnail ?? {} as imgType)
-        // images.push(...allImages?.images ?? [])
-        
-        setImages([allImages?.thumbnail ?? { id: "", url: "" }, ...allImages?.images ?? []])
-        setSelectedImage(allImages?.thumbnail ?? { id: "", url: "" })
+    
+
+        setSelectedImage(allImages.data[0])
         
 
-    },[allImages?.thumbnail.id])
+    },[allImages.data])
     
 
 
@@ -75,7 +37,9 @@ const ImagesSection = ({ allImages }: imagesProps) => {
       <div className='flex flex-col gap-5'>
         
               
-           <ZoomedImage src={selectedImage.url}/>
+          <ZoomedImage
+              src={`${process.env.NEXT_PUBLIC_HOST}${selectedImage?.attributes.url}`}
+          />
 
           
          
@@ -83,11 +47,11 @@ const ImagesSection = ({ allImages }: imagesProps) => {
    
                  
            <div className='grid grid-cols-5 gap-2  '>
-              {images?.map((img) => (
-                  <div key={img.id} className={`w-full aspect-square  transition-all bg-mainGray border-dashed border-2 ${img.id===selectedImage.id?"border-mainBlack":"border-mainGray"} hover:border-mainPink p-2 flex items-center justify-center rounded-md cursor-pointer`}
+              {allImages.data?.map((img) => (
+                  <div key={img.id} className={`w-full aspect-square  transition-all bg-mainGray border-solid border-2 ${img.id===selectedImage?.id?"border-mainBlack":"border-mainGray"} hover:border-mainPink p-2 flex items-center justify-center rounded-md cursor-pointer`}
                   onClick={()=>{setSelectedImage(img)}}
                   >
-                      <Image src={img.url } alt='' className='w-full h-auto aspect-square object-contain'/>
+                      <Image src={`${process.env.NEXT_PUBLIC_HOST}${img.attributes.url}` } alt='' className='w-full h-auto aspect-square object-contain'/>
               </div>     
               ))}
              

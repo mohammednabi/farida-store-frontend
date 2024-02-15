@@ -60,6 +60,7 @@ export type FluffyAttributes = {
 };
 
 export type Images = {
+  thumbnail: { id: string; url: string };
   data: ImagesData[];
 };
 

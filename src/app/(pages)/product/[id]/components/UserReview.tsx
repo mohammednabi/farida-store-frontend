@@ -1,6 +1,6 @@
 "use client"
 import { Avatar, Skeleton } from '@nextui-org/react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { FaUserLarge } from "react-icons/fa6";
 
@@ -8,7 +8,7 @@ import Rating from '@/components/Rating';
 
 
 interface userProps {
-    id?: string
+    id?: number
     name:string
     date?:Date
     rating:number
@@ -18,6 +18,10 @@ interface userProps {
 
 const UserReview = ({id,name,date,rating,review,userAvatar}:userProps) => {
 
+
+    const formattedDate = new Date(date??"").toLocaleDateString()
+
+ 
     
 
   return (
@@ -38,8 +42,9 @@ const UserReview = ({id,name,date,rating,review,userAvatar}:userProps) => {
                   <Skeleton isLoaded={name.length !==0} className='w-max'>
                       
                   <div className='flex items-center gap-2'>
-                      <h1 className='text-xl'>{name }</h1>
-                      <h1 className='text-sm text-mainBlack/50'>{date?.toLocaleDateString() }</h1>
+                          <h1 className='text-xl'>{name}</h1>
+                          
+                      <h1 className='text-sm text-mainBlack/50'>{formattedDate }</h1>
                   </div>
                   </Skeleton>
                   <Skeleton isLoaded={rating !==0} className='w-max'>

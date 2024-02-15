@@ -14,7 +14,7 @@ import { FaCheck } from "react-icons/fa";
 import Icon from '../../components/Icon';
 import Rating from '../../components/Rating';
 import Link from 'next/link';
-import { product } from '@/stores/productsStore';
+
 import { observer } from 'mobx-react-lite';
 import { strapiProductType } from '@/stores/specificTypes/strapiProductType';
 
@@ -34,50 +34,13 @@ const [foundInWishlist,setFoundInWishlist] = useState(wishlist.isInWishlist(prod
 const [foundInCart,setFoundInCart] = useState(cart.isInCart(product.id) )
 
 
-//     const addProductToCart = ()=>{
-
-        
-
-// cart.addProduct({...product,quantity:1})
-//     }
-
-    // const addProducToWishlist=()=>{
-    // wishlist.addToWishlist(product)
-    // }
-
-    // const removeProductFromWishlist=()=>{
-    //     wishlist.removeFromWishlist(product.id)
-    // }
-    
-
-    // const getAverageRatings = () => {
-    //     let sum = 0 
-    //     let avg = 0 
-    //     product.attributes.reviews.data.map((p) => {
-    //     sum = sum + p.attributes.rating
-    //     })
-
-    //     avg =  sum / product.attributes.reviews.data.length
-        
-    //     return avg
-
-    // }
-    
 
     const getPriceAfterDiscount = () => {
    return   products.getPriceAfterDiscount(product.attributes.discount.data,product.attributes.price)
         
    }
 
-    // useEffect(() => {
-    //     setFoundInWishlist(wishlist.isInWishlist(product.id))
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // },[ wishlist.items])
-    
-    // useEffect(() => {
-    //     setFoundInCart(cart.isInCart(product.id))
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // },[cart.cartProducts])
+ 
 
 
   return (

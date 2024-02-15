@@ -5,17 +5,17 @@ import {Tabs, Tab, Chip} from "@nextui-org/react";
 import { VscPreview } from "react-icons/vsc";
 import { MdOutlineDescription } from "react-icons/md";
 import UserReview from './UserReview';
-import { userRate } from '@/stores/productsStore';
+import { strapiProductType } from '@/stores/specificTypes/strapiProductType';
+
 
 
 
 interface reviewProps {
-  description?: string
-  ratings?:userRate[]
+product:strapiProductType
 }
 
 
-const ReviewsSection = ({description,ratings}:reviewProps) => {
+const ReviewsSection = ({product}:reviewProps) => {
 
 
 
@@ -44,7 +44,7 @@ const ReviewsSection = ({description,ratings}:reviewProps) => {
             <div className="flex items-center space-x-2">
             <VscPreview className='text-2xl'/>
               <span className='text-2xl'>Reviews</span>
-                  <Chip size="md" variant="shadow" className='bg-mainDarkBlue text-mainWhite'>{ratings?.length }</Chip>
+                  <Chip size="md" variant="shadow" className='bg-mainDarkBlue text-mainWhite'>{product.attributes.reviews.data.length }</Chip>
             </div>
           }
                        onClick={(e) => {
@@ -52,9 +52,15 @@ const ReviewsSection = ({description,ratings}:reviewProps) => {
                       }}
                   >
                       <div className='flex flex-col gap-5 pt-5'>
-              {ratings?.map((r) => (
+              {product.attributes.reviews.data?.map((r) => (
                   <div key={r.id} >
-                      <UserReview userAvatar={""} review={r.rateDescription} name={r.rateTitle} rating={r.rateValue}  id={r.userId } />
+                      <UserReview 
+                      userAvatar={""} 
+                      review={r.attributes.description} 
+                    name={r.attributes.title}
+                    rating={r.attributes.rating}
+                    date={r.attributes.createdAt}
+                    id={r.id} />
                       <Divider />
                       
                   </div>
@@ -81,14 +87,14 @@ const ReviewsSection = ({description,ratings}:reviewProps) => {
                   >
                     <div className='flex flex-col gap-3'>
               
-              <Skeleton isLoaded={description?.length !==0} className='w-max'>
+              <Skeleton isLoaded={product.attributes.description.length !==0} className='w-max'>
 
           <h1 className='capitalize text-xl font-semibold'>description :-</h1>
               </Skeleton>
     
-              <Skeleton isLoaded={description?.length !==0}>
+              <Skeleton isLoaded={product.attributes.description.length !==0}>
 
- <h1  className='text-xl '>{description?description:"slkdslk"}</h1>
+ <h1  className='text-xl '>{product.attributes.description?product.attributes.description:"slkdslk"}</h1>
               </Skeleton>
 
               </div>

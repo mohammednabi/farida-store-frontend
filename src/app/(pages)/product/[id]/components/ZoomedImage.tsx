@@ -14,16 +14,17 @@ const ZoomedImage = ({src}:zoomProps) => {
 
    <div
              
-             className='w-full h-auto  flex justify-center items-center '>
+             className='w-full h-auto transition-[height]  flex justify-center items-center '>
                 
                  <InnerImageZoom
-  src={src??""}
+          src={src ?? ""}
+          
   hasSpacer={true}
   zoomType='hover'
           imgAttributes={{
-         className:"w-full h-full object-cover"
+         className:"w-full h-full object-cover transition-[height]"
        }}
-          className='w-full h-full  object-cover '
+          className='w-full h-full  object-cover  transition-[height]'
           zoomPreload
   />
           </div>  

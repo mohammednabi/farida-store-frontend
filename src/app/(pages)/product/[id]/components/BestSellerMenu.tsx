@@ -1,19 +1,33 @@
 "use client"
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import BestProduct from './BestProduct'
 import { Divider } from '@nextui-org/react'
+import { StoreContext } from '@/contexts/StoreContext'
+import { observer } from 'mobx-react-lite'
 
 const BestSellerMenu = () => {
 
-    const products:number[] =[1,1,1,1,1,1,11,1,1,1,1,1,1,1,1,1]
+    // const products: number[] = [1, 1, 1, 1, 1, 1, 11, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    
+    const {products} = useContext(StoreContext)
+
+    useEffect(()=>{
+        products.getBestSellerProducts()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
   return (
       <div className='w-full h-auto border-2 border-mainGray border-solid'>
-          {products.map((p,i) => (
+          {products.bestSellerProducts.map((p) => (
               
-              <div key={i}>
+              <div key={p.id}>
                   
-                  <BestProduct id={`${i}`} imageUrl='/fridge2.webp' title='Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops' price={500} prePrice={800} />
+                  <BestProduct
+                      id={`${p.id}`}
+                      imageUrl={`${process.env.NEXT_PUBLIC_HOST}${p.attributes.thumbnail.data.attributes.url}`}
+                      title={p.attributes.title}
+                      price={p.attributes.price}
+                      prePrice={products.getPriceAfterDiscount(p.attributes.discount.data,p.attributes.price)??0} />
                   <Divider />
               </div>
           ))}
@@ -21,4 +35,4 @@ const BestSellerMenu = () => {
   )
 }
 
-export default BestSellerMenu
+export default observer(BestSellerMenu)

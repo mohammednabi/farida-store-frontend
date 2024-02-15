@@ -46,13 +46,13 @@ const [foundInCart,setFoundInCart] = useState(cart.isInCart(product.id) )
   return (
       <div className='relative flex flex-col w-full '>
           
-         {isSale &&!isBestSeller &&!isTopDeal && <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-red-700 text-white flex justify-center items-center '>
+         {product.attributes.type ==="sale" && <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-red-700 text-white flex justify-center items-center '>
               <h1 className='text-center text-lg'>sale</h1>
           </div>}
-              {isTopDeal && !isSale && !isBestSeller &&    <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-green-700 text-white flex justify-center items-center '>
+              {product.attributes.type ==="deal" &&    <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-green-700 text-white flex justify-center items-center '>
               <h1 className='text-center text-lg'>top deal</h1>
           </div> }
-      {isBestSeller && !isSale && !isTopDeal &&           <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-yellow-700 text-white flex justify-center items-center '>
+      {product.attributes.type ==="best_seller" &&           <div className='  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-yellow-700 text-white flex justify-center items-center '>
               <h1 className='text-center text-lg'>best seller</h1>
           </div>}
           <div className='  absolute top-0 right-0 z-20 flex justify-center items-center '>

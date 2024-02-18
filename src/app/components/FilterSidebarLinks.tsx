@@ -1,52 +1,27 @@
+"use client"
+import { StoreContext } from '@/contexts/StoreContext'
+import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext } from 'react'
 
 const FilterSidebarLinks = () => {
+
+const {categories} = useContext(StoreContext)
+
   return (
-      <div className='flex flex-col gap-3'>
-          <Link href={"#"} className='filter-link'>
+    <div className='flex flex-col gap-3'>
+      
+      {categories.categories.map((cat) => (
         
-        <h1>Smart home devices</h1>
-        <h1>(10)</h1>
+        <Link key={cat.id} href={`/categories/${cat.attributes.name}`} className='filter-link'>
+        
+          <h1>{cat.attributes.name }</h1>
+          <h1>({cat.attributes.products.data.length })</h1>
       </Link>
-      <Link href={"#"} className='filter-link'>
-      <h1>Wearable technology</h1>
-        <h1>(10)</h1>
-      </Link>
-      <Link href={"#"} className='filter-link'>
-      <h1>Gaming peripherals</h1>
-        <h1>(10)</h1>
-      </Link>
-       <Link href={"#"} className='filter-link'>
-      <h1>Gaming peripherals</h1>
-        <h1>(10)</h1>
-      </Link>
-       <Link href={"#"} className='filter-link'>
-      <h1>Gaming peripherals</h1>
-        <h1>(10)</h1>
-      </Link>
-       <Link href={"#"} className='filter-link'>
-      <h1>Gaming peripherals</h1>
-        <h1>(10)</h1>
-      </Link>
-       <Link href={"#"} className='filter-link'>
-      <h1>Gaming peripherals</h1>
-        <h1>(10)</h1>
-      </Link>
-       <Link href={"#"} className='filter-link'>
-      <h1>Gaming peripherals</h1>
-        <h1>(10)</h1>
-      </Link>
-       <Link href={"#"} className='filter-link'>
-      <h1>Gaming peripherals</h1>
-        <h1>(10)</h1>
-      </Link>
-       <Link href={"#"} className='filter-link'>
-      <h1>Gaming peripherals</h1>
-        <h1>(10)</h1>
-      </Link>
+            ))}
+ 
               </div>
   )
 }
 
-export default FilterSidebarLinks
+export default observer(FilterSidebarLinks)

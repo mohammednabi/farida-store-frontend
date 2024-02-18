@@ -29,6 +29,7 @@ export type Pagination = {
 
 export class ProductsStore {
   products: strapiProductType[] = [];
+  // sortedProducts:strapiProductType[]=[]
   bestSellerProducts: strapiProductType[] = [];
   saleProducts: strapiProductType[] = [];
   dealProducts: strapiProductType[] = [];
@@ -204,7 +205,7 @@ export class ProductsStore {
 
   getBestSellerProducts = async () => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=best_seller`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=best_seller&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -214,13 +215,14 @@ export class ProductsStore {
           data
         );
         this.bestSellerProducts = data.data;
+        this.pagination = data.meta.pagination;
       })
       .catch((err) => console.log(err));
   };
 
   getSaleProducts = async () => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=sale`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=sale&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -230,13 +232,14 @@ export class ProductsStore {
           data
         );
         this.saleProducts = data.data;
+        this.pagination = data.meta.pagination;
       })
       .catch((err) => console.log(err));
   };
 
   getDealProducts = async () => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=deal`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=deal&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -246,9 +249,136 @@ export class ProductsStore {
           data
         );
         this.dealProducts = data.data;
+        this.pagination = data.meta.pagination;
       })
       .catch((err) => console.log(err));
   };
+
+  getProductsByFilters = async (
+    sortingType: string,
+    isSalesOnly: boolean,
+    colorName: string,
+    minPrice: string,
+    maxPrice: string
+  ) => {
+    console.log("this is sorting type : ", sortingType);
+    console.log("this is salesonly value : ", isSalesOnly);
+    console.log("this is color name : ", colorName);
+    console.log("this is min price : ", minPrice);
+    console.log("this is max price : ", maxPrice);
+
+    if (sortingType !== "rating") {
+      await fetch(
+        `${
+          process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT
+        }/products/?populate=*&pagination[page]=${
+          this.pagination.page
+        }&pagination[pageSize]=${this.pagination.pageSize}&sort=${sortingType}${
+          minPrice.length > 0 ? `&filters[price][$gt]=${minPrice}` : ``
+        }${maxPrice.length > 0 ? `&filters[price][$lt]=${maxPrice}` : ``}
+        ${
+          colorName.length > 0 ? `&filters[colors][name][$eq]=${colorName}` : ``
+        }
+        ${isSalesOnly ? `&filters[type][$eq]=sale` : ``}`,
+        this.getMethodOptions
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          this.products = data.data;
+          this.pagination = data.meta.pagination;
+        })
+        .catch((err) => console.log(err));
+    } else {
+      await fetch(
+        `${
+          process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT
+        }/products/?populate=*&pagination[page]=${
+          this.pagination.page
+        }&pagination[pageSize]=${this.pagination.pageSize}
+       &filters[price][$gt]=${minPrice}&filters[price][$lt]=${maxPrice}&filters[colors][name][$eq]=${colorName}${
+          isSalesOnly ? `&filters[type][$eq]=sale` : ``
+        }`,
+        this.getMethodOptions
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(
+            "this is the data of the promise we get from deal products : ",
+            data
+          );
+
+          let beforeSortingProducts: strapiProductType[] = [];
+
+          beforeSortingProducts = data.data;
+
+          let productsWithIds: { id: number; averageRating: number }[] = [];
+
+          beforeSortingProducts.forEach((p) => {
+            const newProduct: { id: number; averageRating: number } = {
+              id: p.id,
+              averageRating: this.getAverageRatings(p.attributes.reviews.data),
+            };
+
+            productsWithIds.push(newProduct);
+          });
+
+          let sortedProductsIds = productsWithIds.sort((a, b) => {
+            return b.averageRating - a.averageRating;
+          });
+
+          let finalSortedProducts: strapiProductType[] = [];
+
+          sortedProductsIds.forEach((sP) => {
+            let findedProduct: strapiProductType | undefined =
+              beforeSortingProducts.find((bP) => {
+                return sP.id === bP.id;
+              });
+            finalSortedProducts.push(
+              findedProduct ?? ({} as strapiProductType)
+            );
+          });
+
+          // after finsih sorting
+          this.products = finalSortedProducts;
+          this.pagination = data.meta.pagination;
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  // getProductsByPriceRange = async (minPrice: string, maxPrice: string) => {
+  //   await fetch(
+  //     `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&filters[price][$gt]=${minPrice}&filters[price][$lt]=${maxPrice}`,
+  //     this.getMethodOptions
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(
+  //         "this is the data of the promise we get by price range  : ",
+  //         data
+  //       );
+  //       this.products = data.data;
+  //       this.pagination = data.meta.pagination;
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  // getProductsByColors = async (colorName: string) => {
+  //   await fetch(
+  //     `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&filters[colors][name][$eq]=${colorName}`,
+  //     this.getMethodOptions
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(
+  //         "this is the data of the promise we get by price range  : ",
+  //         data
+  //       );
+  //       this.products = data.data;
+  //       this.pagination = data.meta.pagination;
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   // methods to handle another things far away from api endpoints
 

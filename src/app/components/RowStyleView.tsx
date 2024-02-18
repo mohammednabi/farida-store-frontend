@@ -4,22 +4,25 @@ import React, { useContext, useEffect } from 'react'
 import RawProductCard from './RawProductCard'
 import { Spinner } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite'
+import { useSearchParams } from 'next/navigation'
 
 const RowStyleView = () => {
 
     const {products} = useContext(StoreContext)
 
-   
+     const searchParams = useSearchParams()
+  
+
 
   return (
       <>
           {/* <div className='w-full min-h-[200vh] grid grid-cols-4 gap-10 px-28 py-0'></div> */}
-         {products.products ?
+         { products.products.length>0 ?
          
         <div className='min-h-[200vh] w-full h-auto grid grid-cols-2 gap-10 px-28 py-0'>
 
    
-        { products.products?.map((product) => (
+          {  products.products?.map((product) => (
   
           <RawProductCard
            isSale
@@ -28,7 +31,13 @@ const RowStyleView = () => {
           />
 
           
-        ))}
+        
+
+          
+        ))
+        
+            
+          }
         
        
       </div> : <div className='w-full min-h-[50vh] grid place-items-center   px-28 py-0'>

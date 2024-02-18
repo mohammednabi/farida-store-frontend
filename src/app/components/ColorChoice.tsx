@@ -1,7 +1,9 @@
-
+"use client"
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext } from 'react'
 import classNames from 'classnames'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { StoreContext } from '@/contexts/StoreContext'
 
 interface colorProps{
     name: string
@@ -10,18 +12,52 @@ interface colorProps{
 
 const ColorChoice = ({name,hex}:colorProps) => {
 
-   
+  const {filter} = useContext(StoreContext)
+  
+   const pathname = usePathname()
+const router = useRouter()
+
+  const searchParams = useSearchParams()
+  
+  const params = new URLSearchParams(searchParams)
+
+  // const salesOnly = searchParams.get("salesonly")
+
+  const colorFilter = searchParams.get("color")
+
+
+
+
+  const handleColorSearch = (param:string)=>{
+
+    if (param) {
+        params.set("color",param)
+    }
+    else {
+      params.delete("color")
+    }
+    router.replace(`${pathname}?${params.toString()}`)
+
+    filter.hideWholeFilterSidebar()
+  }
+ 
 
   return (
-   <Link href="#" className="flex items-center gap-2">
+    <div className={`flex items-center justify-between cursor-pointer `} onClick={() => { handleColorSearch(name ?? "") }}>
+      <div className='flex items-center gap-2'>
+
   <div
     className={classNames("w-5 h-5")}
-              style={{
-                  backgroundColor:`${hex}`
-              }}
-  />
+    style={{
+      backgroundColor:`${hex}`
+    }}
+    />
   <h1>{name}</h1>
-</Link>
+      </div>
+      
+ {colorFilter===name &&     <div className='w-2 h-2 rounded-full bg-emerald-500' />}
+
+</div>
   )
 }
 

@@ -8,25 +8,65 @@ import FilterButton from './FilterButton';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { StoreContext } from '@/contexts/StoreContext';
 import { observer } from 'mobx-react-lite';
+import ActiveFilters from './ActiveFilters';
 
 
 const FiltersSection = () => {
 
+  const selections = [
+    { value: "", label: "sort by popularity" },
+{value:"rating",label:"sort by rating"},
+{value:"createdAt:DESC",label:"sort by newest"},
+    { value: "price:ASC", label: " sort by : lowest price to highest" },
+{value:"price:DESC",label:"sort by : highest price to lowest "}
+]
+
   const pathname = usePathname()
 const router = useRouter()
-const searchParams = useSearchParams()
+
+  const searchParams = useSearchParams()
+  
+  const params = new URLSearchParams(searchParams)
 
   const salesOnly = searchParams.get("salesonly")
+
+
+
+
+  const handleSortSearch = (param:string)=>{
+
+    if (param) {
+        params.set("sort",param)
+    }
+    else {
+      params.delete("sort")
+    }
+    router.replace(`${pathname}?${params.toString()}`)
+  }
+
+  const handleSalesOnlySearch = (param:boolean)=>{
+
+    if (param) {
+        params.set("salesonly","true")
+    }
+    else {
+      params.delete("salesonly")
+    }
+    router.replace(`${pathname}?${params.toString()}`)
+  }
 
 
 const {viewStyle} = useContext(StoreContext)
   
   return (
-      <div className='px-28 py-5 flex items-center justify-between relative'>
+    <section className='flex flex-col gap-5 px-28 '>
+     {searchParams.size > 0 && <ActiveFilters />}
+
+      <div className=' flex items-center justify-between relative pb-5'>
           <div className='flex items-center gap-5'>
              <FilterButton />
               <div className='flex items-center gap-2 text-2xl p-5 py-2 cursor-pointer bg-mainGray rounded-md'>
-                <Checkbox isSelected={salesOnly==="true"} color='secondary'  onChange={(e)=>{e.target.checked ? router.push(`/?salesonly=true`):router.push(`/`)}}>sales only</Checkbox>
+                <Checkbox isSelected={salesOnly==="true"} color='secondary'  onChange={(e)=>{handleSalesOnlySearch(e.target.checked)}}>sales only</Checkbox>
                 
               </div>
           </div>
@@ -39,26 +79,28 @@ const {viewStyle} = useContext(StoreContext)
           className='text-2xl cursor-pointer'
           onClick={() => { viewStyle.displayRowView() }} />
               
-              <Select   className='w-60' radius='sm' defaultSelectedKeys={["1"]} onChange={(e)=>{router.push(`${pathname}${pathname.includes("?")?"&":"?"}${e.target.value}`)}}>
-                  <SelectItem key={"1"}>
-                           sort by popularity
+        <Select
+          className='w-60'
+          radius='sm'
+          defaultSelectedKeys={[searchParams.get("sort")??selections[0].value]}
+          onChange={(e) => { handleSortSearch(e.target.value) }}
+          
+
+        >
+          
+          {selections.map((sel) => (
+            <SelectItem key={sel.value} value={sel.value}>
+                           {sel.label}
                   </SelectItem>
-                   <SelectItem key={"2"}>
-                           sort by rating
-                  </SelectItem>
-                   <SelectItem key={"3"}>
-                           sort by newest
-                  </SelectItem>
-                   <SelectItem key={"4"}>
-                           sort by : lowest price to highest
-                  </SelectItem>
-                   <SelectItem key={"5"}>
-                           sort by : highest price to lowest 
-                  </SelectItem>
+          ))}
+                  
+                  
               </Select>
           </div>
          
     </div>
+
+</section>
   )
 }
 

@@ -4,30 +4,34 @@ import React, { useContext, useEffect } from 'react'
 import ProductCard from './ProductCard'
 import { Spinner } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite'
+import { useSearchParams } from 'next/navigation'
 
 const GridStyleView = () => {
 
     const { products } = useContext(StoreContext)
-    
+    const searchParams = useSearchParams()
+  
+  
      
 
     return (
   <>
-      {products.products?.length > 0   ? <div className='w-full min-h-[200vh] grid grid-cols-4 gap-10 px-28 py-0'>
+      { products.products?.length > 0   ? <div className='w-full min-h-[200vh] grid grid-cols-4 gap-10 px-28 py-0'>
 
    
-        { products.products?.map((product) => (
+          {products.products?.map((product) => (
   
-          <ProductCard
-            isSale
-            product={product}
+            <ProductCard
+            
+              product={product}
            
-            key={product.id}
+              key={product.id}
           
-          />
+            />
 
           
-        ))}
+          ))
+        }  
         
        
       </div> : <div className='w-full min-h-[50vh] grid place-items-center   px-28 py-0'>

@@ -14,6 +14,7 @@ import { SearchBoxStore } from "./searchBoxStore";
 import { WishListStore } from "./wishListStore";
 import { AdsSliderStore } from "./adsStore";
 import { CategoriesStore } from "./categoriesStore";
+import { ColorsStore } from "./colorsStore";
 
 
 // cart store instance 
@@ -52,17 +53,23 @@ const allProducts = new ProductsStore()
 
 const productsViewStyle = new ProductsView()
 
-// products view style store
+// wish list  store
 
 const wishlistProducts = new WishListStore()
 
-// products view style store
+// slider ads  store
 
 const adsInstance = new AdsSliderStore()
 
-// products view style store
+// products categories store
 
 const categoriesinstance = new CategoriesStore()
+
+// products colors store
+
+const colorsinstance = new ColorsStore()
+
+
 // ==========================================================
 // this object is for all stores that will for all states
 
@@ -78,8 +85,8 @@ products:allProducts,
     searchBox: searchBoxInstance,
     wishlist: wishlistProducts,
     ads: adsInstance,
-    categories:categoriesinstance
-    
+    categories:categoriesinstance,
+    colors:colorsinstance
 }
 
 interface indexChildren {

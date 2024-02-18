@@ -2,11 +2,17 @@
 import { StoreContext } from '@/contexts/StoreContext'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 const FilterSidebarLinks = () => {
 
 const {categories} = useContext(StoreContext)
+
+
+  useEffect(() => {
+    categories.getAllCategories()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   return (
     <div className='flex flex-col gap-3'>

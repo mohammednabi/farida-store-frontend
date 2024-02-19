@@ -40,7 +40,8 @@ const {ads} = useContext(StoreContext)
           // , Navigation
           // , Pagination
           , A11y
-          ,EffectFade
+          , EffectFade
+          
         ]}
           autoplay={{pauseOnMouseEnter:true,waitForTransition:true,delay:5000}}
           // navigation

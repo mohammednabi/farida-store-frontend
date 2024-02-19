@@ -1,15 +1,31 @@
 "use client"
 import { StoreContext } from '@/contexts/StoreContext'
 import { observer } from 'mobx-react-lite'
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import Link from 'next/link'
-import React, { useContext, useEffect } from 'react'
+import { useParams } from 'next/navigation'
+import React, { useContext, useEffect, useState } from 'react'
 
 const FilterSidebarLinks = () => {
 
 const {categories} = useContext(StoreContext)
+  const urlParams: Params = useParams()
 
+
+
+  const [editedParams,setEditedParam] = useState<string>("")
+
+  
 
   useEffect(() => {
+
+    if (urlParams.name ) {
+      
+     
+      
+      setEditedParam( urlParams.name.replaceAll("%20", " "))
+    }
+
     categories.getAllCategories()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
@@ -19,7 +35,7 @@ const {categories} = useContext(StoreContext)
       
       {categories.categories.map((cat) => (
         
-        <Link key={cat.id} href={`/categories/${cat.attributes.name}`} className='filter-link'>
+        <Link key={cat.id} href={`/categories/${cat.attributes.name}`} className={`filter-link ${editedParams === cat.attributes.name && `text-mainPink`}`}>
         
           <h1>{cat.attributes.name }</h1>
           <h1>({cat.attributes.products.data.length })</h1>

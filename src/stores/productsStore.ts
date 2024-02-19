@@ -1,17 +1,4 @@
-import { makeAutoObservable } from "mobx";
-import axios from "axios";
-import { fetchProducts } from "@/api/fetchProducts";
-import { fetchSingleProduct } from "@/api/fetchSingleProduct";
-
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  getDoc,
-  doc,
-} from "firebase/firestore";
-import { db } from "@/firebase/db";
+import { makeAutoObservable, runInAction } from "mobx";
 import {
   Data,
   Datum,
@@ -167,6 +154,10 @@ export class ProductsStore {
     },
   };
 
+  // loading states
+
+  productsLoading: boolean = false;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -174,6 +165,10 @@ export class ProductsStore {
   // methods to fetching data from api endpoints
 
   getAllProducts = async () => {
+    runInAction(() => {
+      this.productsLoading = true;
+    });
+
     await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       this.getMethodOptions
@@ -183,6 +178,9 @@ export class ProductsStore {
         console.log("this is the data of the promise we get : ", data);
         this.products = data.data;
         this.pagination = data.meta.pagination;
+        runInAction(() => {
+          this.productsLoading = false;
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -259,47 +257,132 @@ export class ProductsStore {
     isSalesOnly: boolean,
     colorName: string,
     minPrice: string,
-    maxPrice: string
+    maxPrice: string,
+    category: string
   ) => {
     console.log("this is sorting type : ", sortingType);
     console.log("this is salesonly value : ", isSalesOnly);
     console.log("this is color name : ", colorName);
     console.log("this is min price : ", minPrice);
     console.log("this is max price : ", maxPrice);
+    console.log("this is category  : ", category);
+    runInAction(() => {
+      this.productsLoading = true;
+    });
 
     if (sortingType !== "rating") {
-      await fetch(
-        `${
-          process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT
-        }/products/?populate=*&pagination[page]=${
-          this.pagination.page
-        }&pagination[pageSize]=${this.pagination.pageSize}&sort=${sortingType}${
-          minPrice.length > 0 ? `&filters[price][$gt]=${minPrice}` : ``
-        }${maxPrice.length > 0 ? `&filters[price][$lt]=${maxPrice}` : ``}
-        ${
-          colorName.length > 0 ? `&filters[colors][name][$eq]=${colorName}` : ``
-        }
-        ${isSalesOnly ? `&filters[type][$eq]=sale` : ``}`,
-        this.getMethodOptions
-      )
+      interface QueryParams {
+        populate: string;
+        "pagination[page]": number;
+        "pagination[pageSize]": number;
+        sort: string;
+        // Add more filter keys here
+        [key: string]: string | number;
+      }
+
+      const endpoint = `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/`;
+
+      const queryParams: QueryParams = {
+        populate: "*",
+        "pagination[page]": this.pagination.page,
+        "pagination[pageSize]": this.pagination.pageSize,
+        sort: sortingType,
+      };
+
+      if (category) {
+        queryParams["filters[category][name][$eq]"] = category.replaceAll(
+          "%20",
+          " "
+        );
+      }
+
+      if (colorName.length > 0) {
+        queryParams["filters[colors][name][$eq]"] = colorName;
+      }
+
+      if (minPrice.length > 0) {
+        queryParams["filters[price][$gt]"] = minPrice;
+      }
+
+      if (maxPrice.length > 0) {
+        queryParams["filters[price][$lt]"] = maxPrice;
+      }
+
+      if (isSalesOnly) {
+        queryParams["filters[type][$eq]"] = "sale";
+      }
+
+      const queryString = Object.entries(queryParams)
+        .map(
+          ([key, value]) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join("&");
+
+      const url = `${endpoint}?${queryString}`;
+
+      await fetch(url, this.getMethodOptions)
         .then((res) => res.json())
         .then((data) => {
           this.products = data.data;
           this.pagination = data.meta.pagination;
+          runInAction(() => {
+            this.productsLoading = false;
+          });
         })
         .catch((err) => console.log(err));
     } else {
-      await fetch(
-        `${
-          process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT
-        }/products/?populate=*&pagination[page]=${
-          this.pagination.page
-        }&pagination[pageSize]=${this.pagination.pageSize}
-       &filters[price][$gt]=${minPrice}&filters[price][$lt]=${maxPrice}&filters[colors][name][$eq]=${colorName}${
-          isSalesOnly ? `&filters[type][$eq]=sale` : ``
-        }`,
-        this.getMethodOptions
-      )
+      interface QueryParams {
+        populate: string;
+        "pagination[page]": number;
+        "pagination[pageSize]": number;
+        //  sort: string;
+        // Add more filter keys here
+        [key: string]: string | number;
+      }
+
+      const endpoint = `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/`;
+
+      const queryParams: QueryParams = {
+        populate: "*",
+        "pagination[page]": this.pagination.page,
+        "pagination[pageSize]": this.pagination.pageSize,
+        //  sort: sortingType,
+      };
+
+      if (category) {
+        queryParams["filters[category][name][$eq]"] = category.replaceAll(
+          "%20",
+          " "
+        );
+      }
+
+      if (colorName.length > 0) {
+        queryParams["filters[colors][name][$eq]"] = colorName;
+      }
+
+      if (minPrice.length > 0) {
+        queryParams["filters[price][$gt]"] = minPrice;
+      }
+
+      if (maxPrice.length > 0) {
+        queryParams["filters[price][$lt]"] = maxPrice;
+      }
+
+      if (isSalesOnly) {
+        queryParams["filters[type][$eq]"] = "sale";
+      }
+
+      const queryString = Object.entries(queryParams)
+        .map(
+          ([key, value]) =>
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+        )
+        .join("&");
+
+      const url = `${endpoint}?${queryString}`;
+
+      await fetch(url, this.getMethodOptions)
         .then((res) => res.json())
         .then((data) => {
           console.log(
@@ -341,44 +424,14 @@ export class ProductsStore {
           // after finsih sorting
           this.products = finalSortedProducts;
           this.pagination = data.meta.pagination;
+
+          runInAction(() => {
+            this.productsLoading = false;
+          });
         })
         .catch((err) => console.log(err));
     }
   };
-
-  // getProductsByPriceRange = async (minPrice: string, maxPrice: string) => {
-  //   await fetch(
-  //     `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&filters[price][$gt]=${minPrice}&filters[price][$lt]=${maxPrice}`,
-  //     this.getMethodOptions
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(
-  //         "this is the data of the promise we get by price range  : ",
-  //         data
-  //       );
-  //       this.products = data.data;
-  //       this.pagination = data.meta.pagination;
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // getProductsByColors = async (colorName: string) => {
-  //   await fetch(
-  //     `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&filters[colors][name][$eq]=${colorName}`,
-  //     this.getMethodOptions
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(
-  //         "this is the data of the promise we get by price range  : ",
-  //         data
-  //       );
-  //       this.products = data.data;
-  //       this.pagination = data.meta.pagination;
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   // methods to handle another things far away from api endpoints
 

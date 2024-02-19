@@ -12,7 +12,7 @@ params:{name:string}
 const CategoriesPage = ({params}:categoriesPageProps) => {
   return (
      <main>
-      <PageTitle title={`${params.name}`} />
+      <PageTitle title={`${params.name.replaceAll("%20"," ")}`} />
       <MiniAdsSection />
     <FiltersSection />
           

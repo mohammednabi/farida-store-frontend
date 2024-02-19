@@ -1,6 +1,6 @@
 "use client"
 import { Checkbox, Select, SelectItem } from '@nextui-org/react';
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import { MdGridView } from "react-icons/md";
 import { MdOutlineViewAgenda } from "react-icons/md";
@@ -31,8 +31,6 @@ const router = useRouter()
   const salesOnly = searchParams.get("salesonly")
 
 
-
-
   const handleSortSearch = (param:string)=>{
 
     if (param) {
@@ -58,9 +56,12 @@ const router = useRouter()
 
 const {viewStyle} = useContext(StoreContext)
   
+  
+
+  
   return (
     <section className='flex flex-col gap-5 px-28 '>
-     {searchParams.size > 0 && <ActiveFilters />}
+     {(searchParams.has("color") || searchParams.has("min_price") || searchParams.has("max_price")) && <ActiveFilters />}
 
       <div className=' flex items-center justify-between relative pb-5'>
           <div className='flex items-center gap-5'>

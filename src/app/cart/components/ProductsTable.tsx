@@ -11,7 +11,7 @@ import TotalSingleCartProductPrice from './TotalSingleCartProductPrice';
 
 
 type productRow = {
-  key: string
+  key: number
   product: React.JSX.Element
   price: string
    quantity: React.JSX.Element
@@ -31,12 +31,12 @@ const ProductsTable = () => {
         key: product.id,
         product: <CartProductCard
           id={product.id}
-          imageUrl={product.images.thumbnail.url}
+          imageUrl={product.imgSrc}
           title={product.title}
           description={product.description} />,
-        price: `${product.price.currentPrice}$`,
+        price: `${product.price}$`,
         quantity:<QuantityCounter product={product}/>,
-        total: <TotalSingleCartProductPrice totalPrice={product.price.currentPrice * product.quantity}/>,
+        total: <TotalSingleCartProductPrice totalPrice={product.price * product.quantity}/>,
         delete: <MdDelete
           className='text-red-500 transition-all hover:text-red-700 text-3xl cursor-pointer'
           onClick={()=>{cart.deleteProduct(product.id)}}
@@ -44,46 +44,10 @@ const ProductsTable = () => {
       } 
       return newProduct
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[cart.productsCount,cart.cartProducts])
   
-  
 
-
-// const rows = [
-//   {
-//     key: "1",
-//     product: <CartProductCard  imageUrl='/fridge2.webp' title='fridge' description='best fridge in our store'/>,
-//     price: 500 +"$",
-//         quantity: <QuantityCounter />,
-//     total: 25000 + "$",
-//     delete:<MdDelete  className='text-red-500 transition-all hover:text-red-700 text-3xl cursor-pointer'/>
-//     },
-//       {
-//     key: "2",
-//     product: <CartProductCard  imageUrl='/fridge2.webp' title='fridge' description='best fridge in our store'/>,
-//     price: 500 +"$",
-//         quantity: <QuantityCounter />,
-//         total: 25000 + "$",
-//     delete:<MdDelete  className='text-red-500 transition-all hover:text-red-700 text-3xl cursor-pointer'/>
-//     },
-//         {
-//     key: "3",
-//     product: <CartProductCard  imageUrl='/fridge2.webp' title='fridge' description='best fridge in our store'/>,
-//     price: 500 +"$",
-//         quantity: <QuantityCounter />,
-//           total: 25000 + "$",
-//     delete:<MdDelete  className='text-red-500 transition-all hover:text-red-700 text-3xl cursor-pointer'/>
-//     },
-//           {
-//     key: "4",
-//     product: <CartProductCard  imageUrl='/fridge2.webp' title='fridge' description='best fridge in our store'/>,
-//     price: 500 +"$",
-//         quantity: <QuantityCounter />,
-//             total: 25000 + "$",
-//     delete:<MdDelete  className='text-red-500 transition-all hover:text-red-700 text-3xl cursor-pointer'/>
-//   },
-
-// ];
 
 const columns = [
   {

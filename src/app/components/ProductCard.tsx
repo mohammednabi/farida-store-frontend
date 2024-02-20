@@ -17,17 +17,16 @@ import Link from 'next/link';
 
 import { observer } from 'mobx-react-lite';
 import { strapiProductType } from '@/stores/specificTypes/strapiProductType';
+import { cartProductType } from '@/stores/specificTypes/cartProductType';
 
 
 interface productCardProps{
     product:strapiProductType
-    isSale?: boolean
-    isBestSeller?:boolean
-    isTopDeal?:boolean
+   
 }
 
 
-const ProductCard = ({product,isSale,isBestSeller,isTopDeal}:productCardProps) => {
+const ProductCard = ({product}:productCardProps) => {
     
     const {products,cart,wishlist} = useContext(StoreContext)
 const [foundInWishlist,setFoundInWishlist] = useState(wishlist.isInWishlist(product.id) )
@@ -40,7 +39,29 @@ const [foundInCart,setFoundInCart] = useState(cart.isInCart(product.id) )
         
    }
 
+    
+    const addProductToCart = () => {
+
+        const parsedProductToCartProduct:cartProductType = {
+            id: product.id,
+            imgSrc: `${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`,
+            title: product.attributes.title,
+            slug: product.attributes.slug,
+            description: product.attributes.description,
+            prePrice: getPriceAfterDiscount() ? Number(product.attributes.price.toFixed(2)) : 0,
+            price: getPriceAfterDiscount() ?? Number(product.attributes.price.toFixed(2)),
+            quantity: 1,
+        }
+
+        cart.addProduct(parsedProductToCartProduct)
+    }
  
+    
+    useEffect(() => {
+     setFoundInCart(cart.isInCart(product.id))
+     
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[cart.cartProducts])
 
 
   return (
@@ -105,7 +126,7 @@ const [foundInCart,setFoundInCart] = useState(cart.isInCart(product.id) )
                   endContent={foundInCart?<FaCheck /> :<AiOutlineShoppingCart />}
                   size='lg'
                   
-                //   onClick={addProductToCart}
+                  onClick={addProductToCart}
               >
                   {foundInCart ? "added" : "add"} to cart
               </Button>

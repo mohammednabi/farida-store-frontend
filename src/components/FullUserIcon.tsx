@@ -14,11 +14,13 @@ import Link from 'next/link';
 
 const FullUserIcon = () => {
 
-const {userDrop} = useContext(StoreContext)
+  const { userDrop, user } = useContext(StoreContext)
+  
+   const uiCondition = ! user?.userData?.uid?.length ?? 0 > 0
 
   return (
     <div onMouseOver={userDrop.displayUserMenu} onMouseLeave={userDrop.hideUserMenu}>
-       <Link href={ "/login"}>
+       <Link href={uiCondition ?"/login":"user"}>
           <Icon icon={<FaRegUser />} hasBorder={true}   />
     </Link>
         

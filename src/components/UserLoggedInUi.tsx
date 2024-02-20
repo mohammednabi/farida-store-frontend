@@ -33,14 +33,16 @@ const UserLoggedInUi = () => {
       <div className='m-w-[20rem] w-auto h-auto flex flex-col justify-start items-center py-5 '>
           <div className='flex flex-col gap-5 w-full h-full '>
               
+              <Link href={"/user"} className='flex justify-center items-center'>
           <User
               name={user.userData.displayName}
               description={user.userData.email }
               avatarProps={{
-              src:user.userData.photoURL ?? undefined
+                  src:user.userData.photoURL ?? undefined
                   }}
                   className='px-3'
-              />
+                  />
+                  </Link>
               <Divider />
           <Link href={"#"} className='flex items-center justify-between gap-2 px-3'>
               <div className='flex gap-2 items-center '>

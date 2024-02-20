@@ -258,7 +258,8 @@ export class ProductsStore {
     colorName: string,
     minPrice: string,
     maxPrice: string,
-    category: string
+    category: string,
+    searchQuery: string
   ) => {
     console.log("this is sorting type : ", sortingType);
     console.log("this is salesonly value : ", isSalesOnly);
@@ -310,6 +311,13 @@ export class ProductsStore {
 
       if (isSalesOnly) {
         queryParams["filters[type][$eq]"] = "sale";
+      }
+
+      if (searchQuery) {
+        queryParams["filters[$or][0][title][$contains]"] = searchQuery;
+        queryParams["filters[$or][1][description][$contains]"] = searchQuery;
+        queryParams["filters[$or][2][category][name][$contains]"] = searchQuery;
+        queryParams["filters[$or][3][colors][name][$contains]"] = searchQuery;
       }
 
       const queryString = Object.entries(queryParams)
@@ -373,6 +381,13 @@ export class ProductsStore {
         queryParams["filters[type][$eq]"] = "sale";
       }
 
+      if (searchQuery) {
+        queryParams["filters[$or][0][title][$contains]"] = searchQuery;
+        queryParams["filters[$or][1][description][$contains]"] = searchQuery;
+        queryParams["filters[$or][2][category][name][$contains]"] = searchQuery;
+        queryParams["filters[$or][3][colors][name][$contains]"] = searchQuery;
+      }
+
       const queryString = Object.entries(queryParams)
         .map(
           ([key, value]) =>
@@ -431,6 +446,31 @@ export class ProductsStore {
         })
         .catch((err) => console.log(err));
     }
+  };
+
+  getProductFromSearchingBar = async (searchQuery: string) => {
+    runInAction(() => {
+      this.productsLoading = true;
+    });
+
+    await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}
+   &filters[$or][0][title][$contains]=${searchQuery}&filters[$or][1][description][$contains]=${searchQuery}&filters[$or][2][category][name][$contains]=${searchQuery}&filters[$or][3][colors][name][$contains]=${searchQuery}`,
+      this.getMethodOptions
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(
+          "this is the data of the promise we get from deal products : ",
+          data
+        );
+        this.products = data.data;
+        this.pagination = data.meta.pagination;
+        runInAction(() => {
+          this.productsLoading = false;
+        });
+      })
+      .catch((err) => console.log(err));
   };
 
   // methods to handle another things far away from api endpoints

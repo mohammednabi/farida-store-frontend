@@ -1,17 +1,79 @@
 "use client"
-import { Chip, Input } from '@nextui-org/react'
+import { StoreContext } from '@/contexts/StoreContext'
+import { Chip, Input, Spinner } from '@nextui-org/react'
 import { SearchIcon } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
-import React, { useEffect } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import React, { useContext, useEffect, useState } from 'react'
+import QuickSearchMenu from './QuickSearchMenu'
+import { observer } from 'mobx-react-lite'
+import SearchBoxCommonSearches from './SearchBoxCommonSearches'
 
 const SearchBox = () => {
 
+
+
+    const {searchBox,categories} = useContext(StoreContext)
+
     const pathname = usePathname()
- 
-const commonSearch = [{id:"1",title:"product1"},{id:"2",title:"product2"},{id:"3",title:"product3"},{id:"4",title:"product4"}]
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const query = searchParams.get("q")
 
  
+    
+    const searchForResult = (query:string) => {
+
+
+       
+            router.push(`/search?q=${query}`)
+            searchBox.hideWholeSearchBox()
+        
+        searchBox.setSearchInputValue("")
+        
+
+    }
+    
+    
+    
+
+    useEffect(() => {
+    categories.getSomeCategories(4)
+
+        
+// eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    
+    useEffect(() => {
+
+        const clickingEnter =(e: KeyboardEvent) => {
+           
+            // console.log("this is key down event ",e)
+            if (e.key === "Enter" && searchBox.searchInputValue.length>0) {
+                e.preventDefault()
+                
+                searchForResult(searchBox.searchInputValue)
+            }
+        }
+
+
+        if (searchBox.showSearchBox === true) {
+            
+            window.addEventListener("keydown", clickingEnter)
+        } else {
+            
+             window.removeEventListener("keydown",clickingEnter) 
+        }
+        
+        
+        
+        return ()=> window.removeEventListener("keydown",clickingEnter) 
+         
+
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+},[searchBox.searchInputValue,searchBox.showSearchBox])
+
     
   return (
       <div className='w-full flex flex-col gap-5 items-center justify-center'>
@@ -19,36 +81,42 @@ const commonSearch = [{id:"1",title:"product1"},{id:"2",title:"product2"},{id:"3
      
         
         radius="sm"
-   
-        placeholder="Type to search..."
+   value={searchBox.searchInputValue}
+        placeholder={query?query:"Type to search..."}
         endContent={
-            <SearchIcon
+    !searchBox.quickProductsLoading?      <SearchIcon
                
-            className='cursor-pointer text-mainBlack'
+                className='cursor-pointer text-mainBlack'
+                onClick={() => {
+                    if (searchBox.searchInputValue.length > 0) { 
+
+                        searchForResult(searchBox.searchInputValue)
+                    }
+                }}
             />
+                    :<Spinner color='default'/>
+
         }
               className='w-3/4'
+
+onChange={(e)=>{searchBox.setSearchInputValue(e.target.value)}}
+
+            //   onValueChange={searchBox.setSearchInputValue}
       />
 
+    
+          { searchBox.quickProducts.length === 0 &&
           
-          <div key={"common search"} className='flex items-center gap-5'>
-              <h1 className='text-xl capitalize'>common search :</h1>
+          <SearchBoxCommonSearches searchForResult={searchForResult} />
+          }
 
-              {commonSearch.map((s) => (
-              
-                  <Link href={`${pathname}${pathname.includes(`?`)?`&`:`?`}q=${s.title}`} key={s.id}  >
-                  <Chip variant='bordered' className='cursor-pointer text-sm' classNames={{
-                      base:"hover:text-mainBlack hover:border-mainBlack transition-all"
-                    }}>
-                      {s.title}
-              </Chip> 
-                  </Link>
-              ))}
-             
-          </div>
+          
+
+          <QuickSearchMenu />
+
 
     </div>
   )
 }
 
-export default SearchBox
+export default observer(SearchBox)

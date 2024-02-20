@@ -21,7 +21,7 @@ const SearchMenu = () => {
               initial={{ opacity:0 }}
                   animate={{ opacity: 1}}
                   exit={{opacity:0}}
-              className='backdrop'
+              className='backdrop z-[90]'
              onClick={searchBox.hideWholeSearchBox}/>
               
          
@@ -37,7 +37,7 @@ const SearchMenu = () => {
                       type: 'tween',
                       duration:.5
                 }}
-            className='bg-mainWhite fixed top-0 left-0 w-full h-[50vh] text-mainBlack p-5 z-[60]'
+            className='bg-mainWhite fixed top-0 left-0 w-full min-h-[50vh] h-auto text-mainBlack p-5 z-[100]'
             >
                         
  

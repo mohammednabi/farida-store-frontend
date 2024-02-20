@@ -5,6 +5,7 @@ import RawProductCard from './RawProductCard'
 import { Spinner } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite'
 import { useSearchParams } from 'next/navigation'
+import EmptyProducts from './EmptyProducts'
 
 const RowStyleView = () => {
 
@@ -15,32 +16,44 @@ const RowStyleView = () => {
 
 
   return (
-      <>
+    <>
+      
           {/* <div className='w-full min-h-[200vh] grid grid-cols-4 gap-10 px-28 py-0'></div> */}
-         { products.products.length>0 ?
+
+         { !products.productsLoading ?
+
+      <div>
          
-        <div className='min-h-[200vh] w-full h-auto grid grid-cols-2 gap-10 px-28 py-0'>
+{ products.products.length>0?       <div className='min-h-[200vh] w-full h-auto grid grid-cols-2 gap-10 px-28 py-0'>
 
    
           {  products.products?.map((product) => (
-  
-          <RawProductCard
-           isSale
+            
+            <RawProductCard
+            isSale
             key={product.id}
             product={product}
-          />
-
-          
-        
-
-          
-        ))
-        
+            />
+            
+            
+            
+            
+            
+            ))
+            
             
           }
         
+          </div> : 
+          
+          <EmptyProducts />
+          }
        
-      </div> : <div className='w-full min-h-[50vh] grid place-items-center   px-28 py-0'>
+        </div>
+        
+        :
+        
+        <div className='w-full min-h-[50vh] grid place-items-center   px-28 py-0'>
           <Spinner
             label='loading...'
             size='lg'

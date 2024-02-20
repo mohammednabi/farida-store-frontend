@@ -2,6 +2,7 @@
 import Icon from '@/components/Icon'
 import Rating from '@/components/Rating'
 import { StoreContext } from '@/contexts/StoreContext'
+import { cartProductType } from '@/stores/specificTypes/cartProductType'
 
 import { strapiProductType } from '@/stores/specificTypes/strapiProductType'
 import { Button, Image } from '@nextui-org/react'
@@ -17,12 +18,10 @@ import { FaCheck } from "react-icons/fa";
 interface rawProductProps{
  
     product:strapiProductType
-    isSale?: boolean
-    isBestSeller?:boolean
-    isTopDeal?:boolean
+   
 }
 
-const RawProductCard = ({product,isSale,isBestSeller,isTopDeal}:rawProductProps) => {
+const RawProductCard = ({product}:rawProductProps) => {
 
   const { products,cart, wishlist } = useContext(StoreContext)
 
@@ -35,9 +34,21 @@ const [counter,setCounter] = useState(1)
   const increase = ()=>{setCounter((c)=>c+1)}
   const decrease = ()=>{counter>1 && setCounter((c)=>c-1)}
 
-//     const addProductToCart = ()=>{
-// cart.addProduct({...product,quantity:counter})
-//   }
+  const addProductToCart = () => {
+
+        const parsedProductToCartProduct:cartProductType = {
+            id: product.id,
+            imgSrc: `${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`,
+            title: product.attributes.title,
+          slug: product.attributes.slug,
+             description: product.attributes.description,
+            prePrice:getPriceAfterDiscount()?Number(product.attributes.price.toFixed(2)):0,
+            price: getPriceAfterDiscount()??Number(product.attributes.price.toFixed(2)),
+            quantity: counter
+        }
+
+        cart.addProduct(parsedProductToCartProduct)
+    }
   
   //   const addProducToWishlist=()=>{
   //   wishlist.addToWishlist(product)
@@ -54,11 +65,11 @@ const [counter,setCounter] = useState(1)
   //    // eslint-disable-next-line react-hooks/exhaustive-deps
   //  }, [wishlist.items])
   
-  //  useEffect(() => {
-  //    setFoundInCart(cart.isInCart(product.id))
+   useEffect(() => {
+     setFoundInCart(cart.isInCart(product.id))
      
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   },[cart.cartProducts])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[cart.cartProducts])
     
 
    const getPriceAfterDiscount = () => {
@@ -135,7 +146,7 @@ const [counter,setCounter] = useState(1)
                     endContent={foundInCart?<FaCheck /> :<AiOutlineShoppingCart />}
                   size='lg'
                   
-          // onClick={addProductToCart}
+          onClick={addProductToCart}
         
         >{foundInCart?"added":"add"} to cart</Button>
 

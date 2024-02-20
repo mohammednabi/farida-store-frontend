@@ -1,14 +1,15 @@
 "use client"
 
 import { StoreContext } from '@/contexts/StoreContext'
-import { cartProduct } from '@/stores/generalTypes'
+import { cartProductType } from '@/stores/specificTypes/cartProductType'
+
 import { Image } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
 import { CgClose } from 'react-icons/cg'
 
 interface cartDropProductProps{
-    product : cartProduct
+    product : cartProductType
 }
 
 const CartDropProduct = ({product}:cartDropProductProps) => {
@@ -48,11 +49,11 @@ cart.deleteProduct(product.id)
       <div className='grid grid-cols-[1fr_2fr_.5fr] w-full items-center gap-3'>
           <div className='w-full aspect-square'>
               
-              <Image src={product.images.thumbnail.url} alt='' className='w-full h-full object-contain'/>
+              <Image src={product.imgSrc} alt='' className='w-full h-full object-contain'/>
           </div>
           <div className='flex flex-col gap-1'>
               <h1 className='text-xl capitalize line-clamp-1'>{product.title }</h1>
-              <h1 className='text-lg text-mainPink font-bold'>{product.price.currentPrice }$</h1>
+              <h1 className='text-lg text-mainPink font-bold'>{product.price }$</h1>
               <div className='flex items-center justify-between'>
                   
               <div key={"counter"} className='flex items-center'>
@@ -61,7 +62,7 @@ cart.deleteProduct(product.id)
                   <button className='p-1 text-lg border-mainBlack border-1 border-solid ' onClick={decrease}>-</button>
                   </div>
                   
-                  <h1 className='text-xl font-bold text-emerald-500'> {(product.price.currentPrice * product.quantity).toFixed(2) }$</h1>
+                  <h1 className='text-xl font-bold text-emerald-500'> {(product.price * product.quantity).toFixed(2) }$</h1>
 
               </div>
           </div>

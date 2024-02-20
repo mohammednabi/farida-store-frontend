@@ -1,14 +1,13 @@
 "use client";
 
-import Cookies from "js-cookie";
 import { makeAutoObservable } from "mobx";
-import { product } from "./productsStore";
-import { cartProduct } from "./generalTypes";
+
+import { cartProductType } from "./specificTypes/cartProductType";
 
 export class CartStore {
   productsCount: number = 0;
   isCartMenuDisplayed: boolean = false;
-  cartProducts: cartProduct[] = [];
+  cartProducts: cartProductType[] = [];
   totalPrice: number = 0;
 
   constructor() {
@@ -16,8 +15,8 @@ export class CartStore {
 
     // initialized values
     const parseCart = JSON.parse(
-      localStorage.getItem("cart") ?? "[]"
-    ) as cartProduct[];
+      sessionStorage.getItem("cart") ?? "[]"
+    ) as cartProductType[];
     this.productsCount = parseCart.length;
     this.cartProducts = parseCart;
 
@@ -26,20 +25,20 @@ export class CartStore {
 
   // adding product to cart
 
-  addProduct = (activeProduct: cartProduct) => {
-    let allAddedProducts: cartProduct[] = JSON.parse(
-      localStorage.getItem("cart") ?? "[]"
+  addProduct = (activeProduct: cartProductType) => {
+    let allAddedProducts: cartProductType[] = JSON.parse(
+      sessionStorage.getItem("cart") ?? "[]"
     );
 
     const productWasFounded = allAddedProducts.find((p) => {
       return p.id === activeProduct.id;
     });
 
-    const newPoduct: cartProduct = { ...activeProduct };
+    const newPoduct: cartProductType = { ...activeProduct };
 
     !productWasFounded && allAddedProducts.push(newPoduct);
 
-    localStorage.setItem("cart", JSON.stringify(allAddedProducts));
+    sessionStorage.setItem("cart", JSON.stringify(allAddedProducts));
     this.productsCount = allAddedProducts.length;
     this.cartProducts = allAddedProducts;
     this.getTotalPrice();
@@ -48,15 +47,15 @@ export class CartStore {
   // delete product from cart
 
   deleteProduct = (productId: number) => {
-    let allCartProducts: cartProduct[] = JSON.parse(
-      localStorage.getItem("cart") ?? "[]"
+    let allCartProducts: cartProductType[] = JSON.parse(
+      sessionStorage.getItem("cart") ?? "[]"
     );
 
     const filteredProducts = allCartProducts.filter((product) => {
       return product.id !== productId;
     });
 
-    localStorage.setItem("cart", JSON.stringify(filteredProducts));
+    sessionStorage.setItem("cart", JSON.stringify(filteredProducts));
 
     this.productsCount = filteredProducts.length;
     this.cartProducts = filteredProducts;
@@ -66,7 +65,7 @@ export class CartStore {
   // delete all products from cart
 
   deleteAllProducts = () => {
-    localStorage.setItem("cart", "[]");
+    sessionStorage.setItem("cart", "[]");
 
     this.productsCount = 0;
     this.cartProducts = [];
@@ -76,8 +75,8 @@ export class CartStore {
   // is founded in the cart
 
   isInCart(productId: number) {
-    const allCartProducts: cartProduct[] = JSON.parse(
-      localStorage.getItem("cart") ?? "[]"
+    const allCartProducts: cartProductType[] = JSON.parse(
+      sessionStorage.getItem("cart") ?? "[]"
     );
 
     const founded = allCartProducts.find((product) => {
@@ -92,7 +91,7 @@ export class CartStore {
   getTotalPrice() {
     let sum = 0;
     this.cartProducts.forEach((product) => {
-      sum = sum + product.price.currentPrice * product.quantity;
+      sum = sum + product.price * product.quantity;
     });
 
     this.totalPrice = sum;
@@ -101,8 +100,8 @@ export class CartStore {
   // change the quantity of the cart product
 
   changeQuantity(productId: number, newQuantity: number) {
-    const parsedCart: cartProduct[] = JSON.parse(
-      localStorage.getItem("cart") ?? "[]"
+    const parsedCart: cartProductType[] = JSON.parse(
+      sessionStorage.getItem("cart") ?? "[]"
     );
 
     const editedCart = parsedCart.map((product) => {
@@ -113,7 +112,7 @@ export class CartStore {
       }
     });
 
-    localStorage.setItem("cart", JSON.stringify(editedCart));
+    sessionStorage.setItem("cart", JSON.stringify(editedCart));
     this.cartProducts = editedCart;
     this.productsCount = editedCart.length;
     this.getTotalPrice();

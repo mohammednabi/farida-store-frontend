@@ -7,7 +7,7 @@ import React from 'react'
 
 
 interface CartProductProps {
-  id:string
+  id:number
     imageUrl?:string
     title?:string
     description?:string

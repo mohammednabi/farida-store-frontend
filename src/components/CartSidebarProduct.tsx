@@ -1,7 +1,8 @@
 "use client"
 import { StoreContext } from '@/contexts/StoreContext';
 import { cartProduct } from '@/stores/generalTypes';
-import { product } from '@/stores/productsStore';
+import { cartProductType } from '@/stores/specificTypes/cartProductType';
+
 import { Image } from '@nextui-org/react'
 import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
@@ -10,7 +11,7 @@ import { MdDelete } from "react-icons/md";
 
 interface CartSidebarProductProps{
    
-    product:cartProduct
+    product:cartProductType
 }
 
 
@@ -49,7 +50,7 @@ cart.deleteProduct(product.id)
           <div className='w-full h-auto grid place-items-center'>
               
               <Link href={`/product/${product.id}`}>
-<Image src={product.images.thumbnail.url} alt='' className='w-full h-full aspect-square object-contain' />
+<Image src={product.imgSrc} alt='' className='w-full h-full aspect-square object-contain' />
               </Link>
           </div>
           <div className='flex flex-col justify-between gap-2 w-full overflow-hidden '>
@@ -67,7 +68,7 @@ cart.deleteProduct(product.id)
               <MdDelete className='text-2xl transition-all text-red-500 hover:text-red-700 cursor-pointer'
               onClick={deleteItem}
               />
-              <h1 className='text-green-500 font-bold text-lg'>{ product.price.currentPrice}$</h1>
+              <h1 className='text-green-500 font-bold text-lg'>{ product.price}$</h1>
           </div>
           
     </div>

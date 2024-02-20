@@ -8,6 +8,7 @@ import { FaRegStar } from "react-icons/fa";
 import { Chip, Divider, Skeleton } from '@nextui-org/react';
 import Rating from '@/components/Rating';
 import { strapiProductType } from '@/stores/specificTypes/strapiProductType';
+import Link from 'next/link';
 
 
 
@@ -23,6 +24,7 @@ interface productProps{
 
 
 const DetailsSection = ({product,averageRating,priceAfterDiscount}:productProps) => {
+
 
     
 
@@ -95,10 +97,11 @@ const DetailsSection = ({product,averageRating,priceAfterDiscount}:productProps)
                   {product?.attributes.category.data.map((cat) => (
                       
                       
-                      
-                      <Chip key={cat.id} variant='bordered' classNames={{base:"text-lg capitalize "}}>
+                      <Link key={cat.id} href={`/categories/${cat.attributes.name}`}>
+                      <Chip  variant='bordered'  classNames={{base:"text-lg capitalize hover:text-mainBlack hover:border-mainBlack transition-all "}}>
                           {cat.attributes.name}
                       </Chip>
+                      </Link>
 ))}
 </div>
 

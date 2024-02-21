@@ -16,6 +16,7 @@ import { AdsSliderStore } from "./adsStore";
 import { CategoriesStore } from "./categoriesStore";
 import { ColorsStore } from "./colorsStore";
 import { LoginFormStore } from "./loginFormStore";
+import { RegisterFormStore } from "./registerFormStore";
 
 
 // cart store instance 
@@ -72,6 +73,11 @@ const colorsinstance = new ColorsStore()
 
 // products colors store
 
+// products colors store
+
+const registerForminstance = new RegisterFormStore()
+
+
 const loginForminstance = new LoginFormStore()
 
 
@@ -92,6 +98,7 @@ products:allProducts,
     ads: adsInstance,
     categories:categoriesinstance,
     colors: colorsinstance,
+    registerForm:registerForminstance,
     loginForm:loginForminstance
 }
 

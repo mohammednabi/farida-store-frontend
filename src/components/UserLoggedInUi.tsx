@@ -18,16 +18,28 @@ const UserLoggedInUi = () => {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
+    // const logout = () => {
+    //     setIsLoading(true)
+    //     signOut(auth).then(() => {
+    //         setIsLoading(false)
+    //     router.push("/login")
+    //     }).catch((err) => {
+    //         setIsLoading(false)
+    //         console.log(err)
+    //     })
+    // }
+    
+
+
     const logout = () => {
-        setIsLoading(true)
-        signOut(auth).then(() => {
-            setIsLoading(false)
-        router.push("/login")
-        }).catch((err) => {
-            setIsLoading(false)
-            console.log(err)
+        user.isLoading = true
+        user.userLogout().then(() => {
+            user.isLoading =false
         })
-}
+        router.push("/")
+    }
+    
+
 
   return (
       <div className='m-w-[20rem] w-auto h-auto flex flex-col justify-start items-center py-5 '>
@@ -76,18 +88,18 @@ const UserLoggedInUi = () => {
               <div>
                   
                   <Divider />
-              <div className='flex w-max text-lg bg-transparent '>
+              <div className='flex pt-2 px-5 justify-center items-center text-lg bg-transparent '>
           <Button
               
               
-              endContent={
+            //   endContent={
                   
-                  <IoMdLogOut className='text-red-600'/>
+            //       <IoMdLogOut className='text-red-600'/>
                   
-                }
-                          radius='none'
-                          isLoading={isLoading}
-                          className='text-lg bg-transparent text-red-600 '
+            //     }
+                          radius='sm'
+                          isLoading={user.isLoading}
+                          className='text-lg bg-red-600 text-mainWhite w-full'
                           onClick={logout}
                 >
               log out

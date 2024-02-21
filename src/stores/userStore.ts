@@ -2,7 +2,8 @@
 import { db } from "@/firebase/db";
 import { User } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { makeAutoObservable } from "mobx";
+import Cookies from "js-cookie";
+import { makeAutoObservable, runInAction } from "mobx";
 
 type product = {
   productId: string;
@@ -121,6 +122,8 @@ export class userStore {
     },
   };
 
+  isLoading: boolean = false;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -149,6 +152,16 @@ export class userStore {
     this.userData.providerId = user?.providerId;
     this.userData.phoneNumber = user?.phoneNumber;
   };
+
+  // user logged out
+
+  userLogout() {
+    const logoutPromise = new Promise((resolve, reject) => {
+      resolve(Cookies.remove("credentials"));
+    });
+
+    return logoutPromise;
+  }
 
   // user products methods
 

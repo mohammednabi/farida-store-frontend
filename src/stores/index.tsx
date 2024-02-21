@@ -15,6 +15,7 @@ import { WishListStore } from "./wishListStore";
 import { AdsSliderStore } from "./adsStore";
 import { CategoriesStore } from "./categoriesStore";
 import { ColorsStore } from "./colorsStore";
+import { LoginFormStore } from "./loginFormStore";
 
 
 // cart store instance 
@@ -69,6 +70,10 @@ const categoriesinstance = new CategoriesStore()
 
 const colorsinstance = new ColorsStore()
 
+// products colors store
+
+const loginForminstance = new LoginFormStore()
+
 
 // ==========================================================
 // this object is for all stores that will for all states
@@ -86,7 +91,8 @@ products:allProducts,
     wishlist: wishlistProducts,
     ads: adsInstance,
     categories:categoriesinstance,
-    colors:colorsinstance
+    colors: colorsinstance,
+    loginForm:loginForminstance
 }
 
 interface indexChildren {

@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 
 import { motion } from 'framer-motion';
 import { observer } from 'mobx-react-lite';
@@ -12,12 +12,13 @@ import UserLoggedInUi from './UserLoggedInUi';
 import GoogleProvider from '@/app/(auth)/GoogleProvider';
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 
 const UserDrop = () => {
 
-    const { userDrop, user } = useContext(StoreContext)
-    
+    const { userDrop, user,loginForm } = useContext(StoreContext)
+    const [uiCondition,setUiCondition] = useState(!Cookies.get("credentials"))
 
 
     onAuthStateChanged(auth, (currentUser) => {
@@ -28,11 +29,14 @@ const UserDrop = () => {
     })
 
     
-    const uiCondition = ! user?.userData?.uid?.length ?? 0 > 0
+    // const uiCondition = ! user?.userData?.uid?.length ?? 0 > 0
+   
+             const router = useRouter()
+
     
-
-    const router = useRouter()
-
+    useEffect(() => {
+        setUiCondition(!Cookies.get("credentials"))
+    },[user.isLoading,loginForm.isLoading])
 
     return (
         <motion.div
@@ -58,8 +62,10 @@ const UserDrop = () => {
                         <input
                             type='email'
                             className='nav-input'
+                            value={loginForm.email}
                             onChange={(e) => {
-                            userDrop.setEmailValue(e.target.value)
+                            // userDrop.setEmailValue(e.target.value)
+                            loginForm.setEmail(e.target.value)
                             }}
                           onFocus={()=>{userDrop.setEmailFocus(true)}}
                         onBlur={()=>{userDrop.setEmailFocus(false)}}
@@ -75,8 +81,10 @@ const UserDrop = () => {
                         <input
                             type='password'
                             className='nav-input'
+                            value={loginForm.password}
                             onChange={(e) => {
-                            userDrop.setPasswordValue(e.target.value)
+                            // userDrop.setPasswordValue(e.target.value)
+                            loginForm.setPassword(e.target.value)
                             }}
                         onFocus={()=>{userDrop.setPasswordFocus(true)}}
                         onBlur={()=>{userDrop.setPasswordFocus(false)}}
@@ -88,17 +96,24 @@ const UserDrop = () => {
               <div className='flex gap-5 items-center'>
                         <Button
                             
-                            isLoading={userDrop.isLoading}
+                            isLoading={loginForm.isLoading}
 
                                 className='bg-mainBlack text-mainWhite p-3 px-10 rounded-lg capitalize'
-                        onClick={(e)=>{userDrop.login(e).finally(()=>{router.push("/")})}}
+                            onClick={(e) => {
+                                // userDrop.login(e).finally(() => { router.push("/") })
+                                loginForm.strapiLogin()
+                                if (Cookies.get("credentials")) {
+    router.push("/")
+}
+                            }}
                             
                         >submit</Button>
                   {/* <div className='text-sm flex items-center gap-1 '>
                       <input id='remeber' type='checkbox' className='cursor-pointer'/>
                       <label htmlFor='remeber' className='cursor-pointer'>remeber me</label>
                   </div> */}
-                        <h1 className='text-sm text-red-500'>{ userDrop.errorMessage.slice(22,userDrop.errorMessage.length-2)}</h1>
+                        {/* <h1 className='text-sm text-red-500'>{ userDrop.errorMessage.slice(22,userDrop.errorMessage.length-2)}</h1> */}
+                        <h1 className='text-sm text-red-500'>{ loginForm.errorMessage}</h1>
               </div>
                 </form>
               

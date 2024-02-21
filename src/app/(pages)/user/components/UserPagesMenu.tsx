@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useContext, useEffect } from 'react'
 import PageCard from './PageCard'
 import { FaRegAddressCard } from "react-icons/fa";
 import { BsBox2 } from "react-icons/bs";
@@ -6,12 +7,20 @@ import { AiOutlineSecurityScan } from "react-icons/ai";
 import { MdPayment } from "react-icons/md";
 import { BsCart3 } from "react-icons/bs";
 import { TbHearts } from "react-icons/tb";
+import { StoreContext } from '@/contexts/StoreContext';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 
 
 
 
 const UserPagesMenu = () => {
+
+    const {user} = useContext(StoreContext)
+
+    const router = useRouter()
+
 
     const pagesCards = [
         {
@@ -58,6 +67,16 @@ const UserPagesMenu = () => {
         }
     
     ]
+
+
+    useEffect(() => {
+        if (!Cookies.get("credentials")) {
+            router.push("/login")
+        }
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[user.isLoading])
 
 
   return (

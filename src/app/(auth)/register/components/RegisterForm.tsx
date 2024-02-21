@@ -11,7 +11,7 @@ import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
 
 const RegisterForm = () => {
-  const { user, registerForm } = useContext(StoreContext);
+  const { registerForm } = useContext(StoreContext);
 
   const router = useRouter();
 

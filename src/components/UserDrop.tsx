@@ -18,9 +18,9 @@ const UserDrop = () => {
   const { userDrop, user, loginForm, registerForm } = useContext(StoreContext);
   const [uiCondition, setUiCondition] = useState(!Cookies.get("credentials"));
 
-  onAuthStateChanged(auth, (currentUser) => {
-    user.setUserData(currentUser);
-  });
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   user.setUserData(currentUser);
+  // });
 
   // const uiCondition = ! user?.userData?.uid?.length ?? 0 > 0
 

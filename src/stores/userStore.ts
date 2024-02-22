@@ -4,123 +4,10 @@ import { User } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
 import { makeAutoObservable, runInAction } from "mobx";
-
-type product = {
-  productId: string;
-  name: string;
-  price: number;
-  quantity: number;
-  total: number;
-};
-
-type wishListProduct = {
-  productId: string;
-  name: string;
-  price: number;
-  imageUrl: string;
-};
-
-type paymentMethod = {
-  id: string;
-  type: string;
-  cardNumber: string;
-  expiryMonth: number;
-  expiryYear: number;
-  nameOnCard: string;
-};
-
-type singleOrder = {
-  orderId: string;
-  items: product[];
-  status: string;
-  totalItems: number;
-  subTotal: number;
-  discount: number;
-  shipping: number;
-  tax: number;
-  total: number;
-  createdAt: string;
-  updatedAt: string;
-};
-
-type allUserData = {
-  uid?: string;
-  providerId?: string;
-  email?: string | null;
-  emailVerified?: boolean;
-  phoneNumber?: string | null;
-  password?: string;
-  displayName?: string | null;
-  firstName?: string | null;
-  lastName?: string | null;
-  photoURL?: string | null;
-  disabled?: boolean; // Whether or not the user is disabled. true for disabled; false for enabled. If not provided, the default is false.
-  metaData?: {
-    creationTime: string;
-    lastRefreshTime: string;
-    lastSignInTime: string;
-  };
-  cart?: {
-    items: product[];
-    totalItems: number;
-    subTotal: number;
-    discount: string;
-    shipping: number;
-    tax: number;
-    total: number;
-  };
-  paymentMethods?: paymentMethod[];
-
-  orders?: singleOrder[];
-  wishList?: wishListProduct[];
-
-  address?: {
-    street: string;
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
-  };
-};
+import { Userdata } from "./specificTypes/userdata";
 
 export class userStore {
-  userData: allUserData = {
-    uid: "",
-    displayName: "",
-    email: "",
-    emailVerified: false,
-    firstName: "",
-    lastName: "",
-    photoURL: "",
-    providerId: "",
-    phoneNumber: "",
-    password: "",
-    orders: [],
-    paymentMethods: [],
-    cart: {
-      items: [],
-      discount: "",
-      shipping: 0,
-      subTotal: 0,
-      tax: 0,
-      total: 0,
-      totalItems: 0,
-    },
-    disabled: false,
-    address: {
-      state: "",
-      city: "",
-      country: "",
-      postalCode: "",
-      street: "",
-    },
-    wishList: [],
-    metaData: {
-      creationTime: "",
-      lastRefreshTime: "",
-      lastSignInTime: "",
-    },
-  };
+  strapiUserdata: Userdata = {} as Userdata;
 
   isLoading: boolean = false;
 
@@ -130,27 +17,53 @@ export class userStore {
 
   // user method
 
-  addUserToUsersCollection = (userId: string, data: allUserData) => {
-    const docRef = doc(db, "users", userId);
+  // addUserToUsersCollection = (userId: string, data: allUserData) => {
+  //   const docRef = doc(db, "users", userId);
 
-    return setDoc(docRef, {
-      ...data,
-    });
-  };
+  //   return setDoc(docRef, {
+  //     ...data,
+  //   });
+  // };
 
   // set user data
 
-  setUserData = (user: User | null) => {
-    //   this.userData.uid = user?.uid;
-    //   const {uid } = this.userData
+  // setUserData = (user: User | null) => {
+  //   //   this.userData.uid = user?.uid;
+  //   //   const {uid } = this.userData
 
-    this.userData.uid = user?.uid;
-    this.userData.displayName = user?.displayName;
-    this.userData.photoURL = user?.photoURL;
-    this.userData.email = user?.email;
-    this.userData.emailVerified = user?.emailVerified;
-    this.userData.providerId = user?.providerId;
-    this.userData.phoneNumber = user?.phoneNumber;
+  //   this.userData.uid = user?.uid;
+  //   this.userData.displayName = user?.displayName;
+  //   this.userData.photoURL = user?.photoURL;
+  //   this.userData.email = user?.email;
+  //   this.userData.emailVerified = user?.emailVerified;
+  //   this.userData.providerId = user?.providerId;
+  //   this.userData.phoneNumber = user?.phoneNumber;
+  // };
+
+  // get user data
+
+  getUserData = async () => {
+    await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/users/me?populate=*`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${Cookies.get("credentials")}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data): void => {
+        console.log("this is user data : ", data);
+
+        runInAction(() => {
+          this.strapiUserdata = data;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // user logged out

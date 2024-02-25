@@ -18,7 +18,12 @@ const CartSideBarContent = () => {
     cart.getAllCartItems();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.isLoading, loginForm.isLoading, registerForm.isLoading]);
+  }, [
+    user.isLoading,
+    loginForm.isLoading,
+    registerForm.isLoading,
+    cart.productsCount,
+  ]);
 
   return (
     <div className="flex flex-col justify-between h-full">

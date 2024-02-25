@@ -175,9 +175,9 @@ export class ProductsStore {
       .then((res) => res.json())
       .then((data) => {
         console.log("this is the data of the promise we get : ", data);
-        this.products = data.data;
-        this.pagination = data.meta.pagination;
         runInAction(() => {
+          this.products = data.data;
+          this.pagination = data.meta.pagination;
           this.productsLoading = false;
         });
       })
@@ -195,7 +195,9 @@ export class ProductsStore {
           "this is the data of the promise we get from single product : ",
           data
         );
-        this.targetProduct = data.data;
+        runInAction(() => {
+          this.targetProduct = data.data;
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -211,8 +213,10 @@ export class ProductsStore {
           "this is the data of the promise we get from best seller products : ",
           data
         );
-        this.bestSellerProducts = data.data;
-        this.pagination = data.meta.pagination;
+        runInAction(() => {
+          this.bestSellerProducts = data.data;
+          this.pagination = data.meta.pagination;
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -228,8 +232,10 @@ export class ProductsStore {
           "this is the data of the promise we get from sale products : ",
           data
         );
-        this.saleProducts = data.data;
-        this.pagination = data.meta.pagination;
+        runInAction(() => {
+          this.saleProducts = data.data;
+          this.pagination = data.meta.pagination;
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -245,8 +251,10 @@ export class ProductsStore {
           "this is the data of the promise we get from deal products : ",
           data
         );
-        this.dealProducts = data.data;
-        this.pagination = data.meta.pagination;
+        runInAction(() => {
+          this.dealProducts = data.data;
+          this.pagination = data.meta.pagination;
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -260,12 +268,12 @@ export class ProductsStore {
     category: string,
     searchQuery: string
   ) => {
-    console.log("this is sorting type : ", sortingType);
-    console.log("this is salesonly value : ", isSalesOnly);
-    console.log("this is color name : ", colorName);
-    console.log("this is min price : ", minPrice);
-    console.log("this is max price : ", maxPrice);
-    console.log("this is category  : ", category);
+    // console.log("this is sorting type : ", sortingType);
+    // console.log("this is salesonly value : ", isSalesOnly);
+    // console.log("this is color name : ", colorName);
+    // console.log("this is min price : ", minPrice);
+    // console.log("this is max price : ", maxPrice);
+    // console.log("this is category  : ", category);
     runInAction(() => {
       this.productsLoading = true;
     });
@@ -331,9 +339,9 @@ export class ProductsStore {
       await fetch(url, this.getMethodOptions)
         .then((res) => res.json())
         .then((data) => {
-          this.products = data.data;
-          this.pagination = data.meta.pagination;
           runInAction(() => {
+            this.products = data.data;
+            this.pagination = data.meta.pagination;
             this.productsLoading = false;
           });
         })
@@ -436,10 +444,10 @@ export class ProductsStore {
           });
 
           // after finsih sorting
-          this.products = finalSortedProducts;
-          this.pagination = data.meta.pagination;
 
           runInAction(() => {
+            this.products = finalSortedProducts;
+            this.pagination = data.meta.pagination;
             this.productsLoading = false;
           });
         })
@@ -463,9 +471,9 @@ export class ProductsStore {
           "this is the data of the promise we get from deal products : ",
           data
         );
-        this.products = data.data;
-        this.pagination = data.meta.pagination;
         runInAction(() => {
+          this.products = data.data;
+          this.pagination = data.meta.pagination;
           this.productsLoading = false;
         });
       })

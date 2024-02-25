@@ -75,6 +75,8 @@ export class RegisterFormStore {
 
         if (data.jwt) {
           Cookies.set("credentials", data.jwt);
+          this.createUserCart(data.user.id, data.jwt);
+          this.createUserWishlist(data.user.id, data.jwt);
         }
         //  this.products = data.data;
         //  this.pagination = data.meta.pagination;
@@ -97,6 +99,42 @@ export class RegisterFormStore {
           this.isLoading = false;
         });
       });
+  };
+
+  // create user cart
+
+  createUserCart = async (userId: number | string, jwt: string) => {
+    await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/carts`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      body: JSON.stringify({
+        data: {
+          cart_items: [],
+          user: `${userId}`,
+        },
+      }),
+    });
+  };
+
+  // create user wishlist
+
+  createUserWishlist = async (userId: number | string, jwt: string) => {
+    await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/wishlists`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwt}`,
+      },
+      body: JSON.stringify({
+        data: {
+          wishlist_items: [],
+          user: `${userId}`,
+        },
+      }),
+    });
   };
 
   // set class states function for external actions

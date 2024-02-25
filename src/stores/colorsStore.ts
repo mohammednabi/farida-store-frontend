@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { color } from "./specificTypes/colorType";
 
 export class ColorsStore {
@@ -27,7 +27,9 @@ export class ColorsStore {
           "this is the data of the promise we get from colors : ",
           data
         );
-        this.colors = data.data;
+        runInAction(() => {
+          this.colors = data.data;
+        });
       })
       .catch((err) => console.log(err));
   };

@@ -33,7 +33,8 @@ const UserLoggedInUi = () => {
     user.userLogout().then(() => {
       user.isLoading = false;
     });
-    router.push("/");
+    router.refresh();
+    // router.push("/");
   };
 
   useEffect(() => {
@@ -51,7 +52,7 @@ const UserLoggedInUi = () => {
             avatarProps={{
               src: `${process.env.NEXT_PUBLIC_HOST}${user.strapiUserdata.avatar?.url}`,
             }}
-            className="px-3"
+            className="px-3 lowercase"
           />
         </Link>
         <Divider />

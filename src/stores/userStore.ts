@@ -58,7 +58,10 @@ export class userStore {
 
   // user products methods
 
-  addToCart = async (cartId: string | number, productId: string | number) => {
+  addProductToUserCart = async (
+    productId: string | number,
+    quantity: number
+  ) => {
     return await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/cart-items`,
       {
@@ -70,8 +73,8 @@ export class userStore {
         body: JSON.stringify({
           data: {
             product: `${productId}`,
-            quantity: 0,
-            cart: `${cartId}`,
+            quantity: quantity,
+            cart: `${this.strapiUserdata.cart.id}`,
           },
         }),
       }

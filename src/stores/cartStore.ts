@@ -5,6 +5,8 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { cartProductType } from "./specificTypes/cartProductType";
 import Cookies from "js-cookie";
 import { CartItem, UserCart } from "./specificTypes/userCartType";
+import { isUserLoggedIn } from "@/functions/credentials";
+import { getPriceAfterDiscount } from "@/functions/getPriceAfterDiscount";
 
 export class CartStore {
   productsCount: number = 0;
@@ -24,7 +26,7 @@ export class CartStore {
   // get all carts products
 
   getAllCartItems() {
-    if (Cookies.get("credentials")) {
+    if (isUserLoggedIn()) {
       this.getUserCartItems();
     } else {
       this.getLocalCartProducts();
@@ -69,13 +71,22 @@ export class CartStore {
 
         let itemsOfUserCart: cartProductType[] = [];
         data.cart.cart_items.map((item: CartItem) => {
+          console.log(
+            `this is porduct object of product ${item.product.id} : `,
+            item.product
+          );
           const userCartItem: cartProductType = {
-            id: item.quantity,
+            id: item.product.id,
             imgSrc: `${process.env.NEXT_PUBLIC_HOST}${item.product.thumbnail.url}`,
             title: item.product.title,
             slug: item.product.slug,
             description: item.product.description,
-            price: item.product.price,
+            price: getPriceAfterDiscount(
+              item.product.discount
+                ? item.product.discount.discount_percent
+                : 0,
+              item.product.price
+            ),
             quantity: item.quantity,
           };
 
@@ -87,6 +98,7 @@ export class CartStore {
           this.productsCount = itemsOfUserCart.length;
         });
 
+        console.log("this is user cart items ", itemsOfUserCart);
         this.getTotalPrice();
       })
       .catch((err) => {
@@ -157,6 +169,16 @@ export class CartStore {
     return founded;
   }
 
+  isInUserCart(productId: number) {
+    const founded = this.userCartItems.find((product) => {
+      return product.id === productId;
+    });
+
+    console.log("this product founded : ", founded);
+
+    return founded;
+  }
+
   // get total products prices
 
   getTotalPrice() {
@@ -209,4 +231,14 @@ export class CartStore {
   hideCartMenu = () => {
     this.isCartMenuDisplayed = false;
   };
+
+  // set states for cart class
+
+  set setProductsCount(val: number) {
+    this.productsCount = val;
+  }
+
+  set setUserCartItems(val: cartProductType[]) {
+    this.userCartItems = val;
+  }
 }

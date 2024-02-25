@@ -28,6 +28,8 @@ const UserDrop = () => {
 
   useEffect(() => {
     setUiCondition(!Cookies.get("credentials"));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLoading, loginForm.isLoading, registerForm.isLoading]);
 
   return (

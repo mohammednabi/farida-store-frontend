@@ -1,7 +1,4 @@
 "use client";
-import { db } from "@/firebase/db";
-import { User } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Userdata } from "./specificTypes/userdata";
@@ -10,35 +7,18 @@ export class userStore {
   strapiUserdata: Userdata = {} as Userdata;
 
   isLoading: boolean = false;
+  token?: string = "";
 
   constructor() {
     makeAutoObservable(this);
+    if (Cookies.get("credentials")) {
+      runInAction(() => {
+        this.token = Cookies.get("credentials");
+      });
+    } else {
+      this.token = "";
+    }
   }
-
-  // user method
-
-  // addUserToUsersCollection = (userId: string, data: allUserData) => {
-  //   const docRef = doc(db, "users", userId);
-
-  //   return setDoc(docRef, {
-  //     ...data,
-  //   });
-  // };
-
-  // set user data
-
-  // setUserData = (user: User | null) => {
-  //   //   this.userData.uid = user?.uid;
-  //   //   const {uid } = this.userData
-
-  //   this.userData.uid = user?.uid;
-  //   this.userData.displayName = user?.displayName;
-  //   this.userData.photoURL = user?.photoURL;
-  //   this.userData.email = user?.email;
-  //   this.userData.emailVerified = user?.emailVerified;
-  //   this.userData.providerId = user?.providerId;
-  //   this.userData.phoneNumber = user?.phoneNumber;
-  // };
 
   // get user data
 
@@ -78,7 +58,25 @@ export class userStore {
 
   // user products methods
 
-  addToCart() {}
+  addToCart = async (cartId: string | number, productId: string | number) => {
+    return await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/cart-items`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify({
+          data: {
+            product: `${productId}`,
+            quantity: 0,
+            cart: `${cartId}`,
+          },
+        }),
+      }
+    );
+  };
 
   removeFromCart() {}
 

@@ -5,7 +5,7 @@ import React, { useContext, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import GoogleProvider from "../../GoogleProvider";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
@@ -41,7 +41,7 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (Cookies.get("credentials")) {
-      router.push("/");
+      redirect("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerForm.isLoading]);

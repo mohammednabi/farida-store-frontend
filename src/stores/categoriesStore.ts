@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { CategoryType } from "./specificTypes/catgorytype";
 
 export class CategoriesStore {
@@ -28,7 +28,9 @@ export class CategoriesStore {
           "this is the data of the promise we get from categories : ",
           data
         );
-        this.categories = data.data;
+        runInAction(() => {
+          this.categories = data.data;
+        });
       })
       .catch((err) => console.log(err));
   };
@@ -44,7 +46,9 @@ export class CategoriesStore {
           "this is the data of the promise we get from categories : ",
           data
         );
-        this.someCategories = data.data;
+        runInAction(() => {
+          this.someCategories = data.data;
+        });
       })
       .catch((err) => console.log(err));
   };

@@ -81,7 +81,18 @@ export class userStore {
     );
   };
 
-  removeFromCart() {}
+  removeProductFromUserCart = async (cartItemId: number | string) => {
+    return await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/cart-items/${cartItemId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+      }
+    );
+  };
 
   clearCart() {}
 

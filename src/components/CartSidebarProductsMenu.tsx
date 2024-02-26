@@ -5,13 +5,14 @@ import { Divider } from "@nextui-org/react";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
+import { isUserLoggedIn } from "@/functions/credentials";
 
 const CartSidebarProductsMenu = () => {
   const { cart, user, loginForm, registerForm } = useContext(StoreContext);
-  const [uiCondition, setUiCondition] = useState(Cookies.get("credentials"));
+  const [uiCondition, setUiCondition] = useState(isUserLoggedIn());
 
   useEffect(() => {
-    setUiCondition(Cookies.get("credentials"));
+    setUiCondition(isUserLoggedIn());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLoading, loginForm.isLoading, registerForm.isLoading]);
@@ -28,7 +29,9 @@ const CartSidebarProductsMenu = () => {
           ))
         : cart.cartProducts.map((product) => (
             <div key={product.id} className="flex flex-col gap-3">
-              <CartSidebarProduct product={product} />
+              <CartSidebarProduct
+                product={{ ...product, cartItemId: product.id }}
+              />
 
               <Divider />
             </div>

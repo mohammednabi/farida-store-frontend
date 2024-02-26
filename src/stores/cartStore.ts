@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import { CartItem, UserCart } from "./specificTypes/userCartType";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { getPriceAfterDiscount } from "@/functions/getPriceAfterDiscount";
+import { userCartProductType } from "./specificTypes/userCartProductType";
 
 export class CartStore {
   productsCount: number = 0;
@@ -15,7 +16,7 @@ export class CartStore {
   totalPrice: number = 0;
   userCart: UserCart = {} as UserCart;
 
-  userCartItems: cartProductType[] = [];
+  userCartItems: userCartProductType[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -69,13 +70,14 @@ export class CartStore {
           this.userCart = data.cart;
         });
 
-        let itemsOfUserCart: cartProductType[] = [];
+        let itemsOfUserCart: userCartProductType[] = [];
         data.cart.cart_items.map((item: CartItem) => {
           console.log(
             `this is porduct object of product ${item.product.id} : `,
             item.product
           );
-          const userCartItem: cartProductType = {
+          const userCartItem: userCartProductType = {
+            cartItemId: item.id,
             id: item.product.id,
             imgSrc: `${process.env.NEXT_PUBLIC_HOST}${item.product.thumbnail.url}`,
             title: item.product.title,
@@ -238,7 +240,7 @@ export class CartStore {
     this.productsCount = val;
   }
 
-  set setUserCartItems(val: cartProductType[]) {
+  set setUserCartItems(val: userCartProductType[]) {
     this.userCartItems = val;
   }
 }

@@ -1,14 +1,13 @@
 "use client";
 import { StoreContext } from "@/contexts/StoreContext";
 import { isUserLoggedIn } from "@/functions/credentials";
-import { cartProduct } from "@/stores/generalTypes";
-import { cartProductType } from "@/stores/specificTypes/cartProductType";
+
 import { userCartProductType } from "@/stores/specificTypes/userCartProductType";
 
 import { CircularProgress, Image, Spinner, user } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
-import React, { use, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 
 interface CartSidebarProductProps {
@@ -23,16 +22,45 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
 
   const increase = () => {
     setCounter((c) => c + 1);
-    cart.changeQuantity(product.id, counter + 1);
+
+    if (isUserLoggedIn()) {
+      setIsLoading(true);
+      user
+        .updateUserCartProductQuantity(product.cartItemId, counter + 1)
+        .then(() => {
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(true);
+      cart.changeQuantity(product.id, counter + 1);
+      setIsLoading(false);
+    }
+
+    cart.setProductsCount = cart.productsCount + 1;
   };
+
   const decrease = () => {
     if (counter > 1) {
       setCounter((c) => c - 1);
-      cart.changeQuantity(product.id, counter - 1);
+      if (isUserLoggedIn()) {
+        setIsLoading(true);
+        user
+          .updateUserCartProductQuantity(product.cartItemId, counter - 1)
+          .then(() => {
+            setIsLoading(false);
+          });
+      } else {
+        setIsLoading(true);
+        cart.changeQuantity(product.id, counter - 1);
+        setIsLoading(false);
+      }
     } else {
       return;
     }
+
+    cart.setProductsCount = cart.productsCount + 1;
   };
+
   const deleteItem = () => {
     if (isUserLoggedIn()) {
       setIsLoading(true);

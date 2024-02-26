@@ -94,6 +94,28 @@ export class userStore {
     );
   };
 
+  updateUserCartProductQuantity = async (
+    cartItemId: number | string,
+
+    newQuantity: number
+  ) => {
+    return await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/cart-items/${cartItemId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`,
+        },
+        body: JSON.stringify({
+          data: {
+            quantity: newQuantity,
+          },
+        }),
+      }
+    );
+  };
+
   clearCart() {}
 
   updateCartQuantity() {} //Updates the quantity of a specific product in the shopping cart.

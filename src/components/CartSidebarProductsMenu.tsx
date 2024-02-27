@@ -8,14 +8,20 @@ import Cookies from "js-cookie";
 import { isUserLoggedIn } from "@/functions/credentials";
 
 const CartSidebarProductsMenu = () => {
-  const { cart, user, loginForm, registerForm } = useContext(StoreContext);
+  const { cart, user, loginForm, registerForm, cartSidebar } =
+    useContext(StoreContext);
   const [uiCondition, setUiCondition] = useState(isUserLoggedIn());
 
   useEffect(() => {
     setUiCondition(isUserLoggedIn());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.isLoading, loginForm.isLoading, registerForm.isLoading]);
+  }, [
+    user.isLoading,
+    loginForm.isLoading,
+    registerForm.isLoading,
+    user.isMergingOrRemovingLoading,
+  ]);
 
   return (
     <div className="flex flex-col  gap-3 p-5 overflow-auto h-full w-full">

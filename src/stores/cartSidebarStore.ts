@@ -5,6 +5,8 @@ export class CartSidebarStore {
 
   showCartSideBar: boolean = false;
 
+  isLocalCartHasItems: boolean = false;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -36,4 +38,15 @@ export class CartSidebarStore {
       this.displayCartSideBar = true;
     }, 500);
   };
+
+  checkLocalCartHasItems() {
+    if (
+      sessionStorage.getItem("cart")
+      // && JSON.parse(sessionStorage.getItem("cart") ?? "[]").length > 0
+    ) {
+      this.isLocalCartHasItems = true;
+    } else {
+      this.isLocalCartHasItems = false;
+    }
+  }
 }

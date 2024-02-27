@@ -23,10 +23,10 @@ export class ColorsStore {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(
-          "this is the data of the promise we get from colors : ",
-          data
-        );
+        // console.log(
+        //   "this is the data of the promise we get from colors : ",
+        //   data
+        // );
         runInAction(() => {
           this.colors = data.data;
         });

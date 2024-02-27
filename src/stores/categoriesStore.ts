@@ -24,10 +24,10 @@ export class CategoriesStore {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(
-          "this is the data of the promise we get from categories : ",
-          data
-        );
+        // console.log(
+        //   "this is the data of the promise we get from categories : ",
+        //   data
+        // );
         runInAction(() => {
           this.categories = data.data;
         });
@@ -42,10 +42,10 @@ export class CategoriesStore {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(
-          "this is the data of the promise we get from categories : ",
-          data
-        );
+        // console.log(
+        //   "this is the data of the promise we get from categories : ",
+        //   data
+        // );
         runInAction(() => {
           this.someCategories = data.data;
         });

@@ -68,10 +68,10 @@ export class RegisterFormStore {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(
-          "this is the data fter the user logged in from strapi : ",
-          data
-        );
+        // console.log(
+        //   "this is the data fter the user logged in from strapi : ",
+        //   data
+        // );
 
         if (data.jwt) {
           Cookies.set("credentials", data.jwt);

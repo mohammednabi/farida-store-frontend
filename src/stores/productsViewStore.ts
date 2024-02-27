@@ -21,7 +21,7 @@ export class ProductsView {
 
     this.gridView = true;
     // this.rowView = true;
-    console.log(this.gridView);
+    // console.log(this.gridView);
   }
 
   displayRowView() {

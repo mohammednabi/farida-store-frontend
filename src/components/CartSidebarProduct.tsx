@@ -9,6 +9,7 @@ import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
+import CartSideBarLoading from "./CartSideBarLoading";
 
 interface CartSidebarProductProps {
   product: userCartProductType;
@@ -82,18 +83,7 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
 
   return (
     <div className="relative">
-      {isLoading && (
-        <div className="absolute z-50 w-full h-full bg-mainWhite/50 flex justify-center items-center">
-          <CircularProgress
-            color="secondary"
-            size="lg"
-            classNames={{
-              indicator: "stroke-mainPink",
-              track: "stroke-mainPink/10",
-            }}
-          />
-        </div>
-      )}
+      {isLoading && <CartSideBarLoading />}
 
       <div className=" grid grid-cols-[2fr_3fr_1fr] gap-5">
         <div className="w-full h-auto grid place-items-center overflow-hidden">

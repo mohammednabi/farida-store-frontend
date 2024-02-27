@@ -25,7 +25,7 @@ export class AdsSliderStore {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log("this is the data of the promise we get from ads : ", data);
+        // console.log("this is the data of the promise we get from ads : ", data);
 
         runInAction(() => {
           this.ads = data.data;
@@ -41,10 +41,10 @@ export class AdsSliderStore {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(
-          "this is the data of the promise we get from mini ads : ",
-          data
-        );
+        // console.log(
+        //   "this is the data of the promise we get from mini ads : ",
+        //   data
+        // );
 
         runInAction(() => {
           this.miniAds = data.data;

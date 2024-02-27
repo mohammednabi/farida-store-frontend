@@ -2,12 +2,16 @@
 import Cookies from "js-cookie";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Userdata } from "./specificTypes/userdata";
+import { cartProductType } from "./specificTypes/cartProductType";
+import { userCartProductType } from "./specificTypes/userCartProductType";
 
 export class userStore {
   strapiUserdata: Userdata = {} as Userdata;
 
   isLoading: boolean = false;
   token?: string = "";
+
+  isMergingOrRemovingLoading: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -35,7 +39,7 @@ export class userStore {
     )
       .then((res) => res.json())
       .then((data): void => {
-        console.log("this is user data : ", data);
+        // console.log("this is user data : ", data);
 
         runInAction(() => {
           this.strapiUserdata = data;
@@ -62,7 +66,7 @@ export class userStore {
     productId: string | number,
     quantity: number
   ) => {
-    return await fetch(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/cart-items`,
       {
         method: "POST",
@@ -72,13 +76,15 @@ export class userStore {
         },
         body: JSON.stringify({
           data: {
-            product: `${productId}`,
+            product: productId.toString(),
             quantity: quantity,
-            cart: `${this.strapiUserdata.cart.id}`,
+            cart: this.strapiUserdata?.cart?.id.toString(),
           },
         }),
       }
     );
+
+    return response.ok;
   };
 
   removeProductFromUserCart = async (cartItemId: number | string) => {
@@ -116,33 +122,63 @@ export class userStore {
     );
   };
 
-  clearCart() {}
+  mergeLocalCartWithUserCart = async (userCartItems: userCartProductType[]) => {
+    const localCartItems: cartProductType[] = JSON.parse(
+      sessionStorage.getItem("cart") ?? "[]"
+    );
 
-  updateCartQuantity() {} //Updates the quantity of a specific product in the shopping cart.
+    for (const product of localCartItems) {
+      const founded = userCartItems.find((userItem) => {
+        return userItem.id === product.id;
+      });
 
-  addAddress() {}
+      if (!founded) {
+        await this.addProductToUserCart(product.id, product.quantity);
+      }
+    }
 
-  removeAddress() {}
+    sessionStorage.removeItem("cart");
 
-  addToWishList() {}
+    return true;
+  };
 
-  removeFromWishList() {}
+  clearLocalCart = async () => {
+    sessionStorage.removeItem("cart");
 
-  addPaymentMethod() {}
+    return true;
+  };
 
-  removePaymentMethod() {}
+  // setting states of the class
 
-  updateUserProfile() {}
+  set setIsMergingOrRemovingLoading(val: boolean) {
+    this.isMergingOrRemovingLoading = val;
+  }
 
-  calculateOrderTotal() {} // Calculates the total amount for a given order, considering items, shipping, tax, and discounts.
+  // updateCartQuantity() {} //Updates the quantity of a specific product in the shopping cart.
 
-  applyDiscount() {} // user may have a discount copon
+  // addAddress() {}
 
-  trackOrder() {}
+  // removeAddress() {}
 
-  cancelOrder() {}
+  // addToWishList() {}
 
-  getRecommendedProducts() {}
+  // removeFromWishList() {}
 
-  getOrderHistory() {}
+  // addPaymentMethod() {}
+
+  // removePaymentMethod() {}
+
+  // updateUserProfile() {}
+
+  // calculateOrderTotal() {} // Calculates the total amount for a given order, considering items, shipping, tax, and discounts.
+
+  // applyDiscount() {} // user may have a discount copon
+
+  // trackOrder() {}
+
+  // cancelOrder() {}
+
+  // getRecommendedProducts() {}
+
+  // getOrderHistory() {}
 }

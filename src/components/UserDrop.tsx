@@ -97,7 +97,7 @@ const UserDrop = () => {
                   // userDrop.login(e).finally(() => { router.push("/") })
                   loginForm.strapiLogin();
                   if (Cookies.get("credentials")) {
-                    router.push("/");
+                    router.refresh();
                   }
                 }}
               >

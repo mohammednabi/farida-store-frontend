@@ -9,6 +9,9 @@ import CartSidebarFooter from "./CartSidebarFooter";
 import CartSidebarProductsMenu from "./CartSidebarProductsMenu";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
+import { isUserLoggedIn } from "@/functions/credentials";
+import ConfirmMergeCart from "./ConfirmMergeCart";
+import CartSideBarLoading from "./CartSideBarLoading";
 
 const CartSideBarContent = () => {
   const { cartSidebar, cart, user, loginForm, registerForm } =
@@ -23,10 +26,12 @@ const CartSideBarContent = () => {
     loginForm.isLoading,
     registerForm.isLoading,
     cart.productsCount,
+    user.isMergingOrRemovingLoading,
   ]);
 
   return (
-    <div className="flex flex-col justify-between h-full">
+    <div className="relative flex flex-col justify-between h-full">
+      {user.isMergingOrRemovingLoading && <CartSideBarLoading />}
       <CartSidebarHeader close={cartSidebar.hideWholeCartSidebar} />
 
       {cart.productsCount === 0 ? (

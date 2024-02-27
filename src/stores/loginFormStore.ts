@@ -28,13 +28,11 @@ export class LoginFormStore {
   }
 
   firebaseLoginWithEmailAndPass = () => {
-    console.log("1");
     if (
       this.isValidEmail &&
       this.email.length > 0 &&
       this.password.length > 5
     ) {
-      console.log("2");
       runInAction(() => {
         this.isLoading = true;
       });
@@ -61,10 +59,10 @@ export class LoginFormStore {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(
-          "this is the data fter the user logged in from strapi : ",
-          data
-        );
+        // console.log(
+        //   "this is the data fter the user logged in from strapi : ",
+        //   data
+        // );
 
         if (data.jwt) {
           Cookies.set("credentials", data.jwt);

@@ -3,7 +3,7 @@ import { CircularProgress } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import React from "react";
 
-const CartSideBarLoading = () => {
+const CartProductLoading = () => {
   return (
     <div className="absolute z-50 w-full h-full bg-mainWhite/50 flex justify-center items-center">
       <CircularProgress
@@ -18,4 +18,4 @@ const CartSideBarLoading = () => {
   );
 };
 
-export default CartSideBarLoading;
+export default CartProductLoading;

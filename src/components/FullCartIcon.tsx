@@ -1,35 +1,32 @@
-"use client"
-import React, { useContext } from 'react'
+"use client";
+import React, { useContext } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import Icon from './Icon';
+import Icon from "./Icon";
 
-import CartDrop from './Cartdrop';
+import CartDrop from "./Cartdrop";
 
+import { observer } from "mobx-react-lite";
 
-import { observer } from 'mobx-react-lite';
-
-import { StoreContext } from '@/contexts/StoreContext';
-import Link from 'next/link';
+import { StoreContext } from "@/contexts/StoreContext";
+import Link from "next/link";
 
 const FullCartIcon = () => {
- const {cart} = useContext(StoreContext)
-
+  const { cart } = useContext(StoreContext);
 
   return (
-      <div onMouseOver={cart.displayCartMenu} onMouseLeave={cart.hideCartMenu}>
-          <Link href={ "/cart"}>
-              
-              
-          <Icon icon={<AiOutlineShoppingCart />} hasBorder={true} showPop={true} count={cart.productsCount} />
-          </Link>
-          
-        
-              
-      <CartDrop />
-         
-      
-      </div>
-  )
-}
+    <div onMouseOver={cart.displayCartMenu} onMouseLeave={cart.hideCartMenu}>
+      <Link href={"/cart"}>
+        <Icon
+          icon={<AiOutlineShoppingCart />}
+          hasBorder={true}
+          showPop={true}
+          count={cart.productsCount}
+        />
+      </Link>
 
-export default observer( FullCartIcon)
+      <CartDrop />
+    </div>
+  );
+};
+
+export default observer(FullCartIcon);

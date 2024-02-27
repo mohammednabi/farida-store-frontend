@@ -11,7 +11,7 @@ import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
 import { isUserLoggedIn } from "@/functions/credentials";
 import ConfirmMergeCart from "./ConfirmMergeCart";
-import CartSideBarLoading from "./CartSideBarLoading";
+import CartSideBarLoading from "./CartProductLoading";
 
 const CartSideBarContent = () => {
   const { cartSidebar, cart, user, loginForm, registerForm } =

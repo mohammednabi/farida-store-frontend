@@ -1,5 +1,5 @@
 "use client";
-import NextImage from "next/image";
+
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { StoreContext } from "@/contexts/StoreContext";
 import { Button, Image } from "@nextui-org/react";
@@ -13,21 +13,29 @@ import Link from "next/link";
 import { observer } from "mobx-react-lite";
 import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 import { cartProductType } from "@/stores/specificTypes/cartProductType";
-import Cookies from "js-cookie";
 import { isUserLoggedIn } from "@/functions/credentials";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 interface productCardProps {
   product: strapiProductType;
 }
 
 const ProductCard = ({ product }: productCardProps) => {
-  const { products, cart, wishlist, user } = useContext(StoreContext);
-  const [foundInWishlist, setFoundInWishlist] = useState(
-    wishlist.isInWishlist(product.id)
-  );
+  const { products, cart, wishlist, user, userWishlist } =
+    useContext(StoreContext);
+
+  const router = useRouter();
+
   const [foundInCart, setFoundInCart] = useState<cartProductType | undefined>();
 
   const [addingToUserCartLoading, setAddingToUserCartLoading] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+
+  const foundInWishlist = useMemo(() => {
+    return userWishlist.isFoundedInWishList(product.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userWishlist.userWishlistProductsCount, wishlistLoading]);
 
   const getPriceAfterDiscount = () => {
     return products.getPriceAfterDiscount(
@@ -73,6 +81,38 @@ const ProductCard = ({ product }: productCardProps) => {
     }
   };
 
+  const addProductToWishlist = () => {
+    if (isUserLoggedIn() && !userWishlist.isFoundedInWishList(product.id)) {
+      setWishlistLoading(true);
+      userWishlist.addProductToUserWishlist(product.id).then((ok) => {
+        if (ok) {
+          userWishlist.setUserWishlistProductCount =
+            userWishlist.setUserWishlistProductCount + 1;
+          setWishlistLoading(false);
+        }
+      });
+    } else {
+      router.push("/login");
+    }
+  };
+
+  const removeProductFromWishlist = () => {
+    if (isUserLoggedIn() && userWishlist.isFoundedInWishList(product.id)) {
+      setWishlistLoading(true);
+      userWishlist
+        .removeProductFromUserWishlistByProductId(product.id)
+        .then((ok) => {
+          if (ok) {
+            userWishlist.setUserWishlistProductCount =
+              userWishlist.setUserWishlistProductCount - 1;
+            setWishlistLoading(false);
+          }
+        });
+    } else {
+      router.push("/login");
+    }
+  };
+
   useEffect(() => {
     if (isUserLoggedIn()) {
       setFoundInCart(cart.isInUserCart(product.id));
@@ -102,19 +142,29 @@ const ProductCard = ({ product }: productCardProps) => {
       )}
       <div className="  absolute top-0 right-0 z-20 flex justify-center items-center ">
         {!foundInWishlist ? (
-          <Icon
-            icon={<FaRegHeart className="text-mainPink " />}
-            backColor="#ffffff"
-            hasBorder
-            //   whenClick={addProducToWishlist}
-          />
+          <motion.div
+            initial={{ scale: 1 }}
+            animate={{ scale: wishlistLoading ? 0 : 1 }}
+          >
+            <Icon
+              icon={<FaRegHeart className="text-mainPink " />}
+              backColor="#ffffff"
+              hasBorder
+              whenClick={addProductToWishlist}
+            />
+          </motion.div>
         ) : (
-          <Icon
-            icon={<FaHeart className="text-mainPink " />}
-            backColor="#ffffff"
-            hasBorder
-            //   whenClick={removeProductFromWishlist}
-          />
+          <motion.div
+            initial={{ scale: 1 }}
+            animate={{ scale: wishlistLoading ? 0 : 1 }}
+          >
+            <Icon
+              icon={<FaHeart className="text-mainPink " />}
+              backColor="#ffffff"
+              hasBorder
+              whenClick={removeProductFromWishlist}
+            />
+          </motion.div>
         )}
       </div>
       <Link
@@ -173,6 +223,7 @@ const ProductCard = ({ product }: productCardProps) => {
           endContent={foundInCart ? <FaCheck /> : <AiOutlineShoppingCart />}
           size="lg"
           isLoading={addingToUserCartLoading}
+          isDisabled={foundInCart ? true : false}
           onClick={addProductToCart}
         >
           {foundInCart ? "added" : "add"} to cart

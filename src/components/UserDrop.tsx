@@ -1,22 +1,18 @@
 "use client";
-import Link from "next/link";
-import React, { useContext, useEffect, useMemo, useState } from "react";
 
+import React, { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { observer } from "mobx-react-lite";
-
 import { StoreContext } from "@/contexts/StoreContext";
-import { User, onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/firebase/auth";
 import UserLoggedInUi from "./UserLoggedInUi";
 import GoogleProvider from "@/app/(auth)/GoogleProvider";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { isUserLoggedIn } from "@/functions/credentials";
 
 const UserDrop = () => {
   const { userDrop, user, loginForm, registerForm } = useContext(StoreContext);
-  const [uiCondition, setUiCondition] = useState(!Cookies.get("credentials"));
+  const [uiCondition, setUiCondition] = useState(!isUserLoggedIn());
 
   // onAuthStateChanged(auth, (currentUser) => {
   //   user.setUserData(currentUser);
@@ -27,7 +23,7 @@ const UserDrop = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setUiCondition(!Cookies.get("credentials"));
+    setUiCondition(!isUserLoggedIn());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLoading, loginForm.isLoading, registerForm.isLoading]);
@@ -52,7 +48,16 @@ const UserDrop = () => {
             </div>
           </div>
 
-          <form className="flex flex-col gap-5">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              loginForm.strapiLogin();
+              if (isUserLoggedIn()) {
+                router.refresh();
+              }
+            }}
+            className="flex flex-col gap-5"
+          >
             <div className="flex flex-col gap-2">
               <label className="input-label">email</label>
               <input
@@ -93,13 +98,7 @@ const UserDrop = () => {
               <Button
                 isLoading={loginForm.isLoading}
                 className="bg-mainBlack text-mainWhite p-3 px-10 rounded-lg capitalize"
-                onClick={(e) => {
-                  // userDrop.login(e).finally(() => { router.push("/") })
-                  loginForm.strapiLogin();
-                  if (Cookies.get("credentials")) {
-                    router.refresh();
-                  }
-                }}
+                type="submit"
               >
                 submit
               </Button>

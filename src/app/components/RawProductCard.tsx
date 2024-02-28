@@ -9,27 +9,36 @@ import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 import { Button, Image } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 interface rawProductProps {
   product: strapiProductType;
 }
 
 const RawProductCard = ({ product }: rawProductProps) => {
-  const { products, cart, wishlist, user } = useContext(StoreContext);
+  const { products, cart, wishlist, user, userWishlist } =
+    useContext(StoreContext);
 
-  const [foundInWishlist, setFoundInWishlist] = useState(
-    wishlist.isInWishlist(product.id)
-  );
+  const router = useRouter();
+
   const [foundInCart, setFoundInCart] = useState<cartProductType | undefined>();
 
   const [addingToUserCartLoading, setAddingToUserCartLoading] = useState(false);
 
   const [counter, setCounter] = useState(1);
+
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+
+  const foundInWishlist = useMemo(() => {
+    return userWishlist.isFoundedInWishList(product.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userWishlist.userWishlistProductsCount, wishlistLoading]);
 
   const increase = () => {
     setCounter((c) => c + 1);
@@ -81,14 +90,37 @@ const RawProductCard = ({ product }: rawProductProps) => {
       setAddingToUserCartLoading(false);
     }
   };
+  const addProductToWishlist = () => {
+    if (isUserLoggedIn() && !userWishlist.isFoundedInWishList(product.id)) {
+      setWishlistLoading(true);
+      userWishlist.addProductToUserWishlist(product.id).then((ok) => {
+        if (ok) {
+          userWishlist.setUserWishlistProductCount =
+            userWishlist.setUserWishlistProductCount + 1;
+          setWishlistLoading(false);
+        }
+      });
+    } else {
+      router.push("/login");
+    }
+  };
 
-  //   const addProducToWishlist=()=>{
-  //   wishlist.addToWishlist(product)
-  // }
-
-  //  const removeProductFromWishlist=()=>{
-  //       wishlist.removeFromWishlist(product.id)
-  //   }
+  const removeProductFromWishlist = () => {
+    if (isUserLoggedIn() && userWishlist.isFoundedInWishList(product.id)) {
+      setWishlistLoading(true);
+      userWishlist
+        .removeProductFromUserWishlistByProductId(product.id)
+        .then((ok) => {
+          if (ok) {
+            userWishlist.setUserWishlistProductCount =
+              userWishlist.setUserWishlistProductCount - 1;
+            setWishlistLoading(false);
+          }
+        });
+    } else {
+      router.push("/login");
+    }
+  };
 
   useEffect(() => {
     if (isUserLoggedIn()) {
@@ -183,17 +215,27 @@ const RawProductCard = ({ product }: rawProductProps) => {
           </div>
           <div className="  flex justify-center items-center ">
             {!foundInWishlist ? (
-              <Icon
-                size="3xl"
-                icon={<FaRegHeart />}
-                // whenClick={addProducToWishlist}
-              />
+              <motion.div
+                initial={{ scale: 1 }}
+                animate={{ scale: wishlistLoading ? 0 : 1 }}
+              >
+                <Icon
+                  size="3xl"
+                  icon={<FaRegHeart />}
+                  whenClick={addProductToWishlist}
+                />
+              </motion.div>
             ) : (
-              <Icon
-                size="3xl"
-                icon={<FaHeart className="text-mainPink" />}
-                // whenClick={removeProductFromWishlist}
-              />
+              <motion.div
+                initial={{ scale: 1 }}
+                animate={{ scale: wishlistLoading ? 0 : 1 }}
+              >
+                <Icon
+                  size="3xl"
+                  icon={<FaHeart className="text-mainPink" />}
+                  whenClick={removeProductFromWishlist}
+                />
+              </motion.div>
             )}
           </div>
         </div>
@@ -222,6 +264,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
           endContent={foundInCart ? <FaCheck /> : <AiOutlineShoppingCart />}
           size="lg"
           isLoading={addingToUserCartLoading}
+          isDisabled={foundInCart ? true : false}
           onClick={addProductToCart}
         >
           {foundInCart ? "added" : "add"} to cart

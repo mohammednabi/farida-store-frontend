@@ -1,9 +1,8 @@
 import { makeAutoObservable } from "mobx";
-
-import { product } from "./productsStore";
+import { userWishlistProductType } from "./specificTypes/wishlistProductType";
 
 export class WishListStore {
-  items: product[] = [];
+  items: userWishlistProductType[] = [];
   itemsCount: number = 0;
 
   constructor() {
@@ -11,8 +10,8 @@ export class WishListStore {
     this.getAllWishlistProducts();
   }
 
-  addToWishlist(addedProduct: product) {
-    const allWishlistProducts: product[] = JSON.parse(
+  addToWishlist(addedProduct: userWishlistProductType) {
+    const allWishlistProducts: userWishlistProductType[] = JSON.parse(
       localStorage.getItem("wishlist") ?? "[]"
     );
 
@@ -27,7 +26,7 @@ export class WishListStore {
   }
 
   removeFromWishlist(productId: number) {
-    const allWishlistProducts: product[] = JSON.parse(
+    const allWishlistProducts: userWishlistProductType[] = JSON.parse(
       localStorage.getItem("wishlist") ?? "[]"
     );
 
@@ -45,7 +44,7 @@ export class WishListStore {
   }
 
   isInWishlist(productId: number) {
-    const allWishlistProducts: product[] = JSON.parse(
+    const allWishlistProducts: userWishlistProductType[] = JSON.parse(
       localStorage.getItem("wishlist") ?? "[]"
     );
 
@@ -59,14 +58,14 @@ export class WishListStore {
   // reused functions
 
   getAllWishlistProducts() {
-    const allWishlistProducts: product[] = JSON.parse(
+    const allWishlistProducts: userWishlistProductType[] = JSON.parse(
       localStorage.getItem("wishlist") ?? "[]"
     );
     this.items = allWishlistProducts;
     this.itemsCount = allWishlistProducts.length;
   }
 
-  setWishlist(newValue: product[]) {
+  setWishlist(newValue: userWishlistProductType[]) {
     localStorage.setItem("wishlist", JSON.stringify(newValue));
     this.items = newValue;
     this.itemsCount = newValue.length;

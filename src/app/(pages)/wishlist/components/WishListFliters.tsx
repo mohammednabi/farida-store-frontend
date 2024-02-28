@@ -1,50 +1,78 @@
-"use client"
-import { Autocomplete, AutocompleteItem, Button, Input } from '@nextui-org/react'
-import { useRouter } from 'next/navigation';
-import React from 'react'
+"use client";
+import { StoreContext } from "@/contexts/StoreContext";
+import {
+  Autocomplete,
+  AutocompleteItem,
+  Button,
+  Input,
+} from "@nextui-org/react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React, { useContext } from "react";
 
 import { IoAddCircleOutline } from "react-icons/io5";
 import { IoFilterOutline } from "react-icons/io5";
 
-
 const WishListFliters = () => {
+  const { userWishlist } = useContext(StoreContext);
 
-  const filters = [{ id: 1, type: "Default" }, { id: 2, type: "Rating" }, { id: 3, type: "Price" }, { id: 4, type: "Reviews" }, { id: 5, type: "A-Z" }]
-  
-    const router = useRouter()
-    
-    const goToHomePage=()=>{router.push("/")}
+  const filters = [
+    { type: "Rating" },
+    { type: "Prices Up" },
+    { type: "Prices Down" },
+    { type: "A-Z" },
+  ];
 
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const goToHomePage = () => {
+    router.push("/");
+  };
+
+  const setFilter = (selection: any) => {
+    // if (selection) {
+    //   router.push(`${pathname}?sortby=${selection}`);
+    //   userWishlist.sortUserWishlistItems(selection);
+    // } else {
+    //   router.push(`${pathname}`);
+    // }
+    userWishlist.sortUserWishlistItems(selection);
+  };
 
   return (
-    <div className=' relative'>
+    <div className=" relative">
+      <div className="flex flex-col gap-10 ">
+        <Button
+          endContent={<IoAddCircleOutline />}
+          className="bg-mainBlack text-mainWhite p-5 py-8 text-2xl capitalize"
+          onClick={goToHomePage}
+        >
+          add new item
+        </Button>
 
-      <div className='flex flex-col gap-10 fixed'>
-
-      <Button
-      endContent={<IoAddCircleOutline />}
-      className='bg-mainBlack text-mainWhite p-5 py-8 text-2xl capitalize' onClick={goToHomePage}>
-        add new item 
-</Button>
-
-      <Autocomplete
-        label="Filters"
-        placeholder='Filter by ->'
-        defaultItems={filters}
-        variant='faded'
-        value={filters[0].type}
+        <Autocomplete
+          label="Filters"
+          placeholder="Filter by ->"
+          defaultItems={filters}
+          variant="faded"
           startContent={<IoFilterOutline />}
-          className='border-mainPink'
-          color='success'
+          className="border-mainPink"
+          color="success"
           classNames={{
-       popoverContent:"bg-emerald-500 text-mainWhite "
+            popoverContent: "bg-emerald-500 text-mainWhite ",
           }}
-      >
-        {(item) => <AutocompleteItem key={item.id}>{ item.type}</AutocompleteItem>}
-     </Autocomplete>
-          </div>
+          onSelectionChange={(selection) => {
+            setFilter(selection);
+            console.log("change wishlist filters to : ", selection);
+          }}
+        >
+          {(item) => (
+            <AutocompleteItem key={item.type}>{item.type}</AutocompleteItem>
+          )}
+        </Autocomplete>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default WishListFliters
+export default WishListFliters;

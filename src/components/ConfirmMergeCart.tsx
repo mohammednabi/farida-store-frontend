@@ -26,7 +26,7 @@ const ConfirmMergeCart = () => {
   };
 
   return (
-    <div className="px-5 flex flex-col gap-2 justify-self-end">
+    <div className="px-5 flex flex-col gap-2 justify-self-end w-full">
       <h1 className="text-xl capitalize">merge your carts ?</h1>
       <div className="grid grid-cols-2 gap-2">
         <Button

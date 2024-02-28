@@ -33,9 +33,9 @@ const CartSidebarFooter = () => {
   return (
     <div>
       <Divider />
-      {isUserLoggedIn() && cartSidebar.isLocalCartHasItems && (
-        <ConfirmMergeCart />
-      )}
+      {isUserLoggedIn() &&
+        cartSidebar.isLocalCartHasItems &&
+        !user.isMergingOrRemovingLoading && <ConfirmMergeCart />}
       <div className="p-5 flex flex-col gap-5">
         <div className="flex justify-between items-center capitalize text-xl">
           <h1>total :</h1>

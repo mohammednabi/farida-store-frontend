@@ -1,19 +1,14 @@
-"use client"
-import React from 'react'
+"use client";
+import React from "react";
 
 // `${product.price.currentPrice * product.quantity}$`
 
 interface totalPriceProps {
-    totalPrice:number
+  totalPrice: number;
 }
 
+const TotalSingleCartProductPrice = ({ totalPrice }: totalPriceProps) => {
+  return <h1 className="text-center text-xl">{totalPrice.toFixed(2)}$</h1>;
+};
 
-const TotalSingleCartProductPrice = ({totalPrice}:totalPriceProps) => {
-  return (
-      <div>
-          {totalPrice.toFixed(2)}$
-    </div>
-  )
-}
-
-export default TotalSingleCartProductPrice
+export default TotalSingleCartProductPrice;

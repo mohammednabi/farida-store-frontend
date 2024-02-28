@@ -4,24 +4,17 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { Userdata } from "./specificTypes/userdata";
 import { cartProductType } from "./specificTypes/cartProductType";
 import { userCartProductType } from "./specificTypes/userCartProductType";
+import { isUserLoggedIn } from "@/functions/credentials";
 
 export class userStore {
   strapiUserdata: Userdata = {} as Userdata;
 
   isLoading: boolean = false;
-  token?: string = "";
 
   isMergingOrRemovingLoading: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
-    if (Cookies.get("credentials")) {
-      runInAction(() => {
-        this.token = Cookies.get("credentials");
-      });
-    } else {
-      this.token = "";
-    }
   }
 
   // get user data
@@ -72,7 +65,7 @@ export class userStore {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${isUserLoggedIn()}`,
         },
         body: JSON.stringify({
           data: {
@@ -88,16 +81,18 @@ export class userStore {
   };
 
   removeProductFromUserCart = async (cartItemId: number | string) => {
-    return await fetch(
+    const response = await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/cart-items/${cartItemId}`,
       {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${isUserLoggedIn()}`,
         },
       }
     );
+
+    return response.ok;
   };
 
   updateUserCartProductQuantity = async (
@@ -111,7 +106,7 @@ export class userStore {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${isUserLoggedIn()}`,
         },
         body: JSON.stringify({
           data: {
@@ -146,6 +141,12 @@ export class userStore {
     sessionStorage.removeItem("cart");
 
     return true;
+  };
+
+  clearUserCart = async (userCartItems: userCartProductType[]) => {
+    for (const product of userCartItems) {
+      await this.removeProductFromUserCart(product.cartItemId);
+    }
   };
 
   // setting states of the class

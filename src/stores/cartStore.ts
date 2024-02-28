@@ -150,7 +150,7 @@ export class CartStore {
   // delete all products from cart
 
   deleteAllProducts = () => {
-    sessionStorage.setItem("cart", "[]");
+    sessionStorage.removeItem("cart");
 
     this.productsCount = 0;
     this.cartProducts = [];

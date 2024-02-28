@@ -1,59 +1,87 @@
-"use client"
-import { StoreContext } from '@/contexts/StoreContext'
-import { cartProduct } from '@/stores/generalTypes'
-import { observer } from 'mobx-react-lite'
-import React, { useContext, useEffect, useState } from 'react'
+"use client";
+import CartProductLoading from "@/components/CartProductLoading";
+import { StoreContext } from "@/contexts/StoreContext";
+import { isUserLoggedIn } from "@/functions/credentials";
+import { cartProduct } from "@/stores/generalTypes";
+import { observer } from "mobx-react-lite";
+import React, { useContext, useEffect, useState } from "react";
 
-interface quantityCounterProps{
-    product:cartProduct
+interface quantityCounterProps {
+  product: cartProduct;
+  settingLoading: (val: React.SetStateAction<boolean>) => void;
 }
 
-const QuantityCounter = ({ product }: quantityCounterProps) => {
-    
-const {cart} = useContext(StoreContext)
+const QuantityCounter = ({ product, settingLoading }: quantityCounterProps) => {
+  const { cart, user } = useContext(StoreContext);
 
-    const [counter, setCounter] = useState(product.quantity)
-    
+  const [counter, setCounter] = useState<number>(product.quantity);
 
-    const increase = () => {
-        setCounter((c) => c + 1)
-        cart.changeQuantity(product.id,counter+1)
+  const increase = () => {
+    setCounter((c) => c + 1);
 
-
-
-    }
-    const decrease = () => {
-        if (counter > 1) {
-            setCounter((c) => c - 1)
-            cart.changeQuantity(product.id,counter-1)
-    
-        } else {
-            return
-        }
-
+    if (isUserLoggedIn()) {
+      settingLoading(true);
+      user
+        .updateUserCartProductQuantity(product.cartItemId, counter + 1)
+        .then(() => {
+          settingLoading(false);
+        });
+    } else {
+      settingLoading(true);
+      cart.changeQuantity(product.id, counter + 1);
+      settingLoading(false);
     }
 
-    useEffect(() => {
-        setCounter(product.quantity)
-    },[product.quantity])
+    cart.setProductsCount = cart.productsCount + 1;
+  };
+
+  const decrease = () => {
+    if (counter > 1) {
+      setCounter((c) => c - 1);
+      if (isUserLoggedIn()) {
+        settingLoading(true);
+        user
+          .updateUserCartProductQuantity(product.cartItemId, counter - 1)
+          .then(() => {
+            settingLoading(false);
+          });
+      } else {
+        settingLoading(true);
+        cart.changeQuantity(product.id, counter - 1);
+        settingLoading(false);
+      }
+    } else {
+      return;
+    }
+
+    cart.setProductsCount = cart.productsCount + 1;
+  };
+
+  useEffect(() => {
+    setCounter(product.quantity);
+  }, [product.quantity]);
 
   return (
-      <div className='flex items-center justify-center'>
-          <button
-              className='border-mainBlack/10 border-1 border-solid text-lg px-3 py-2 rounded-l-full transition-all hover:bg-mainBlack/5'
+    <div className="relative">
+      <div className="flex items-center justify-center">
+        <button
+          className="border-mainBlack/10 border-1 border-solid text-lg px-3 py-2 rounded-l-full transition-all hover:bg-mainBlack/5"
           onClick={increase}
-          >
-              +
-          </button>
-          <h1 className='border-mainBlack/10 border-1 border-solid text-xl px-5 py-2'>{counter}</h1>
-          <button
-              className='border-mainBlack/10 border-1 border-solid text-lg px-3 py-2 rounded-r-full transition-all hover:bg-mainBlack/5'
+        >
+          +
+        </button>
+        <h1 className="border-mainBlack/10 border-1 border-solid text-xl px-5 py-2">
+          {counter}
+        </h1>
+        <button
+          className="border-mainBlack/10 border-1 border-solid text-lg px-3 py-2 rounded-r-full transition-all hover:bg-mainBlack/5"
           onClick={decrease}
-          >
-              -
-          </button>
+        >
+          -
+        </button>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default observer( QuantityCounter)
+export default observer(QuantityCounter);

@@ -1,20 +1,14 @@
-import React from 'react'
-import PageTitle from '../../../components/PageTitle'
-import LoginForm from './components/LoginForm'
-import { app } from '@/firebase/config'
-import GoogleProvider from '../GoogleProvider'
+import React from "react";
+import PageTitle from "../../../components/PageTitle";
+import LoginForm from "./components/LoginForm";
 
 const LoginPage = () => {
-
-
-
   return (
-      <div className='w-full h-auto'>
-          <PageTitle title='login'/>
+    <div className="w-full h-auto">
+      <PageTitle title="login" />
       <LoginForm />
- 
-   </div>
-  )
-}
+    </div>
+  );
+};
 
-export default LoginPage
+export default LoginPage;

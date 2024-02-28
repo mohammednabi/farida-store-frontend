@@ -36,9 +36,9 @@ const CartDrop2 = () => {
         )}
 
         <Divider />
-        {isUserLoggedIn() && cartSidebar.isLocalCartHasItems && (
-          <ConfirmMergeCart />
-        )}
+        {isUserLoggedIn() &&
+          cartSidebar.isLocalCartHasItems &&
+          !user.isMergingOrRemovingLoading && <ConfirmMergeCart />}
         <CartDropTotalPrice />
       </div>
     </motion.div>

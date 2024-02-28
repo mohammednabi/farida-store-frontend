@@ -1,27 +1,17 @@
-"use client"
-import React, { useContext } from 'react'
-import EmptyCart from './components/EmptyCart'
-import ProductsTable from './components/ProductsTable'
-import TotalPrice from './components/TotalPrice'
-import { Divider } from '@nextui-org/react'
-import CartContent from './components/CartContent'
-import { StoreContext } from '@/contexts/StoreContext'
-import { observer } from 'mobx-react-lite'
+"use client";
+import React, { useContext } from "react";
+import EmptyCart from "./components/EmptyCart";
+
+import CartContent from "./components/CartContent";
+import { StoreContext } from "@/contexts/StoreContext";
+import { observer } from "mobx-react-lite";
 
 const CartPage = () => {
-
-  const {cart} = useContext(StoreContext)
+  const { cart } = useContext(StoreContext);
 
   return (
-      <div>
-         
-{cart.productsCount ===0 ? <EmptyCart />
+    <div>{cart.productsCount === 0 ? <EmptyCart /> : <CartContent />}</div>
+  );
+};
 
-         
-        : <CartContent />}
-       
-    </div>
-  )
-}
-
-export default observer(CartPage)
+export default observer(CartPage);

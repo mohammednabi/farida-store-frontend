@@ -16,6 +16,7 @@ import { cartProductType } from "@/stores/specificTypes/cartProductType";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
 
 interface productCardProps {
   product: strapiProductType;
@@ -194,7 +195,7 @@ const ProductCard = ({ product }: productCardProps) => {
                 )}
               />
               <h1 className="text-mainBlack/50">
-                ({product.attributes.reviews.data.length})
+                ({getTheLengthOfAllowedRatings(products.targetProductReviews)})
               </h1>
             </div>
             <div className="flex items-center gap-5">

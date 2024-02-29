@@ -16,6 +16,7 @@ import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
 
 interface rawProductProps {
   product: strapiProductType;
@@ -176,7 +177,9 @@ const RawProductCard = ({ product }: rawProductProps) => {
           <Rating
             rating={products.getAverageRatings(product.attributes.reviews.data)}
           />
-          <h1>({product.attributes.reviews.data.length})</h1>
+          <h1>
+            ({getTheLengthOfAllowedRatings(products.targetProductReviews)})
+          </h1>
         </div>
 
         <div className="flex items-center justify-between">

@@ -129,7 +129,7 @@ export type Datum = {
 };
 
 export type StickyAttributes = {
-  title: string;
+  allowed: boolean;
   description: string;
   rating: number;
   createdAt: Date;

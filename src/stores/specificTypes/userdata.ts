@@ -72,6 +72,7 @@ export type Cart = {
 };
 
 export type Review = {
+  allowed: boolean;
   id: number;
   title: string;
   description: string;

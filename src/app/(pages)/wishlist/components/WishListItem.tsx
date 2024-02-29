@@ -2,6 +2,8 @@
 import CartProductLoading from "@/components/CartProductLoading";
 import Rating from "@/components/Rating";
 import { StoreContext } from "@/contexts/StoreContext";
+import { getAverageRatings } from "@/functions/getAverageRatings";
+import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
 import { userCartProductType } from "@/stores/specificTypes/userCartProductType";
 import { userWishlistProductType } from "@/stores/specificTypes/wishlistProductType";
 
@@ -17,7 +19,7 @@ interface wishlistItemProps {
 }
 
 const WishListItem = ({ product }: wishlistItemProps) => {
-  const { userWishlist, user, cart } = useContext(StoreContext);
+  const { userWishlist, user, cart, products } = useContext(StoreContext);
 
   const [isLoading, setIsloading] = useState(false);
 
@@ -74,8 +76,10 @@ const WishListItem = ({ product }: wishlistItemProps) => {
             </h1>
           </Link>
           <div className="flex items-center gap-2">
-            <Rating rating={4.5} size="2rem" />
-            <h1>({7})</h1>
+            <Rating rating={getAverageRatings(product.reviews)} size="2rem" />
+            <h1>
+              ({getTheLengthOfAllowedRatings(products.targetProductReviews)})
+            </h1>
           </div>
           <h1 className="text-xl capitalize text-mainBlack/50   w-full line-clamp-2">
             {product.description}

@@ -6,6 +6,7 @@ import {
   MIME,
   strapiProductType,
 } from "./specificTypes/strapiProductType";
+import { PopulatedReview } from "./specificTypes/targetProductReviewsType";
 
 export type Pagination = {
   page: number;
@@ -21,123 +22,8 @@ export class ProductsStore {
   saleProducts: strapiProductType[] = [];
   dealProducts: strapiProductType[] = [];
 
-  targetProduct: strapiProductType = {
-    id: 0,
-    attributes: {
-      title: "",
-      description: "",
-      slug: "",
-      price: 0,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      publishedAt: new Date(),
-      thumbnail: {
-        data: {
-          id: 0,
-          attributes: {
-            name: "",
-            alternativeText: null,
-            caption: null,
-            width: 0,
-            height: 0,
-            formats: {
-              thumbnail: {
-                name: "",
-                hash: "",
-                ext: EXT.Jpg,
-                mime: MIME.ImageJPEG,
-                path: null,
-                width: 0,
-                height: 0,
-                size: 0,
-                url: "",
-              },
-              medium: {
-                name: "",
-                hash: "",
-                ext: EXT.Jpg,
-                mime: MIME.ImageJPEG,
-                path: null,
-                width: 0,
-                height: 0,
-                size: 0,
-                url: "",
-              },
-              small: {
-                name: "",
-                hash: "",
-                ext: EXT.Jpg,
-                mime: MIME.ImageJPEG,
-                path: null,
-                width: 0,
-                height: 0,
-                size: 0,
-                url: "",
-              },
-            },
-            hash: "",
-            ext: EXT.Jpg,
-            mime: MIME.ImageJPEG,
-            size: 0,
-            url: "",
-            previewUrl: null,
-            provider: "",
-            provider_metadata: null,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          },
-        },
-      },
-      images: {
-        data: [],
-        thumbnail: {
-          id: "",
-          url: "",
-        },
-      },
-      inventory: {
-        data: {
-          id: 0,
-          attributes: {
-            name: undefined,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            publishedAt: new Date(),
-            hex: undefined,
-            available_in_stock: undefined,
-            value: undefined,
-          },
-        },
-      },
-      category: {
-        data: [],
-      },
-      reviews: {
-        data: [],
-      },
-      discount: {
-        data: {
-          id: 0,
-          attributes: {
-            name: "",
-            discount_percent: 0,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            publishedAt: new Date(),
-            active: false,
-            expiration: new Date(),
-          },
-        },
-      },
-      sizes: {
-        data: [],
-      },
-      colors: {
-        data: [],
-      },
-      type: "none",
-    },
-  };
+  targetProduct: strapiProductType = {} as strapiProductType;
+  targetProductReviews: PopulatedReview[] = [];
   pagination: Pagination = {
     page: 1,
     pageSize: 12,
@@ -200,6 +86,25 @@ export class ProductsStore {
         });
       })
       .catch((err) => console.log(err));
+
+    await this.getTargetProductsReviews(productId);
+  };
+
+  getTargetProductsReviews = async (productId: string) => {
+    let response = await fetch(
+      `http://localhost:1337/api/products/${productId}?populate[reviews][populate]=*`,
+      this.getMethodOptions
+    );
+
+    let data = await response.json();
+    runInAction(() => {
+      this.targetProductReviews = data.data.attributes.reviews.data;
+
+      console.log(
+        "this is the target products reviews : ",
+        data.data.attributes.reviews.data
+      );
+    });
   };
 
   getBestSellerProducts = async () => {
@@ -485,13 +390,17 @@ export class ProductsStore {
   getAverageRatings(ratings: Datum[]) {
     let sum = 0;
     let avg = 0;
+    let allowedRatingsLength = 0;
 
-    if (ratings.length > 0) {
+    if (ratings?.length > 0) {
       ratings.map((p) => {
-        sum = sum + p.attributes.rating;
+        if (p.attributes.allowed) {
+          sum = sum + p.attributes.rating;
+          allowedRatingsLength = allowedRatingsLength + 1;
+        }
       });
 
-      avg = sum / ratings.length;
+      avg = sum / allowedRatingsLength;
 
       return avg;
     } else {

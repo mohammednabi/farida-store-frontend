@@ -13,6 +13,12 @@ export class userStore {
 
   isMergingOrRemovingLoading: boolean = false;
 
+  userReviewRating: number = 0;
+  userReviewDescription: string = "";
+  userReviewLoading: boolean = false;
+
+  userReviewSended: boolean = false;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -149,10 +155,56 @@ export class userStore {
     }
   };
 
+  addReviewToProduct = async (productId: string | number) => {
+    runInAction(() => {
+      this.userReviewSended = false;
+      this.userReviewLoading = true;
+    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/reviews`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
+        },
+        body: JSON.stringify({
+          data: {
+            description: this.userReviewDescription,
+            rating: this.userReviewRating,
+            product: productId.toString(),
+            user: this.strapiUserdata.id,
+          },
+        }),
+      }
+    );
+
+    if (response.ok) {
+      runInAction(() => {
+        this.userReviewSended = true;
+        this.userReviewLoading = false;
+      });
+    }
+    return response.ok;
+  };
+
+  resetAllAddReviewSectionStates() {
+    this.userReviewDescription = "";
+    this.userReviewRating = 0;
+  }
+
   // setting states of the class
 
   set setIsMergingOrRemovingLoading(val: boolean) {
     this.isMergingOrRemovingLoading = val;
+  }
+
+  set setUserReviewDescription(val: string) {
+    this.userReviewDescription = val;
+  }
+
+  set setUserReviewRating(val: number) {
+    this.userReviewRating = val;
   }
 
   // updateCartQuantity() {} //Updates the quantity of a specific product in the shopping cart.

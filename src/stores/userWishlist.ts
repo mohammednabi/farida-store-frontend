@@ -4,6 +4,7 @@ import { isUserLoggedIn } from "@/functions/credentials";
 import { UserWishlist, WishlistItem } from "./specificTypes/userWishlistType";
 import { getPriceAfterDiscount } from "@/functions/getPriceAfterDiscount";
 import { userWishlistProductType } from "./specificTypes/wishlistProductType";
+import { getAverageRatings } from "@/functions/getAverageRatings";
 
 export class userWishListStore {
   userWishlist: UserWishlist = {} as UserWishlist;
@@ -27,7 +28,7 @@ export class userWishListStore {
     )
       .then((res) => res.json())
       .then((data): void => {
-        console.log("this is user wishlist items data : ", data);
+        // console.log("this is user wishlist items data : ", data);
 
         runInAction(() => {
           this.userWishlist = data.wishlist;
@@ -49,6 +50,7 @@ export class userWishListStore {
                 : 0,
               item.product.price
             ),
+            reviews: item.product.reviews,
           };
 
           itemsOfUserWishlist.push(userWishListItem);
@@ -68,6 +70,79 @@ export class userWishListStore {
         console.log(err);
       });
   };
+
+  sortUserWishlistItems(filter: string) {
+    let sortedWishlist: userWishlistProductType[] = [];
+    if (filter === "A-Z") {
+      sortedWishlist = this.userWishlistProducts.sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      });
+    } else if (filter === "Prices Up") {
+      sortedWishlist = this.userWishlistProducts.sort((a, b) => {
+        return a.price - b.price;
+      });
+    } else if (filter === "Prices Down") {
+      sortedWishlist = this.userWishlistProducts.sort((a, b) => {
+        return b.price - a.price;
+      });
+    } else if (filter === "Rating") {
+      let itemsAverageRatings: {
+        itemId: number | string;
+        averageRating: number;
+        totalRatings: number;
+      }[] = [];
+
+      this.userWishlistProducts.forEach((item) => {
+        const itemAverageRating = getAverageRatings(item.reviews);
+
+        itemsAverageRatings.push({
+          averageRating: itemAverageRating,
+          itemId: item.id,
+          totalRatings: item.reviews.length,
+        });
+      });
+
+      // this step to sort the items  according to average ratings
+
+      // itemsAverageRatings.sort((a, b) => {
+      //   return b.averageRating - a.averageRating;
+      // });
+
+      // this step to sort the items  mixed with average ratings and total ratings
+
+      itemsAverageRatings.sort((a, b) => {
+        if (b.averageRating !== a.averageRating) {
+          // Sort by average rating in descending order
+          return b.averageRating - a.averageRating;
+        } else {
+          // If average rating is equal, sort by total ratings in descending order
+          return b.totalRatings - a.totalRatings;
+        }
+      });
+
+      // this step to sort the items again according to total ratings
+
+      // itemsAverageRatings.sort((a, b) => {
+      //   return b.totalRatings - a.totalRatings;
+      // });
+
+      itemsAverageRatings.forEach((item) => {
+        this.userWishlistProducts.forEach((product) => {
+          if (product.id === item.itemId) {
+            sortedWishlist.push(product);
+          }
+        });
+      });
+    }
+
+    runInAction(() => {
+      if (filter) {
+        this.userWishlistProducts = sortedWishlist;
+      } else {
+        this.getUserWishlistItems();
+      }
+    });
+  }
 
   addProductToUserWishlist = async (productId: string | number) => {
     const response = await fetch(

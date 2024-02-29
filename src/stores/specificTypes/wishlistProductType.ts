@@ -1,3 +1,5 @@
+import { Review } from "./userWishlistType";
+
 export type userWishlistProductType = {
   wishlistItemId: string | number;
   id: string | number;
@@ -6,4 +8,5 @@ export type userWishlistProductType = {
   slug: string;
   description: string;
   price: number;
+  reviews: Review[];
 };

@@ -107,6 +107,7 @@ export enum Provider {
 export type Review = {
   id: number;
   title: string;
+  allowed: boolean;
   description: string;
   rating: number;
   createdAt: Date;

@@ -102,17 +102,31 @@ export class userWishListStore {
         });
       });
 
-      const sortedRatings = itemsAverageRatings.sort((a, b) => {
-        return b.averageRating - a.averageRating;
+      // this step to sort the items  according to average ratings
+
+      // itemsAverageRatings.sort((a, b) => {
+      //   return b.averageRating - a.averageRating;
+      // });
+
+      // this step to sort the items  mixed with average ratings and total ratings
+
+      itemsAverageRatings.sort((a, b) => {
+        if (b.averageRating !== a.averageRating) {
+          // Sort by average rating in descending order
+          return b.averageRating - a.averageRating;
+        } else {
+          // If average rating is equal, sort by total ratings in descending order
+          return b.totalRatings - a.totalRatings;
+        }
       });
 
       // this step to sort the items again according to total ratings
 
-      const reSortedRatings = sortedRatings.sort((a, b) => {
-        return b.totalRatings - a.totalRatings;
-      });
+      // itemsAverageRatings.sort((a, b) => {
+      //   return b.totalRatings - a.totalRatings;
+      // });
 
-      reSortedRatings.forEach((item) => {
+      itemsAverageRatings.forEach((item) => {
         this.userWishlistProducts.forEach((product) => {
           if (product.id === item.itemId) {
             sortedWishlist.push(product);

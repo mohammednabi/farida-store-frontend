@@ -188,6 +188,96 @@ export class userStore {
     return response.ok;
   };
 
+  addNewUserAddress = async (userAddressData: {
+    street: string;
+    state: string;
+    city: string;
+    country: string;
+    postalcode: string;
+    phone: string;
+    userId: string;
+    second_phone: string;
+    fullname: string;
+  }) => {
+    const response = await fetch("http://localhost:1337/api/user-addresses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${isUserLoggedIn()}`,
+      },
+      body: JSON.stringify({
+        data: {
+          street: userAddressData.street,
+          state: userAddressData.state,
+          city: userAddressData.city,
+          country: userAddressData.country,
+          postalcode: userAddressData.postalcode,
+          phone: userAddressData.phone,
+          user: userAddressData.userId,
+          second_phone: userAddressData.second_phone,
+          fullname: userAddressData.fullname,
+        },
+      }),
+    });
+
+    if (response.ok) {
+      let data = await response.json();
+
+      // console.log("this is the user address data inside the promise  : ", data);
+
+      return data;
+    } else {
+      return null;
+    }
+  };
+
+  createNewOrder = async (newOrderData: {
+    totalPrice: number;
+    userPaymentId: string | null;
+    userId: string | null;
+    orderAddressId: string | null;
+    orderNotes: string | null;
+    orderCartItemsIds: string[];
+  }) => {
+    let response = await fetch("http://localhost:1337/api/order-details", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${isUserLoggedIn()}`,
+      },
+      body: JSON.stringify({
+        data: {
+          total: newOrderData.totalPrice,
+          user_payment: newOrderData.userPaymentId,
+          user: newOrderData.userId,
+          user_order_address: newOrderData.orderAddressId,
+          order_notes: newOrderData.orderNotes,
+          order_cart_items: newOrderData.orderCartItemsIds,
+        },
+      }),
+    });
+
+    // "total": 0,
+    // "user_payment": "string or id",
+    // "user": "string or id",
+    // "user_order_address": "string or id",
+    // "order_notes": "string",
+    // "order_cart_items": [
+    //   "string or id",
+    //   "string or id"
+    // ]
+
+    if (response.ok) {
+      let data = await response.json();
+
+      //  console.log("this is the user address data inside the promise  : ", data);
+
+      return data;
+    } else {
+      return null;
+    }
+  };
+
   resetAllAddReviewSectionStates() {
     this.userReviewDescription = "";
     this.userReviewRating = 0;

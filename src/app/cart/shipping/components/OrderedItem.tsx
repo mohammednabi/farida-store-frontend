@@ -1,5 +1,6 @@
 "use client";
 import { Image } from "@nextui-org/react";
+import { observer } from "mobx-react-lite";
 import React from "react";
 
 interface orderedItemProps {
@@ -39,4 +40,4 @@ const OrderedItem = ({ title, price, imgSrc, quantity }: orderedItemProps) => {
   );
 };
 
-export default OrderedItem;
+export default observer(OrderedItem);

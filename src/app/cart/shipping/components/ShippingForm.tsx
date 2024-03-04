@@ -16,9 +16,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ShippingForm = () => {
   const { handleSubmit, register, reset } = useForm();
-  const { user, cart } = useContext(StoreContext);
+  const { user, cart, userOrders } = useContext(StoreContext);
 
   const submitForm = (data: FieldValues) => {
+    userOrders.setIsCreatingOrderLoading = true;
     const userAddressData = {
       street: data.street,
       state: data.state,
@@ -31,12 +32,7 @@ const ShippingForm = () => {
       fullname: data.fullname,
     };
 
-    let cartItemsIds: string[] = [];
-    cart.userCartItems.forEach((item) => {
-      cartItemsIds.push(item.cartItemId.toString());
-    });
-
-    user.addNewUserAddress(userAddressData).then((addressData) => {
+    userOrders.addNewUserAddress(userAddressData).then((addressData) => {
       if (addressData) {
         const userOrderDetailData = {
           totalPrice: Number((cart.totalPrice + 100).toFixed(2)),
@@ -44,15 +40,32 @@ const ShippingForm = () => {
           userId: user.strapiUserdata.id.toString(),
           orderAddressId: addressData.data.id,
           orderNotes: data.notes,
-          orderCartItemsIds: cartItemsIds,
+          // orderItemsIds: userOrders.orderItems,
         };
-        user.createNewOrder(userOrderDetailData).then((data) => {
-          data ? toast.success("order created") : toast.error("order failed");
+
+        userOrders.createNewOrder(userOrderDetailData).then((data) => {
+          if (data) {
+            userOrders
+              .createOrderItemsFromCart(cart.userCartItems, data.data.id)
+              .then(() => {
+                user.clearUserCart(cart.userCartItems).then(() => {
+                  toast.success("order created");
+
+                  userOrders.setIsCreatingOrderLoading = false;
+                });
+              })
+              .catch((err) => {
+                toast.error(`order failed : ${err.message}`);
+                userOrders.setIsCreatingOrderLoading = false;
+              });
+          }
         });
       } else {
         toast.error("failed to create address");
+        userOrders.setIsCreatingOrderLoading = false;
       }
     });
+
     reset();
   };
 

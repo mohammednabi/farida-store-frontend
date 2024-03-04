@@ -14,12 +14,12 @@ import ConfirmMergeCart from "./ConfirmMergeCart";
 import CartSideBarLoading from "./CartProductLoading";
 
 const CartSideBarContent = () => {
-  const { cartSidebar, cart, user, loginForm, registerForm } =
+  const { cartSidebar, cart, user, loginForm, registerForm, userOrders } =
     useContext(StoreContext);
 
   useEffect(() => {
     cart.getAllCartItems();
-
+    console.log("getting all cart items");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     user.isLoading,
@@ -27,6 +27,7 @@ const CartSideBarContent = () => {
     registerForm.isLoading,
     cart.productsCount,
     user.isMergingOrRemovingLoading,
+    userOrders.isCreatingOrderLoading,
   ]);
 
   return (

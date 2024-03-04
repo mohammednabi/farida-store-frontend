@@ -1,9 +1,16 @@
 import { isUserLoggedIn } from "@/functions/credentials";
 import { makeAutoObservable, runInAction } from "mobx";
 import { userCartProductType } from "./specificTypes/userCartProductType";
+import {
+  OrderDetail,
+  UserOrderAddress,
+  UserOrderAddressData,
+} from "./specificTypes/orderAddressType";
 
 export class OrdersStore {
   isCreatingOrderLoading: boolean = false;
+  // orderAddress: UserOrderAddressData = {} as UserOrderAddressData;
+  orderDetails: OrderDetail = {} as OrderDetail;
 
   constructor() {
     makeAutoObservable(this);
@@ -138,6 +145,38 @@ export class OrdersStore {
       this.createNewOrderItem(item.id, item.quantity, orderDetailId).then();
     });
   };
+
+  getOrderDetails = async (orderId: number | string) => {
+    let response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/order-details/${orderId}?populate=user_order_address`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      let data: OrderDetail = await response.json();
+
+      runInAction(() => {
+        this.orderDetails = data;
+      });
+
+      return data;
+    } else {
+      return null;
+    }
+  };
+
+  getOrderDetailsAddress = async (orderId: number | string) => {
+    let data = await this.getOrderDetails(orderId);
+
+    return data?.data.attributes.user_order_address;
+  };
+
   set setIsCreatingOrderLoading(val: boolean) {
     this.isCreatingOrderLoading = val;
   }

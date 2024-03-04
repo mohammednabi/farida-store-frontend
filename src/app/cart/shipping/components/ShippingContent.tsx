@@ -7,11 +7,13 @@ import ShippingOrderAndPrice from "./ShippingOrderAndPrice";
 import { StoreContext } from "@/contexts/StoreContext";
 import EmptyCart from "../../components/EmptyCart";
 import { observer } from "mobx-react-lite";
+import CartProductLoading from "@/components/CartProductLoading";
 
 const ShippingContent = () => {
-  const { cart } = useContext(StoreContext);
+  const { cart, userOrders } = useContext(StoreContext);
   return (
-    <div>
+    <div className="relative">
+      {userOrders.isCreatingOrderLoading && <CartProductLoading />}
       {cart.productsCount > 0 ? (
         <div className="grid grid-cols-[3fr_auto_1.5fr] px-32 gap-5">
           <ShippingForm />

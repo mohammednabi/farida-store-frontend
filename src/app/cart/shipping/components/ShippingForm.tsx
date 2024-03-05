@@ -8,6 +8,7 @@ import {
   Textarea,
 } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
+import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { MdOutlineDiscount } from "react-icons/md";
@@ -17,6 +18,11 @@ import "react-toastify/dist/ReactToastify.css";
 const ShippingForm = () => {
   const { handleSubmit, register, reset } = useForm();
   const { user, cart, userOrders } = useContext(StoreContext);
+  const router = useRouter();
+
+  const goToConfirmationOrderPage = (orderNumber: string | number) => {
+    router.push(`/cart/confirmation?order_number=${orderNumber}`);
+  };
 
   const submitForm = (data: FieldValues) => {
     userOrders.setIsCreatingOrderLoading = true;
@@ -52,6 +58,7 @@ const ShippingForm = () => {
                   toast.success("order created");
 
                   userOrders.setIsCreatingOrderLoading = false;
+                  goToConfirmationOrderPage(data.data.id);
                 });
               })
               .catch((err) => {

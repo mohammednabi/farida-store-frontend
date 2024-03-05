@@ -1,16 +1,14 @@
 import { isUserLoggedIn } from "@/functions/credentials";
 import { makeAutoObservable, runInAction } from "mobx";
 import { userCartProductType } from "./specificTypes/userCartProductType";
-import {
-  OrderDetail,
-  UserOrderAddress,
-  UserOrderAddressData,
-} from "./specificTypes/orderAddressType";
+import { OrderDetail } from "./specificTypes/orderAddressType";
+import { OrderDetails, OrderItems } from "./specificTypes/orderItemsType";
 
 export class OrdersStore {
   isCreatingOrderLoading: boolean = false;
-  // orderAddress: UserOrderAddressData = {} as UserOrderAddressData;
+
   orderDetails: OrderDetail = {} as OrderDetail;
+  orderItems: OrderItems = {} as OrderItems;
 
   constructor() {
     makeAutoObservable(this);
@@ -27,31 +25,32 @@ export class OrdersStore {
     second_phone: string;
     fullname: string;
   }) => {
-    const response = await fetch("http://localhost:1337/api/user-addresses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${isUserLoggedIn()}`,
-      },
-      body: JSON.stringify({
-        data: {
-          street: userAddressData.street,
-          state: userAddressData.state,
-          city: userAddressData.city,
-          country: userAddressData.country,
-          postalcode: userAddressData.postalcode,
-          phone: userAddressData.phone,
-          user: userAddressData.userId,
-          second_phone: userAddressData.second_phone,
-          fullname: userAddressData.fullname,
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/user-addresses`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
         },
-      }),
-    });
+        body: JSON.stringify({
+          data: {
+            street: userAddressData.street,
+            state: userAddressData.state,
+            city: userAddressData.city,
+            country: userAddressData.country,
+            postalcode: userAddressData.postalcode,
+            phone: userAddressData.phone,
+            user: userAddressData.userId,
+            second_phone: userAddressData.second_phone,
+            fullname: userAddressData.fullname,
+          },
+        }),
+      }
+    );
 
     if (response.ok) {
       let data = await response.json();
-
-      // console.log("this is the user address data inside the promise  : ", data);
 
       return data;
     } else {
@@ -66,20 +65,23 @@ export class OrdersStore {
     quantity: number,
     orderDetailId: string | number
   ) => {
-    let response = await fetch("http://localhost:1337/api/order-items", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${isUserLoggedIn()}`,
-      },
-      body: JSON.stringify({
-        data: {
-          order_detail: orderDetailId,
-          product: productId,
-          quantity: quantity,
+    let response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/order-items`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
         },
-      }),
-    });
+        body: JSON.stringify({
+          data: {
+            order_detail: orderDetailId,
+            product: productId,
+            quantity: quantity,
+          },
+        }),
+      }
+    );
 
     if (response.ok) {
       let data = await response.json();
@@ -98,38 +100,29 @@ export class OrdersStore {
     orderNotes: string | null;
     // orderItemsIds: string[];
   }) => {
-    let response = await fetch("http://localhost:1337/api/order-details", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${isUserLoggedIn()}`,
-      },
-      body: JSON.stringify({
-        data: {
-          total: newOrderData.totalPrice,
-          user_payment: newOrderData.userPaymentId,
-          user: newOrderData.userId,
-          user_order_address: newOrderData.orderAddressId,
-          order_notes: newOrderData.orderNotes,
-          //   order_items: newOrderData.orderItemsIds,
+    let response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/order-details`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
         },
-      }),
-    });
-
-    // "total": 0,
-    // "user_payment": "string or id",
-    // "user": "string or id",
-    // "user_order_address": "string or id",
-    // "order_notes": "string",
-    // "order_cart_items": [
-    //   "string or id",
-    //   "string or id"
-    // ]
+        body: JSON.stringify({
+          data: {
+            total: newOrderData.totalPrice,
+            user_payment: newOrderData.userPaymentId,
+            user: newOrderData.userId,
+            user_order_address: newOrderData.orderAddressId,
+            order_notes: newOrderData.orderNotes,
+            //   order_items: newOrderData.orderItemsIds,
+          },
+        }),
+      }
+    );
 
     if (response.ok) {
       let data = await response.json();
-
-      //  console.log("this is the user address data inside the promise  : ", data);
 
       return data;
     } else {
@@ -175,6 +168,63 @@ export class OrdersStore {
     let data = await this.getOrderDetails(orderId);
 
     return data?.data.attributes.user_order_address;
+  };
+
+  getAllOrderItems = async (orderId: number | string) => {
+    let response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/order-details/${orderId}?[populate][order_items][populate][product][populate]=*`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      let data: OrderDetails = await response.json();
+
+      runInAction(() => {
+        if (data.data.attributes.order_items) {
+          this.orderItems = data.data.attributes.order_items;
+        }
+      });
+
+      return response.ok;
+    } else {
+      return null;
+    }
+  };
+
+  isOrderInUserOrdersList = async (
+    orderId: string | number,
+    userId: string | number
+  ) => {
+    let response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/order-details/${orderId}?populate=*`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      let data = await response.json();
+
+      if (data) {
+        if (data?.data?.attributes?.user?.data?.id === userId) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    }
   };
 
   set setIsCreatingOrderLoading(val: boolean) {

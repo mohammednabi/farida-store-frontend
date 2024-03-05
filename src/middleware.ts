@@ -11,11 +11,25 @@ export default function middleware(req: NextRequest) {
     ) {
       return NextResponse.redirect(new URL("/user", req.url));
     }
+
+    // if (
+    //   req.nextUrl.pathname.includes("/confirmation") &&
+    //   !req.nextUrl.searchParams.get("order_number")
+    // ) {
+    //   return NextResponse.redirect(new URL("/cart/shipping", req.url));
+    // }
   }
 
   if (!token) {
     if (req.nextUrl.pathname.includes("/user")) {
       return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    if (
+      req.nextUrl.pathname.includes("/confirmation") ||
+      req.nextUrl.pathname.includes("/shipping")
+    ) {
+      return NextResponse.redirect(new URL("/cart", req.url));
     }
   }
 

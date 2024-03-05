@@ -2,10 +2,15 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import { Button, Divider } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
+import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 
 const TotalPrice = () => {
   const { cart } = useContext(StoreContext);
+  const router = useRouter();
+  const goToShipping = () => {
+    router.push("/cart/shipping");
+  };
 
   return (
     <div className="flex flex-col w-full p-4 gap-5 capitalize">
@@ -32,6 +37,7 @@ const TotalPrice = () => {
       <Button
         className="bg-mainBlack text-white text-xl capitalize"
         radius="sm"
+        onClick={goToShipping}
       >
         complete your order
       </Button>

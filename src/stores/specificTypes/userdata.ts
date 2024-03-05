@@ -65,7 +65,10 @@ export type Medium = {
 
 export type Cart = {
   id: number;
+
+  order_notes: string;
   createdAt: Date;
+
   updatedAt: Date;
   publishedAt: Date;
   total?: number;

@@ -16,6 +16,12 @@ const LayoutTabs = () => {
           description="View your items"
           targetLink={"/cart"}
           opacity={currentLink === "/cart" ? "opacity-100" : "opacity-50"}
+          isChecked={
+            currentLink === "/cart/shipping" ||
+            currentLink === "/cart/confirmation"
+              ? true
+              : false
+          }
         />
         <CartTab
           step={2}
@@ -25,6 +31,7 @@ const LayoutTabs = () => {
             currentLink === "/cart/shipping" ? "opacity-100" : "opacity-50"
           }
           targetLink={"/cart/shipping"}
+          isChecked={currentLink === "/cart/confirmation" ? true : false}
         />
         <CartTab
           step={3}
@@ -34,6 +41,7 @@ const LayoutTabs = () => {
             currentLink === "/cart/confirmation" ? "opacity-100" : "opacity-50"
           }
           targetLink="/cart/confirmation"
+          isDisabled
         />
       </div>
       <Progress

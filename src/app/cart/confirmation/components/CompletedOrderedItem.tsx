@@ -2,36 +2,54 @@
 import { Divider, Image } from "@nextui-org/react";
 import React from "react";
 
-const CompletedOrderedItem = () => {
+interface completedOrderItemProps {
+  title: string;
+  description: string;
+  imgSrc: string;
+  quantity: number;
+  price: number;
+}
+
+const CompletedOrderedItem = ({
+  title,
+  description,
+  imgSrc,
+  price,
+  quantity,
+}: completedOrderItemProps) => {
   return (
-    <>
-      <Divider />
-      <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <div className="w-1/6 aspect-square grid place-items-center">
-            <Image
-              radius="none"
-              src="/fridge2.webp"
-              alt=""
-              classNames={{
-                img: "w-full h-full object contain",
-              }}
-            />
-          </div>
-          <div className="flex flex-col ">
-            <h1 className="text-xl line-clamp-2">title</h1>
-            <h1 className="text-lg text-mainBlack/50 line-clamp-2">
-              desription
-            </h1>
-          </div>
+    <div className="w-full border-2 border-mainBlack/25 border-solid rounded-md">
+      {/* <Divider /> */}
+      <div className="grid grid-cols-[1fr_6fr_3fr] items-center  gap-5 py-5 px-10">
+        <div className="w-full aspect-square grid place-items-center">
+          <Image
+            radius="none"
+            src={imgSrc}
+            alt=""
+            classNames={{
+              img: "w-full h-full object contain",
+            }}
+          />
         </div>
-        <div className="grid grid-cols-[1fr_auto_1fr] gap-5 items-center">
-          <h1 className="text-red-500/50 text-lg">5000 $ X 10</h1>
-          <Divider orientation="vertical" />
-          <h1 className="text-emerald-500 font-semibold text-2xl">500000 $</h1>
+        <div className="flex flex-col ">
+          <h1 className="text-xl line-clamp-2">{title}</h1>
+          <h1 className="text-lg text-mainBlack/50 line-clamp-2">
+            {description}
+          </h1>
+        </div>
+
+        <div className="grid grid-rows-3 gap-3 items-center justify-end">
+          <h1 className="text-red-500/50 text-lg text-right">{price} $</h1>
+          <h1 className="text-mainBlack/50 text-lg text-right capitalize">
+            quantity : {quantity}
+          </h1>
+
+          <h1 className="text-emerald-500 font-semibold text-2xl  text-right">
+            {`${price * quantity} $`}
+          </h1>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

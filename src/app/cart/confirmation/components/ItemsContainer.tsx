@@ -1,20 +1,45 @@
-import React from "react";
-import OrderedItem from "../../shipping/components/OrderedItem";
+"use client";
+import React, { useContext, useEffect } from "react";
+
 import CompletedOrderedItem from "./CompletedOrderedItem";
+import { observer } from "mobx-react-lite";
+import { StoreContext } from "@/contexts/StoreContext";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ItemsContainer = () => {
+  const { userOrders } = useContext(StoreContext);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const orderId = searchParams.get("order_number");
+
+  useEffect(() => {
+    if (orderId) {
+      userOrders.getAllOrderItems(orderId ?? "");
+    } else {
+      router.push("/cart/shipping");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="flex flex-col gap-3">
       <h1 className="text-xl font-semibold capitalize text-center">
-        order details
+        order items
       </h1>
-      <CompletedOrderedItem />
-      <CompletedOrderedItem />
-      <CompletedOrderedItem />
-      <CompletedOrderedItem />
-      <CompletedOrderedItem />
+      {userOrders?.orderItems?.data?.map((orderItem) => (
+        <CompletedOrderedItem
+          key={orderItem.id}
+          title={orderItem.attributes.product.data.attributes.title}
+          description={orderItem.attributes.product.data.attributes.description}
+          imgSrc={`${process.env.NEXT_PUBLIC_HOST}${orderItem.attributes.product.data.attributes.thumbnail.data.attributes.url}`}
+          price={orderItem.attributes.product.data.attributes.price}
+          quantity={orderItem.attributes.quantity}
+        />
+      ))}
     </div>
   );
 };
 
-export default ItemsContainer;
+export default observer(ItemsContainer);

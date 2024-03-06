@@ -11,6 +11,7 @@ export interface MainData {
 export interface PurpleAttributes {
   total: number;
   createdAt: Date;
+  arrivedAt: Date;
   updatedAt: Date;
   publishedAt: Date;
   order_notes: string;

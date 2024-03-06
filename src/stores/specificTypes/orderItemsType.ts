@@ -12,6 +12,7 @@ export interface PurpleAttributes {
   total: number;
   createdAt: Date;
   updatedAt: Date;
+  arrivedAt: Date;
   publishedAt: Date;
   order_notes: string;
   order_items: OrderItems;

@@ -57,8 +57,8 @@ const ShippingForm = () => {
                 user.clearUserCart(cart.userCartItems).then(() => {
                   toast.success("order created");
 
-                  userOrders.setIsCreatingOrderLoading = false;
                   goToConfirmationOrderPage(data.data.id);
+                  userOrders.setIsCreatingOrderLoading = false;
                 });
               })
               .catch((err) => {

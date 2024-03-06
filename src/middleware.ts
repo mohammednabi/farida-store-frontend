@@ -4,6 +4,10 @@ import type { NextRequest } from "next/server";
 export default function middleware(req: NextRequest) {
   const token = req.cookies.get("credentials");
 
+  if (req.nextUrl.pathname.endsWith("/product")) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
+
   if (token) {
     if (
       req.nextUrl.pathname.includes("/login") ||

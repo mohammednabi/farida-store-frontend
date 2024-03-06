@@ -3,12 +3,14 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { userCartProductType } from "./specificTypes/userCartProductType";
 import { OrderDetail } from "./specificTypes/orderAddressType";
 import { OrderDetails, OrderItems } from "./specificTypes/orderItemsType";
+import { UserOrderDetails } from "./specificTypes/userOrderDetailsType";
 
 export class OrdersStore {
   isCreatingOrderLoading: boolean = false;
 
   orderDetails: OrderDetail = {} as OrderDetail;
   orderItems: OrderItems = {} as OrderItems;
+  userOrders: UserOrderDetails[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -224,6 +226,48 @@ export class OrdersStore {
       } else {
         return false;
       }
+    }
+  };
+
+  getUserOrders = async () => {
+    let response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/users/me?[populate][order_details][populate]=*`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      let data = await response.json();
+
+      // console.log(
+      //   "this is the data from get user orders functiion :- ",
+      //   data.order_details
+      // );
+
+      if (data) {
+        runInAction(() => {
+          this.userOrders = data.order_details;
+        });
+
+        return response.ok;
+      } else {
+        return false;
+      }
+
+      // if (data) {
+      //   if (data?.data?.attributes?.user?.data?.id === userId) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // } else {
+      //   return false;
+      // }
     }
   };
 

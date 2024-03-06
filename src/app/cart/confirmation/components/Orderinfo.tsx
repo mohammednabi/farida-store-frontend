@@ -11,6 +11,10 @@ const Orderinfo = () => {
     userOrders.orderDetails.data?.attributes.createdAt
   ).toDateString();
 
+  const arrivedDate = new Date(
+    userOrders.orderDetails.data?.attributes.arrivedAt
+  ).toDateString();
+
   const information = [
     {
       title: "order for:",
@@ -22,6 +26,10 @@ const Orderinfo = () => {
     {
       title: "ordered on  :",
       description: formattedDate,
+    },
+    {
+      title: "arrived on  :",
+      description: arrivedDate,
     },
     {
       title: "total price:",

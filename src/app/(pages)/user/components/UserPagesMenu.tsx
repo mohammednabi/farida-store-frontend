@@ -37,7 +37,7 @@ const UserPagesMenu = () => {
       title: "your addresses",
       description: "edit , remove or set default address",
       icon: <FaRegAddressCard />,
-      pageLink: "#",
+      pageLink: "useraddresses",
     },
     {
       id: 4,

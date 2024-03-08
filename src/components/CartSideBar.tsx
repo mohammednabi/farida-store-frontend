@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import CartSideBarContent from "./CartSideBarContent";
-import CartSideBarLoading from "./CartProductLoading";
+import LoadingOverlay from "./LoadingOverlay";
 
 const CartSideBar = () => {
   const { cartSidebar } = useContext(StoreContext);

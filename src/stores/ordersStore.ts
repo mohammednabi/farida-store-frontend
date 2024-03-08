@@ -11,6 +11,7 @@ export class OrdersStore {
   orderDetails: OrderDetail = {} as OrderDetail;
   orderItems: OrderItems = {} as OrderItems;
   userOrders: UserOrderDetails[] = [];
+  isAddressLoading: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -273,5 +274,9 @@ export class OrdersStore {
 
   set setIsCreatingOrderLoading(val: boolean) {
     this.isCreatingOrderLoading = val;
+  }
+
+  set setIsAddressLoading(val: boolean) {
+    this.isAddressLoading = val;
   }
 }

@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import CartTableProduct from "./CartTableProduct";
 import CartTableHeader from "./CartTableHeader";
 import { Divider } from "@nextui-org/react";
-import CartProductLoading from "@/components/CartProductLoading";
+import LoadingOverlay from "@/components/LoadingOverlay";
 import { isUserLoggedIn } from "@/functions/credentials";
 
 const ProductsTable2 = () => {
@@ -29,7 +29,7 @@ const ProductsTable2 = () => {
             </div>
           ))}
 
-      {user.isMergingOrRemovingLoading && <CartProductLoading />}
+      {user.isMergingOrRemovingLoading && <LoadingOverlay />}
     </div>
   );
 };

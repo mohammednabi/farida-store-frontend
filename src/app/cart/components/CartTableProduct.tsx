@@ -7,7 +7,7 @@ import TotalSingleCartProductPrice from "./TotalSingleCartProductPrice";
 import { MdDelete } from "react-icons/md";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
-import CartProductLoading from "@/components/CartProductLoading";
+import LoadingOverlay from "@/components/LoadingOverlay";
 
 interface cartTableProductProps {
   product: userCartProductType;
@@ -19,7 +19,7 @@ const CartTableProduct = ({ product }: cartTableProductProps) => {
 
   return (
     <div className="relative">
-      {isLoading && <CartProductLoading />}
+      {isLoading && <LoadingOverlay />}
       <div className="grid grid-cols-[5.5fr_1fr_1.5fr_1fr_.5fr] gap-3 items-center">
         <CartProductCard
           id={product.id}

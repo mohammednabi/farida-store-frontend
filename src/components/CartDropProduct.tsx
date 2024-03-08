@@ -8,7 +8,7 @@ import { Image } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
-import CartProductLoading from "./CartProductLoading";
+import LoadingOverlay from "./LoadingOverlay";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { userCartProductType } from "@/stores/specificTypes/userCartProductType";
 
@@ -84,7 +84,7 @@ const CartDropProduct = ({ product }: cartDropProductProps) => {
 
   return (
     <div className="relative ">
-      {isLoading && <CartProductLoading />}
+      {isLoading && <LoadingOverlay />}
       <div className="grid grid-cols-[1fr_2fr_.5fr]  gap-3  px-3">
         <div className="w-full aspect-square">
           <img

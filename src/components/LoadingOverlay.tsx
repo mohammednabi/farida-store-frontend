@@ -3,13 +3,11 @@ import { CircularProgress } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import React from "react";
 
-interface cartProductLoadingProps {
+interface loadingOverlayProps {
   activateLoading?: boolean;
 }
 
-const CartProductLoading = ({
-  activateLoading = true,
-}: cartProductLoadingProps) => {
+const LoadingOverlay = ({ activateLoading = true }: loadingOverlayProps) => {
   return (
     <div className="absolute z-50 w-full h-full bg-mainWhite/50 flex justify-center items-center">
       {activateLoading && (
@@ -26,4 +24,4 @@ const CartProductLoading = ({
   );
 };
 
-export default CartProductLoading;
+export default LoadingOverlay;

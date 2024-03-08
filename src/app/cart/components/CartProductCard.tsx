@@ -1,5 +1,5 @@
 "use client";
-import CartProductLoading from "@/components/CartProductLoading";
+import LoadingOverlay from "@/components/LoadingOverlay";
 import { Divider, Image, TableCell, TableRow } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import NextImage from "next/image";
@@ -23,7 +23,7 @@ const CartProductCard = ({
 }: CartProductProps) => {
   return (
     <div className="relative">
-      {isLoading && <CartProductLoading />}
+      {isLoading && <LoadingOverlay />}
       <div className="grid grid-cols-[1fr_3fr] gap-3  items-center ">
         <Link href={`/product/${id}`} className="w-32 h-auto">
           <Image

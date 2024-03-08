@@ -9,7 +9,7 @@ import EmptyCartDrop from "./EmptyCartDrop";
 import CartDropProductsMenu from "./CartDropProductsMenu";
 import CartDropTotalPrice from "./CartDropTotalPrice";
 import { Divider } from "@nextui-org/react";
-import CartSideBarLoading from "./CartProductLoading";
+import LoadingOverlay from "./LoadingOverlay";
 import ConfirmMergeCart from "./ConfirmMergeCart";
 import { isUserLoggedIn } from "@/functions/credentials";
 
@@ -26,7 +26,7 @@ const CartDrop2 = () => {
       className="origin-top  bg-white min-w-[25rem]  w-[25rem] max-w-[25rem] h-auto p-5  text-mainBlack absolute top-20 right-0 z-[100] border-1 border-solid border-mainBlack border-t-0"
     >
       <div className="flex flex-col gap-5 relative">
-        {user.isMergingOrRemovingLoading && <CartSideBarLoading />}
+        {user.isMergingOrRemovingLoading && <LoadingOverlay />}
         <h1 className="text-xl capitalize">cart ({cart.productsCount}) </h1>
 
         {cart.productsCount === 0 ? (

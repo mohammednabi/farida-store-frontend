@@ -1,5 +1,5 @@
 "use client";
-import CartProductLoading from "@/components/CartProductLoading";
+import LoadingOverlay from "@/components/LoadingOverlay";
 import Rating from "@/components/Rating";
 import { StoreContext } from "@/contexts/StoreContext";
 import { getAverageRatings } from "@/functions/getAverageRatings";
@@ -54,7 +54,7 @@ const WishListItem = ({ product }: wishlistItemProps) => {
 
   return (
     <div className="relative">
-      {isLoading && <CartProductLoading />}
+      {isLoading && <LoadingOverlay />}
 
       <div className="grid grid-cols-[2fr_4fr_2fr_2fr] gap-5 py-3 w-full">
         <Link

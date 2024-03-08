@@ -1,5 +1,5 @@
 "use client";
-import CartProductLoading from "@/components/CartProductLoading";
+import LoadingOverlay from "@/components/LoadingOverlay";
 import { StoreContext } from "@/contexts/StoreContext";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { cartProduct } from "@/stores/generalTypes";

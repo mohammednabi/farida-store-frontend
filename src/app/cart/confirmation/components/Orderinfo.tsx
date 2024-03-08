@@ -19,8 +19,8 @@ const Orderinfo = () => {
     {
       title: "order for:",
       description:
-        userOrders.orderDetails.data?.attributes.user_order_address.data
-          .attributes.fullname,
+        userOrders.orderDetails.data?.attributes?.user_order_address?.data
+          ?.attributes?.fullname,
     },
     { title: "order number:", description: userOrders.orderDetails.data?.id },
     {

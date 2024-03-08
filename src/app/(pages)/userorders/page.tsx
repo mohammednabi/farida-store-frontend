@@ -5,7 +5,7 @@ import OrderCardsContainer from "./components/OrderCardsContainer";
 const UserOrdersPage = () => {
   return (
     <div>
-      <PageTitle title="user orders" />
+      <PageTitle title="your orders" />
       <OrderCardsContainer />
     </div>
   );

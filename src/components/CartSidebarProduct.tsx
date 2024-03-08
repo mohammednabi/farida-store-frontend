@@ -9,7 +9,7 @@ import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
-import CartProductLoading from "./CartProductLoading";
+import LoadingOverlay from "./LoadingOverlay";
 
 interface CartSidebarProductProps {
   product: userCartProductType;
@@ -83,7 +83,7 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
 
   return (
     <div className="relative">
-      {isLoading && <CartProductLoading />}
+      {isLoading && <LoadingOverlay />}
 
       <div className=" grid grid-cols-[2fr_3fr_1fr] gap-5">
         <div className="w-full h-auto grid place-items-center overflow-hidden">

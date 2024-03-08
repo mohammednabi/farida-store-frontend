@@ -19,6 +19,8 @@ import { LoginFormStore } from "./loginFormStore";
 import { RegisterFormStore } from "./registerFormStore";
 import { userWishListStore } from "./userWishlist";
 import { OrdersStore } from "./ordersStore";
+import { UserAddressesStore } from "./userAddressesStore";
+import { AddressModalStore } from "./addressModalStore";
 
 // cart store instance
 
@@ -84,9 +86,17 @@ const loginFormInstance = new LoginFormStore();
 
 const userWishlistInstance = new userWishListStore();
 
-// user wishlist store
+// user orders store
 
 const userOrdersInstance = new OrdersStore();
+
+// user addresses store
+
+const userAddressesInstance = new UserAddressesStore();
+
+// address modal store
+
+const addressModalInstance = new AddressModalStore();
 
 // ==========================================================
 // this object is for all stores that will for all states
@@ -109,6 +119,8 @@ export const store = {
   loginForm: loginFormInstance,
   userWishlist: userWishlistInstance,
   userOrders: userOrdersInstance,
+  userAddresses: userAddressesInstance,
+  addressModal: addressModalInstance,
 };
 
 interface indexChildren {

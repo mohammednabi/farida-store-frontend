@@ -12,44 +12,44 @@ const OrderAddress = () => {
     {
       title: "state :",
       description:
-        userOrders.orderDetails.data?.attributes.user_order_address.data
-          .attributes.state,
+        userOrders.orderDetails.data?.attributes?.user_order_address?.data
+          ?.attributes?.state,
     },
     {
       title: "country  :",
       description:
-        userOrders.orderDetails.data?.attributes.user_order_address.data
-          .attributes.country,
+        userOrders.orderDetails.data?.attributes?.user_order_address?.data
+          ?.attributes?.country,
     },
     {
       title: "city:",
       description:
-        userOrders.orderDetails.data?.attributes.user_order_address.data
-          .attributes.city,
+        userOrders.orderDetails.data?.attributes?.user_order_address?.data
+          ?.attributes?.city,
     },
     {
       title: "street  :",
       description:
-        userOrders.orderDetails.data?.attributes.user_order_address.data
-          .attributes.street,
+        userOrders.orderDetails.data?.attributes?.user_order_address?.data
+          ?.attributes?.street,
     },
     {
       title: "postal code :",
       description:
-        userOrders.orderDetails.data?.attributes.user_order_address.data
-          .attributes.postalcode,
+        userOrders.orderDetails.data?.attributes?.user_order_address?.data
+          ?.attributes?.postalcode,
     },
     {
       title: "phone :",
       description:
-        userOrders.orderDetails.data?.attributes.user_order_address.data
-          .attributes.phone,
+        userOrders.orderDetails.data?.attributes?.user_order_address?.data
+          ?.attributes?.phone,
     },
     {
       title: "second phone :",
       description:
-        userOrders.orderDetails.data?.attributes.user_order_address.data
-          .attributes.second_phone,
+        userOrders.orderDetails.data?.attributes?.user_order_address?.data
+          ?.attributes?.second_phone,
     },
   ];
 

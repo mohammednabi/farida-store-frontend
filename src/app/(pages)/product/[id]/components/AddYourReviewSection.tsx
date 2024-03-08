@@ -1,5 +1,5 @@
 "use client";
-import CartProductLoading from "@/components/CartProductLoading";
+import LoadingOverlay from "@/components/LoadingOverlay";
 import { StoreContext } from "@/contexts/StoreContext";
 import { Button, Textarea } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
@@ -28,7 +28,7 @@ const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
 
   return (
     <div className="relative mt-10 flex flex-col gap-3">
-      {user.userReviewLoading && <CartProductLoading />}
+      {user.userReviewLoading && <LoadingOverlay />}
       <h1 className="text-lg capitalize">add your rating and review</h1>
 
       <form

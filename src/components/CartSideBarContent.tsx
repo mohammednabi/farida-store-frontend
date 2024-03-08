@@ -11,7 +11,7 @@ import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
 import { isUserLoggedIn } from "@/functions/credentials";
 import ConfirmMergeCart from "./ConfirmMergeCart";
-import CartSideBarLoading from "./CartProductLoading";
+import LoadingOverlay from "./LoadingOverlay";
 
 const CartSideBarContent = () => {
   const { cartSidebar, cart, user, loginForm, registerForm, userOrders } =
@@ -32,7 +32,7 @@ const CartSideBarContent = () => {
 
   return (
     <div className="relative flex flex-col justify-between h-full">
-      {user.isMergingOrRemovingLoading && <CartSideBarLoading />}
+      {user.isMergingOrRemovingLoading && <LoadingOverlay />}
       <CartSidebarHeader close={cartSidebar.hideWholeCartSidebar} />
 
       {cart.productsCount === 0 ? (

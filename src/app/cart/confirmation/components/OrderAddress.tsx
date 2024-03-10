@@ -11,45 +11,31 @@ const OrderAddress = () => {
   const information = [
     {
       title: "state :",
-      description:
-        userOrders.orderDetails.data?.attributes?.user_order_address?.data
-          ?.attributes?.state,
+      description: userOrders.orderDetails?.data?.attributes?.state,
     },
     {
       title: "country  :",
-      description:
-        userOrders.orderDetails.data?.attributes?.user_order_address?.data
-          ?.attributes?.country,
+      description: userOrders.orderDetails?.data?.attributes?.country,
     },
     {
       title: "city:",
-      description:
-        userOrders.orderDetails.data?.attributes?.user_order_address?.data
-          ?.attributes?.city,
+      description: userOrders.orderDetails?.data?.attributes?.city,
     },
     {
       title: "street  :",
-      description:
-        userOrders.orderDetails.data?.attributes?.user_order_address?.data
-          ?.attributes?.street,
+      description: userOrders.orderDetails?.data?.attributes?.street,
     },
     {
       title: "postal code :",
-      description:
-        userOrders.orderDetails.data?.attributes?.user_order_address?.data
-          ?.attributes?.postalcode,
+      description: userOrders.orderDetails?.data?.attributes?.postal_code,
     },
     {
       title: "phone :",
-      description:
-        userOrders.orderDetails.data?.attributes?.user_order_address?.data
-          ?.attributes?.phone,
+      description: userOrders.orderDetails?.data?.attributes?.phone,
     },
     {
       title: "second phone :",
-      description:
-        userOrders.orderDetails.data?.attributes?.user_order_address?.data
-          ?.attributes?.second_phone,
+      description: userOrders.orderDetails?.data?.attributes?.second_phone,
     },
   ];
 

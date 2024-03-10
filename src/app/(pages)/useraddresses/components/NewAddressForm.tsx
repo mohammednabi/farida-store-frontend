@@ -19,7 +19,7 @@ const NewAddressForm = () => {
       state: data.state,
       city: data.city,
       country: data.country,
-      postalcode: data.postal_code,
+      postal_code: data.postal_code,
       phone: data.phone,
       userId: user.strapiUserdata.id.toString(),
       second_phone: data.second_phone,

@@ -11,34 +11,57 @@ export interface MainData {
 export interface PurpleAttributes {
   total: number;
   createdAt: Date;
-  arrivedAt: Date;
   updatedAt: Date;
   publishedAt: Date;
   order_notes: string;
-  user_order_address: UserOrderAddress;
+  arrivedAt: Date;
+  state: string;
+  country: string;
+  city: string;
+  street: string;
+  phone: string;
+  second_phone: string;
+  postal_code: string;
+  user_payment: OrderItems;
+  user: User;
+  order_items: OrderItems;
 }
 
-export interface UserOrderAddress {
-  data: UserOrderAddressData;
+export interface OrderItems {
+  data: Datum[] | null;
 }
 
-export interface UserOrderAddressData {
+export interface Datum {
+  id: number;
+  attributes: DatumAttributes;
+}
+
+export interface DatumAttributes {
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  quantity: number;
+}
+
+export interface User {
+  data: UserData;
+}
+
+export interface UserData {
   id: number;
   attributes: FluffyAttributes;
 }
 
 export interface FluffyAttributes {
-  state: string;
-  city: string;
-  country: string;
-  postalcode: string;
-  phone: string;
+  username: string;
+  email: string;
+  provider: string;
+  confirmed: boolean;
+  blocked: boolean;
   createdAt: Date;
   updatedAt: Date;
-  publishedAt: Date;
-  street: string;
-  second_phone: string;
-  fullname: string;
+  first_name: string;
+  last_name: string;
 }
 
 export interface Meta {}

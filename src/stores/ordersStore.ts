@@ -22,7 +22,7 @@ export class OrdersStore {
     state: string;
     city: string;
     country: string;
-    postalcode: string;
+    postal_code: string;
     phone: string;
     userId: string;
     second_phone: string;
@@ -42,7 +42,7 @@ export class OrdersStore {
             state: userAddressData.state,
             city: userAddressData.city,
             country: userAddressData.country,
-            postalcode: userAddressData.postalcode,
+            postal_code: userAddressData.postal_code,
             phone: userAddressData.phone,
             user: userAddressData.userId,
             second_phone: userAddressData.second_phone,
@@ -99,8 +99,17 @@ export class OrdersStore {
     totalPrice: number;
     userPaymentId: string | null;
     userId: string | null;
-    orderAddressId: string | null;
+
     orderNotes: string | null;
+    orderAddress: {
+      state: string;
+      country: string;
+      city: string;
+      street: string;
+      postal_code: string;
+      phone: string;
+      second_phone: string;
+    };
     // orderItemsIds: string[];
   }) => {
     let response = await fetch(
@@ -116,8 +125,14 @@ export class OrdersStore {
             total: newOrderData.totalPrice,
             user_payment: newOrderData.userPaymentId,
             user: newOrderData.userId,
-            user_order_address: newOrderData.orderAddressId,
             order_notes: newOrderData.orderNotes,
+            state: newOrderData.orderAddress.state,
+            country: newOrderData.orderAddress.country,
+            city: newOrderData.orderAddress.city,
+            street: newOrderData.orderAddress.street,
+            postal_code: newOrderData.orderAddress.postal_code,
+            phone: newOrderData.orderAddress.phone,
+            second_phone: newOrderData.orderAddress.second_phone,
             //   order_items: newOrderData.orderItemsIds,
           },
         }),
@@ -144,7 +159,7 @@ export class OrdersStore {
 
   getOrderDetails = async (orderId: number | string) => {
     let response = await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/order-details/${orderId}?populate=user_order_address`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/order-details/${orderId}?populate=*`,
       {
         method: "GET",
         headers: {
@@ -167,11 +182,11 @@ export class OrdersStore {
     }
   };
 
-  getOrderDetailsAddress = async (orderId: number | string) => {
-    let data = await this.getOrderDetails(orderId);
+  // getOrderDetailsAddress = async (orderId: number | string) => {
+  //   let data = await this.getOrderDetails(orderId);
 
-    return data?.data.attributes.user_order_address;
-  };
+  //   return data?.data.attributes.user_order_address;
+  // };
 
   getAllOrderItems = async (orderId: number | string) => {
     let response = await fetch(

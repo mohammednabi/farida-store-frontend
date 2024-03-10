@@ -9,72 +9,86 @@ import {
 } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { MdOutlineDiscount } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AddressSelectionModal from "../../confirmation/components/AddressSelectionModal";
+import CustomizedInput from "../components/CustomizedInput";
 
 const ShippingForm = () => {
-  const { handleSubmit, register, reset } = useForm();
-  const { user, cart, userOrders } = useContext(StoreContext);
+  const { handleSubmit, register, reset, setValue } = useForm();
+  const { user, cart, userOrders, selectionAddressModal, userAddresses } =
+    useContext(StoreContext);
   const router = useRouter();
 
   const goToConfirmationOrderPage = (orderNumber: string | number) => {
     router.push(`/cart/confirmation?order_number=${orderNumber}`);
   };
 
+  const setSelectedAddressValues = () => {
+    setValue("phone", userAddresses.selectedUserAddress.phone);
+    setValue("second_phone", userAddresses.selectedUserAddress.second_phone);
+    setValue("state", userAddresses.selectedUserAddress.state);
+    setValue("country", userAddresses.selectedUserAddress.country);
+    setValue("city", userAddresses.selectedUserAddress.city);
+    setValue("street", userAddresses.selectedUserAddress.street);
+    setValue("postal", userAddresses.selectedUserAddress.postal_code);
+  };
+
   const submitForm = (data: FieldValues) => {
     userOrders.setIsCreatingOrderLoading = true;
-    const userAddressData = {
-      street: data.street,
-      state: data.state,
-      city: data.city,
-      country: data.country,
-      postalcode: data.postal,
-      phone: data.phone,
+
+    const userOrderDetailData = {
+      totalPrice: Number((cart.totalPrice + 100).toFixed(2)),
+      userPaymentId: null,
       userId: user.strapiUserdata.id.toString(),
-      second_phone: data.second_phone,
-      fullname: data.fullname,
+
+      orderNotes: data.notes,
+      orderAddress: {
+        street: data.street,
+        state: data.state,
+        city: data.city,
+        country: data.country,
+        postal_code: data.postal,
+        phone: data.phone,
+        second_phone: data.second_phone,
+      },
+      // orderItemsIds: userOrders.orderItems,
     };
 
-    userOrders.addNewUserAddress(userAddressData).then((addressData) => {
-      if (addressData) {
-        const userOrderDetailData = {
-          totalPrice: Number((cart.totalPrice + 100).toFixed(2)),
-          userPaymentId: null,
-          userId: user.strapiUserdata.id.toString(),
-          orderAddressId: addressData.data.id,
-          orderNotes: data.notes,
-          // orderItemsIds: userOrders.orderItems,
-        };
-
-        userOrders.createNewOrder(userOrderDetailData).then((data) => {
-          if (data) {
-            userOrders
-              .createOrderItemsFromCart(cart.userCartItems, data.data.id)
-              .then(() => {
-                user.clearUserCart(cart.userCartItems).then(() => {
-                  toast.success("order created");
-
-                  goToConfirmationOrderPage(data.data.id);
-                  userOrders.setIsCreatingOrderLoading = false;
-                });
-              })
-              .catch((err) => {
-                toast.error(`order failed : ${err.message}`);
-                userOrders.setIsCreatingOrderLoading = false;
-              });
-          }
-        });
-      } else {
-        toast.error("failed to create address");
-        userOrders.setIsCreatingOrderLoading = false;
+    userOrders.createNewOrder(userOrderDetailData).then((data) => {
+      if (data) {
+        userOrders
+          .createOrderItemsFromCart(cart.userCartItems, data.data.id)
+          .then(() => {
+            user.clearUserCart(cart.userCartItems).then(() => {
+              toast.success("order created");
+              userOrders.setIsCreatingOrderLoading = false;
+              goToConfirmationOrderPage(data.data.id);
+            });
+          })
+          .catch((err) => {
+            toast.error(`order failed : ${err.message}`);
+          });
       }
     });
 
     reset();
   };
+
+  useEffect(() => {
+    userAddresses.getAllUserAddresses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (userAddresses.selectedUserAddress.id) {
+      setSelectedAddressValues();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userAddresses.selectedUserAddress.id]);
 
   return (
     <div className="flex flex-col ">
@@ -111,116 +125,93 @@ const ShippingForm = () => {
         </AccordionItem>
       </Accordion>
 
+      {userAddresses.userAddresses.length > 0 && (
+        <Button
+          radius="none"
+          className="bg-mainBlack text-mainWhite text-xl mt-10 capitalize"
+          onPress={selectionAddressModal.onOpen}
+        >
+          select from your addresses
+        </Button>
+      )}
+
+      <AddressSelectionModal />
+
       <form
         onSubmit={handleSubmit((data) => {
           submitForm(data);
         })}
-        className="mt-20   flex flex-col gap-10 "
+        className="mt-10   flex flex-col gap-5 "
       >
-        <Input
-          {...register("fullname")}
-          label={"fullname"}
-          labelPlacement="outside"
-          inputMode="text"
-          placeholder="your full name"
-          radius="sm"
-          isRequired
-          classNames={{
-            label: "text-xl capitalize font-bold ",
-          }}
-        />
-
-        <div className="flex items-center gap-5">
-          <Input
-            {...register("phone")}
-            label={"phone"}
-            labelPlacement="outside"
-            inputMode="tel"
-            placeholder="your phone number"
-            radius="sm"
-            isRequired
+        <div className="grid grid-cols-2 items-center gap-5">
+          <CustomizedInput
+            formHookRegister={register("phone")}
+            label="phone"
+            labelPlacement="top"
             type="tel"
-            classNames={{
-              label: "text-xl capitalize font-bold ",
-            }}
+            inputMode="tel"
+            placeholder="phone number"
+            required
           />
 
-          <Input
-            {...register("second_phone")}
+          <CustomizedInput
+            formHookRegister={register("second_phone")}
             label={"another phone "}
-            labelPlacement="outside"
-            inputMode="text"
-            placeholder="another phone number"
-            radius="sm"
+            labelPlacement="top"
             type="tel"
-            classNames={{
-              label: "text-xl capitalize font-bold ",
-            }}
+            inputMode="tel"
+            placeholder="another phone number"
           />
         </div>
 
-        <Input
-          {...register("state")}
-          label={"state"}
-          labelPlacement="outside"
+        <CustomizedInput
+          formHookRegister={register("state")}
+          label={"state "}
+          labelPlacement="top"
+          type="text"
           inputMode="text"
           placeholder="pick your state"
-          radius="sm"
-          isRequired
-          classNames={{
-            label: "text-xl capitalize font-bold ",
-          }}
-        />
-        <Input
-          {...register("country")}
-          label={"country"}
-          labelPlacement="outside"
-          inputMode="text"
-          placeholder="your country"
-          radius="sm"
-          isRequired
-          classNames={{
-            label: "text-xl capitalize font-bold ",
-          }}
+          required
         />
 
-        <Input
-          {...register("city")}
-          label={"city"}
-          labelPlacement="outside"
+        <CustomizedInput
+          formHookRegister={register("country")}
+          label={"country "}
+          labelPlacement="top"
+          type="text"
           inputMode="text"
           placeholder="your country"
-          radius="sm"
-          isRequired
-          classNames={{
-            label: "text-xl capitalize font-bold ",
-          }}
+          required
         />
 
-        <Input
-          {...register("street")}
-          label={"street"}
-          labelPlacement="outside"
+        <CustomizedInput
+          formHookRegister={register("city")}
+          label={"city "}
+          labelPlacement="top"
+          type="text"
+          inputMode="text"
+          placeholder="your city"
+          required
+        />
+
+        <CustomizedInput
+          formHookRegister={register("street")}
+          label={"street "}
+          labelPlacement="top"
+          type="text"
           inputMode="text"
           placeholder="your street"
-          radius="sm"
-          isRequired
-          classNames={{
-            label: "text-xl capitalize font-bold ",
-          }}
+          required
         />
 
-        <Input
-          {...register("postal")}
-          label={"postal code"}
-          labelPlacement="outside"
+        <CustomizedInput
+          formHookRegister={register("postal")}
+          label={"postal code "}
+          labelPlacement="top"
+          type="text"
           inputMode="text"
           placeholder="postal code of your address"
-          radius="sm"
-          isRequired
-          classNames={{
-            label: "text-xl capitalize font-bold ",
-          }}
+          required
         />
 
         <div className="flex flex-col pt-10 gap-5">

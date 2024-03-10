@@ -101,7 +101,7 @@ export type UserAddress = {
   state: string;
   city: string;
   country: string;
-  postalcode: string;
+  postal_code: string;
   mobile: string;
   phone: string;
   createdAt: Date;

@@ -39,7 +39,7 @@ export interface UserOrderAddress {
   state: string;
   city: string;
   country: string;
-  postalcode: string;
+  postal_code: string;
   phone: string;
   createdAt: Date;
   updatedAt: Date;

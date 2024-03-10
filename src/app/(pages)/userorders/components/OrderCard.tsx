@@ -5,11 +5,11 @@ import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
 interface orderCardProps {
-  orderNumber?: number;
-  totalPrice?: number;
-  orderedOn?: Date;
-  arrivedOn?: Date;
-  orderItemsCount?: number;
+  orderNumber: number;
+  totalPrice: number;
+  orderedOn: Date;
+  arrivedOn: Date;
+  orderItemsCount: number;
 }
 
 const OrderCard = ({
@@ -19,8 +19,8 @@ const OrderCard = ({
   arrivedOn,
   orderItemsCount,
 }: orderCardProps) => {
-  const orderedOnDate = new Date(orderedOn ?? "").toDateString();
-  const arrivedOnDate = new Date(arrivedOn ?? "").toDateString();
+  const orderedOnDate = new Date(orderedOn).toDateString();
+  const arrivedOnDate = new Date(arrivedOn).toDateString();
 
   const information: { title: string; description: string }[] = [
     { title: "order number:", description: `${orderNumber}` },

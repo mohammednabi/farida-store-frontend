@@ -8,21 +8,21 @@ const Orderinfo = () => {
   const { userOrders } = useContext(StoreContext);
 
   const formattedDate = new Date(
-    userOrders.orderDetails.data?.attributes.createdAt
+    userOrders.orderDetails.data?.attributes?.createdAt
   ).toDateString();
 
   const arrivedDate = new Date(
-    userOrders.orderDetails.data?.attributes.arrivedAt
+    userOrders.orderDetails.data?.attributes?.arrivedAt
   ).toDateString();
 
   const information = [
     {
       title: "order for:",
       description:
-        userOrders.orderDetails.data?.attributes?.user_order_address?.data
-          ?.attributes?.fullname,
+        userOrders.orderDetails.data?.attributes?.user?.data?.attributes
+          ?.username,
     },
-    { title: "order number:", description: userOrders.orderDetails.data?.id },
+    { title: "order number:", description: userOrders.orderDetails?.data?.id },
     {
       title: "ordered on  :",
       description: formattedDate,
@@ -33,7 +33,7 @@ const Orderinfo = () => {
     },
     {
       title: "total price:",
-      description: `${userOrders.orderDetails.data?.attributes.total} $`,
+      description: `${userOrders.orderDetails.data?.attributes?.total} $`,
     },
     {
       title: "payment method :",
@@ -41,7 +41,7 @@ const Orderinfo = () => {
     },
     {
       title: "order notes :",
-      description: userOrders.orderDetails.data?.attributes.order_notes,
+      description: userOrders.orderDetails.data?.attributes?.order_notes,
     },
   ];
 

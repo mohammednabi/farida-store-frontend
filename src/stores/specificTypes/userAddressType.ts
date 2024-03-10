@@ -13,34 +13,16 @@ export interface MainAddressData {
 }
 
 export interface UserAddressType {
-  id: number;
-  state: State;
-  city: City;
-  country: Country;
-  postalcode: string;
+  id: number | string;
+  state: string;
+  city: string;
+  country: string;
+  postal_code: string;
   phone: string;
-  createdAt: Date;
-  updatedAt: Date;
-  publishedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  publishedAt?: Date;
   street: string;
   second_phone: string;
-  fullname: string;
-}
-
-export enum City {
-  CityLuxor = "Luxor",
-  Luxor = "luxor",
-  القاهره = "القاهره",
-}
-
-export enum Country {
-  CountryEgypt = "egypt",
-  Egypt = "Egypt",
-  PurpleEgypt = "Egypt ",
-}
-
-export enum State {
-  Egypt = "egypt",
-  StateEgypt = "Egypt",
-  الإسكندرية = "الإسكندرية",
+  fullname?: string;
 }

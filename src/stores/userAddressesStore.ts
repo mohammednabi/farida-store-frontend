@@ -8,6 +8,8 @@ import {
 export class UserAddressesStore {
   userAddresses: UserAddressType[] = [];
   isLoading: boolean = false;
+  selectedUserAddress: UserAddressType = {} as UserAddressType;
+  selectLoading: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -70,4 +72,14 @@ export class UserAddressesStore {
       return false;
     }
   };
+
+  // set states of the class
+
+  set setSelectedUserAddress(val: UserAddressType) {
+    this.selectedUserAddress = val;
+  }
+
+  set setSelectLoading(val: boolean) {
+    this.selectLoading = val;
+  }
 }

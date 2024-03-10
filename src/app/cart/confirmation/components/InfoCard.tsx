@@ -9,7 +9,7 @@ const InfoCard = ({ description, title }: infoProps) => {
   return (
     <div className="flex flex-col gap-1">
       <h1 className="text-mainBlack/50  ">{title}</h1>
-      <h1 className="font-bold text-lg line-clamp-1">{description}</h1>
+      <h1 className="font-bold text-lg line-clamp-2">{description}</h1>
     </div>
   );
 };

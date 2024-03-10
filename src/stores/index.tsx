@@ -98,6 +98,10 @@ const userAddressesInstance = new UserAddressesStore();
 
 const addressModalInstance = new AddressModalStore();
 
+// selection address modal store
+
+const selectionAddressModalInstance = new AddressModalStore();
+
 // ==========================================================
 // this object is for all stores that will for all states
 
@@ -121,6 +125,7 @@ export const store = {
   userOrders: userOrdersInstance,
   userAddresses: userAddressesInstance,
   addressModal: addressModalInstance,
+  selectionAddressModal: selectionAddressModalInstance,
 };
 
 interface indexChildren {

@@ -42,7 +42,7 @@ const AddressesContainer = () => {
                 street={add.street}
                 phone={add.phone}
                 secondPhone={add.second_phone}
-                postalCode={add.postalcode}
+                postalCode={add.postal_code}
               />
             ))}
           </div>

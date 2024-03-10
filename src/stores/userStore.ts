@@ -8,15 +8,11 @@ import { isUserLoggedIn } from "@/functions/credentials";
 
 export class userStore {
   strapiUserdata: Userdata = {} as Userdata;
-
   isLoading: boolean = false;
-
   isMergingOrRemovingLoading: boolean = false;
-
   userReviewRating: number = 0;
   userReviewDescription: string = "";
   userReviewLoading: boolean = false;
-
   userReviewSended: boolean = false;
 
   constructor() {
@@ -206,32 +202,4 @@ export class userStore {
   set setUserReviewRating(val: number) {
     this.userReviewRating = val;
   }
-
-  // updateCartQuantity() {} //Updates the quantity of a specific product in the shopping cart.
-
-  // addAddress() {}
-
-  // removeAddress() {}
-
-  // addToWishList() {}
-
-  // removeFromWishList() {}
-
-  // addPaymentMethod() {}
-
-  // removePaymentMethod() {}
-
-  // updateUserProfile() {}
-
-  // calculateOrderTotal() {} // Calculates the total amount for a given order, considering items, shipping, tax, and discounts.
-
-  // applyDiscount() {} // user may have a discount copon
-
-  // trackOrder() {}
-
-  // cancelOrder() {}
-
-  // getRecommendedProducts() {}
-
-  // getOrderHistory() {}
 }

@@ -7,6 +7,7 @@ import { AiOutlineSecurityScan } from "react-icons/ai";
 import { MdPayment } from "react-icons/md";
 import { BsCart3 } from "react-icons/bs";
 import { TbHearts } from "react-icons/tb";
+import { RiUserSettingsLine } from "react-icons/ri";
 import { StoreContext } from "@/contexts/StoreContext";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -27,10 +28,10 @@ const UserPagesMenu = () => {
     },
     {
       id: 2,
-      title: "login ",
-      description: "edit login , name , and mobile number",
-      icon: <AiOutlineSecurityScan />,
-      pageLink: "#",
+      title: "profile ",
+      description: "edit your profile settings",
+      icon: <RiUserSettingsLine />,
+      pageLink: "/userprofile",
     },
     {
       id: 3,

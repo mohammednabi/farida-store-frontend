@@ -173,12 +173,6 @@ export class ProductsStore {
     category: string,
     searchQuery: string
   ) => {
-    // console.log("this is sorting type : ", sortingType);
-    // console.log("this is salesonly value : ", isSalesOnly);
-    // console.log("this is color name : ", colorName);
-    // console.log("this is min price : ", minPrice);
-    // console.log("this is max price : ", maxPrice);
-    // console.log("this is category  : ", category);
     runInAction(() => {
       this.productsLoading = true;
     });
@@ -418,10 +412,11 @@ export class ProductsStore {
     }
   }
 
-  setPaginationPage(val: number) {
+  setPaginationPage(val: number, pageSize: number) {
     this.pagination = {
       ...this.pagination,
       page: val,
+      pageSize: pageSize,
     };
   }
 }

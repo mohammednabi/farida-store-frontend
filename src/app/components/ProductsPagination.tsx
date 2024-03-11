@@ -20,13 +20,14 @@ const ProductsPagination = () => {
 
   const salesOnly = searchParams.get("salesonly");
   const sorting = searchParams.get("sort");
+  const pageSize = searchParams.get("psize");
   const min_price = searchParams.get("min_price");
   const max_price = searchParams.get("max_price");
   const colorName = searchParams.get("color");
   const searchQuery = searchParams.get("q");
 
   useEffect(() => {
-    products.setPaginationPage(currentPage);
+    products.setPaginationPage(currentPage, pageSize ? Number(pageSize) : 12);
 
     //  console.log("this is the route of this page : ", pathname)
     //  console.log("is this route search route : ", pathname==="/search")

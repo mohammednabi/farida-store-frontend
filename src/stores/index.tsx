@@ -21,6 +21,7 @@ import { userWishListStore } from "./userWishlist";
 import { OrdersStore } from "./ordersStore";
 import { UserAddressesStore } from "./userAddressesStore";
 import { AddressModalStore } from "./addressModalStore";
+import { EditProfileModalStore } from "./editProfileModalStore";
 
 // cart store instance
 
@@ -102,6 +103,10 @@ const addressModalInstance = new AddressModalStore();
 
 const selectionAddressModalInstance = new AddressModalStore();
 
+// selection address modal store
+
+const editProfileModalInstance = new EditProfileModalStore();
+
 // ==========================================================
 // this object is for all stores that will for all states
 
@@ -126,6 +131,7 @@ export const store = {
   userAddresses: userAddressesInstance,
   addressModal: addressModalInstance,
   selectionAddressModal: selectionAddressModalInstance,
+  profileModal: editProfileModalInstance,
 };
 
 interface indexChildren {

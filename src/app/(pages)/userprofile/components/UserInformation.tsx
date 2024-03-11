@@ -4,13 +4,14 @@ import { Avatar, Image } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
 import UserData from "./UserData";
+import EditProfileModal from "./EditProfileModal";
 
 const UserInformation = () => {
   const { user } = useContext(StoreContext);
 
   return (
-    <div>
-      <div className="w-full flex flex-col justify-center items-center mt-10">
+    <div className="flex flex-col gap-5">
+      <div className="w-full flex flex-col justify-center items-center gap-3">
         <div className="w-1/6 aspect-square rounded-full overflow-hidden">
           <Avatar
             src={`${process.env.NEXT_PUBLIC_HOST}${user.strapiUserdata?.avatar?.url}`}
@@ -26,6 +27,7 @@ const UserInformation = () => {
         </h1>
       </div>
       <UserData />
+      <EditProfileModal />
     </div>
   );
 };

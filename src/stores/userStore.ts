@@ -189,6 +189,32 @@ export class userStore {
     this.userReviewRating = 0;
   }
 
+  updateUserData = async (newUserData: {
+    username: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+  }) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/users/${this.strapiUserdata.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${isUserLoggedIn()}`,
+        },
+        body: JSON.stringify({
+          username: newUserData.username,
+          email: newUserData.email,
+          first_name: newUserData.firstName,
+          last_name: newUserData.lastName,
+        }),
+      }
+    );
+
+    return response.ok;
+  };
+
   // setting states of the class
 
   set setIsMergingOrRemovingLoading(val: boolean) {

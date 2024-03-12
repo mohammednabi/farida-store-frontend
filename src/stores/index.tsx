@@ -22,6 +22,7 @@ import { OrdersStore } from "./ordersStore";
 import { UserAddressesStore } from "./userAddressesStore";
 import { AddressModalStore } from "./addressModalStore";
 import { EditProfileModalStore } from "./editProfileModalStore";
+import { FastAdsStore } from "./fastAdsStore";
 
 // cart store instance
 
@@ -103,9 +104,13 @@ const addressModalInstance = new AddressModalStore();
 
 const selectionAddressModalInstance = new AddressModalStore();
 
-// selection address modal store
+// edit profile modal store
 
 const editProfileModalInstance = new EditProfileModalStore();
+
+// fast ads store
+
+const fastAdsInstance = new FastAdsStore();
 
 // ==========================================================
 // this object is for all stores that will for all states
@@ -132,6 +137,7 @@ export const store = {
   addressModal: addressModalInstance,
   selectionAddressModal: selectionAddressModalInstance,
   profileModal: editProfileModalInstance,
+  fastAds: fastAdsInstance,
 };
 
 interface indexChildren {

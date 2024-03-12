@@ -23,7 +23,7 @@ const CartDrop2 = () => {
         scaleY: cart.isCartMenuDisplayed ? 1 : 0,
         opacity: cart.isCartMenuDisplayed ? 1 : 0,
       }}
-      className="origin-top  bg-white min-w-[25rem]  w-[25rem] max-w-[25rem] h-auto p-5  text-mainBlack absolute top-20 right-0 z-[100] border-1 border-solid border-mainBlack border-t-0"
+      className="origin-top  bg-white min-w-[25rem]  w-[25rem] max-w-[25rem] h-auto p-5 hidden md:block  text-mainBlack absolute top-20 right-0 z-[100] border-1 border-solid border-mainBlack border-t-0"
     >
       <div className="flex flex-col gap-5 relative">
         {user.isMergingOrRemovingLoading && <LoadingOverlay />}

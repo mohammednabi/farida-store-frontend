@@ -7,7 +7,17 @@ import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
 import { isUserLoggedIn } from "@/functions/credentials";
 
-const FullWishlistIcon = () => {
+interface fullWishlistIconProps {
+  className?: string;
+  hasBorder?: boolean;
+  showPop?: boolean;
+}
+
+const FullWishlistIcon = ({
+  className,
+  hasBorder = true,
+  showPop = true,
+}: fullWishlistIconProps) => {
   const { wishlist, userWishlist, loginForm, registerForm } =
     useContext(StoreContext);
 
@@ -28,9 +38,9 @@ const FullWishlistIcon = () => {
     <div>
       <Link href={"/wishlist"}>
         <Icon
-          icon={<FaRegHeart />}
-          hasBorder={true}
-          showPop={true}
+          icon={<FaRegHeart className={className} />}
+          hasBorder={hasBorder}
+          showPop={showPop}
           // count={userWishlist.userWishlistProductsCount}
           count={userWishlist.userWishlistProductsCount}
         />

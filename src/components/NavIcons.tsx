@@ -1,38 +1,25 @@
-"use client"
-import React, { useContext } from 'react'
+"use client";
+import React, { useContext } from "react";
 
+import FullCartIcon from "./FullCartIcon";
+import FullUserIcon from "./FullUserIcon";
 
+import { observer } from "mobx-react-lite";
 
-import { AiOutlineSearch } from "react-icons/ai";
-import Icon from './Icon';
-import FullCartIcon from './FullCartIcon';
-import FullUserIcon from './FullUserIcon';
-import { StoreContext } from '@/contexts/StoreContext';
-import { observer } from 'mobx-react-lite';
-
-import FullWishlistIcon from './FullWishlistIcon';
-
-
+import FullWishlistIcon from "./FullWishlistIcon";
+import FullSearchIcon from "./FullSearchIcon";
 
 const NavIcons = () => {
-
-  const {searchBox} = useContext(StoreContext)
-
-
-
   return (
-      <div className='flex items-center gap-2' >
-         
-          <Icon icon={<AiOutlineSearch  />} hasBorder={true}   whenClick={searchBox.displayWholeSearchBox} />
-      <FullUserIcon />
-      <FullWishlistIcon />
-         <FullCartIcon />
-          
-        
-             
-         
-  </div>
-  )
-}
+    <div className="flex items-center gap-2">
+      <div className="hidden md:flex  items-center gap-2">
+        <FullSearchIcon />
+        <FullUserIcon />
+        <FullWishlistIcon />
+      </div>
+      <FullCartIcon />
+    </div>
+  );
+};
 
-export default observer(NavIcons)
+export default observer(NavIcons);

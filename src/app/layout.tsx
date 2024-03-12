@@ -13,6 +13,7 @@ import CartFloatingButton from "@/components/CartFloatingButton";
 import CartSideBar from "@/components/CartSideBar";
 import Uiproviders from "@/providers/UiProviders";
 import TopPositionedAds from "@/components/TopPositionedAds";
+import BottomNavigation from "@/components/BottomNavigation";
 
 export const metadata = {
   title: "Farida Store",
@@ -36,6 +37,7 @@ export default function RootLayout({
                 <TopPositionedAds />
                 <NavBar />
                 <CartFloatingButton />
+                <BottomNavigation />
               </div>
               <div className="flex-1 block"> {children}</div>
               <div className="">

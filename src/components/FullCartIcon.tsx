@@ -3,7 +3,8 @@ import React, { useContext } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Icon from "./Icon";
 
-import CartDrop from "./Cartdrop";
+// import CartDrop from "./Cartdrop";
+import CartDrop2 from "./Cartdrop";
 
 import { observer } from "mobx-react-lite";
 
@@ -24,7 +25,7 @@ const FullCartIcon = () => {
         />
       </Link>
 
-      <CartDrop />
+      <CartDrop2 />
     </div>
   );
 };

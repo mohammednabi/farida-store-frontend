@@ -1,8 +1,5 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
-import Icon from "./Icon";
-
-import { MdOutlineCancel } from "react-icons/md";
 import { LiaNewspaper } from "react-icons/lia";
 import { FaRegEye } from "react-icons/fa";
 import { Divider } from "@nextui-org/react";
@@ -11,6 +8,7 @@ import Link from "next/link";
 import { observer } from "mobx-react-lite";
 import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import { IoMdClose } from "react-icons/io";
 
 const SidebarContent = () => {
   const { sidebar, categories } = useContext(StoreContext);
@@ -31,15 +29,15 @@ const SidebarContent = () => {
   }, [urlParams]);
 
   return (
-    <div className="relative flex flex-col ">
+    <div className="relative hidden md:flex flex-col ">
       <div className="sticky top-0 flex  flex-col bg-mainWhite">
-        <div className=" flex justify-between items-center px-5 ">
+        <div className=" flex justify-between items-center px-5 py-3">
           <h1 className="text-3xl text-mainPink uppercase font-bold">logo</h1>
           <div
-            className="flex items-start justify-center text-5xl"
+            className="flex items-start justify-center text-3xl"
             onClick={sidebar.hideWholeSidebar}
           >
-            <Icon icon={<MdOutlineCancel />} />
+            <IoMdClose className=" cursor-pointer" />
           </div>
         </div>
         <Divider />

@@ -49,6 +49,14 @@ body {
   }
 }
 
+/* .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  top: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+} */
+
 /* custom fonts  */
 
 @font-face {

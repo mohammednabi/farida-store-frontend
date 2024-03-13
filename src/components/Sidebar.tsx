@@ -1,6 +1,6 @@
 "use client";
 import { StoreContext } from "@/contexts/StoreContext";
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { observer } from "mobx-react-lite";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarContent from "./SidebarContent";
@@ -8,6 +8,8 @@ import SidebarResponsiveContent from "./SidebarResponsiveContent";
 
 const Sidebar = () => {
   const { sidebar } = useContext(StoreContext);
+
+  const divRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="relative w-full h-auto">
@@ -23,9 +25,18 @@ const Sidebar = () => {
         )}
       </AnimatePresence>
       <motion.div
-        initial={{ x: -1000 }}
-        animate={{ x: sidebar.showSideBar ? 0 : -1000 }}
-        exit={{ x: -1000 }}
+        ref={divRef}
+        initial={{
+          x: divRef?.current?.offsetHeight && -divRef?.current?.offsetHeight,
+        }}
+        animate={{
+          x: sidebar.showSideBar
+            ? 0
+            : divRef?.current?.offsetHeight && -divRef?.current?.offsetHeight,
+        }}
+        exit={{
+          x: divRef?.current?.offsetHeight && -divRef?.current?.offsetHeight,
+        }}
         transition={{
           type: "tween",
           duration: 0.5,

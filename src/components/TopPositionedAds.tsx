@@ -72,7 +72,7 @@ const TopPositionedAds = () => {
               {fastAds.fastAds.map((ad) => (
                 <SwiperSlide
                   key={ad.id}
-                  className="bg-mainDarkBlue  text-mainWhite  text-xl p-2"
+                  className="bg-mainDarkBlue  text-mainWhite text-sm md:text-xl p-2"
                 >
                   <h1 className="text-center">{ad.attributes.ad}</h1>
                 </SwiperSlide>

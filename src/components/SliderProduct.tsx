@@ -1,44 +1,33 @@
 /* eslint-disable @next/next/no-img-element */
 
-import Image from 'next/image'
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import React from 'react'
+import React from "react";
 import { Sliderify } from "react-sliderify";
 
-
-interface sliderProductProps{
-  img: string
-  title:string
+interface sliderProductProps {
+  img: string;
+  title: string;
 }
 
 const SliderProduct = ({ img, title }: sliderProductProps) => {
-  
-
-
-
-  
- 
   return (
-    <Link href={`/categories/${title}`} className='bg-white min-w-[30rem] h-auto flex items-center p-5 gap-10'>
-      <div  className='w-24 aspect-square flex items-center justify-center'>
-
+    <Link
+      href={`/categories/${title}`}
+      className="bg-white min-w-[15rem] sm:min-w-[30rem] h-auto    grid grid-rows-[3fr_1fr]  sm:grid-cols-[1fr_3fr] sm:grid-rows-1  place-items-center p-1 sm:p-5 sm:gap-5"
+    >
+      <div className=" w-1/3  sm:w-full   h-auto  aspect-square grid place-items-center">
         <img
           src={`${process.env.NEXT_PUBLIC_HOST}${img}`}
-          alt='product image'
-         
-        className='w-full object-cover '
+          alt="product image"
+          className="w-full h-full object-contain "
         />
-</div>
+      </div>
 
-    
-      
-      <h1 className='text-3xl capitalize'>{title }</h1>
-      
-
-     
+      <h1 className="text-lg sm:text-3xl capitalize">{title}</h1>
     </Link>
-  )
-}
+  );
+};
 
-export default SliderProduct
+export default SliderProduct;

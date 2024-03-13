@@ -51,10 +51,15 @@ body {
 
 /* .swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal {
-  top: 100%;
-  bottom: 0;
-  left: 0;
-  right: 0;
+
+  bottom: -3% !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000;
+} */
+
+/* .swiper {
+  overflow: hidden !important;
 } */
 
 /* custom fonts  */

@@ -38,7 +38,7 @@ const AdsSlider = () => {
   }, []);
 
   return (
-    <div className="grid place-items-center m-10">
+    <div className="grid place-items-center mx-5 my-10  md:m-10">
       <Swiper
         autoHeight={true}
         modules={[Autoplay, Navigation, Pagination]}
@@ -53,7 +53,7 @@ const AdsSlider = () => {
         spaceBetween={0}
         slidesPerView={1}
         centeredSlides={true}
-        className="w-10/12 aspect-video bg-white cursor-grab"
+        className="w-full md:w-10/12 aspect-video bg-white cursor-grab"
       >
         {ads.ads.map((ad) => (
           <SwiperSlide key={ad.id} className="w-full h-full ">

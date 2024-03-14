@@ -26,7 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      // className="text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px]"
+    >
       <body className={`font-cairo flex flex-col `}>
         <Uiproviders>
           <StoreContextProvider>

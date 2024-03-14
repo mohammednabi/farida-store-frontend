@@ -77,43 +77,27 @@ const FiltersSection = () => {
   };
 
   return (
-    <section className="flex flex-col gap-5 px-28 ">
+    <section className="flex flex-col gap-5 px-5 md:px-28 ">
       {(searchParams.has("color") ||
         searchParams.has("min_price") ||
         searchParams.has("max_price")) && <ActiveFilters />}
 
-      <div className=" grid grid-cols-2 items-center  relative pb-5">
-        <div className="flex items-center gap-5">
+      <div className=" grid grid-rows-3 md:grid-cols-[repeat(3,minmax(0,auto))] items-center  relative pb-5  md:gap-5">
+        <div className="grid grid-cols-2 items-center gap-5 order-3 md:order-1">
           <FilterButton />
-          <div className="flex items-center gap-2 text-2xl p-5 py-2 cursor-pointer bg-mainGray rounded-md">
+          <div className="hidden md:flex items-center justify-start gap-2 text-lg md:text-2xl pl-1 py-3 cursor-pointer bg-mainGray rounded-md">
             <Checkbox
               isSelected={salesOnly === "true"}
               color="secondary"
               onChange={(e) => {
                 handleSalesOnlySearch(e.target.checked);
               }}
+              className="pl-5 py-3"
             >
               sales only
             </Checkbox>
           </div>
-        </div>
-
-        <div className="grid grid-cols-[1fr_4fr_1.5fr]  items-center gap-5">
-          <div className="grid grid-cols-2">
-            <MdGridView
-              className="text-2xl cursor-pointer"
-              onClick={() => {
-                viewStyle.displayGridView();
-              }}
-            />
-            <MdOutlineViewAgenda
-              className="text-2xl cursor-pointer"
-              onClick={() => {
-                viewStyle.displayRowView();
-              }}
-            />
-          </div>
-
+          {/* this select input will display only on small screens */}
           <Select
             radius="sm"
             defaultSelectedKeys={[
@@ -122,6 +106,42 @@ const FiltersSection = () => {
             onChange={(e) => {
               handleSortSearch(e.target.value);
             }}
+            className=" md:hidden"
+          >
+            {selections.map((sel) => (
+              <SelectItem key={sel.value} value={sel.value}>
+                {sel.label}
+              </SelectItem>
+            ))}
+          </Select>
+        </div>
+
+        {/* <div className="grid md:grid-cols-[1fr_4fr] lg:grid-cols-[1fr_4fr_1.5fr]  items-center gap-5"> */}
+        <div className="flex gap-5 justify-end order-1 md:order-1">
+          <MdGridView
+            className="text-2xl cursor-pointer"
+            onClick={() => {
+              viewStyle.displayGridView();
+            }}
+          />
+          <MdOutlineViewAgenda
+            className="text-2xl cursor-pointer"
+            onClick={() => {
+              viewStyle.displayRowView();
+            }}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-5 items-center order-2 md:order-1">
+          <Select
+            radius="sm"
+            defaultSelectedKeys={[
+              searchParams.get("sort") ?? selections[0].value,
+            ]}
+            onChange={(e) => {
+              handleSortSearch(e.target.value);
+            }}
+            className="hidden md:block"
           >
             {selections.map((sel) => (
               <SelectItem key={sel.value} value={sel.value}>
@@ -138,6 +158,7 @@ const FiltersSection = () => {
             onChange={(e) => {
               handlePageSizeSearch(e.target.value);
             }}
+            className="hidden lg:block"
           >
             {pageSizeSelections.map((sel) => (
               <SelectItem key={sel.value} value={sel.value}>
@@ -145,8 +166,23 @@ const FiltersSection = () => {
               </SelectItem>
             ))}
           </Select>
+
+          {/* this checkbox diplayed only on small screens */}
+          <div className="flex md:hidden items-center gap-2 text-lg md:text-2xl p-5 py-2 cursor-pointer bg-mainGray rounded-md">
+            <Checkbox
+              isSelected={salesOnly === "true"}
+              color="secondary"
+              onChange={(e) => {
+                handleSalesOnlySearch(e.target.checked);
+              }}
+              className="p-5 py-2"
+            >
+              sales only
+            </Checkbox>
+          </div>
         </div>
       </div>
+      {/* </div> */}
     </section>
   );
 };

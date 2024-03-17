@@ -18,15 +18,7 @@ const GridStyleView = () => {
         <div>
           {products.products?.length > 0 ? (
             <div
-              className={`w-full min-h-[200vh] grid grid-cols-1 lmob:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-5 lmob:gap-2 lg:gap-10 px-5 md:px-10 lg:px-20 py-0 ${
-                pageSize === "16"
-                  ? `grid-rows-4`
-                  : pageSize === "20"
-                  ? `grid-rows-5`
-                  : pageSize === "24"
-                  ? `grid-rows-6`
-                  : `grid-rows-3`
-              } `}
+              className={`w-full  grid grid-cols-1 lmob:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-5 lmob:gap-2 lg:gap-10 px-5 md:px-10 lg:px-20 py-0  `}
             >
               {products.products?.map((product) => (
                 <ProductCard product={product} key={product.id} />

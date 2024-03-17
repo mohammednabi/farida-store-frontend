@@ -26,6 +26,10 @@ const ProductsPagination = () => {
   const colorName = searchParams.get("color");
   const searchQuery = searchParams.get("q");
 
+  const goUp = () => {
+    router.replace("#filters");
+  };
+
   useEffect(() => {
     products.setPaginationPage(currentPage, pageSize ? Number(pageSize) : 12);
 
@@ -89,7 +93,10 @@ const ProductsPagination = () => {
         total={products.pagination.pageCount}
         initialPage={1}
         variant={"faded"}
-        onChange={(page) => setCurrentPage(page)}
+        onChange={(page) => {
+          goUp();
+          setCurrentPage(page);
+        }}
         classNames={{
           cursor: "bg-mainPink",
         }}

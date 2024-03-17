@@ -11,6 +11,7 @@ const RowStyleView = () => {
   const { products } = useContext(StoreContext);
 
   const searchParams = useSearchParams();
+  const pageSize = searchParams.get("psize");
 
   return (
     <>
@@ -19,7 +20,17 @@ const RowStyleView = () => {
       {!products.productsLoading ? (
         <div>
           {products.products.length > 0 ? (
-            <div className="min-h-[200vh] w-full h-auto grid grid-cols-2 gap-10 px-28 py-0">
+            <div
+              className={`min-h-[200vh] w-full h-auto grid grid-cols-1 md:grid-cols-2 gap-5 lmob:gap-2 lg:gap-10 px-5 md:px-10 lg:px-20 py-0 ${
+                pageSize === "16"
+                  ? `grid-rows-4`
+                  : pageSize === "20"
+                  ? `grid-rows-5`
+                  : pageSize === "24"
+                  ? `grid-rows-6`
+                  : `grid-rows-3`
+              } `}
+            >
               {products.products?.map((product) => (
                 <RawProductCard key={product.id} product={product} />
               ))}

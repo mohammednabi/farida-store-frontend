@@ -17,6 +17,7 @@ import { FaHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
+import ProductTypeLabel from "./ProductTypeLabel";
 
 interface rawProductProps {
   product: strapiProductType;
@@ -134,23 +135,34 @@ const RawProductCard = ({ product }: rawProductProps) => {
   }, [cart.totalPrice]);
 
   return (
-    <div className="grid items-center grid-cols-2 grid-rows-[auto] gap-5 border-2 border-mainGray shadow-md border-solid h-full p-3">
+    <div className="grid items-center grid-cols-1 md:grid-cols-2 grid-rows-[auto] gap-5 border-2 border-mainGray shadow-md border-solid h-full p-3">
       <div className="relative w-full h-auto">
-        {product.attributes.type === "sale" && (
-          <div className="  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-red-700 text-white flex justify-center items-center ">
-            <h1 className="text-center text-lg">sale</h1>
-          </div>
-        )}
-        {product.attributes.type === "deal" && (
-          <div className="  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-green-700 text-white flex justify-center items-center ">
-            <h1 className="text-center text-lg">top deal</h1>
-          </div>
-        )}
-        {product.attributes.type === "best_seller" && (
-          <div className="  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-yellow-700 text-white flex justify-center items-center ">
-            <h1 className="text-center text-lg">best seller</h1>
-          </div>
-        )}
+        <div className="flex flex-col gap-1 absolute top-2 left-2">
+          {product.attributes.type === "sale" && (
+            <ProductTypeLabel
+              title="sale"
+              classNames={{
+                container: "bg-red-700",
+              }}
+            />
+          )}
+          {product.attributes.type === "deal" && (
+            <ProductTypeLabel
+              title="  top deal"
+              classNames={{
+                container: " bg-green-700",
+              }}
+            />
+          )}
+          {product.attributes.type === "best_seller" && (
+            <ProductTypeLabel
+              title="best seller"
+              classNames={{
+                container: " bg-yellow-700",
+              }}
+            />
+          )}
+        </div>
 
         <Link
           href={`/product/${product.id}`}
@@ -166,6 +178,17 @@ const RawProductCard = ({ product }: rawProductProps) => {
             radius="sm"
             className="w-full h-full aspect-square object-contain"
           />
+          {/* <Image
+            //   as={NextImage}
+            src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
+            radius="sm"
+            //   quality={100}
+            alt="product image"
+            className="w-full  aspect-square  grid place-items-center overflow-hidden "
+            classNames={{
+              img: "w-full   h-full  object-contain justify-self-center",
+            }}
+          /> */}
         </Link>
       </div>
 
@@ -222,11 +245,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
                 initial={{ scale: 1 }}
                 animate={{ scale: wishlistLoading ? 0 : 1 }}
               >
-                <Icon
-                  size="3xl"
-                  icon={<FaRegHeart />}
-                  whenClick={addProductToWishlist}
-                />
+                <Icon icon={<FaRegHeart />} whenClick={addProductToWishlist} />
               </motion.div>
             ) : (
               <motion.div
@@ -234,7 +253,6 @@ const RawProductCard = ({ product }: rawProductProps) => {
                 animate={{ scale: wishlistLoading ? 0 : 1 }}
               >
                 <Icon
-                  size="3xl"
                   icon={<FaHeart className="text-mainPink" />}
                   whenClick={removeProductFromWishlist}
                 />

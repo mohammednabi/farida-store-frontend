@@ -77,12 +77,12 @@ const FiltersSection = () => {
   };
 
   return (
-    <section className="flex flex-col gap-5 px-5 md:px-28 ">
+    <section className="flex flex-col gap-5 px-5 md:px-10 lg:px-20 ">
       {(searchParams.has("color") ||
         searchParams.has("min_price") ||
         searchParams.has("max_price")) && <ActiveFilters />}
 
-      <div className=" grid grid-rows-3 md:grid-cols-[repeat(3,minmax(0,auto))] items-center  relative pb-5  md:gap-5">
+      <div className=" grid grid-rows-3 grid-cols-1 md:grid-rows-1 md:grid-cols-[repeat(3,minmax(0,auto))] items-center  relative pb-5  md:gap-5">
         <div className="grid grid-cols-2 items-center gap-5 order-3 md:order-1">
           <FilterButton />
           <div className="hidden md:flex items-center justify-start gap-2 text-lg md:text-2xl pl-1 py-3 cursor-pointer bg-mainGray rounded-md">

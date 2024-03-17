@@ -21,7 +21,7 @@ const Rating = ({ rating, size = "1.3rem" }: iprops) => {
         size={size}
         emptyIcon={<FaRegStar />}
       />
-      <h1>{rating?.toFixed(1)}</h1>
+      <h1 className={`text-[${size}]`}>{rating?.toFixed(1)}</h1>
     </div>
   );
 };

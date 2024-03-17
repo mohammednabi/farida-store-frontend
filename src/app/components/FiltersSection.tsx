@@ -77,7 +77,10 @@ const FiltersSection = () => {
   };
 
   return (
-    <section className="flex flex-col gap-5 px-5 md:px-10 lg:px-20 ">
+    <section
+      id="filters"
+      className="flex flex-col gap-5 px-5 md:px-10 lg:px-20 "
+    >
       {(searchParams.has("color") ||
         searchParams.has("min_price") ||
         searchParams.has("max_price")) && <ActiveFilters />}

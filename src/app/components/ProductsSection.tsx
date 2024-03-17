@@ -40,13 +40,16 @@ const ProductsSection = () => {
       <motion.div
         ref={divRef}
         initial={{
-          x: divRef.current?.offsetWidth && -divRef.current?.offsetWidth,
+          x: divRef.current?.offsetWidth && -divRef.current?.offsetWidth - 500,
         }}
         animate={{
           x: filter.showFilterSideBar
             ? 0
             : divRef.current?.offsetWidth && -divRef.current?.offsetWidth,
         }}
+        // exit={{
+        //   x: divRef.current?.offsetWidth && -divRef.current?.offsetWidth,
+        // }}
         transition={{
           type: "tween",
           duration: 0.5,

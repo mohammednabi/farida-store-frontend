@@ -21,14 +21,14 @@ const RowStyleView = () => {
         <div>
           {products.products.length > 0 ? (
             <div
-              className={`min-h-[200vh] w-full h-auto grid grid-cols-1 md:grid-cols-2 gap-5 lmob:gap-2 lg:gap-10 px-5 md:px-10 lg:px-20 py-0 ${
+              className={` w-full h-auto grid grid-cols-1 xl:grid-cols-2 gap-5 lmob:gap-2 lg:gap-10 px-5 md:px-10 lg:px-20 py-0 ${
                 pageSize === "16"
-                  ? `grid-rows-4`
+                  ? `grid-rows-[repeat(8,minmax(0,1fr))]`
                   : pageSize === "20"
-                  ? `grid-rows-5`
+                  ? `grid-rows-[repeat(10,minmax(0,1fr))]`
                   : pageSize === "24"
-                  ? `grid-rows-6`
-                  : `grid-rows-3`
+                  ? `grid-rows-[repeat(12,minmax(0,1fr))]`
+                  : `grid-rows-6`
               } `}
             >
               {products.products?.map((product) => (

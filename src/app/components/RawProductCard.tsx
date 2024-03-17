@@ -135,7 +135,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
   }, [cart.totalPrice]);
 
   return (
-    <div className="grid items-center grid-cols-1 md:grid-cols-2 grid-rows-[auto] gap-5 border-2 border-mainGray shadow-md border-solid h-full p-3">
+    <div className="grid items-center grid-cols-1  lmob:grid-cols-2 grid-rows-[auto] gap-5 border-2 border-mainGray shadow-md border-solid h-full p-3 ">
       <div className="relative w-full h-auto">
         <div className="flex flex-col gap-1 absolute top-2 left-2">
           {product.attributes.type === "sale" && (
@@ -166,17 +166,18 @@ const RawProductCard = ({ product }: rawProductProps) => {
 
         <Link
           href={`/product/${product.id}`}
-          className="transition-all  w-full aspect-square flex items-center justify-center  "
+          className="w-full grid place-items-center overflow-hidden "
         >
           <Image
             //   as={NextImage}
             src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
-            width={500}
-            height={500}
             //   quality={100}
             alt="product image"
             radius="sm"
-            className="w-full h-full aspect-square object-contain"
+            className="w-full  aspect-square  grid place-items-center overflow-hidden "
+            classNames={{
+              img: "w-full h-full object-contain",
+            }}
           />
           {/* <Image
             //   as={NextImage}
@@ -193,14 +194,15 @@ const RawProductCard = ({ product }: rawProductProps) => {
       </div>
 
       <div className="flex flex-col gap-3 py-5">
-        <h1 className="text-2xl h-[8rem]  w-full line-clamp-4">
+        <h1 className="text-sm md:text-xl   w-full line-clamp-1">
           {product.attributes.title}
         </h1>
         <div className="flex items-center gap-2">
           <Rating
             rating={products.getAverageRatings(product.attributes.reviews.data)}
+            size="1rem"
           />
-          <h1>
+          <h1 className="text-sm">
             ({getTheLengthOfAllowedRatings(products.targetProductReviews)})
           </h1>
         </div>
@@ -209,31 +211,31 @@ const RawProductCard = ({ product }: rawProductProps) => {
           <div className="flex items-center">
             <button
               disabled={foundInCart ? true : false}
-              className={`p-3 ${
+              className={`p-2 md:p-3 ${
                 foundInCart
                   ? `border-mainBlack/20 text-mainBlack/20 `
                   : `border-mainBlack`
-              } border-1 border-solid text-xl`}
+              } border-1 border-solid text-lg md:text-xl`}
               onClick={increase}
             >
               +
             </button>
             <h1
-              className={`text-xl border-y-1 ${
+              className={`text-lg md:text-xl  border-y-1 ${
                 foundInCart
                   ? `border-mainBlack/20 text-mainBlack/20 `
                   : `border-mainBlack`
-              } border-solid p-3 px-5`}
+              } border-solid p-2 px-3 md:p-3 md:px-5`}
             >
               {foundInCart ? foundInCart.quantity : counter}
             </h1>
             <button
               disabled={foundInCart ? true : false}
-              className={`p-3 ${
+              className={`p-2 md:p-3 ${
                 foundInCart
                   ? `border-mainBlack/20 text-mainBlack/20 `
                   : `border-mainBlack`
-              } border-1 border-solid text-xl`}
+              } border-1 border-solid text-lg md:text-xl`}
               onClick={decrease}
             >
               -
@@ -265,12 +267,12 @@ const RawProductCard = ({ product }: rawProductProps) => {
           {getPriceAfterDiscount() && (
             <div className="relative ">
               <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
-              <h2 className="text-2xl text-mainBlack/30 font-bold  text-center">
+              <h2 className="text-sm md:text-xl text-mainBlack/30 font-bold  text-center">
                 {product.attributes.price.toFixed(2)}$
               </h2>
             </div>
           )}
-          <h2 className="text-2xl text-mainBlack/70 font-bold">
+          <h2 className="text-sm md:text-xl text-mainBlack/70 font-bold">
             {getPriceAfterDiscount()
               ? getPriceAfterDiscount()
               : product.attributes.price.toFixed(2)}
@@ -279,11 +281,11 @@ const RawProductCard = ({ product }: rawProductProps) => {
         </div>
 
         <Button
-          className={`h-16 ${
+          className={` ${
             foundInCart ? `bg-emerald-500` : `bg-mainPink`
-          } text-mainWhite w-full rounded-md transition-all capitalize hover:bg-mainPink/90`}
+          } text-mainWhite w-full rounded-md transition-all capitalize hover:bg-mainPink/90 text-sm md:text-xl`}
           endContent={foundInCart ? <FaCheck /> : <AiOutlineShoppingCart />}
-          size="lg"
+          size="md"
           isLoading={addingToUserCartLoading}
           isDisabled={foundInCart ? true : false}
           onClick={addProductToCart}

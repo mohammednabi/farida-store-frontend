@@ -127,7 +127,7 @@ const ProductCard = ({ product }: productCardProps) => {
   }, [cart.totalPrice]);
 
   return (
-    <div className="flex  px-10 lmob:px-2  md:px-10 lg:p-0 w-full ">
+    <div className="flex   p-3 lmob:px-2  md:px-10 lg:p-0 w-full shadow-sm">
       <div className="relative flex flex-col w-full ">
         <div className="flex flex-col gap-1 absolute top-2 left-2">
           {product.attributes.type === "sale" && (
@@ -209,7 +209,7 @@ const ProductCard = ({ product }: productCardProps) => {
 
         <div className="p-2 flex flex-col gap-2  ">
           <div className="flex flex-col gap-3">
-            <h1 className="text-sm md:text-lg   line-clamp-1 ">
+            <h1 className="text-sm md:text-xl   line-clamp-1 ">
               {product.attributes.title}{" "}
             </h1>
             <div className="flex flex-col gap-1">

@@ -10,13 +10,24 @@ import EmptyProducts from "./EmptyProducts";
 const GridStyleView = () => {
   const { products } = useContext(StoreContext);
   const searchParams = useSearchParams();
+  const pageSize = searchParams.get("psize");
 
   return (
     <>
       {!products.productsLoading ? (
         <div>
           {products.products?.length > 0 ? (
-            <div className="w-full min-h-[200vh] grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-10 px-28 py-0">
+            <div
+              className={`w-full min-h-[200vh] grid grid-cols-1 lmob:grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-5 lmob:gap-2 lg:gap-10 px-5 md:px-10 lg:px-20 py-0 ${
+                pageSize === "16"
+                  ? `grid-rows-4`
+                  : pageSize === "20"
+                  ? `grid-rows-5`
+                  : pageSize === "24"
+                  ? `grid-rows-6`
+                  : `grid-rows-3`
+              } `}
+            >
               {products.products?.map((product) => (
                 <ProductCard product={product} key={product.id} />
               ))}

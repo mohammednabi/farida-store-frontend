@@ -1,8 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { StoreContext } from "@/contexts/StoreContext";
-import { Button, Image } from "@nextui-org/react";
+import { Button, Card, CardBody, Divider, Image } from "@nextui-org/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
@@ -17,6 +18,7 @@ import { isUserLoggedIn } from "@/functions/credentials";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
+import ProductTypeLabel from "./ProductTypeLabel";
 
 interface productCardProps {
   product: strapiProductType;
@@ -125,110 +127,138 @@ const ProductCard = ({ product }: productCardProps) => {
   }, [cart.totalPrice]);
 
   return (
-    <div className="relative flex flex-col w-full ">
-      {product.attributes.type === "sale" && (
-        <div className="  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-red-700 text-white flex justify-center items-center ">
-          <h1 className="text-center text-lg">sale</h1>
-        </div>
-      )}
-      {product.attributes.type === "deal" && (
-        <div className="  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-green-700 text-white flex justify-center items-center ">
-          <h1 className="text-center text-lg">top deal</h1>
-        </div>
-      )}
-      {product.attributes.type === "best_seller" && (
-        <div className="  absolute top-0 left-0 px-5 py-1 capitalize z-20 bg-yellow-700 text-white flex justify-center items-center ">
-          <h1 className="text-center text-lg">best seller</h1>
-        </div>
-      )}
-      <div className="  absolute top-0 right-0 z-20 flex justify-center items-center ">
-        {!foundInWishlist ? (
-          <motion.div
-            initial={{ scale: 1 }}
-            animate={{ scale: wishlistLoading ? 0 : 1 }}
-          >
-            <Icon
-              icon={<FaRegHeart className="text-mainPink " />}
-              backColor="#ffffff"
-              hasBorder
-              whenClick={addProductToWishlist}
+    <div className="flex  px-10 lmob:px-2  md:px-10 lg:p-0 w-full ">
+      <div className="relative flex flex-col w-full ">
+        <div className="flex flex-col gap-1 absolute top-2 left-2">
+          {product.attributes.type === "sale" && (
+            <ProductTypeLabel
+              title="sale"
+              classNames={{
+                container: "bg-red-700",
+              }}
             />
-          </motion.div>
-        ) : (
-          <motion.div
-            initial={{ scale: 1 }}
-            animate={{ scale: wishlistLoading ? 0 : 1 }}
-          >
-            <Icon
-              icon={<FaHeart className="text-mainPink " />}
-              backColor="#ffffff"
-              hasBorder
-              whenClick={removeProductFromWishlist}
+          )}
+          {product.attributes.type === "deal" && (
+            <ProductTypeLabel
+              title="  top deal"
+              classNames={{
+                container: " bg-green-700",
+              }}
             />
-          </motion.div>
-        )}
-      </div>
-      <Link
-        href={`/product/${product.id}`}
-        className="transition-all overflow-hidden  w-full  aspect-square flex items-center justify-center  "
-      >
-        <Image
-          //   as={NextImage}
-          src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
-          radius="sm"
-          //   quality={100}
-          alt="product image"
-          className="w-full h-full aspect-square object-contain"
-        />
-      </Link>
-
-      <div className="p-2 flex flex-col gap-10">
-        <div className="flex flex-col gap-3">
-          <h1 className="text-2xl h-[8rem]  line-clamp-4">
-            {product.attributes.title}{" "}
-          </h1>
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2">
-              <Rating
-                rating={products.getAverageRatings(
-                  product.attributes.reviews.data
-                )}
+          )}
+          {product.attributes.type === "best_seller" && (
+            <ProductTypeLabel
+              title="best seller"
+              classNames={{
+                container: " bg-yellow-700",
+              }}
+            />
+          )}
+        </div>
+        <div className="  absolute top-0 right-0 z-20 flex justify-center items-center ">
+          {!foundInWishlist ? (
+            <motion.div
+              initial={{ scale: 1 }}
+              animate={{ scale: wishlistLoading ? 0 : 1 }}
+            >
+              <Icon
+                icon={<FaRegHeart className="text-mainPink " />}
+                backColor="#ffffff"
+                hasBorder
+                whenClick={addProductToWishlist}
               />
-              <h1 className="text-mainBlack/50">
-                ({getTheLengthOfAllowedRatings(products.targetProductReviews)})
-              </h1>
-            </div>
-            <div className="flex items-center gap-5">
-              {getPriceAfterDiscount() && (
-                <div className="relative ">
-                  <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
-                  <h2 className="text-2xl text-mainBlack/30 font-bold  text-center">
-                    {product.attributes.price.toFixed(2)}$
-                  </h2>
-                </div>
-              )}
-              <h2 className="text-2xl text-mainBlack/70 font-bold">
-                {getPriceAfterDiscount()
-                  ? getPriceAfterDiscount()
-                  : product.attributes.price.toFixed(2)}
-                $
-              </h2>
+            </motion.div>
+          ) : (
+            <motion.div
+              initial={{ scale: 1 }}
+              animate={{ scale: wishlistLoading ? 0 : 1 }}
+            >
+              <Icon
+                icon={<FaHeart className="text-mainPink " />}
+                backColor="#ffffff"
+                hasBorder
+                whenClick={removeProductFromWishlist}
+              />
+            </motion.div>
+          )}
+        </div>
+        <Link
+          href={`/product/${product.id}`}
+          className="w-full grid place-items-center overflow-hidden"
+        >
+          {/* <img
+              //   as={NextImage}
+              src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
+              //   quality={100}
+              alt="product image"
+              // className="w-full   h-full    "
+              className=" h-full  w-full object-contain "
+            /> */}
+          <Image
+            //   as={NextImage}
+            src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
+            radius="sm"
+            //   quality={100}
+            alt="product image"
+            className="w-full  aspect-square  grid place-items-center overflow-hidden "
+            classNames={{
+              img: "w-full   h-full  object-contain justify-self-center",
+            }}
+          />
+        </Link>
+
+        <div className="p-2 flex flex-col gap-2  ">
+          <div className="flex flex-col gap-3">
+            <h1 className="text-sm md:text-lg   line-clamp-1 ">
+              {product.attributes.title}{" "}
+            </h1>
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-2">
+                <Rating
+                  rating={products.getAverageRatings(
+                    product.attributes.reviews.data
+                  )}
+                  size="1rem"
+                />
+                <h1 className="text-mainBlack/50 text-sm">
+                  ({getTheLengthOfAllowedRatings(products.targetProductReviews)}
+                  )
+                </h1>
+              </div>
+              <div className="flex items-center gap-5">
+                {getPriceAfterDiscount() && (
+                  <div className="relative ">
+                    <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
+                    <h2 className="text-sm md:text-xl text-mainBlack/30 font-bold  text-center">
+                      {product.attributes.price.toFixed(2)}$
+                    </h2>
+                  </div>
+                )}
+                <h2 className="text-sm md:text-xl text-mainBlack/70 font-bold">
+                  {getPriceAfterDiscount()
+                    ? getPriceAfterDiscount()
+                    : product.attributes.price.toFixed(2)}
+                  $
+                </h2>
+              </div>
             </div>
           </div>
+          <div className="flex flex-col gap-3">
+            <Divider />
+            <Button
+              className={` ${
+                foundInCart ? `bg-emerald-500` : `bg-mainPink`
+              } text-mainWhite w-full rounded-md transition-all capitalize hover:bg-mainPink/90 text-sm md:text-xl `}
+              endContent={foundInCart ? <FaCheck /> : <AiOutlineShoppingCart />}
+              size="md"
+              isLoading={addingToUserCartLoading}
+              isDisabled={foundInCart ? true : false}
+              onClick={addProductToCart}
+            >
+              {foundInCart ? "added" : "add"} to cart
+            </Button>
+          </div>
         </div>
-
-        <Button
-          className={`h-16 ${
-            foundInCart ? `bg-emerald-500` : `bg-mainPink`
-          } text-mainWhite w-full rounded-md transition-all capitalize hover:bg-mainPink/90`}
-          endContent={foundInCart ? <FaCheck /> : <AiOutlineShoppingCart />}
-          size="lg"
-          isLoading={addingToUserCartLoading}
-          isDisabled={foundInCart ? true : false}
-          onClick={addProductToCart}
-        >
-          {foundInCart ? "added" : "add"} to cart
-        </Button>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import ProductCard from "./ProductCard";
 import ProductsPagination from "./ProductsPagination";
 import { StoreContext } from "@/contexts/StoreContext";
@@ -14,6 +14,8 @@ import RowStyleView from "./RowStyleView";
 
 const ProductsSection = () => {
   const { viewStyle, filter } = useContext(StoreContext);
+
+  const divRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="flex flex-col gap-5 relative ">
@@ -36,21 +38,27 @@ const ProductsSection = () => {
         )}
       </AnimatePresence>
       <motion.div
-        initial={{ x: -1000 }}
-        animate={{ x: filter.showFilterSideBar ? 0 : -1000 }}
-        exit={{ x: -1000 }}
+        ref={divRef}
+        initial={{
+          x: divRef.current?.offsetWidth && -divRef.current?.offsetWidth,
+        }}
+        animate={{
+          x: filter.showFilterSideBar
+            ? 0
+            : divRef.current?.offsetWidth && -divRef.current?.offsetWidth,
+        }}
         transition={{
           type: "tween",
           duration: 0.5,
         }}
-        className="absolute top-0 left-28 bg-mainWhite  h-auto w-auto z-50   "
+        className="absolute top-0 left-0 md:left-0 bg-mainWhite  h-auto w-full md:w-auto z-50   "
       >
         <FilterSidebarContents />
       </motion.div>
-      <div
+      {/* <div
         key="white-cover-rectangle"
-        className="bg-mainWhite w-28 h-full absolute top-0 left-0 z-[60] "
-      />
+        className="bg-mainWhite w-10  h-full absolute top-0 left-0 z-[60] hidden md:block"
+      /> */}
     </div>
   );
 };

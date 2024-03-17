@@ -18,12 +18,16 @@ export const theme = {
       mainWhite: "#ffffff",
       mainBlack: "#161616",
       mainPink: "#e5087e",
+      // mainPink: "#007F73",
       mainDarkBlue: "#171d2f",
       mainGray: "#f6f5f6",
     },
     fontFamily: {
       cairo: ["cairo", "sans-serif"],
       rubik: ["rubik", "sans-serif"],
+    },
+    screens: {
+      lmob: "425px",
     },
   },
 };

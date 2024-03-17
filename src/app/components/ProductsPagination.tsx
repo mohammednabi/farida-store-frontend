@@ -90,6 +90,9 @@ const ProductsPagination = () => {
         initialPage={1}
         variant={"faded"}
         onChange={(page) => setCurrentPage(page)}
+        classNames={{
+          cursor: "bg-mainPink",
+        }}
       />
     </div>
   );

@@ -2,7 +2,7 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import React, { useContext, useRef } from "react";
 import { observer } from "mobx-react-lite";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import SidebarContent from "./SidebarContent";
 import SidebarResponsiveContent from "./SidebarResponsiveContent";
 
@@ -41,7 +41,7 @@ const Sidebar = () => {
           type: "tween",
           duration: 0.5,
         }}
-        className="bg-white h-screen w-[20rem] fixed top-0 left-0 z-[100] overflow-auto "
+        className="bg-white h-screen w-full lmob:w-[20rem] fixed top-0 left-0 z-[100] overflow-auto "
       >
         <SidebarContent />
         <SidebarResponsiveContent />

@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { LiaNewspaper } from "react-icons/lia";
-import { FaRegEye } from "react-icons/fa";
+import { FaBackward, FaRegEye } from "react-icons/fa";
 import { Button, Divider } from "@nextui-org/react";
 import { StoreContext } from "@/contexts/StoreContext";
 import Link from "next/link";
@@ -11,6 +11,10 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { IoMdClose } from "react-icons/io";
 import { IoMdMenu } from "react-icons/io";
 import { IoGridSharp } from "react-icons/io5";
+import { FaBackwardStep } from "react-icons/fa6";
+import { BsBack, BsBackspace } from "react-icons/bs";
+import { BiLeftArrow } from "react-icons/bi";
+import { MoveLeft } from "lucide-react";
 
 const SidebarResponsiveContent = () => {
   const { sidebar, categories } = useContext(StoreContext);
@@ -45,7 +49,7 @@ const SidebarResponsiveContent = () => {
         <Button
           disableAnimation
           radius="none"
-          className={` border-2 border-solid border-mainBlack capitalize  rounded-md bg-mainWhite text-mainBlack ${
+          className={` border-2 border-solid border-mainBlack capitalize text-sm rounded-md bg-mainWhite text-mainBlack ${
             selectedLabel === "main menu" ? selectedButton : ""
           }`}
           startContent={<IoMdMenu className="text-xl" />}
@@ -58,7 +62,7 @@ const SidebarResponsiveContent = () => {
         <Button
           disableAnimation
           radius="none"
-          className={`  border-2 border-solid border-mainBlack capitalize rounded-md bg-mainWhite text-mainBlack ${
+          className={`  border-2 border-solid border-mainBlack capitalize text-sm  rounded-md bg-mainWhite text-mainBlack ${
             selectedLabel === "sections" ? selectedButton : ""
           }`}
           startContent={<IoGridSharp className="text-xl" />}
@@ -70,8 +74,16 @@ const SidebarResponsiveContent = () => {
         </Button>
       </div>
 
-      <div className="p-4">
-        <h1 className="text-xl capitalize text-center">{selectedLabel}</h1>
+      <div className="flex justify-between items-center">
+        <div
+          className="flex items-start justify-center text-xl p-4"
+          onClick={sidebar.hideWholeSidebar}
+        >
+          <MoveLeft className=" cursor-pointer" />
+        </div>
+        <div className="p-4">
+          <h1 className="text-xl capitalize text-center">{selectedLabel}</h1>
+        </div>
       </div>
 
       <Divider />

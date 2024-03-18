@@ -47,7 +47,7 @@ body {
   }
 
   .filter-link {
-    @apply text-xl flex gap-3;
+    @apply text-sm md:text-xl flex gap-3;
   }
 }
 

@@ -11,7 +11,7 @@ const FilterButton = () => {
 
   return (
     <div className="relative" onClick={filter.displayWholeFilterSidebar}>
-      <div className="flex items-center justify-start gap-2  pl-5 py-3 cursor-pointer bg-mainGray rounded-md">
+      <div className="flex items-center justify-center md:justify-start gap-2  md:pl-5 py-3 cursor-pointer bg-mainGray rounded-md">
         <AnimatePresence>
           <motion.div>
             {filter.showFilterSideBar ? (
@@ -39,7 +39,7 @@ const FilterButton = () => {
             )}
           </motion.div>
         </AnimatePresence>
-        <h1 className="text-lg md:text-2xl">filter</h1>
+        <h1 className="hidden md:block text-lg md:text-2xl">filter</h1>
       </div>
     </div>
   );

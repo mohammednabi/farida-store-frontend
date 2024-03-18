@@ -29,7 +29,7 @@ const GridStyleView = () => {
           )}
         </div>
       ) : (
-        <div className="w-full min-h-[50vh] grid place-items-center   px-28 py-0">
+        <div className="w-screen min-h-[50vh] grid place-items-center   px-28 py-0">
           <Spinner
             label="loading..."
             size="lg"

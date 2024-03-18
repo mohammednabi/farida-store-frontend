@@ -22,10 +22,14 @@ export const theme = {
       mainDarkBlue: "#171d2f",
       mainGray: "#f6f5f6",
     },
+
     fontFamily: {
       cairo: ["cairo", "sans-serif"],
       rubik: ["rubik", "sans-serif"],
     },
+    // fontSize: {
+    //   xs:"7rem"
+    // },
     screens: {
       lmob: "425px",
     },

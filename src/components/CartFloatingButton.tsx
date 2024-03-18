@@ -25,13 +25,15 @@ const CartFloatingButton = () => {
             className="fixed bottom-20 right-5 z-[100] w-max "
           >
             <div
-              className="bg-mainBlack cursor-pointer  w-16 h-16 relative rounded-full flex items-center justify-center transition-all hover:bg-mainBlack/75"
+              className="bg-mainBlack cursor-pointer w-12 h-12  md:w-16 md:h-16 relative rounded-full flex items-center justify-center transition-all hover:bg-mainBlack/75"
               onClick={() => {
                 cartSidebar.displayWholeCartSidebar();
               }}
             >
               <Icon
-                icon={<FaCartArrowDown className="text-mainWhite text-2xl" />}
+                icon={
+                  <FaCartArrowDown className="text-mainWhite text-lg md:text-2xl" />
+                }
                 showPop
                 count={cart.productsCount}
               />

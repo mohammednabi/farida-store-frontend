@@ -3,20 +3,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { Pagination } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
-import {
-  useParams,
-  useSearchParams,
-  useRouter,
-  usePathname,
-} from "next/navigation";
+import { useParams, useSearchParams, usePathname } from "next/navigation";
+import { useScreenSize } from "react-screen-size-helper";
 
 const ProductsPagination = () => {
   const { products, filter } = useContext(StoreContext);
   const [currentPage, setCurrentPage] = useState(1);
   const searchParams = useSearchParams();
   const urlParams = useParams();
-  const router = useRouter();
+
   const pathname = usePathname();
+  const { isDesktop, isMobile } = useScreenSize({});
 
   const salesOnly = searchParams.get("salesonly");
   const sorting = searchParams.get("sort");
@@ -27,7 +24,11 @@ const ProductsPagination = () => {
   const searchQuery = searchParams.get("q");
 
   const goUp = () => {
-    router.replace("#filters");
+    // router.replace("#filters");
+
+    const filtersSection = document.getElementById("filters");
+
+    filtersSection?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -89,7 +90,7 @@ const ProductsPagination = () => {
       <Pagination
         showControls
         color="danger"
-        size="lg"
+        size={isMobile ? "sm" : isDesktop ? "md" : "lg"}
         total={products.pagination.pageCount}
         initialPage={1}
         variant={"faded"}

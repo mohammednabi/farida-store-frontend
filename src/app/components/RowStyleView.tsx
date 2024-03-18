@@ -13,6 +13,16 @@ const RowStyleView = () => {
   const searchParams = useSearchParams();
   const pageSize = searchParams.get("psize");
 
+  // ${
+  //   pageSize === "16"
+  //     ? `grid-rows-[repeat(8,minmax(0,1fr))]`
+  //     : pageSize === "20"
+  //     ? `grid-rows-[repeat(10,minmax(0,1fr))]`
+  //     : pageSize === "24"
+  //     ? `grid-rows-[repeat(12,minmax(0,1fr))]`
+  //     : `grid-rows-6`
+  //   }
+
   return (
     <>
       {/* <div className='w-full min-h-[200vh] grid grid-cols-4 gap-10 px-28 py-0'></div> */}
@@ -21,15 +31,10 @@ const RowStyleView = () => {
         <div>
           {products.products.length > 0 ? (
             <div
-              className={` w-full h-auto grid grid-cols-1 xl:grid-cols-2 gap-5 lmob:gap-2 lg:gap-10 px-5 md:px-10 lg:px-20 py-0 ${
-                pageSize === "16"
-                  ? `grid-rows-[repeat(8,minmax(0,1fr))]`
-                  : pageSize === "20"
-                  ? `grid-rows-[repeat(10,minmax(0,1fr))]`
-                  : pageSize === "24"
-                  ? `grid-rows-[repeat(12,minmax(0,1fr))]`
-                  : `grid-rows-6`
-              } `}
+              className={` w-full h-auto grid grid-cols-1 xl:grid-cols-2 gap-5 lmob:gap-2 lg:gap-10 px-5 md:px-10 lg:px-20 py-0 
+             
+              
+                `}
             >
               {products.products?.map((product) => (
                 <RawProductCard key={product.id} product={product} />

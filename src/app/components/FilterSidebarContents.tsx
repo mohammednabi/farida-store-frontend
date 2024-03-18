@@ -13,19 +13,23 @@ const FilterSidebarContents = () => {
   const { filter } = useContext(StoreContext);
 
   return (
-    <div className="pl-16 lg:pl-28 py-10 pr-20 flex flex-col gap-10">
+    <div className="px-8 lmob:pl-16 lg:pl-28 py-10 lmob:pr-20 flex flex-col gap-10 border-solid border-mainGray border-4 lg:border-0">
       <div className="flex flex-col gap-3">
-        <h1 className="text-2xl capitalize font-semibold">category</h1>
+        <h1 className="text-lg md:text-2xl capitalize font-semibold">
+          category
+        </h1>
         <FilterSidebarLinks />
       </div>
 
       <div className="flex flex-col gap-3">
-        <h1 className="text-2xl capitalize font-semibold">price </h1>
+        <h1 className="text-lg md:text-2xl capitalize font-semibold">price </h1>
         <PriceSlider />
       </div>
 
       <div className="flex flex-col gap-3">
-        <h1 className="text-2xl capitalize font-semibold">colors </h1>
+        <h1 className="text-lg md:text-2xl capitalize font-semibold">
+          colors{" "}
+        </h1>
         <ColorsMenu />
       </div>
       <div

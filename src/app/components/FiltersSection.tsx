@@ -1,6 +1,6 @@
 "use client";
 import { Checkbox, Select, SelectItem } from "@nextui-org/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 
 import { MdGridView } from "react-icons/md";
 import { MdOutlineViewAgenda } from "react-icons/md";
@@ -86,7 +86,7 @@ const FiltersSection = () => {
         searchParams.has("max_price")) && <ActiveFilters />}
 
       <div className=" grid grid-rows-3 grid-cols-1 md:grid-rows-1 md:grid-cols-[repeat(3,minmax(0,auto))] items-center  relative pb-5  md:gap-5">
-        <div className="grid grid-cols-2 items-center gap-5 order-3 md:order-1">
+        <div className="grid grid-cols-[1fr_6fr] items-center gap-3 order-3 md:order-1">
           <FilterButton />
           <div className="hidden md:flex items-center justify-start gap-2 text-lg md:text-2xl pl-1 py-3 cursor-pointer bg-mainGray rounded-md">
             <Checkbox
@@ -95,7 +95,7 @@ const FiltersSection = () => {
               onChange={(e) => {
                 handleSalesOnlySearch(e.target.checked);
               }}
-              className="pl-5 py-3"
+              className="pl-5 py-3 "
             >
               sales only
             </Checkbox>
@@ -109,10 +109,20 @@ const FiltersSection = () => {
             onChange={(e) => {
               handleSortSearch(e.target.value);
             }}
-            className=" md:hidden"
+            className=" md:hidden "
+            classNames={{
+              value: "text-xs lmob:text-sm",
+            }}
           >
             {selections.map((sel) => (
-              <SelectItem key={sel.value} value={sel.value}>
+              <SelectItem
+                key={sel.value}
+                value={sel.value}
+                className="text-[.2rem]"
+                classNames={{
+                  title: "text-xs lmob:text-sm",
+                }}
+              >
                 {sel.label}
               </SelectItem>
             ))}

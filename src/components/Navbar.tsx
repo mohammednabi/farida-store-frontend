@@ -11,7 +11,7 @@ const NavBar2 = () => {
 
   useEffect(() => {
     const scrolling = (e: Event) => {
-      window.scrollY > 370 ? setNavbarFixed(true) : setNavbarFixed(false);
+      window.scrollY > 500 ? setNavbarFixed(true) : setNavbarFixed(false);
     };
 
     window.addEventListener("scroll", scrolling);
@@ -35,8 +35,8 @@ const NavBar2 = () => {
           duration: 0,
         }}
         className={`${
-          isNavbarFixed ? `fixed -top-40 left-0` : `relative`
-        } bg-mainWhite z-[80] transition-all  p-5 px-10 w-full min-h-[3.75rem] max-h-[5rem] border-b-[1px] border-b-mainDarkBlue border-solid`}
+          isNavbarFixed ? `fixed -top-40 left-0 z-[80]` : `relative`
+        } bg-mainWhite  transition-all p-2 px-5 md:p-5 md:px-10 w-full min-h-[3.75rem] max-h-[5rem] border-b-[1px] border-b-mainDarkBlue border-solid`}
       >
         <div className=" flex justify-between items-center gap-3">
           <NavMenuIcon />

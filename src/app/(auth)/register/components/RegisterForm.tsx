@@ -9,9 +9,11 @@ import { redirect } from "next/navigation";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
+import { useScreenSize } from "react-screen-size-helper";
 
 const RegisterForm = () => {
   const { registerForm } = useContext(StoreContext);
+  const { isMobile } = useScreenSize({});
 
   useEffect(() => {
     registerForm.setDisabledCondition(
@@ -45,10 +47,12 @@ const RegisterForm = () => {
   }, [registerForm.isLoading]);
 
   return (
-    <div className="w-full flex flex-col p-5 px-20 items-start gap-10">
-      <h1 className="text-3xl font-bold capitalize">Register</h1>
-      <form className="w-1/3 flex flex-col gap-5">
-        <div className="grid grid-cols-2 gap-2">
+    <div className="w-full flex flex-col p-5 px-7 lmob:px-20 items-center lg:items-start gap-10">
+      <h1 className="text-3xl font-bold capitalize hidden lg:block">
+        Register
+      </h1>
+      <form className="w-full md:w-2/3 lg:w-1/3 flex flex-col gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-2">
           <Input
             value={registerForm.firstName}
             variant="bordered"
@@ -58,7 +62,7 @@ const RegisterForm = () => {
             labelPlacement="outside"
             placeholder=" First  "
             radius="none"
-            size="lg"
+            size={isMobile ? "md" : "lg"}
             onChange={(e) => {
               registerForm.setFirstName(e.target.value);
             }}
@@ -72,7 +76,7 @@ const RegisterForm = () => {
             labelPlacement="outside"
             placeholder=" Last "
             radius="none"
-            size="lg"
+            size={isMobile ? "md" : "lg"}
             isRequired
             onChange={(e) => {
               registerForm.setlastName(e.target.value);
@@ -89,7 +93,7 @@ const RegisterForm = () => {
           labelPlacement="outside"
           placeholder=" Username  "
           radius="none"
-          size="lg"
+          size={isMobile ? "md" : "lg"}
           onChange={(e) => {
             registerForm.setUsername(e.target.value);
           }}
@@ -107,7 +111,7 @@ const RegisterForm = () => {
           placeholder="Enter your email"
           errorMessage={!registerForm.isValidEmail && "Not valid email"}
           radius="none"
-          size="lg"
+          size={isMobile ? "md" : "lg"}
           onChange={(e) => {
             registerForm.setEmail(e.target.value);
             registerForm.validateEmail();
@@ -122,7 +126,7 @@ const RegisterForm = () => {
           labelPlacement="outside"
           placeholder="Enter your password"
           radius="none"
-          size="lg"
+          size={isMobile ? "md" : "lg"}
           description={
             !registerForm.isValidPassword
               ? "Password must have  (1-6) letters includes at least one number and one uppercase letter  "
@@ -156,7 +160,7 @@ const RegisterForm = () => {
           labelPlacement="outside"
           placeholder="Confirm your password"
           radius="none"
-          size="lg"
+          size={isMobile ? "md" : "lg"}
           color={
             registerForm.confirmedPassword !== registerForm.password
               ? "danger"
@@ -189,12 +193,13 @@ const RegisterForm = () => {
           }
         />
 
-        <div className="grid grid-cols-2 items-center gap-2">
+        <div className="grid grid-rows-2 grid-cols-1 lmob:grid-rows-1 lmob:grid-cols-2 items-center gap-2">
           <Button
             isLoading={registerForm.isLoading}
             isDisabled={!registerForm.disabledCondition}
             type="submit"
             radius="none"
+            size={isMobile ? "md" : "lg"}
             className={`${
               !registerForm.disabledCondition ? "bg-stone-400" : "bg-mainBlack"
             } text-mainWhite `}
@@ -207,9 +212,11 @@ const RegisterForm = () => {
             Submit
           </Button>
           {/* <h1 className='text-red-400'>{errorMessage.slice(22,errorMessage.length-2) }</h1> */}
-          <h1 className="text-red-400">{registerForm.errorMessage}</h1>
+          <h1 className="text-red-400 text-sm md:text-lg">
+            {registerForm.errorMessage}
+          </h1>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 text-sm md:text-lg">
           <h1 className="text-mainBlack/50 underline">
             Already have an account ?
           </h1>
@@ -219,9 +226,9 @@ const RegisterForm = () => {
         </div>
       </form>
 
-      <div className="w-1/3 grid grid-cols-[1fr_auto_1fr] justify-between items-center">
+      <div className="w-full md:w-2/3 lg:w-1/3 grid grid-cols-[1fr_auto_1fr] justify-between items-center">
         <Divider />
-        <h1 className="text-lg capitalize px-5">or</h1>
+        <h1 className="text-sm md:text-lg capitalize px-5">or</h1>
         <Divider />
       </div>
       <GoogleProvider />

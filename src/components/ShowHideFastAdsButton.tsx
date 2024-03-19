@@ -11,7 +11,7 @@ const ShowHideFastAdsButton = () => {
 
   return (
     <div
-      className="absolute top-full  bg-mainDarkBlue  text-mainWhite z-10 cursor-pointer p-1 hover:bg-mainDarkBlue/90 rounded-b-full"
+      className="absolute top-full  bg-mainDarkBlue  text-mainWhite z-10 cursor-pointer text-xs md:text-lg p-1 hover:bg-mainDarkBlue/90 rounded-b-full"
       onClick={fastAds.toggleShowingAds}
     >
       <motion.div

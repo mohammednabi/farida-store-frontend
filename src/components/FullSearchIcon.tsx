@@ -8,11 +8,13 @@ import { StoreContext } from "@/contexts/StoreContext";
 interface fullUserSearchIconProps {
   className?: string;
   hasBorder?: boolean;
+  hasBorderHover?: boolean;
 }
 
 const FullSearchIcon = ({
   className,
   hasBorder = true,
+  hasBorderHover = true,
 }: fullUserSearchIconProps) => {
   const { searchBox } = useContext(StoreContext);
 
@@ -20,6 +22,7 @@ const FullSearchIcon = ({
     <Icon
       icon={<AiOutlineSearch className={className} />}
       hasBorder={hasBorder}
+      hasBorderHover={hasBorderHover}
       whenClick={searchBox.displayWholeSearchBox}
     />
   );

@@ -86,23 +86,27 @@ const ProductsPagination = () => {
   ]);
 
   return (
-    <div className="flex justify-center items-center">
-      <Pagination
-        showControls
-        color="danger"
-        size={isMobile ? "sm" : isDesktop ? "md" : "lg"}
-        total={products.pagination.pageCount}
-        initialPage={1}
-        variant={"faded"}
-        onChange={(page) => {
-          goUp();
-          setCurrentPage(page);
-        }}
-        classNames={{
-          cursor: "bg-mainPink",
-        }}
-      />
-    </div>
+    <>
+      {products.products.length > 0 && (
+        <div className="flex justify-center items-center">
+          <Pagination
+            showControls
+            color="danger"
+            size={isMobile ? "sm" : isDesktop ? "md" : "lg"}
+            total={products.pagination.pageCount}
+            initialPage={1}
+            variant={"faded"}
+            onChange={(page) => {
+              goUp();
+              setCurrentPage(page);
+            }}
+            classNames={{
+              cursor: "bg-mainPink",
+            }}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ import GridStyleView from "./GridStyleView";
 import RowStyleView from "./RowStyleView";
 
 const ProductsSection = () => {
-  const { viewStyle, filter } = useContext(StoreContext);
+  const { products, viewStyle, filter } = useContext(StoreContext);
 
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -22,7 +22,6 @@ const ProductsSection = () => {
       {viewStyle.gridView ? <GridStyleView /> : <RowStyleView />}
 
       {/* ============ */}
-
       <ProductsPagination />
 
       <AnimatePresence mode="wait">
@@ -39,17 +38,15 @@ const ProductsSection = () => {
       </AnimatePresence>
       <motion.div
         ref={divRef}
-        initial={{
-          x: divRef.current?.offsetHeight && -divRef.current?.offsetHeight,
-        }}
+        initial={{ x: -1500 }}
         animate={{
-          x: filter.showFilterSideBar
-            ? 0
-            : divRef.current?.offsetHeight && -divRef.current?.offsetHeight,
+          x: filter.showFilterSideBar ? 0 : -1500,
         }}
-        exit={{
-          x: divRef.current?.offsetHeight && -divRef.current?.offsetHeight,
-        }}
+        // exit={{
+        //   x: divRef.current?.offsetHeight
+        //     ? -divRef.current?.offsetHeight
+        //     : -1500,
+        // }}
         transition={{
           type: "tween",
           duration: 0.5,

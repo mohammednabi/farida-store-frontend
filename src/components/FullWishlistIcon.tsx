@@ -10,12 +10,14 @@ import { isUserLoggedIn } from "@/functions/credentials";
 interface fullWishlistIconProps {
   className?: string;
   hasBorder?: boolean;
+  hasBorderHover?: boolean;
   showPop?: boolean;
 }
 
 const FullWishlistIcon = ({
   className,
   hasBorder = true,
+  hasBorderHover = true,
   showPop = true,
 }: fullWishlistIconProps) => {
   const { wishlist, userWishlist, loginForm, registerForm } =
@@ -40,6 +42,7 @@ const FullWishlistIcon = ({
         <Icon
           icon={<FaRegHeart className={className} />}
           hasBorder={hasBorder}
+          hasBorderHover={hasBorderHover}
           showPop={showPop}
           // count={userWishlist.userWishlistProductsCount}
           count={userWishlist.userWishlistProductsCount}

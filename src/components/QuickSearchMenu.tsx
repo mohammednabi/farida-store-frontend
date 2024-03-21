@@ -1,62 +1,52 @@
-"use client"
-import React, { useContext, useEffect } from 'react'
-import MiniSearchProduct from './MiniSearchProduct'
-import { StoreContext } from '@/contexts/StoreContext'
-import { observer } from 'mobx-react-lite'
-import { Button } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
+"use client";
+import React, { useContext, useEffect } from "react";
+import MiniSearchProduct from "./MiniSearchProduct";
+import { StoreContext } from "@/contexts/StoreContext";
+import { observer } from "mobx-react-lite";
+import { Button } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 const QuickSearchMenu = () => {
+  const { searchBox } = useContext(StoreContext);
 
-const {searchBox } = useContext(StoreContext)
+  const router = useRouter();
 
-    const router = useRouter()
-    
-     const searchForResult = (query:string) => {
+  const searchForResult = (query: string) => {
+    router.push(`/search?q=${query}`);
+    searchBox.hideWholeSearchBox();
 
+    searchBox.setSearchInputValue("");
+  };
 
-       
-            router.push(`/search?q=${query}`)
-            searchBox.hideWholeSearchBox()
-        
-        searchBox.setSearchInputValue("")
-        
-
+  useEffect(() => {
+    if (searchBox.searchInputValue.length > 0) {
+      searchBox.quickSearch(searchBox.searchInputValue);
+    } else {
+      searchBox.setQuickProducts([]);
     }
-    
-    
-
-    useEffect(() => {
-        if (searchBox.searchInputValue.length>0) {
-            searchBox.quickSearch(searchBox.searchInputValue)
-            
-        }
-        else {
-            searchBox.setQuickProducts([])
-        }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-},[searchBox.searchInputValue])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchBox.searchInputValue]);
 
   return (
-      <div className='flex flex-col gap-5 items-center justify-center'>
-          
-          <div className='grid grid-cols-2 w-1/2 grid-rows-2 gap-5'>
-              {searchBox.quickProducts.map((product) => (
-                  
-                  <MiniSearchProduct
-                      key={product.id}
-                      product={product}
-                       />
-              ))}
-</div>
-          
-        {searchBox.quickProducts.length>0 &&  <Button className='bg-mainBlack text-mainWhite p-3 capitalize' onClick={()=>{searchForResult(searchBox.searchInputValue)}}>
-              show all results
-          </Button>}
+    <div className="flex flex-col gap-5 items-center justify-center">
+      <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 w-full md:w-1/2 md:grid-rows-2 gap-5">
+        {searchBox.quickProducts.map((product) => (
+          <MiniSearchProduct key={product.id} product={product} />
+        ))}
+      </div>
 
-
+      {searchBox.quickProducts.length > 0 && (
+        <Button
+          className="bg-mainBlack text-mainWhite p-2 md:p-3 capitalize"
+          onClick={() => {
+            searchForResult(searchBox.searchInputValue);
+          }}
+        >
+          show all results
+        </Button>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default observer(QuickSearchMenu)
+export default observer(QuickSearchMenu);

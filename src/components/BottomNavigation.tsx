@@ -11,23 +11,33 @@ import { FiHome } from "react-icons/fi";
 
 const BottomNavigation = () => {
   return (
-    <div className="w-full fixed bottom-0 bg-mainGray p-3 py-1 grid md:hidden grid-cols-4 items-center z-[89] border-t-[1px] border-t-mainDarkBlue border-solid ">
+    <div className="w-full fixed bottom-0 bg-mainWhite shadow-md p-3 py-1 grid md:hidden grid-cols-4 items-center z-[89] border-t-[1px] border-t-mainDarkBlue border-solid ">
       <Link href={"/"} className="justify-self-center  ">
-        <Icon icon={<FiHome className="text-lg" />} />
+        <Icon
+          hasBorder
+          hasBorderHover={false}
+          icon={<FiHome className="text-lg" />}
+        />
       </Link>
       <Link href={"/user"} className="justify-self-center  ">
-        <Icon icon={<FaRegUser className="text-lg" />} />
+        <Icon
+          hasBorder
+          hasBorderHover={false}
+          icon={<FaRegUser className="text-lg" />}
+        />
       </Link>
       <Link href={"/wishlist"} className="justify-self-center text-5xl ">
         {/* <Icon icon={<FaRegHeart />} /> */}
         <FullWishlistIcon
-          hasBorder={false}
+          hasBorder={true}
+          hasBorderHover={false}
           className="justify-self-center text-lg "
         />
       </Link>
       <Link href={""} className="justify-self-center  ">
         <FullSearchIcon
-          hasBorder={false}
+          hasBorder={true}
+          hasBorderHover={false}
           className="justify-self-center text-lg "
         />
       </Link>

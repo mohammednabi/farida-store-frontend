@@ -5,12 +5,10 @@ import SearchBox from "./SearchBox";
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
 import { AnimatePresence, motion } from "framer-motion";
-import { useScreenSize } from "react-screen-size-helper";
 
 const SearchMenu = () => {
   const { searchBox } = useContext(StoreContext);
   const divRef = useRef<HTMLDivElement>(null);
-  const { isMobile, isTablet } = useScreenSize({});
 
   return (
     <div>

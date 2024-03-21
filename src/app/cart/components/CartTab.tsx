@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
+import { useScreenSize } from "react-screen-size-helper";
 
 interface CartTabProps {
   step?: number;
@@ -32,25 +33,33 @@ const CartTab = ({
     }
   };
 
+  const { isLargeDesktop } = useScreenSize({});
+
   return (
     <div
       onClick={goToTarget}
       className={`${isDisabled ? `cursor-default` : `cursor-pointer`}`}
     >
-      <div className={`flex gap-3 items-center mt-10 ${opacity}`}>
+      <div
+        className={`flex flex-wrap gap-3 items-center mt-0 md:mt-10 ${opacity} `}
+      >
         <Chip
           variant="faded"
           classNames={{
             base: "bg-transparent text-xl text-mainBlack border-mainBlack border-1 border-solid",
           }}
-          size="lg"
+          size={isLargeDesktop ? "lg" : "md"}
         >
-          {isChecked ? <FaCheck className="text-emerald-500/50" /> : step}
+          {isChecked ? <FaCheck className="text-mainBlack/50 text-xs" /> : step}
         </Chip>
 
         <div className="flex flex-col ">
-          <h1 className="text-xl text-mainBlack capitalize">{title}</h1>
-          <h1 className="text-lg text-mainBlack/50 ">{description}</h1>
+          <h1 className="text-sm md:text-lg lg:text-xl text-mainBlack capitalize">
+            {title}
+          </h1>
+          <h1 className="text-xs md:text-sm lg:text-lg text-mainBlack/50 ">
+            {description}
+          </h1>
         </div>
       </div>
     </div>

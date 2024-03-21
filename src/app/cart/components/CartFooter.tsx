@@ -5,9 +5,11 @@ import { Button, Input } from "@nextui-org/react";
 import React, { useContext } from "react";
 import { BiSend } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
+import { useScreenSize } from "react-screen-size-helper";
 
 const CartFooter = () => {
   const { cart, user } = useContext(StoreContext);
+  const { currentWidth } = useScreenSize({});
 
   const deleteAllCartProducts = () => {
     if (isUserLoggedIn()) {
@@ -23,15 +25,16 @@ const CartFooter = () => {
   };
 
   return (
-    <div className="flex justify-between items-center px-5">
+    <div className="flex justify-between items-center flex-wrap  gap-3">
       <Input
         type="text"
         placeholder="promo code"
         radius="sm"
+        size={currentWidth > 768 ? "md" : "sm"}
         variant="bordered"
-        className="w-1/3"
+        className="w-full  md:w-1/3"
         endContent={
-          <div className="text-2xl cursor-pointer">
+          <div className="text-lg md:text-2xl cursor-pointer">
             <BiSend />
           </div>
         }
@@ -48,8 +51,9 @@ const CartFooter = () => {
 
         <Button
           radius="sm"
+          size={currentWidth > 768 ? "md" : "sm"}
           className="bg-red-500 text-mainWhite capitalize px-10 "
-          endContent={<MdDeleteForever className="text-2xl" />}
+          endContent={<MdDeleteForever className="text-lg md:text-2xl" />}
           onClick={deleteAllCartProducts}
         >
           remove all

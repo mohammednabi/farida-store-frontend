@@ -12,7 +12,15 @@ import React, { useContext } from "react";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { IoFilterOutline } from "react-icons/io5";
 
-const WishListFliters = () => {
+interface wishListFiltersProps {
+  showFilters?: boolean;
+  showAddNewBtn?: boolean;
+}
+
+const WishListFliters = ({
+  showAddNewBtn = true,
+  showFilters = true,
+}: wishListFiltersProps) => {
   const { userWishlist } = useContext(StoreContext);
 
   const filters = [
@@ -40,36 +48,40 @@ const WishListFliters = () => {
   };
 
   return (
-    <div className=" relative">
+    <div className=" relative hidden xl:block">
       <div className="flex flex-col gap-10 ">
-        <Button
-          endContent={<IoAddCircleOutline />}
-          className="bg-mainBlack text-mainWhite p-5 py-8 text-2xl capitalize"
-          onClick={goToHomePage}
-        >
-          add new item
-        </Button>
+        {showAddNewBtn && (
+          <Button
+            endContent={<IoAddCircleOutline />}
+            className="bg-mainBlack text-mainWhite p-5 py-8 text-xl capitalize"
+            onClick={goToHomePage}
+          >
+            add new item
+          </Button>
+        )}
 
-        <Autocomplete
-          label="Filters"
-          placeholder="Filter by ->"
-          defaultItems={filters}
-          variant="faded"
-          startContent={<IoFilterOutline />}
-          className="border-mainPink"
-          color="success"
-          classNames={{
-            popoverContent: "bg-emerald-500 text-mainWhite ",
-          }}
-          onSelectionChange={(selection) => {
-            setFilter(selection);
-            console.log("change wishlist filters to : ", selection);
-          }}
-        >
-          {(item) => (
-            <AutocompleteItem key={item.type}>{item.type}</AutocompleteItem>
-          )}
-        </Autocomplete>
+        {showFilters && (
+          <Autocomplete
+            label="Filters"
+            placeholder="Filter by ->"
+            defaultItems={filters}
+            variant="faded"
+            startContent={<IoFilterOutline />}
+            className="border-mainPink"
+            color="success"
+            classNames={{
+              popoverContent: "bg-emerald-500 text-mainWhite ",
+            }}
+            onSelectionChange={(selection) => {
+              setFilter(selection);
+              // console.log("change wishlist filters to : ", selection);
+            }}
+          >
+            {(item) => (
+              <AutocompleteItem key={item.type}>{item.type}</AutocompleteItem>
+            )}
+          </Autocomplete>
+        )}
       </div>
     </div>
   );

@@ -10,9 +10,9 @@ const WishListSections = () => {
   return (
     <div>
       {isUserLoggedIn() ? (
-        <div className="grid grid-cols-[3fr_auto_1fr] mt-10  px-20 gap-20">
+        <div className="grid grid-rows-1 grid-cols-1 xl:grid-cols-[5fr_auto_1fr]  mt-10 px-1 sm:px-5 lg:px-10  xl:px-20 gap-10">
           <WishlistContent />
-          <Divider orientation="vertical" />
+          <Divider orientation="vertical" className="hidden xl:block" />
           <WishListFliters />
         </div>
       ) : (

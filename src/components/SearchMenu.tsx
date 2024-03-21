@@ -1,13 +1,16 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { CgClose } from "react-icons/cg";
 import SearchBox from "./SearchBox";
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
 import { AnimatePresence, motion } from "framer-motion";
+import { useScreenSize } from "react-screen-size-helper";
 
 const SearchMenu = () => {
   const { searchBox } = useContext(StoreContext);
+  const divRef = useRef<HTMLDivElement>(null);
+  const { isMobile, isTablet } = useScreenSize({});
 
   return (
     <div>
@@ -23,9 +26,16 @@ const SearchMenu = () => {
         )}
       </AnimatePresence>
       <motion.div
-        initial={{ y: -1000 }}
-        animate={{ y: searchBox.showSearchBox ? 0 : -1000 }}
-        exit={{ y: -1000 }}
+        ref={divRef}
+        initial={{ y: divRef.current ? -divRef.current?.offsetHeight : -1500 }}
+        animate={{
+          y: searchBox.showSearchBox
+            ? 0
+            : divRef.current
+            ? -divRef.current?.offsetHeight
+            : -1500,
+        }}
+        // exit={{ y: divRef.current ? -divRef.current?.offsetHeight : -1500 }}
         transition={{
           type: "tween",
           duration: 0.5,

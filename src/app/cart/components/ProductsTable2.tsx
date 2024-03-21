@@ -12,7 +12,7 @@ const ProductsTable2 = () => {
   const { cart, user } = useContext(StoreContext);
 
   return (
-    <div className="relative flex flex-col gap-5 px-5 pt-4">
+    <div className="relative flex flex-col gap-5  pt-4">
       <CartTableHeader />
 
       {isUserLoggedIn()

@@ -32,6 +32,8 @@ export const theme = {
     // },
     screens: {
       lmob: "425px",
+      medmob: "375px",
+      smob: "320px",
     },
   },
 };

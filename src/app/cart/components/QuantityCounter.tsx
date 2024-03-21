@@ -62,19 +62,19 @@ const QuantityCounter = ({ product, settingLoading }: quantityCounterProps) => {
   }, [product.quantity]);
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <div className="flex items-center justify-center">
         <button
-          className="border-mainBlack/10 border-1 border-solid text-lg px-3 py-2 rounded-l-full transition-all hover:bg-mainBlack/5"
+          className="border-mainBlack/10 border-1 border-solid text-sm md:text-lg px-2 py-1 md:px-3 md:py-2 rounded-l-full transition-all hover:bg-mainBlack/5"
           onClick={increase}
         >
           +
         </button>
-        <h1 className="border-mainBlack/10 border-1 border-solid text-xl px-5 py-2">
+        <h1 className="border-mainBlack/10 border-1 border-solid text-sm md:text-xl px-4 py-1 md:px-5 md:py-2">
           {counter}
         </h1>
         <button
-          className="border-mainBlack/10 border-1 border-solid text-lg px-3 py-2 rounded-r-full transition-all hover:bg-mainBlack/5"
+          className="border-mainBlack/10 border-1 border-solid text-sm md:text-lg px-2 py-1 md:px-3 md:py-2 rounded-r-full transition-all hover:bg-mainBlack/5"
           onClick={decrease}
         >
           -

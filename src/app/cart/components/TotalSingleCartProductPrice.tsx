@@ -8,7 +8,11 @@ interface totalPriceProps {
 }
 
 const TotalSingleCartProductPrice = ({ totalPrice }: totalPriceProps) => {
-  return <h1 className="text-center text-xl">{totalPrice.toFixed(2)}$</h1>;
+  return (
+    <h1 className="text-center text-xl hidden md:block">
+      {totalPrice.toFixed(2)}$
+    </h1>
+  );
 };
 
 export default TotalSingleCartProductPrice;

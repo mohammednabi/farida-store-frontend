@@ -75,7 +75,7 @@ const UserPagesMenu = () => {
   }, [user.isLoading]);
 
   return (
-    <div className="grid grid-cols-2 gap-10 px-36 py-10">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-10 px-5  md:px-36 py-10">
       {pagesCards.map((card) => (
         <PageCard
           key={card.id}

@@ -5,9 +5,11 @@ import { Button, Input } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { useScreenSize } from "react-screen-size-helper";
 
 const NewAddressForm = () => {
   const { userOrders, user, addressModal } = useContext(StoreContext);
+  const { currentWidth } = useScreenSize({});
 
   const { handleSubmit, register } = useForm();
 
@@ -36,7 +38,9 @@ const NewAddressForm = () => {
     <div className="relative">
       {userOrders.isAddressLoading && <LoadingOverlay />}
       <div className="flex flex-col gap-10">
-        <h1 className="text-xl capitalize font-bold">new address :</h1>
+        <h1 className="text-lg md:text-xl capitalize font-bold">
+          new address :
+        </h1>
         <form
           onSubmit={handleSubmit((data) => {
             submittingForm(data);
@@ -52,7 +56,7 @@ const NewAddressForm = () => {
             placeholder="state"
             isRequired
             classNames={{
-              label: "text-lg font-semiBold capitalize",
+              label: "text-sm md:text-lg font-semiBold capitalize",
             }}
           />
           <Input
@@ -64,7 +68,7 @@ const NewAddressForm = () => {
             placeholder="country"
             isRequired
             classNames={{
-              label: "text-lg font-semiBold capitalize",
+              label: "text-sm md:text-lg font-semiBold capitalize",
             }}
           />
           <Input
@@ -76,7 +80,7 @@ const NewAddressForm = () => {
             placeholder="city"
             isRequired
             classNames={{
-              label: "text-lg font-semiBold capitalize",
+              label: "text-sm md:text-lg font-semiBold capitalize",
             }}
           />
           <Input
@@ -88,7 +92,7 @@ const NewAddressForm = () => {
             placeholder="street"
             isRequired
             classNames={{
-              label: "text-lg font-semiBold capitalize",
+              label: "text-sm md:text-lg font-semiBold capitalize",
             }}
           />
           <Input
@@ -100,10 +104,10 @@ const NewAddressForm = () => {
             placeholder="postal code"
             isRequired
             classNames={{
-              label: "text-lg font-semiBold capitalize",
+              label: "text-sm md:text-lg font-semiBold capitalize",
             }}
           />
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <Input
               {...register("phone")}
               label="phone :"
@@ -113,7 +117,7 @@ const NewAddressForm = () => {
               placeholder="phone"
               isRequired
               classNames={{
-                label: "text-lg font-semiBold capitalize",
+                label: "text-sm md:text-lg font-semiBold capitalize",
               }}
             />
             <Input
@@ -124,14 +128,15 @@ const NewAddressForm = () => {
               radius="none"
               placeholder="second phone"
               classNames={{
-                label: "text-lg font-semiBold capitalize",
+                label: "text-sm md:text-lg font-semiBold capitalize",
               }}
             />
           </div>
           <Button
+            size={currentWidth > 768 ? "md" : "sm"}
             type="submit"
             radius="none"
-            className="bg-mainBlack text-mainWhite text-xl capitalize"
+            className="bg-mainBlack text-mainWhite text-sm md:text-xl capitalize"
           >
             submit
           </Button>

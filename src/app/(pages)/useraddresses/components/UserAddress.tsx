@@ -5,6 +5,7 @@ import { Button } from "@nextui-org/react";
 import { MdOutlineDelete } from "react-icons/md";
 import { StoreContext } from "@/contexts/StoreContext";
 import LoadingOverlay from "@/components/LoadingOverlay";
+import { useScreenSize } from "react-screen-size-helper";
 
 interface userAddressProps {
   addressId: number | string;
@@ -41,6 +42,8 @@ const UserAddress = ({
 
   const { userAddresses } = useContext(StoreContext);
 
+  const { currentWidth } = useScreenSize({});
+
   const [isLoading, setIsloading] = useState(false);
 
   const deleteTheAddress = () => {
@@ -59,10 +62,10 @@ const UserAddress = ({
     <div className="relative">
       {isLoading && <LoadingOverlay />}
       <div className="p-5 border-2 border-solid border-mainBlack/25 flex flex-col gap-3">
-        <h1 className="text-xl font-semibold text-center capitalize">
+        <h1 className="text-lg md:text-xl font-semibold text-center capitalize">
           address {index}
         </h1>
-        <div className="grid grid-cols-2 gap-3 px-5 mt-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-5 mt-3">
           {information.map((info) => (
             <AddressCell
               key={info.title}
@@ -72,7 +75,8 @@ const UserAddress = ({
           ))}
         </div>
         <Button
-          className="bg-red-700 text-mainWhite capitalize text-xl "
+          size={currentWidth > 768 ? "md" : "sm"}
+          className="bg-red-700 text-mainWhite capitalize text-lg md:text-xl "
           radius="none"
           endContent={<MdOutlineDelete />}
           onClick={deleteTheAddress}

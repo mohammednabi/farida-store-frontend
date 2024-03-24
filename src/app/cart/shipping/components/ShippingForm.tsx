@@ -16,9 +16,11 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddressSelectionModal from "../../confirmation/components/AddressSelectionModal";
 import CustomizedInput from "../components/CustomizedInput";
+import { useScreenSize } from "react-screen-size-helper";
 
 const ShippingForm = () => {
   const { handleSubmit, register, reset, setValue } = useForm();
+  const { currentWidth } = useScreenSize({});
   const { user, cart, userOrders, selectionAddressModal, userAddresses } =
     useContext(StoreContext);
   const router = useRouter();
@@ -92,33 +94,39 @@ const ShippingForm = () => {
 
   return (
     <div className="flex flex-col ">
-      <h1 className="text-2xl font-bold capitalize">order details</h1>
+      <h1 className="text-lg md:text-2xl font-bold capitalize">
+        order details
+      </h1>
 
       <Accordion variant="bordered" className="mt-10">
         <AccordionItem
           title="Promo Code"
           subtitle="Do you have promo code? press here"
-          indicator={<MdOutlineDiscount />}
+          indicator={<MdOutlineDiscount className="text-sm md:text-lg" />}
           classNames={{
             subtitle: "text-mainPink",
-            indicator: "text-2xl text-mainPink",
+            indicator: "text-sm md:text-2xl text-mainPink",
           }}
         >
-          <h1 className="text-2xl capitalize pb-5">
+          <h1 className="text-sm md:text-2xl capitalize pb-5">
             if you have promo code use it here{" "}
           </h1>
-          <div className="flex items-center gap-5">
+          <div className="flex flex-wrap items-center gap-5">
             <Input
               labelPlacement="outside"
               inputMode="text"
               radius="sm"
+              size={currentWidth > 768 ? "md" : "sm"}
               isRequired
               classNames={{
-                label: "text-xl capitalize font-bold ",
+                label: "text-xs md:text-xl capitalize font-bold ",
               }}
             />
 
-            <Button className="bg-mainBlack text-mainWhite px-5 py-2">
+            <Button
+              size={currentWidth > 768 ? "md" : "sm"}
+              className="bg-mainBlack text-mainWhite px-5 py-2"
+            >
               use code
             </Button>
           </div>
@@ -128,7 +136,7 @@ const ShippingForm = () => {
       {userAddresses.userAddresses.length > 0 && (
         <Button
           radius="none"
-          className="bg-mainBlack text-mainWhite text-xl mt-10 capitalize"
+          className="bg-mainBlack text-mainWhite text-sm md:text-xl mt-10 capitalize"
           onPress={selectionAddressModal.onOpen}
         >
           select from your addresses
@@ -143,7 +151,7 @@ const ShippingForm = () => {
         })}
         className="mt-10   flex flex-col gap-5 "
       >
-        <div className="grid grid-cols-2 items-center gap-5">
+        <div className="grid grid-rows-2 grid-cols-1 md:grid-rows-1 md:grid-cols-2 items-center gap-5">
           <CustomizedInput
             formHookRegister={register("phone")}
             label="phone"
@@ -216,8 +224,10 @@ const ShippingForm = () => {
 
         <div className="flex flex-col pt-10 gap-5">
           <div>
-            <h1 className="text-2xl font-bold capitalize">more information</h1>
-            <h1 className="text-xl text-mainBlack/50 capitalize">
+            <h1 className="text-lg md:text-2xl font-bold capitalize">
+              more information
+            </h1>
+            <h1 className="text-sm md:text-xl text-mainBlack/50 capitalize">
               Order notes (optional)
             </h1>
           </div>
@@ -228,12 +238,13 @@ const ShippingForm = () => {
               variant="bordered"
               radius="none"
               placeholder="If you have any notes about your order, write it here "
-              minRows={20}
+              minRows={currentWidth > 768 ? 20 : 10}
             />
           </div>
         </div>
 
         <Button
+          size={currentWidth > 768 ? "md" : "sm"}
           className="bg-mainBlack text-mainWhite capitalize "
           type="submit"
         >

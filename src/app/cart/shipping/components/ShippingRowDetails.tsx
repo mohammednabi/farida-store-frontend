@@ -33,8 +33,12 @@ const ShippingRowDetails = ({
 }: detailsProps) => {
   return (
     <div className="flex  gap-10 items-center justify-between">
-      <h1 className={`${titleStyle} ${titleSize} line-clamp-2`}>{title}</h1>
-      <h1 className={`${priceStyle} ${priceSize} `}>{price.toFixed(2)}$</h1>
+      <h1 className={`${titleStyle} text-sm md:text-xl line-clamp-2`}>
+        {title}
+      </h1>
+      <h1 className={`${priceStyle} text-xs  md:text-lg `}>
+        {price.toFixed(2)}$
+      </h1>
     </div>
   );
 };

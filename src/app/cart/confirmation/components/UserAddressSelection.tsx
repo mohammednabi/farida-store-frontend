@@ -3,6 +3,7 @@ import InfoCard from "./InfoCard";
 import { Button } from "@nextui-org/react";
 import { StoreContext } from "@/contexts/StoreContext";
 import { UserAddressType } from "@/stores/specificTypes/userAddressType";
+import { useScreenSize } from "react-screen-size-helper";
 
 interface userAddressProps {
   addressId: number | string;
@@ -39,6 +40,8 @@ const UserAddressSelection = ({
 
   const { userAddresses, selectionAddressModal } = useContext(StoreContext);
 
+  const { currentWidth } = useScreenSize({});
+
   const selectTheAddress = () => {
     userAddresses.setSelectedUserAddress = {} as UserAddressType;
 
@@ -58,10 +61,10 @@ const UserAddressSelection = ({
 
   return (
     <div className="border-1 border-mainBlack/50 border-solid   flex flex-col gap-3 p-5">
-      <h1 className="text-center text-xl capitalize font-semibold">
+      <h1 className="text-center text-lg md:text-xl capitalize font-semibold">
         address {index}
       </h1>
-      <div className="grid grid-cols-2">
+      <div className="flex flex-col md:grid md:grid-cols-2">
         {information.map((info) => (
           <InfoCard
             key={info.title}
@@ -72,7 +75,8 @@ const UserAddressSelection = ({
       </div>
       <Button
         radius="none"
-        className="bg-mainBlack text-mainWhite text-lg capitalize"
+        size={currentWidth > 768 ? "md" : "sm"}
+        className="bg-mainBlack text-mainWhite text-sm md:text-lg capitalize"
         onPress={selectTheAddress}
       >
         select

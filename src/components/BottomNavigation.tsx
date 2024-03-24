@@ -11,7 +11,7 @@ import { FiHome } from "react-icons/fi";
 
 const BottomNavigation = () => {
   return (
-    <div className="w-full fixed bottom-0 bg-mainWhite shadow-md p-3 py-1 grid md:hidden grid-cols-4 items-center z-[89] border-t-[1px] border-t-mainDarkBlue border-solid ">
+    <div className="w-full fixed bottom-0 bg-mainWhite shadow-md p-3 py-1 grid md:hidden grid-cols-4 items-center z-[85] border-t-[1px] border-t-mainDarkBlue border-solid ">
       <Link href={"/"} className="justify-self-center  ">
         <Icon
           hasBorder

@@ -28,7 +28,9 @@ const CustomizedInput = ({
       }`}
     >
       {label && (
-        <label className={`text-xl capitalize font-bold ${classNames?.label}`}>
+        <label
+          className={`text-sm md:text-xl capitalize font-bold ${classNames?.label}`}
+        >
           {label}
           {required && <span className="text-red-500 pl-1">*</span>}
         </label>
@@ -41,7 +43,7 @@ const CustomizedInput = ({
         inputMode={inputMode}
         placeholder={placeholder}
         required={required}
-        className={`h-10 bg-mainGray border-none outline-none hover:bg-mainBlack/10 px-2 w-full ${classNames?.inputContainer}`}
+        className={`h-8 md:h-10 bg-mainGray border-none outline-none hover:bg-mainBlack/10 text-sm md:text-lg py-1 px-2 w-full ${classNames?.inputContainer}`}
       />
     </div>
   );

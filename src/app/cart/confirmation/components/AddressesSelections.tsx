@@ -21,38 +21,56 @@ const AddressesSelections = () => {
   const { userAddresses } = useContext(StoreContext);
 
   return (
-    <div>
-      <Swiper
-        modules={[Navigation, Pagination, A11y]}
-        // autoplay={{
-        //   pauseOnMouseEnter: true,
-        //   waitForTransition: true,
-        //   delay: 5000,
-        // }}
-        navigation
-        pagination={{ clickable: true }}
-        // effect="fade"
-        spaceBetween={0}
-        slidesPerView={1}
-        className="w-full  bg-white cursor-grab "
-      >
+    <>
+      <div className="hidden md:block">
+        <Swiper
+          modules={[Navigation, Pagination, A11y]}
+          // autoplay={{
+          //   pauseOnMouseEnter: true,
+          //   waitForTransition: true,
+          //   delay: 5000,
+          // }}
+          navigation
+          pagination={{ clickable: true }}
+          // effect="fade"
+          spaceBetween={0}
+          slidesPerView={1}
+          className="w-full  bg-white cursor-grab "
+        >
+          {userAddresses.userAddresses.map((address, index) => (
+            <SwiperSlide key={address.id}>
+              <UserAddressSelection
+                index={index + 1}
+                addressId={address.id}
+                state={address.state}
+                country={address.country}
+                city={address.city}
+                street={address.street}
+                phone={address.phone}
+                secondPhone={address.second_phone}
+                postalCode={address.postal_code}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div className="flex flex-col md:hidden  gap-3 overflow-auto">
         {userAddresses.userAddresses.map((address, index) => (
-          <SwiperSlide key={address.id}>
-            <UserAddressSelection
-              index={index + 1}
-              addressId={address.id}
-              state={address.state}
-              country={address.country}
-              city={address.city}
-              street={address.street}
-              phone={address.phone}
-              secondPhone={address.second_phone}
-              postalCode={address.postal_code}
-            />
-          </SwiperSlide>
+          <UserAddressSelection
+            key={address.id}
+            index={index + 1}
+            addressId={address.id}
+            state={address.state}
+            country={address.country}
+            city={address.city}
+            street={address.street}
+            phone={address.phone}
+            secondPhone={address.second_phone}
+            postalCode={address.postal_code}
+          />
         ))}
-      </Swiper>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -12,8 +12,8 @@ interface orderedItemProps {
 
 const OrderedItem = ({ title, price, imgSrc, quantity }: orderedItemProps) => {
   return (
-    <div className="grid grid-cols-[1fr_2fr_1fr]  gap-10 items-center my-2">
-      <div className="w-20 aspect-square flex justify-center items-center">
+    <div className="grid grid-cols-[1fr_3fr] lmob:grid-cols-[1fr_2fr_1fr] gap-3  lmob:gap-10 items-center my-2">
+      <div className="w-14 medmob:w-20 aspect-square flex justify-center items-center">
         <Image
           radius="none"
           src={imgSrc}
@@ -24,15 +24,18 @@ const OrderedItem = ({ title, price, imgSrc, quantity }: orderedItemProps) => {
         />
       </div>
 
-      <h1 className="text-left  line-clamp-2">{title}</h1>
+      <h1 className="text-left text-sm md:text-lg line-clamp-2 ">{title}</h1>
 
-      <div className="flex flex-col gap-1 items-end ">
-        <h1 className="text-lg text-red-500/50">{price.toFixed(2)}$</h1>
+      <div className="flex flex-wrap col-span-2 smob:col-span-1  lmob:flex-col gap-x-3  gap-y-1 items-end smob:col-start-2 lmob:col-start-auto">
+        <h1 className="text-sm md:text-lg text-red-500/50">
+          {price.toFixed(2)}$
+        </h1>
         <div className="flex items-center gap-1 text-mainBlack/50 capitalize font-semibold">
-          <h1 className="uppercase text-sm">X</h1>
-          <p className="text-xl">{quantity}</p>
+          <h1 className="uppercase text-xs md:text-sm">X</h1>
+          <p className="text-sm md:text-xl">{quantity}</p>
+          <h1 className="uppercase text-xs lmob:hidden">=</h1>
         </div>
-        <h1 className="text-lg text-emerald-500">
+        <h1 className="text-sm md:text-lg text-emerald-500">
           {(price * quantity).toFixed(2)}$
         </h1>
       </div>

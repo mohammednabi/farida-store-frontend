@@ -44,10 +44,10 @@ const ConfirmationPageContainer = () => {
   return (
     <>
       {orderId && userOrders.orderDetails.data && foundedInUserOrders ? (
-        <div className="flex flex-col gap-10 px-32">
+        <div className="flex flex-col gap-10 mt-20 px-5 md:px-10 lg:px-20">
           <Thanks />
           {/* <OrderInformationContainer /> */}
-          <div className="grid grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 ">
             <Orderinfo />
             <OrderAddress />
           </div>

@@ -47,8 +47,10 @@ const Orderinfo = () => {
 
   return (
     <div className="border-1 border-mainBlack/25 border-solid flex flex-col gap-2 px-10 py-3 capitalize">
-      <h1 className="text-xl capitalize text-center">order information</h1>
-      <div className="grid grid-cols-2 gap-2">
+      <h1 className="text-lg md:text-xl capitalize text-center">
+        order information
+      </h1>
+      <div className="grid grid-cols-1 lmob:grid-cols-2 gap-2">
         {information?.map(
           (info) =>
             info.description && (

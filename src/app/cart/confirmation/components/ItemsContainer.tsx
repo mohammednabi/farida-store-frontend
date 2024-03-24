@@ -6,6 +6,8 @@ import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import OrderItem from "@/app/(pages)/order/[id]/components/OrderItem";
+
 const ItemsContainer = () => {
   const { userOrders } = useContext(StoreContext);
 
@@ -29,13 +31,27 @@ const ItemsContainer = () => {
         order items
       </h1>
       {userOrders?.orderItems?.data?.map((orderItem) => (
-        <CompletedOrderedItem
+        // <CompletedOrderedItem
+        //   key={orderItem.id}
+        //   title={orderItem.attributes.product.data.attributes.title}
+        //   description={orderItem.attributes.product.data.attributes.description}
+        //   imgSrc={`${process.env.NEXT_PUBLIC_HOST}${orderItem.attributes.product.data.attributes.thumbnail.data.attributes.url}`}
+        //   price={orderItem.attributes.product.data.attributes.price}
+        //   quantity={orderItem.attributes.quantity}
+        // />
+        <OrderItem
           key={orderItem.id}
-          title={orderItem.attributes.product.data.attributes.title}
-          description={orderItem.attributes.product.data.attributes.description}
-          imgSrc={`${process.env.NEXT_PUBLIC_HOST}${orderItem.attributes.product.data.attributes.thumbnail.data.attributes.url}`}
-          price={orderItem.attributes.product.data.attributes.price}
-          quantity={orderItem.attributes.quantity}
+          id={orderItem.attributes.product.data?.id}
+          title={orderItem.attributes.product.data?.attributes?.title}
+          description={
+            orderItem.attributes.product.data?.attributes?.description
+          }
+          imgsrc={
+            orderItem.attributes.product.data?.attributes?.thumbnail?.data
+              ?.attributes?.url
+          }
+          price={orderItem.attributes.product.data?.attributes?.price}
+          quantity={orderItem.attributes?.quantity}
         />
       ))}
     </div>

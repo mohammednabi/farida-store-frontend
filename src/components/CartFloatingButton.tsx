@@ -8,13 +8,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import Icon from "./Icon";
 
 const CartFloatingButton = () => {
-  const { cartSidebar, cart, sidebar } = useContext(StoreContext);
+  const { cartSidebar, cart, sidebar, searchBox } = useContext(StoreContext);
 
   return (
     <AnimatePresence mode="wait">
       {!cartSidebar.showCartSideBar &&
         !cart.isCartMenuDisplayed &&
-        !sidebar.showSideBar && (
+        !sidebar.showSideBar &&
+        !searchBox.showSearchBox && (
           <motion.div
             initial={{ x: 1000 }}
             animate={{ x: 0 }}

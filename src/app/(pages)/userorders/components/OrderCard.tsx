@@ -3,6 +3,7 @@ import React from "react";
 import OrderCardInfo from "./OrderCardInfo";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { useScreenSize } from "react-screen-size-helper";
 
 interface orderCardProps {
   orderNumber: number;
@@ -19,8 +20,19 @@ const OrderCard = ({
   arrivedOn,
   orderItemsCount,
 }: orderCardProps) => {
-  const orderedOnDate = new Date(orderedOn).toDateString();
-  const arrivedOnDate = new Date(arrivedOn).toDateString();
+  const orderedOnDate = new Date(orderedOn).toLocaleDateString("eg", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+  const arrivedOnDate = new Date(arrivedOn ? arrivedOn : "").toLocaleDateString(
+    "eg",
+    {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }
+  );
 
   const information: { title: string; description: string }[] = [
     { title: "order number:", description: `${orderNumber}` },
@@ -31,6 +43,7 @@ const OrderCard = ({
   ];
 
   const router = useRouter();
+  const { currentWidth } = useScreenSize({});
 
   const goToDetails = () => {
     router.push(`/order/${orderNumber}`);
@@ -39,7 +52,7 @@ const OrderCard = ({
   return (
     <div className="border-2 border-mainBlack/25 border-solid rounded-md p-10">
       <div className="flex flex-col gap-5">
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 lmob:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-5">
           {information.map((item) => (
             <OrderCardInfo
               key={item.title}
@@ -49,6 +62,7 @@ const OrderCard = ({
           ))}
         </div>
         <Button
+          size={currentWidth > 768 ? "md" : "sm"}
           className="bg-mainBlack capitalize text-mainWhite"
           radius="sm"
           onClick={goToDetails}

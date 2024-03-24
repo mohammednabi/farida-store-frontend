@@ -8,8 +8,12 @@ interface orderCardInfoProps {
 const OrderCardInfo = ({ title, description }: orderCardInfoProps) => {
   return (
     <div className="grid grid-rows-2">
-      <h1 className="text-xl capitalize text-mainBlack/50">{title}</h1>
-      <h1 className="text-xl capitalize">{description}</h1>
+      <h1 className="text-sm lmob:text-lg md:text-xl capitalize text-mainBlack/50">
+        {title}
+      </h1>
+      <h1 className="text-sm lmob:text-lg md:text-xl capitalize">
+        {description}
+      </h1>
     </div>
   );
 };

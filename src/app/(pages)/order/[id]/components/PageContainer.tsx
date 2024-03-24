@@ -15,7 +15,7 @@ const PageContainer = ({ orderId }: { orderId: string }) => {
   }, []);
 
   return (
-    <div className=" px-32 flex flex-col gap-5 mt-10">
+    <div className="px-5 lmob:px-10 md:px-32 flex flex-col gap-5 mt-10">
       <Orderinfo />
       <OrderAddress />
       <OrderItemsContainer />

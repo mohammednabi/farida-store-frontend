@@ -41,8 +41,8 @@ const OrderAddress = () => {
 
   return (
     <div className="border-1 border-mainBlack/25 border-solid px-10 py-3 capitalize">
-      <h1 className="text-xl  text-center mb-2">order address</h1>
-      <div className=" grid grid-cols-2 gap-2 ">
+      <h1 className="text-lg md:text-xl  text-center mb-2">order address</h1>
+      <div className=" grid  grid-cols-1 lmob:grid-cols-2 gap-2 ">
         {information?.map(
           (info) =>
             info.description && (

@@ -38,7 +38,7 @@ const AdsSlider = () => {
   }, []);
 
   return (
-    <div className="grid place-items-center mx-5 my-10  md:m-10">
+    <div className="grid place-items-center mx-0 lmob:mx-5 my-10  md:m-10">
       <Swiper
         autoHeight={true}
         modules={[Autoplay, Navigation, Pagination]}

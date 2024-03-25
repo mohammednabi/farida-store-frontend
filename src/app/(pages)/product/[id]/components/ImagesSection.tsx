@@ -35,13 +35,14 @@ const ImagesSection = ({ allImages }: imagesProps) => {
               img.id === selectedImage?.id
                 ? "border-mainBlack"
                 : "border-mainGray"
-            } hover:border-mainPink p-2 flex items-center justify-center rounded-md cursor-pointer`}
+            } hover:border-mainPink p-1 flex items-center justify-center rounded-md cursor-pointer`}
             onClick={() => {
               setSelectedImage(img);
             }}
           >
             <Image
               src={`${process.env.NEXT_PUBLIC_HOST}${img.attributes.url}`}
+              radius="none"
               alt=""
               className="w-full h-auto aspect-square object-contain"
             />

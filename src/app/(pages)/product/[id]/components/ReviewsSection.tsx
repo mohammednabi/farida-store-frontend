@@ -12,6 +12,7 @@ import AddYourReviewSection from "./AddYourReviewSection";
 import { isUserLoggedIn } from "@/functions/credentials";
 import ReviewSendedSuccesfuly from "./ReviewSendedSuccesfuly";
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
+import { useScreenSize } from "react-screen-size-helper";
 
 interface reviewProps {
   product: strapiProductType;
@@ -19,6 +20,8 @@ interface reviewProps {
 
 const ReviewsSection = ({ product }: reviewProps) => {
   const { products, loginForm, registerForm, user } = useContext(StoreContext);
+
+  const { currentWidth } = useScreenSize({});
 
   const [userLoggedin, setUserLoggedin] = useState(false);
 
@@ -37,7 +40,7 @@ const ReviewsSection = ({ product }: reviewProps) => {
           aria-label="Options"
           color="primary"
           variant="underlined"
-          size="lg"
+          size={currentWidth > 768 ? "lg" : "sm"}
           classNames={{
             tabList:
               "gap-6 w-full relative rounded-none p-0 border-b border-divider",
@@ -51,20 +54,17 @@ const ReviewsSection = ({ product }: reviewProps) => {
             value={"reviews"}
             title={
               <div className="flex items-center space-x-2">
-                <VscPreview className="text-2xl" />
-                <span className="text-2xl">Reviews</span>
+                <VscPreview className="text-lg md:text-2xl" />
+                <span className="text-lg md:text-2xl">Reviews</span>
                 <Chip
-                  size="md"
+                  size={currentWidth > 768 ? "md" : "sm"}
                   variant="shadow"
-                  className="bg-mainDarkBlue text-mainWhite"
+                  className="bg-mainDarkBlue text-mainWhite hidden md:block"
                 >
                   {getTheLengthOfAllowedRatings(products.targetProductReviews)}
                 </Chip>
               </div>
             }
-            onClick={(e) => {
-              console.log(e.target);
-            }}
           >
             <div className="flex flex-col gap-5 pt-5">
               {products.targetProductReviews.map(
@@ -100,20 +100,17 @@ const ReviewsSection = ({ product }: reviewProps) => {
             value={"description"}
             title={
               <div className="flex items-center space-x-2">
-                <MdOutlineDescription className="text-2xl" />
-                <span className="text-2xl">Description</span>
+                <MdOutlineDescription className="text-lg md:text-2xl" />
+                <span className="text-lg md:text-2xl">Description</span>
               </div>
             }
-            onClick={(e) => {
-              console.log(e.target);
-            }}
           >
             <div className="flex flex-col gap-3">
               <Skeleton
                 isLoaded={product?.attributes?.description?.length !== 0}
                 className="w-max"
               >
-                <h1 className="capitalize text-xl font-semibold">
+                <h1 className="capitalize text-sm md:text-xl font-semibold">
                   description :-
                 </h1>
               </Skeleton>
@@ -121,7 +118,7 @@ const ReviewsSection = ({ product }: reviewProps) => {
               <Skeleton
                 isLoaded={product?.attributes?.description?.length !== 0}
               >
-                <h1 className="text-xl ">
+                <h1 className="text-sm md:text-xl ">
                   {product?.attributes?.description
                     ? product?.attributes?.description
                     : "slkdslk"}

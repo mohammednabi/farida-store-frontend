@@ -9,6 +9,8 @@ import { observer } from "mobx-react-lite";
 import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { IoMdClose } from "react-icons/io";
+import UserSidebarMenu from "./UserSidebarMenu";
+import { isUserLoggedIn } from "@/functions/credentials";
 
 const SidebarContent = () => {
   const { sidebar, categories } = useContext(StoreContext);
@@ -69,6 +71,12 @@ const SidebarContent = () => {
             <Link href={"#"}>products recently seen</Link>
           </div>
         </div>
+        {isUserLoggedIn() && (
+          <>
+            <Divider />
+            <UserSidebarMenu />
+          </>
+        )}
       </div>
     </div>
   );

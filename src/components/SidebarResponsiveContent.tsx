@@ -6,7 +6,7 @@ import { Button, Divider } from "@nextui-org/react";
 import { StoreContext } from "@/contexts/StoreContext";
 import Link from "next/link";
 import { observer } from "mobx-react-lite";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { IoMdClose } from "react-icons/io";
 import { IoMdMenu } from "react-icons/io";
@@ -16,6 +16,7 @@ import { BsBack, BsBackspace } from "react-icons/bs";
 import { BiLeftArrow } from "react-icons/bi";
 import { MoveLeft } from "lucide-react";
 import { isUserLoggedIn } from "@/functions/credentials";
+import UserSidebarMenu from "./UserSidebarMenu";
 
 const SidebarResponsiveContent = () => {
   const { sidebar, categories, user } = useContext(StoreContext);
@@ -28,21 +29,11 @@ const SidebarResponsiveContent = () => {
   ];
 
   const urlParams: Params = useParams();
-  const router = useRouter();
 
   const [editedParams, setEditedParam] = useState<string>("");
   const [selectedLabel, setSelectedLabel] = useState<string>("main menu");
 
   const selectedButton = "bg-mainBlack text-mainWhite border-0";
-
-  const logout = () => {
-    user.isLoading = true;
-    user.userLogout().then(() => {
-      user.isLoading = false;
-    });
-    router.refresh();
-    // router.push("/");
-  };
 
   useEffect(() => {
     categories.getAllCategories();
@@ -130,30 +121,23 @@ const SidebarResponsiveContent = () => {
           </div>
         </>
       ) : (
-        <div className="py-5 flex flex-col gap-3 capitalize px-5">
-          {mainMenu.map((item) => (
-            <Link
-              key={item.label}
-              href={item.link}
-              className={`side-link ${
-                editedParams === item.label && `text-mainPink`
-              }`}
-              onClick={sidebar.hideWholeSidebar}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <div className="w-full  flex flex-col gap-2 px-5 py-5">
-            {isUserLoggedIn() && (
-              <Button
-                className="text-mainWhite bg-red-500 capitalize"
-                onClick={logout}
+        <>
+          <div className="py-5 flex flex-col gap-3 capitalize px-5">
+            {mainMenu.map((item) => (
+              <Link
+                key={item.label}
+                href={item.link}
+                className={`side-link ${
+                  editedParams === item.label && `text-mainPink`
+                }`}
+                onClick={sidebar.hideWholeSidebar}
               >
-                logout
-              </Button>
-            )}
+                {item.label}
+              </Link>
+            ))}
           </div>
-        </div>
+          {isUserLoggedIn() && <UserSidebarMenu />}
+        </>
       )}
     </div>
   );

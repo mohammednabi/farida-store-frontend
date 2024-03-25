@@ -21,7 +21,7 @@ export type Userdata = {
   user_payments: UserPayment[];
   user_addresses: UserAddress[];
   reviews: Review[];
-  avatar: Avatar;
+  // avatar: Avatar;
   order_details: Cart[];
 };
 

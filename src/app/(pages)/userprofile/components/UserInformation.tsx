@@ -14,7 +14,7 @@ const UserInformation = () => {
       <div className="w-full flex flex-col justify-center items-center gap-3">
         <div className="w-1/6 aspect-square rounded-full overflow-hidden">
           <Avatar
-            src={`${process.env.NEXT_PUBLIC_HOST}${user.strapiUserdata?.avatar?.url}`}
+            // src={`${process.env.NEXT_PUBLIC_HOST}${user.strapiUserdata?.avatar?.url}`}
             alt=""
             //   classNames={{
             //     img: "",

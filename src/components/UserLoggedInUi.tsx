@@ -49,9 +49,9 @@ const UserLoggedInUi = () => {
           <User
             name={user.strapiUserdata?.username}
             description={user.strapiUserdata?.email}
-            avatarProps={{
-              src: `${process.env.NEXT_PUBLIC_HOST}${user.strapiUserdata.avatar?.url}`,
-            }}
+            // avatarProps={{
+            //   src: `${process.env.NEXT_PUBLIC_HOST}${user.strapiUserdata.avatar?.url}`,
+            // }}
             className="px-3 lowercase"
           />
         </Link>
@@ -77,7 +77,7 @@ const UserLoggedInUi = () => {
           </div>
         </Link>
         <Link
-          href={"#"}
+          href={"/userprofile"}
           className="flex items-center justify-between gap-2 px-3"
         >
           <div className="flex gap-2 items-center">

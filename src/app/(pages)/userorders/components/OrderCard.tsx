@@ -20,19 +20,18 @@ const OrderCard = ({
   arrivedOn,
   orderItemsCount,
 }: orderCardProps) => {
-  const orderedOnDate = new Date(orderedOn).toLocaleDateString("eg", {
+  const orderedOnDate = new Date(orderedOn).toLocaleDateString("en", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
-  const arrivedOnDate = new Date(arrivedOn ? arrivedOn : "").toLocaleDateString(
-    "eg",
-    {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    }
-  );
+  const arrivedOnDate = arrivedOn
+    ? new Date(arrivedOn).toLocaleDateString("en", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "soon";
 
   const information: { title: string; description: string }[] = [
     { title: "order number:", description: `${orderNumber}` },

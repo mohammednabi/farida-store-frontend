@@ -9,11 +9,21 @@ const Orderinfo = () => {
 
   const formattedDate = new Date(
     userOrders.orderDetails.data?.attributes?.createdAt
-  ).toDateString();
+  ).toLocaleDateString("en", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
 
-  const arrivedDate = new Date(
-    userOrders.orderDetails.data?.attributes?.arrivedAt
-  ).toDateString();
+  const arrivedDate = userOrders.orderDetails.data?.attributes?.arrivedAt
+    ? new Date(
+        userOrders.orderDetails.data?.attributes?.arrivedAt
+      ).toLocaleDateString("en", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "soon";
 
   const information = [
     {

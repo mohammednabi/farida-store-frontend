@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import ReactStars from "react-rating-star-with-type";
+import { useScreenSize } from "react-screen-size-helper";
 
 interface AddYourReviewSectionProps {
   productId: string | number;
@@ -13,6 +14,7 @@ interface AddYourReviewSectionProps {
 
 const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
   const { user, products } = useContext(StoreContext);
+  const { currentWidth } = useScreenSize({});
 
   const submitReview = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +31,9 @@ const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
   return (
     <div className="relative mt-10 flex flex-col gap-3">
       {user.userReviewLoading && <LoadingOverlay />}
-      <h1 className="text-lg capitalize">add your rating and review</h1>
+      <h1 className="text-sm md:text-lg capitalize">
+        add your rating and review
+      </h1>
 
       <form
         onSubmit={(e) => {
@@ -38,7 +42,7 @@ const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
         className="flex flex-col items-start gap-5"
       >
         <div className="flex items-center gap-5">
-          <h1 className="text-sm capitalize"> your rating :</h1>
+          <h1 className="text-xs md:text-sm capitalize"> your rating :</h1>
           <ReactStars
             value={user.userReviewRating}
             count={5}
@@ -50,21 +54,22 @@ const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
             onChange={(value) => {
               user.setUserReviewRating = value;
             }}
-            size="1.3rem"
+            size={currentWidth > 768 ? "1.3rem" : "1.1rem"}
           />
         </div>
         <Textarea
           value={user.userReviewDescription}
           placeholder="Your Review"
           radius="none"
-          minRows={5}
+          minRows={currentWidth > 768 ? 5 : 3}
           onChange={(e) => {
             user.setUserReviewDescription = e.target.value;
           }}
         />
         <Button
           radius="sm"
-          className="bg-mainBlack text-mainWhite capitalize text-lg"
+          size={currentWidth > 768 ? "md" : "sm"}
+          className="bg-mainBlack text-mainWhite capitalize text-sm md:text-lg"
           type="submit"
         >
           submit

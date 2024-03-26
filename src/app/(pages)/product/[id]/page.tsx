@@ -29,8 +29,10 @@ const ProductPage = ({ params }: productProps) => {
       <AddToCartButton product={products.targetProduct} />
 
       <div className="relative px-5  medmob:px-10 lmob:px-20 sm:px-32 md:px-20 lg:px-10 pb-5 mt-5">
-        <Breads title={products.targetProduct?.attributes?.slug} />
-        <div className="grid grid-cols-1 grid-rows-[auto_auto_auto] md:grid-cols-[1.5fr_6fr] md:grid-rows-1 pt-10 gap-10">
+        <Breads
+          title={products.targetProduct?.attributes?.slug.slice(0, 40) + "..."}
+        />
+        <div className="grid grid-cols-1 grid-rows-[auto_auto_auto] md:grid-cols-[3fr_6fr] lg:grid-cols-[2fr_6fr] xl:grid-cols-[1.5fr_6fr] md:grid-rows-1 pt-10 gap-10">
           <InformationSection />
           <div className="flex flex-col gap-20">
             <div className="grid grid-cols-1 grid-rows-[auto_auto] lg:grid-cols-2 lg:grid-rows-1 gap-10">

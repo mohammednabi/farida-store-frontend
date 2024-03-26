@@ -5,7 +5,7 @@ import { isUserLoggedIn } from "@/functions/credentials";
 import { cartProductType } from "@/stores/specificTypes/cartProductType";
 import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 
-import { Button } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -20,7 +20,7 @@ interface AddToCartButtonProps {
 }
 
 const AddToCartButton = ({ product }: AddToCartButtonProps) => {
-  const { cart, user, products, cartSidebar, sidebar } =
+  const { cart, user, products, cartSidebar, sidebar, searchBox } =
     useContext(StoreContext);
   const { currentWidth } = useScreenSize({});
 
@@ -83,13 +83,18 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
 
   return (
     <motion.div
-      initial={{ y: 0 }}
+      initial={{ y: 0, x: 0 }}
       animate={{
-        y:
-          (cartSidebar.showCartSideBar || sidebar.showSideBar) &&
+        x:
+          (cartSidebar.showCartSideBar ||
+            sidebar.showSideBar ||
+            searchBox.showSearchBox) &&
           currentWidth < 768
-            ? 144 - 80
+            ? 500
             : 0,
+      }}
+      transition={{
+        delay: 0.5,
       }}
       className="fixed bottom-36 right-5 md:bottom-0 md:left-0 z-50 w-auto md:w-full"
     >
@@ -97,9 +102,23 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
         className={` py-2 ${
           foundInCart ? `bg-emerald-500` : `bg-mainPink`
         } text-mainWhite  w-full capitalize transition-all hover:bg-mainPink/90 text-2xl md:text-xl`}
-        endContent={foundInCart ? <FaCheck /> : <FaCartPlus />}
+        endContent={
+          addingToUserCartLoading ? (
+            <Spinner
+              size="sm"
+              classNames={{
+                circle1: "border-l-mainWhite border-b-mainWhite",
+                circle2: "border-mainWhite",
+              }}
+            />
+          ) : foundInCart ? (
+            <FaCheck />
+          ) : (
+            <FaCartPlus />
+          )
+        }
         size="lg"
-        isLoading={addingToUserCartLoading}
+        // isLoading={addingToUserCartLoading}
         isDisabled={foundInCart ? true : false}
         disableAnimation
         disableRipple

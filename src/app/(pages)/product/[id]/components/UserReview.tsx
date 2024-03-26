@@ -30,7 +30,7 @@ const UserReview = ({
 
   return (
     <div>
-      <div className="grid grid-cols-[1fr_10fr] gap-2  items-center">
+      <div className="grid grid-cols-[1fr_10fr] gap-2  items-start">
         <div className="flex flex-col gap-3">
           <Avatar
             icon={<FaUserLarge />}
@@ -62,7 +62,7 @@ const UserReview = ({
           </Skeleton>
 
           <Skeleton isLoaded={review?.length !== 0} className="w-full">
-            <h1 className="text-sm md:text-lg text-mainBlack/50 w-full">
+            <h1 className="text-lg md:text-xl text-mainBlack/50 w-full">
               {review}
             </h1>
           </Skeleton>

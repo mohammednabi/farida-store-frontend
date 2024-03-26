@@ -203,7 +203,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
             size="1rem"
           />
           <h1 className="text-sm">
-            ({getTheLengthOfAllowedRatings(products.targetProductReviews)})
+            ({getTheLengthOfAllowedRatings(product.attributes.reviews)})
           </h1>
         </div>
 

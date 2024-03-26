@@ -36,7 +36,7 @@ const EmptyCart = () => {
       {isUserLoggedIn() &&
         cartSidebar.isLocalCartHasItems &&
         !user.isMergingOrRemovingLoading && (
-          <div className="px-32">
+          <div className="px-0 md:px-32">
             <ConfirmMergeCart />
           </div>
         )}

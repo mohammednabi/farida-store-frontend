@@ -221,8 +221,7 @@ const ProductCard = ({ product }: productCardProps) => {
                   size="1rem"
                 />
                 <h1 className="text-mainBlack/50 text-sm">
-                  ({getTheLengthOfAllowedRatings(products.targetProductReviews)}
-                  )
+                  ({getTheLengthOfAllowedRatings(product.attributes.reviews)})
                 </h1>
               </div>
               <div className="flex items-center gap-5">

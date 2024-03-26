@@ -3,7 +3,7 @@
 
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { StoreContext } from "@/contexts/StoreContext";
-import { Button, Card, CardBody, Divider, Image } from "@nextui-org/react";
+import { Button, Divider, Image } from "@nextui-org/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";

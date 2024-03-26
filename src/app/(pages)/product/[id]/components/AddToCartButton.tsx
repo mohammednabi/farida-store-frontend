@@ -7,8 +7,8 @@ import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 
 import { Button, Spinner } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import React, { useContext, useEffect, useMemo, useState } from "react";
+
 import { FaCheck } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa6";
 
@@ -24,7 +24,7 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
     useContext(StoreContext);
   const { currentWidth } = useScreenSize({});
 
-  const [foundInCart, setFoundInCart] = useState<cartProductType | undefined>();
+  // const [foundInCart, setFoundInCart] = useState<cartProductType | undefined>();
   const [addingToUserCartLoading, setAddingToUserCartLoading] = useState(false);
 
   const addProductToCart = () => {
@@ -71,15 +71,14 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
     );
   };
 
-  useEffect(() => {
+  const foundInCart = useMemo(() => {
     if (isUserLoggedIn()) {
-      setFoundInCart(cart.isInUserCart(product.id));
+      return cart.isInUserCart(product.id);
     } else {
-      setFoundInCart(cart.isInCart(product.id));
+      return cart.isInCart(product.id);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart.totalPrice]);
+  }, [cart.totalPrice, product.id]);
 
   return (
     <motion.div

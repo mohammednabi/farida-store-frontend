@@ -24,7 +24,7 @@ const CartContent = () => {
       </div>
 
       <Divider orientation={isLargeDesktop ? "vertical" : "horizontal"} />
-      <div className="flex w-full flex-col items-start gap-5">
+      <div className="flex w-full flex-col items-start gap-5 ">
         <TotalPrice />
         {isUserLoggedIn() &&
           cartSidebar.isLocalCartHasItems &&

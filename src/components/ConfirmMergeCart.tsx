@@ -28,9 +28,11 @@ const ConfirmMergeCart = () => {
   };
 
   return (
-    <div className="px-5 flex flex-col gap-2 justify-self-end w-full">
-      <h1 className="text-sm md:text-xl capitalize">merge your carts ?</h1>
-      <div className="grid grid-cols-2 gap-2">
+    <div className="px-5 flex flex-col gap-2 pt-2 justify-self-end w-full">
+      <h1 className="text-sm md:text-xl text-center smob:text-left capitalize">
+        merge your carts ?
+      </h1>
+      <div className="grid grid-cols-1 smob:grid-cols-2 gap-2">
         <Button
           size={currentWidth > 768 ? "md" : "sm"}
           radius="none"

@@ -1,6 +1,7 @@
 "use client";
 import { Image, Progress } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
+import { useScreenSize } from "react-screen-size-helper";
 
 interface orderShippedProps {
   orderedDate: Date;
@@ -16,6 +17,7 @@ const OrderShipped = ({
   status,
 }: orderShippedProps) => {
   const today = new Date();
+  const { currentWidth } = useScreenSize({});
 
   const [progress, setProgress] = useState(0);
   const [daysLeft, setDaysLeft] = useState("0");
@@ -69,42 +71,46 @@ const OrderShipped = ({
 
   return (
     <div
-      className={`${status === "in progress" && `scale-110`} ${
+      className={`${status === "in progress" && `scale-105 md:scale-110`} ${
         status !== "in progress" && `opacity-50`
-      } transition-all w-full grid grid-cols-[6fr_1fr] items-center bg-mainWhite shadow-md border-2 border-mainGray border-solid  p-5 rounded-md`}
+      } transition-all w-full grid grid-rows-[auto_auto] grid-cols-1 md:grid-rows-1 md:grid-cols-[6fr_1fr] items-center bg-mainWhite shadow-md border-2 border-mainGray border-solid  p-5 rounded-md`}
     >
       <div className="flex flex-col gap-3">
         <div>
           <h1
-            className={`capitalize font-bold text-xl ${
+            className={`capitalize font-bold text-sm md:text-xl ${
               status === "in progress" ? `text-emerald-500` : ``
             }`}
           >
             {status}
           </h1>
 
-          <h2 className="capitalize font-bold text-2xl">
+          <h2 className="capitalize font-bold text-lg md:text-2xl">
             2. order on the way{" "}
           </h2>
         </div>
         <div>
-          <p className="capitalize font-semibold text-lg">
+          <h3 className="capitalize font-semibold text-xs md:text-lg">
             your order was shipped successfully
-          </p>
-          <p className="capitalize  text-lg">it should be delivered at</p>
+          </h3>
+          <h3 className="capitalize text-xs md:text-lg">
+            it should be delivered at
+          </h3>
         </div>
         <div className="flex flex-col">
           <div className="flex justify-between items-center">
-            <h1 className="font-bold">
+            <p className="font-bold text-xs md:text-sm">
               {orderedDate.toLocaleDateString("en", {
                 day: "2-digit",
                 weekday: "long",
                 month: "short",
                 year: "numeric",
               })}
-            </h1>
-            <h1 className="font-bold capitalize">{daysLeft}</h1>
-            <h1 className="font-bold">
+            </p>
+            <p className="font-bold capitalize text-xs md:text-sm">
+              {daysLeft}
+            </p>
+            <p className="font-bold text-xs md:text-sm">
               {arrivedDate.getFullYear() !== 1970
                 ? arrivedDate.toLocaleDateString("en", {
                     day: "2-digit",
@@ -113,22 +119,22 @@ const OrderShipped = ({
                     year: "numeric",
                   })
                 : "soon"}
-            </h1>
+            </p>
           </div>
 
           <Progress
             aria-label="Loading..."
             value={progress}
-            size="lg"
+            size={currentWidth > 768 ? "lg" : "md"}
             radius="none"
-            className="w-full hidden md:block"
+            className="w-full  "
             classNames={{
               indicator: "bg-gradient-to-r from-mainPink to-mainPink",
             }}
           />
         </div>
       </div>
-      <div className=" flex justify-center items-center">
+      <div className="w-1/4 justify-self-center md:w-full flex justify-center items-center">
         <Image
           src="/delivery-truck.png"
           alt=""

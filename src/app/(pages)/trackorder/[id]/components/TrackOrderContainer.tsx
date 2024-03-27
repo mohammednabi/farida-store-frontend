@@ -15,7 +15,7 @@ const TrackOrderContainer = ({ orderId }: { orderId: string }) => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 gap-5 px-56 place-items-center py-10">
+    <div className="grid grid-cols-1 gap-5 px-5 lmob:px-10 md:px-32 lg:px-56 place-items-center py-10">
       <OrderReceived
         address={`${userOrders.orderDetails?.data?.attributes?.street},${userOrders.orderDetails?.data?.attributes?.city},${userOrders.orderDetails?.data?.attributes?.state}`}
         status={

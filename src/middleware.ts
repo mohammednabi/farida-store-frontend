@@ -35,6 +35,12 @@ export default function middleware(req: NextRequest) {
     ) {
       return NextResponse.redirect(new URL("/cart", req.url));
     }
+    if (
+      req.nextUrl.pathname.includes("/order") ||
+      req.nextUrl.pathname.includes("/trackorder")
+    ) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
   }
 
   return NextResponse.next();

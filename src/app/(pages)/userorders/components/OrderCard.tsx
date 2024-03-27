@@ -48,6 +48,10 @@ const OrderCard = ({
     router.push(`/order/${orderNumber}`);
   };
 
+  const goToTrackOrder = () => {
+    router.push(`/trackorder/${orderNumber}`);
+  };
+
   return (
     <div className="border-2 border-mainBlack/25 border-solid rounded-md p-10">
       <div className="flex flex-col gap-5">
@@ -60,14 +64,24 @@ const OrderCard = ({
             />
           ))}
         </div>
-        <Button
-          size={currentWidth > 768 ? "md" : "sm"}
-          className="bg-mainBlack capitalize text-mainWhite"
-          radius="sm"
-          onClick={goToDetails}
-        >
-          see details
-        </Button>
+        <div className="flex flex-col gap-3">
+          <Button
+            size={currentWidth > 768 ? "md" : "sm"}
+            className="bg-mainBlack capitalize text-mainWhite"
+            radius="none"
+            onClick={goToDetails}
+          >
+            see details
+          </Button>
+          <Button
+            size={currentWidth > 768 ? "md" : "sm"}
+            className="text-mainBlack capitalize bg-mainWhite border-1 border-solid border-mainBlack"
+            radius="none"
+            onClick={goToTrackOrder}
+          >
+            track order
+          </Button>
+        </div>
       </div>
     </div>
   );

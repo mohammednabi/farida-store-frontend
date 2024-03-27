@@ -16,6 +16,7 @@ export interface PurpleAttributes {
   order_notes: string;
   arrivedAt: Date;
   state: string;
+  status: "delivery" | "placed" | "arrived";
   country: string;
   city: string;
   street: string;

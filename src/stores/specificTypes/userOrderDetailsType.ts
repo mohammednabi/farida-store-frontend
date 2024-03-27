@@ -10,6 +10,7 @@ export interface UserOrderDetails {
   user: Main;
   user_order_address: UserOrderAddress;
   order_items: OrderItem[];
+  status: "delivery" | "placed" | "arrived";
 }
 
 export interface Main {

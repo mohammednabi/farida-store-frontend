@@ -1,6 +1,7 @@
 "use client";
 import { Image } from "@nextui-org/react";
 import React from "react";
+import { RiCheckboxCircleFill } from "react-icons/ri";
 
 interface orderReceivedProps {
   address: string;
@@ -12,17 +13,22 @@ const OrderReceived = ({ status, address }: orderReceivedProps) => {
     <div
       className={`${status === "in progress" && `scale-105 md:scale-110`} ${
         status !== "in progress" && `opacity-50`
-      } transition-all w-full grid grid-rows-[auto_auto] grid-cols-1 md:grid-rows-1 md:grid-cols-[6fr_1fr] items-center bg-mainWhite shadow-md border-2 border-mainGray border-solid p-5 rounded-md`}
+      } transition-all w-full grid grid-rows-[auto_auto] grid-cols-1 md:grid-rows-1 md:grid-cols-[6fr_1fr] items-center bg-mainWhite shadow-md border-2 border-mainGray border-solid p-5 rounded-md gap-y-3`}
     >
       <div className="flex flex-col gap-3">
         <div>
-          <h1
-            className={`capitalize font-bold text-sm md:text-xl ${
-              status === "in progress" ? `text-emerald-500` : ``
-            }`}
-          >
-            {status}
-          </h1>
+          <div className="flex items-center gap-1">
+            <h1
+              className={`capitalize font-bold text-sm md:text-xl ${
+                status === "in progress" ? `text-emerald-500` : ``
+              }`}
+            >
+              {status}
+            </h1>
+            {status === "completed" && (
+              <RiCheckboxCircleFill className="text-emerald-500" />
+            )}
+          </div>
           <h2 className="capitalize font-bold text-lg md:text-2xl">
             1. order placed{" "}
           </h2>

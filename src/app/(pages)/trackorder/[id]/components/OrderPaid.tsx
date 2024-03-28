@@ -12,6 +12,8 @@ const OrderPaid = ({ status }: orderPaidProps) => {
     <div
       className={`${status === "in progress" && `scale-105 md:scale-110`} ${
         status !== "completed" && `opacity-50`
+      } ${
+        status === "completed" && `bg-emerald-600 text-mainWhite`
       } transition-all w-full grid grid-rows-[auto_auto] grid-cols-1 md:grid-rows-1 md:grid-cols-[6fr_1fr] items-center bg-mainWhite shadow-md border-2 border-mainGray border-solid p-5 rounded-md gap-y-3`}
     >
       <div className="flex flex-col gap-3">
@@ -25,7 +27,7 @@ const OrderPaid = ({ status }: orderPaidProps) => {
               {status}
             </h1>
             {status === "completed" && (
-              <RiCheckboxCircleFill className="text-emerald-500" />
+              <RiCheckboxCircleFill className="text-emerald-300" />
             )}
           </div>
           <h2 className="capitalize font-bold text-lg md:text-2xl">

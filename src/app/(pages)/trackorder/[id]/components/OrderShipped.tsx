@@ -25,51 +25,54 @@ const OrderShipped = ({
 
   const calculateProgress = () => {
     if (arrivedDate.getFullYear() !== 1970) {
-      let differenceDaysBetweenArrivedAndOrdered = 0;
-      let differenceDaysBetweenArrivedAndToday = 0;
+      let difDaysBetweenArrivedAndOrder = 0;
+      let difDaysBetweenTodayAndOrder = 0;
       let progress = 0;
-      const orderedAndArriveedDifferneceInMS =
-        arrivedDate.getTime() - orderedDate.getTime();
-      const todayAndArriveedDifferneceInMS =
-        arrivedDate.getTime() - today.getTime();
+      let daysLeft = 0;
+      let daysLeftParsed = 0;
 
-      differenceDaysBetweenArrivedAndOrdered =
-        orderedAndArriveedDifferneceInMS / (1000 * 60 * 60 * 24);
-      differenceDaysBetweenArrivedAndToday =
-        todayAndArriveedDifferneceInMS / (1000 * 60 * 60 * 24);
+      const difBetweenArrivedAndOrderInMs =
+        arrivedDate.getTime() - orderedDate.getTime();
+      const difBetweenTodayAndOrderInMs =
+        today.getTime() - orderedDate.getTime();
+
+      difDaysBetweenArrivedAndOrder =
+        difBetweenArrivedAndOrderInMs / (1000 * 24 * 60 * 60);
+      difDaysBetweenTodayAndOrder =
+        difBetweenTodayAndOrderInMs / (1000 * 24 * 60 * 60);
+
       progress =
-        100 -
-        (differenceDaysBetweenArrivedAndToday /
-          differenceDaysBetweenArrivedAndOrdered) *
-          100;
+        (difDaysBetweenTodayAndOrder / difDaysBetweenArrivedAndOrder) * 100;
+
+      daysLeft = difDaysBetweenArrivedAndOrder - difDaysBetweenTodayAndOrder;
+
+      daysLeftParsed = Number.parseInt(`${daysLeft}`);
 
       if (progress <= 100 && progress >= 0) {
         setProgress(progress);
-
-        currentWidth > 768
-          ? setDaysLeft(
-              differenceDaysBetweenArrivedAndToday > 0 &&
-                differenceDaysBetweenArrivedAndToday < 1
-                ? "few hours left"
-                : `${Number.parseInt(
-                    `${differenceDaysBetweenArrivedAndToday}`
-                  )} days left`
-            )
-          : setDaysLeft(
-              differenceDaysBetweenArrivedAndToday > 0 &&
-                differenceDaysBetweenArrivedAndToday < 1
-                ? "few hours left"
-                : `${Number.parseInt(
-                    `${differenceDaysBetweenArrivedAndToday}`
-                  )}`
-            );
       } else {
-        setDaysLeft("delivered succesfully");
         setProgress(100);
       }
+
+      if (daysLeft > 1) {
+        setDaysLeft(`${daysLeftParsed} days left`);
+      } else if (daysLeft > 0 && daysLeft < 1) {
+        setDaysLeft(`few hours left`);
+      } else {
+        setDaysLeft(`delivered successfully`);
+      }
+
+      if (status === "completed") {
+        setProgress(100);
+        setDaysLeft(`delivered successfully`);
+      }
+      if (status === "on hold") {
+        setProgress(0);
+        setDaysLeft(``);
+      }
     } else {
-      setDaysLeft("");
       setProgress(0);
+      setDaysLeft("");
     }
   };
 
@@ -142,6 +145,7 @@ const OrderShipped = ({
             value={progress}
             size={currentWidth > 768 ? "lg" : "md"}
             radius="none"
+            placeholder="progress of the order"
             className="w-full  "
             classNames={{
               indicator: "bg-gradient-to-r from-mainPink to-mainPink",

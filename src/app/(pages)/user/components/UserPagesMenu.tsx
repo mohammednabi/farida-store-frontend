@@ -40,27 +40,25 @@ const UserPagesMenu = () => {
       icon: <FaRegAddressCard />,
       pageLink: "useraddresses",
     },
-    {
-      id: 4,
-      title: "your payments",
-      description:
-        "view all transactions , manage payment methods and settings",
-      icon: <MdPayment />,
-      pageLink: "#",
-    },
+    // {
+    //   id: 4,
+    //   title: "your payments",
+    //   description:
+    //     "view all transactions , manage payment methods and settings",
+    //   icon: <MdPayment />,
+    //   pageLink: "#",
+    // },
     {
       id: 5,
       title: "your cart",
-      description:
-        "view all transactions , manage payment methods and settings",
+      description: "view all your cart items",
       icon: <BsCart3 />,
       pageLink: "/cart",
     },
     {
       id: 6,
       title: "your wishlist",
-      description:
-        "view all transactions , manage payment methods and settings",
+      description: "view all your wishlist items",
       icon: <TbHearts />,
       pageLink: "/wishlist",
     },

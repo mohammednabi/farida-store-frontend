@@ -176,10 +176,19 @@ const OrderShipped = ({
             classNames={{ img: "w-full h-full object-contain" }}
           />
         </div>
-        <div className="p-2 h-full aspect-square flex flex-col gap-y-1 justify-center items-center shadow-sm	md:hidden border-solid border-1 border-mainBlack/25 rounded-md ">
-          <p className="text-sm font-bold ">{daysLeft}</p>
+        <div
+          className={`p-2 h-full aspect-square flex flex-col gap-y-1 ${
+            daysLeft === "delivered successfully" &&
+            "bg-emerald-600 text-mainWhite"
+          } justify-center items-center shadow-sm	md:hidden border-solid border-1 border-mainBlack/25 rounded-md `}
+        >
+          <p className="text-sm font-bold capitalize">
+            {daysLeft === "delivered successfully" ? "done" : daysLeft}
+          </p>
           <p className="text-xs text-mainBlack/50 capitalize">
-            {daysLeft !== "few hours left" && "days"}
+            {daysLeft !== "few hours left" &&
+              daysLeft !== "delivered successfully" &&
+              "days"}
           </p>
         </div>
       </div>

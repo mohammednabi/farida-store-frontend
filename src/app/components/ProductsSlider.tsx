@@ -48,7 +48,7 @@ const ProductsSlider = () => {
       const x = e.pageX - sliderRef.current?.offsetLeft;
 
       const walk = x - startX;
-      console.log({ walk });
+      // console.log({ walk });
       sliderRef.current.scrollLeft = scrollLeft - walk;
     }
   };

@@ -8,6 +8,7 @@ import { observer } from "mobx-react-lite";
 
 import FullWishlistIcon from "./FullWishlistIcon";
 import FullSearchIcon from "./FullSearchIcon";
+import LanguageIcon from "./LanguageIcon";
 
 const NavIcons = () => {
   return (
@@ -18,6 +19,7 @@ const NavIcons = () => {
         <FullWishlistIcon />
       </div>
       <FullCartIcon />
+      <LanguageIcon />
     </div>
   );
 };

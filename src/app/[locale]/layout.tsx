@@ -48,6 +48,7 @@ export default function RootLayout({
     <html
       lang={locale}
       // className="text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px]"
+      style={{ direction: locale === "en" ? "ltr" : "rtl" }}
     >
       <body className={`font-cairo flex flex-col `}>
         <Uiproviders>

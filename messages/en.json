@@ -2,4 +2,10 @@
     "home":{
         "title":"products"
     }
+    ,"navbar":{
+        "home":"home",
+        "products":"products",
+        "order":"order",
+        "contact":"contact"
+    }
 }

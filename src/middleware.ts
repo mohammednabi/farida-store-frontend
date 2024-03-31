@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import createMiddleware from "next-intl/middleware";
 
 export default function middleware(req: NextRequest) {
   const token = req.cookies.get("credentials");
@@ -43,5 +44,21 @@ export default function middleware(req: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  NextResponse.next();
+  return intlMiddleware(req);
 }
+
+// middleware made by next-intl library
+
+const intlMiddleware = createMiddleware({
+  // A list of all locales that are supported
+  locales: ["en", "ar"],
+
+  // Used when no locale matches
+  defaultLocale: "en",
+});
+
+export const config = {
+  // Match only internationalized pathnames
+  matcher: ["/", "/(en|ar)/:path*"],
+};

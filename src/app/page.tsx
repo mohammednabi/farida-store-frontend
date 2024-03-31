@@ -1,21 +1,8 @@
+import { redirect } from "next/navigation";
+import React from "react";
 
-import AdsSlider from "@/app/components/AdsSlider";
-import FiltersSection from "@/app/components/FiltersSection";
-import MiniProducts from "@/app/components/MiniProducts";
-import ProductsSection from "@/app/components/ProductsSection";
-
-
-const HomePage = () => {
-  return (
-    <main>
-      <MiniProducts />
-
-      <AdsSlider />
-      <FiltersSection />
-      <ProductsSection />
-
-
-    </main>
-  );
+const RootPage = () => {
+  redirect("/en");
 };
-export default HomePage;
+
+export default RootPage;

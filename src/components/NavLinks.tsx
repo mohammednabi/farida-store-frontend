@@ -6,8 +6,8 @@ const NavLinks2 = () => {
   const t = useTranslations("navbar");
 
   return (
-    <div className="capitalize hidden md:flex flex-1 shrink  text-sm lg:text-lg  ">
-      <div className=" pl-36 flex flex-1 shrink  items-center justify-center gap-10">
+    <div className="capitalize justify-self-center hidden md:flex flex-1 shrink  text-sm lg:text-lg  ">
+      <div className=" flex flex-1 shrink  items-center justify-center gap-10">
         <Link href={"/"} className="nav-link">
           {t("home")}
         </Link>

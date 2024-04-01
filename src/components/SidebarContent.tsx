@@ -11,7 +11,7 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { IoMdClose } from "react-icons/io";
 import UserSidebarMenu from "./UserSidebarMenu";
 import { isUserLoggedIn } from "@/functions/credentials";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const SidebarContent = () => {
   const { sidebar, categories } = useContext(StoreContext);
@@ -21,9 +21,10 @@ const SidebarContent = () => {
   const [editedParams, setEditedParam] = useState<string>("");
 
   const t = useTranslations("sidebar");
+  const locale = useLocale();
 
   useEffect(() => {
-    categories.getAllCategories();
+    categories.getAllCategories(locale);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

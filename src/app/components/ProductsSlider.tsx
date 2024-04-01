@@ -4,6 +4,7 @@ import SliderProduct from "../../components/SliderProduct";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
 
 const ProductsSlider = () => {
   const { categories } = useContext(StoreContext);
@@ -11,6 +12,7 @@ const ProductsSlider = () => {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const locale = useLocale();
 
   const mouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (sliderRef.current) {
@@ -54,7 +56,7 @@ const ProductsSlider = () => {
   };
 
   useEffect(() => {
-    categories.getAllCategories();
+    categories.getAllCategories(locale);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -76,6 +78,7 @@ const ProductsSlider = () => {
       onMouseLeave={(e) => {
         mouseLeave(e);
       }}
+      dir={locale === "en" ? "ltr" : "rtl"}
     >
       {categories.categories.map((cat) => (
         <SliderProduct

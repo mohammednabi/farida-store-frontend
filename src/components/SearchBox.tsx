@@ -9,6 +9,7 @@ import QuickSearchMenu from "./QuickSearchMenu";
 import { observer } from "mobx-react-lite";
 import SearchBoxCommonSearches from "./SearchBoxCommonSearches";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale } from "next-intl";
 
 const SearchBox = () => {
   const { searchBox, categories } = useContext(StoreContext);
@@ -17,6 +18,7 @@ const SearchBox = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
+  const locale = useLocale();
 
   const searchForResult = (query: string) => {
     router.push(`/search?q=${query}`);
@@ -26,7 +28,7 @@ const SearchBox = () => {
   };
 
   useEffect(() => {
-    categories.getSomeCategories(4);
+    categories.getSomeCategories(4, locale);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

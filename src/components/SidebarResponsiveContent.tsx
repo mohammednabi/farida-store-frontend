@@ -17,12 +17,13 @@ import { BiLeftArrow } from "react-icons/bi";
 import { MoveLeft } from "lucide-react";
 import { isUserLoggedIn } from "@/functions/credentials";
 import UserSidebarMenu from "./UserSidebarMenu";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const SidebarResponsiveContent = () => {
   const { sidebar, categories, user } = useContext(StoreContext);
   const tSidebar = useTranslations("sidebar");
   const tNavbar = useTranslations("navbar");
+  const locale = useLocale();
 
   const mainMenu: { label: string; link: string }[] = [
     { label: tNavbar("home"), link: "/" },
@@ -39,7 +40,7 @@ const SidebarResponsiveContent = () => {
   const selectedButton = "bg-mainBlack text-mainWhite border-0";
 
   useEffect(() => {
-    categories.getAllCategories();
+    categories.getAllCategories(locale);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -10,6 +10,7 @@ export type CategoryAttributes = {
   publishedAt: Date;
   products: Products;
   thumbnail: Thumbnail;
+  locale: string;
 };
 
 export type Products = {

@@ -17,9 +17,9 @@ export class CategoriesStore {
     makeAutoObservable(this);
   }
 
-  getAllCategories = async () => {
+  getAllCategories = async (locale: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/categories?populate=*`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/categories?populate=*&locale=${locale}`,
       this.getOptions
     )
       .then((res) => res.json())
@@ -35,9 +35,9 @@ export class CategoriesStore {
       .catch((err) => console.log(err));
   };
 
-  getSomeCategories = async (count: number) => {
+  getSomeCategories = async (count: number, locale: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/categories?populate=*&pagination[page]=1&pagination[pageSize]=${count}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/categories?populate=*&pagination[page]=1&pagination[pageSize]=${count}&locale=${locale}`,
       this.getOptions
     )
       .then((res) => res.json())

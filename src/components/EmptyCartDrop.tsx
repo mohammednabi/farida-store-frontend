@@ -1,14 +1,15 @@
-import Link from 'next/link'
-import React from 'react'
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import React from "react";
 
 const EmptyCartDrop = () => {
+  const t = useTranslations("cartDrop");
   return (
-     <div>
-              
-         <h2 className='text-mainBlack/50'>your cart is empty </h2>
-         <Link href={"/"}>continue → </Link>
-          </div>
-  )
-}
+    <div>
+      <h2 className="text-mainBlack/50">{t("empty")} </h2>
+      <Link href={"/"}>{t("continue")} → </Link>
+    </div>
+  );
+};
 
-export default EmptyCartDrop
+export default EmptyCartDrop;

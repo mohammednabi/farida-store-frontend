@@ -11,11 +11,13 @@ import { RiUserSettingsLine } from "react-icons/ri";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/auth";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const UserLoggedInUi = () => {
   const { user } = useContext(StoreContext);
 
   const router = useRouter();
+  const t = useTranslations("userLoggedIn");
 
   // const logout = () => {
   //     setIsLoading(true)
@@ -62,7 +64,7 @@ const UserLoggedInUi = () => {
         >
           <div className="flex gap-2 items-center ">
             <IoBagOutline />
-            <h1>your orders</h1>
+            <h1>{t("orders")}</h1>
           </div>
           <div className="flex items-center gap-5">
             <Chip
@@ -82,7 +84,7 @@ const UserLoggedInUi = () => {
         >
           <div className="flex gap-2 items-center">
             <RiUserSettingsLine />
-            <h1>profile settings</h1>
+            <h1>{t("profile")}</h1>
           </div>
           <div className="flex items-center gap-5">
             <FaArrowRight className="text-sm" />
@@ -103,7 +105,7 @@ const UserLoggedInUi = () => {
               className="text-lg bg-red-600 text-mainWhite w-full"
               onClick={logout}
             >
-              log out
+              {t("logout")}
             </Button>
           </div>
         </div>

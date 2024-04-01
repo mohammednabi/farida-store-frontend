@@ -14,7 +14,7 @@ const NavMenuIcon = () => {
       <motion.div
         initial={{ rotateZ: 0 }}
         animate={{ rotateZ: sidebar.showBackdrop ? 90 : 0 }}
-        className="cursor-pointer w-fit"
+        className="cursor-pointer w-fit "
         onClick={sidebar.displayWholeSidebar}
       >
         <IoMenuOutline size={"1.5rem"} />

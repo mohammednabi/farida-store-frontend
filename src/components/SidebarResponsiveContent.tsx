@@ -17,15 +17,18 @@ import { BiLeftArrow } from "react-icons/bi";
 import { MoveLeft } from "lucide-react";
 import { isUserLoggedIn } from "@/functions/credentials";
 import UserSidebarMenu from "./UserSidebarMenu";
+import { useTranslations } from "next-intl";
 
 const SidebarResponsiveContent = () => {
   const { sidebar, categories, user } = useContext(StoreContext);
+  const tSidebar = useTranslations("sidebar");
+  const tNavbar = useTranslations("navbar");
 
   const mainMenu: { label: string; link: string }[] = [
-    { label: "home", link: "/" },
-    { label: "products", link: "/" },
-    { label: "order", link: "/order" },
-    { label: "contact", link: "/contact" },
+    { label: tNavbar("home"), link: "/" },
+    { label: tNavbar("products"), link: "/" },
+    { label: tNavbar("order"), link: "/order" },
+    { label: tNavbar("contact"), link: "/contact" },
   ];
 
   const urlParams: Params = useParams();
@@ -59,7 +62,7 @@ const SidebarResponsiveContent = () => {
             setSelectedLabel("main menu");
           }}
         >
-          main menu
+          {tSidebar("menu")}
         </Button>
         <Button
           disableAnimation
@@ -72,7 +75,7 @@ const SidebarResponsiveContent = () => {
             setSelectedLabel("sections");
           }}
         >
-          sections
+          {tSidebar("sections")}
         </Button>
       </div>
 
@@ -84,7 +87,11 @@ const SidebarResponsiveContent = () => {
           <MoveLeft className=" cursor-pointer" />
         </div>
         <div className="p-4">
-          <h1 className="text-xl capitalize text-center">{selectedLabel}</h1>
+          <h1 className="text-xl capitalize text-center">
+            {selectedLabel === "main menu"
+              ? tSidebar("menu")
+              : tSidebar(selectedLabel)}
+          </h1>
         </div>
       </div>
 
@@ -111,11 +118,11 @@ const SidebarResponsiveContent = () => {
             <div className="flex py-3 flex-col px-5 gap-2 capitalize">
               <div className="flex items-center text-lg gap-2 text-mainBlack/50">
                 <LiaNewspaper />
-                <Link href={"/order"}>track your order</Link>
+                <Link href={"/order"}>{tSidebar("order")}</Link>
               </div>
               <div className="flex items-center text-lg gap-2 text-mainBlack/50">
                 <FaRegEye />
-                <Link href={"#"}>products recently seen</Link>
+                <Link href={"#"}>{tSidebar("seen")}</Link>
               </div>
             </div>
           </div>

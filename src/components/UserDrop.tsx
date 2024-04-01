@@ -9,10 +9,14 @@ import GoogleProvider from "@/app/(auth)/GoogleProvider";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { isUserLoggedIn } from "@/functions/credentials";
+import { useLocale, useTranslations } from "next-intl";
 
 const UserDrop = () => {
   const { userDrop, user, loginForm, registerForm } = useContext(StoreContext);
   const [uiCondition, setUiCondition] = useState(!isUserLoggedIn());
+
+  const locale = useLocale();
+  const t = useTranslations("userDrop");
 
   // onAuthStateChanged(auth, (currentUser) => {
   //   user.setUserData(currentUser);
@@ -37,12 +41,15 @@ const UserDrop = () => {
       }}
       className={`origin-top flex flex-col gap-5 bg-mainWhite min-w-[20rem] capitalize w-auto h-auto ${
         uiCondition ? "p-3 px-5" : ""
-      } text-mainBlack absolute top-20 right-36 z-10 border-1 border-solid border-mainBlack border-t-0`}
+      } text-mainBlack absolute top-20 ${
+        locale === "en" ? "right-36" : "left-36"
+      } z-10 border-1 border-solid border-mainBlack border-t-0`}
+      dir={locale === "en" ? "ltr" : "rtl"}
     >
       {uiCondition ? (
         <div>
           <div className="flex justify-between items-center">
-            <h1 className="text-xl font-bold">login</h1>
+            <h1 className="text-xl font-bold">{t("login")}</h1>
             <div className="flex items-center">
               <GoogleProvider format="small" />
             </div>
@@ -59,7 +66,7 @@ const UserDrop = () => {
             className="flex flex-col gap-5"
           >
             <div className="flex flex-col gap-2">
-              <label className="input-label">email</label>
+              <label className="input-label">{t("email")}</label>
               <input
                 type="email"
                 className="nav-input"
@@ -77,7 +84,7 @@ const UserDrop = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="input-label">password</label>
+              <label className="input-label">{t("password")}</label>
               <input
                 type="password"
                 className="nav-input"
@@ -100,7 +107,7 @@ const UserDrop = () => {
                 className="bg-mainBlack text-mainWhite p-3 px-10 rounded-lg capitalize"
                 type="submit"
               >
-                submit
+                {t("submit")}
               </Button>
               {/* <div className='text-sm flex items-center gap-1 '>
                       <input id='remeber' type='checkbox' className='cursor-pointer'/>

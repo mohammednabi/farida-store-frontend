@@ -12,11 +12,13 @@ import { useRouter } from "next/navigation";
 
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
+import { useTranslations } from "next-intl";
 
 const UserSidebarMenu = () => {
   const { user, sidebar } = useContext(StoreContext);
 
   const router = useRouter();
+  const t = useTranslations("userLoggedIn");
 
   const logout = () => {
     user.isLoading = true;
@@ -51,7 +53,7 @@ const UserSidebarMenu = () => {
         >
           <div className="flex gap-2 items-center ">
             <IoBagOutline />
-            <h1>your orders</h1>
+            <h1>{t("orders")}</h1>
           </div>
           <div className="flex items-center gap-5">
             <Chip
@@ -71,7 +73,7 @@ const UserSidebarMenu = () => {
         >
           <div className="flex gap-2 items-center">
             <RiUserSettingsLine />
-            <h1>profile settings</h1>
+            <h1> {t("profile")}</h1>
           </div>
           <div className="flex items-center gap-5">
             {/* <FaArrowRight className="text-sm" /> */}
@@ -84,7 +86,7 @@ const UserSidebarMenu = () => {
           <Divider />
           <div className="flex gap-2 items-center text-red-500">
             <IoIosLogOut />
-            <h1>logout</h1>
+            <h1> {t("logout")}</h1>
           </div>
         </div>
         {/* {isUserLoggedIn() && (

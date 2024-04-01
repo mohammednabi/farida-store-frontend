@@ -11,6 +11,7 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { IoMdClose } from "react-icons/io";
 import UserSidebarMenu from "./UserSidebarMenu";
 import { isUserLoggedIn } from "@/functions/credentials";
+import { useTranslations } from "next-intl";
 
 const SidebarContent = () => {
   const { sidebar, categories } = useContext(StoreContext);
@@ -18,6 +19,8 @@ const SidebarContent = () => {
   const urlParams: Params = useParams();
 
   const [editedParams, setEditedParam] = useState<string>("");
+
+  const t = useTranslations("sidebar");
 
   useEffect(() => {
     categories.getAllCategories();
@@ -64,11 +67,11 @@ const SidebarContent = () => {
         <div className="flex py-3 flex-col px-5 gap-2 capitalize">
           <div className="flex items-center text-lg gap-2 text-mainBlack/50">
             <LiaNewspaper />
-            <Link href={"/order"}>track your order</Link>
+            <Link href={"/order"}>{t("order")}</Link>
           </div>
           <div className="flex items-center text-lg gap-2 text-mainBlack/50">
             <FaRegEye />
-            <Link href={"#"}>products recently seen</Link>
+            <Link href={"#"}>{t("seen")}</Link>
           </div>
         </div>
         {isUserLoggedIn() && (

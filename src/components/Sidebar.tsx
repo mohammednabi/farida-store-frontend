@@ -5,11 +5,14 @@ import { observer } from "mobx-react-lite";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import SidebarContent from "./SidebarContent";
 import SidebarResponsiveContent from "./SidebarResponsiveContent";
+import { useLocale } from "next-intl";
 
 const Sidebar = () => {
   const { sidebar } = useContext(StoreContext);
 
   const divRef = useRef<HTMLDivElement>(null);
+
+  const locale = useLocale();
 
   return (
     <div className="relative w-full h-auto">
@@ -27,21 +30,27 @@ const Sidebar = () => {
       <motion.div
         ref={divRef}
         initial={{
-          x: divRef?.current?.offsetHeight && -divRef?.current?.offsetHeight,
+          x: locale === "en" ? -1000 : 1000,
         }}
         animate={{
           x: sidebar.showSideBar
             ? 0
-            : divRef?.current?.offsetHeight && -divRef?.current?.offsetHeight,
+            : divRef?.current?.offsetHeight &&
+              (locale === "en"
+                ? -divRef?.current?.offsetHeight
+                : divRef?.current?.offsetHeight),
         }}
-        exit={{
-          x: divRef?.current?.offsetHeight && -divRef?.current?.offsetHeight,
-        }}
+        // exit={{
+        //   x: divRef?.current?.offsetHeight && -divRef?.current?.offsetHeight,
+        // }}
         transition={{
           type: "tween",
           duration: 0.5,
         }}
-        className="bg-white h-screen w-full lmob:w-[20rem] fixed top-0 left-0 z-[100] overflow-auto "
+        className={`bg-white h-screen w-full lmob:w-[20rem] fixed top-0 ${
+          locale === "en" ? "left-0" : "right-0"
+        }   z-[100] overflow-auto `}
+        dir={locale === "en" ? "ltr" : "rtl"}
       >
         <SidebarContent />
         <SidebarResponsiveContent />

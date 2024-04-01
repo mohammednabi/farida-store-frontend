@@ -41,7 +41,7 @@ const NavBar2 = () => {
         } bg-mainWhite  transition-all p-2 px-5 md:p-5 md:px-10 w-full min-h-[3.75rem] max-h-[5rem] border-b-[1px] border-b-mainDarkBlue border-solid`}
         dir={locale === "en" ? "ltr" : "rtl"}
       >
-        <div className=" grid grid-cols-3  items-center gap-3">
+        <div className=" grid grid-cols-2 md:grid-cols-[minmax(0,1fr)_2fr_1fr]   items-center gap-3">
           <NavMenuIcon />
 
           <NavLinks />

@@ -12,9 +12,13 @@ import { Divider } from "@nextui-org/react";
 import LoadingOverlay from "./LoadingOverlay";
 import ConfirmMergeCart from "./ConfirmMergeCart";
 import { isUserLoggedIn } from "@/functions/credentials";
+import { useLocale, useTranslations } from "next-intl";
 
 const CartDrop2 = () => {
   const { cart, user, cartSidebar } = useContext(StoreContext);
+
+  const locale = useLocale();
+  const t = useTranslations("cartDrop");
 
   return (
     <motion.div
@@ -23,11 +27,16 @@ const CartDrop2 = () => {
         scaleY: cart.isCartMenuDisplayed ? 1 : 0,
         opacity: cart.isCartMenuDisplayed ? 1 : 0,
       }}
-      className="origin-top  bg-white min-w-[25rem]  w-[25rem] max-w-[25rem] h-auto p-5 hidden md:block  text-mainBlack absolute top-20 right-0 z-[100] border-1 border-solid border-mainBlack border-t-0"
+      className={`origin-top  bg-white min-w-[25rem]  w-[25rem] max-w-[25rem] h-auto p-5 hidden md:block  text-mainBlack absolute top-20 ${
+        locale === "en" ? "right-0" : "left-0"
+      } z-[100] border-1 border-solid border-mainBlack border-t-0`}
+      dir={locale === "en" ? "ltr" : "rtl"}
     >
       <div className="flex flex-col gap-5 relative">
         {user.isMergingOrRemovingLoading && <LoadingOverlay />}
-        <h1 className="text-xl capitalize">cart ({cart.productsCount}) </h1>
+        <h1 className="text-xl capitalize">
+          {t("cart")}({cart.productsCount}){" "}
+        </h1>
 
         {cart.productsCount === 0 ? (
           <EmptyCartDrop />
@@ -35,11 +44,15 @@ const CartDrop2 = () => {
           <CartDropProductsMenu />
         )}
 
-        <Divider />
-        {isUserLoggedIn() &&
-          cartSidebar.isLocalCartHasItems &&
-          !user.isMergingOrRemovingLoading && <ConfirmMergeCart />}
-        <CartDropTotalPrice />
+        {cart.productsCount > 0 && (
+          <>
+            <Divider />
+            {isUserLoggedIn() &&
+              cartSidebar.isLocalCartHasItems &&
+              !user.isMergingOrRemovingLoading && <ConfirmMergeCart />}
+            <CartDropTotalPrice />
+          </>
+        )}
       </div>
     </motion.div>
   );

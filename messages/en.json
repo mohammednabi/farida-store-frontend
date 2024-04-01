@@ -7,5 +7,41 @@
         "products":"products",
         "order":"order",
         "contact":"contact"
+    },
+    "sidebar":{
+        "order":"track your order",
+        "seen":"Products Recently Seen",
+        "menu":"main menu",
+        "sections":"sections"
+    }
+    ,"cartSidebar":{
+        "cart":"shopping cart",
+        "total":"total",
+        "empty":"your cart is empty",
+        "complete":"complete your order"
+    },
+    "cartDrop":{
+         "cart":"shopping cart",
+        "total":"total",
+        "empty":"your cart is empty",
+        "continue":"continue",
+        "complete":"complete your order",
+        "go":"go to cart"
+    },
+    "userDrop":{
+        "login":"login",
+        "email":"email",
+        "password":"password",
+        "submit":"submit"
+    },
+    "userLoggedIn":{
+        "orders":"your orders",
+        "profile":"profile settings",
+        "logout":"logout"
+    },
+    "mergeCart":{
+        "merge":"merge your carts ?",
+        "yes":"yes",
+        "no":"no"
     }
 }

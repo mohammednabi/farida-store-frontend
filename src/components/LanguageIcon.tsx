@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import React from "react";
 import Icon from "./Icon";
-import { Avatar, Select, SelectItem, Switch } from "@nextui-org/react";
+import { Avatar, Image, Select, SelectItem, Switch } from "@nextui-org/react";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
@@ -20,7 +21,7 @@ const LanguageIcon = () => {
 
   return (
     <div>
-      <Select
+      {/* <Select
         defaultSelectedKeys={[locale]}
         radius="sm"
         className="w-32 "
@@ -29,15 +30,15 @@ const LanguageIcon = () => {
         onChange={(e) => {
           changeLocale(e.target.value);
         }}
-        classNames={{
-          listboxWrapper: "bg-transparent",
-          base: "bg-transparent",
-          innerWrapper: "bg-transparent",
-          listbox: "bg-transparent",
-          mainWrapper: "bg-transparent",
-          helperWrapper: "bg-transparent",
-          popoverContent: "bg-transparent",
-        }}
+        // classNames={{
+        //   listboxWrapper: "bg-transparent",
+        //   base: "bg-transparent",
+        //   innerWrapper: "bg-transparent",
+        //   listbox: "bg-transparent",
+        //   mainWrapper: "bg-transparent",
+        //   helperWrapper: "bg-transparent",
+        //   popoverContent: "bg-transparent",
+        // }}
       >
         <SelectItem
           key="en"
@@ -63,7 +64,7 @@ const LanguageIcon = () => {
         >
           العربية
         </SelectItem>
-      </Select>
+      </Select> */}
 
       {/* <select
         defaultValue={locale}
@@ -93,6 +94,49 @@ const LanguageIcon = () => {
       >
         {" "}
       </Switch> */}
+
+      <div className="w-10 h-10  border-2 transition-all border-mainGray hover:border-mainBlack/75 rounded-full p-1 border-solid overflow-hidden  gap-2">
+        {locale === "en" ? (
+          <>
+            {/* <img
+              src="https://flagcdn.com/eg.svg"
+              alt=""
+              className="w-full h-full object-cover rounded-full"
+              onClick={() => {
+                changeLocale("ar");
+              }}
+            /> */}
+            <h1
+              className="text-center text-black cursor-pointer text-lg transition-all hover:scale-110 select-none"
+              onClick={() => {
+                changeLocale("ar");
+              }}
+            >
+              ع
+            </h1>
+          </>
+        ) : (
+          <>
+            {/* <img
+              src="https://flagcdn.com/us.svg"
+              alt=""
+              className="w-full h-full object-cover rounded-full"
+              onClick={() => {
+                changeLocale("en");
+              }}
+            /> */}
+            <h1
+              className="text-center text-black cursor-pointer text-lg transition-all hover:scale-110 select-none"
+              onClick={() => {
+                changeLocale("en");
+              }}
+            >
+              EN
+            </h1>
+          </>
+        )}
+        {/* <h1 className="text-xl font-black">EN</h1> */}
+      </div>
     </div>
   );
 };

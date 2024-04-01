@@ -6,12 +6,14 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import ConfirmMergeCart from "./ConfirmMergeCart";
 import { isUserLoggedIn } from "@/functions/credentials";
+import { useTranslations } from "next-intl";
 
 const CartSidebarFooter = () => {
   const { cartSidebar, cart, user, loginForm, registerForm } =
     useContext(StoreContext);
 
   const router = useRouter();
+  const t = useTranslations("cartSidebar");
 
   const goToCartShippingPage = () => {
     router.push("/cart/shipping");
@@ -38,7 +40,7 @@ const CartSidebarFooter = () => {
         !user.isMergingOrRemovingLoading && <ConfirmMergeCart />}
       <div className="p-5 flex flex-col gap-5">
         <div className="flex justify-between items-center capitalize ">
-          <h1 className="text-lg lmob:text-xl">total :</h1>
+          <h1 className="text-lg lmob:text-xl">{t("total")} :</h1>
           <h1 className="text-green-500 font-bold text-lg lmob:text-xl">
             {cart.totalPrice.toFixed(2)} $
           </h1>
@@ -49,7 +51,7 @@ const CartSidebarFooter = () => {
           className="bg-mainBlack text-mainWhite capitalize"
           onClick={goToCartShippingPage}
         >
-          complete your order
+          {t("complete")}
         </Button>
       </div>
     </div>

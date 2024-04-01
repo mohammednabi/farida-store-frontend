@@ -25,7 +25,7 @@ const SearchMenu = () => {
       </AnimatePresence>
       <motion.div
         ref={divRef}
-        initial={{ y: divRef.current ? -divRef.current?.offsetHeight : -1500 }}
+        initial={{ y: -1500 }}
         animate={{
           y: searchBox.showSearchBox
             ? 0

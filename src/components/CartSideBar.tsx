@@ -5,11 +5,14 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import CartSideBarContent from "./CartSideBarContent";
 import LoadingOverlay from "./LoadingOverlay";
+import { useLocale } from "next-intl";
 
 const CartSideBar = () => {
   const { cartSidebar } = useContext(StoreContext);
 
   const divRef = useRef<HTMLDivElement>(null);
+
+  const locale = useLocale();
 
   return (
     <div className="relative max-w-screen h-auto ">
@@ -31,16 +34,26 @@ const CartSideBar = () => {
         // exit={{scaleX:0}}
         ref={divRef}
         // initial={{ x: 1000 }}
-        initial={{ x: divRef.current?.offsetHeight }}
-        animate={{
-          x: cartSidebar.showCartSideBar ? 0 : divRef.current?.offsetHeight,
+        initial={{
+          x: locale === "en" ? 1000 : -1000,
         }}
-        exit={{ x: divRef.current?.offsetHeight }}
+        animate={{
+          x: cartSidebar.showCartSideBar
+            ? 0
+            : divRef?.current?.offsetHeight &&
+              (locale === "en"
+                ? divRef.current?.offsetHeight
+                : -divRef.current?.offsetHeight),
+        }}
+        // exit={{ x: divRef.current?.offsetHeight }}
         transition={{
           type: "tween",
           duration: 0.5,
         }}
-        className="origin-right bg-mainWhite w-full  lmob:w-96 h-screen fixed top-0 right-0 z-[100] "
+        className={`origin-right bg-mainWhite w-full  lmob:w-96 h-screen fixed top-0  z-[100] ${
+          locale === "en" ? "right-0" : "left-0"
+        }  `}
+        dir={locale === "en" ? "ltr" : "rtl"}
       >
         <CartSideBarContent />
       </motion.div>

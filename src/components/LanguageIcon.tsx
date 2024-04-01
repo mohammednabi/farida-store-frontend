@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
 import Icon from "./Icon";
-import { Avatar, Select, SelectItem } from "@nextui-org/react";
+import { Avatar, Select, SelectItem, Switch } from "@nextui-org/react";
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const LanguageIcon = () => {
   const locale = useLocale();
@@ -22,11 +23,20 @@ const LanguageIcon = () => {
       <Select
         defaultSelectedKeys={[locale]}
         radius="sm"
-        className="w-32"
+        className="w-32 "
         size="sm"
         aria-label="language selection"
         onChange={(e) => {
           changeLocale(e.target.value);
+        }}
+        classNames={{
+          listboxWrapper: "bg-transparent",
+          base: "bg-transparent",
+          innerWrapper: "bg-transparent",
+          listbox: "bg-transparent",
+          mainWrapper: "bg-transparent",
+          helperWrapper: "bg-transparent",
+          popoverContent: "bg-transparent",
         }}
       >
         <SelectItem
@@ -34,7 +44,7 @@ const LanguageIcon = () => {
           startContent={
             <Avatar
               alt="en"
-              className="w-6 h-6"
+              className="w-6 h-6 "
               src="https://flagcdn.com/us.svg"
             />
           }
@@ -75,6 +85,14 @@ const LanguageIcon = () => {
           </div>
         </option>
       </select>  */}
+
+      {/* <Switch
+        size="lg"
+        startContent={<div className="text-xl font-black">EN</div>}
+        endContent={<div className="text-xl font-black">عربي</div>}
+      >
+        {" "}
+      </Switch> */}
     </div>
   );
 };

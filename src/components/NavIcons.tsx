@@ -12,7 +12,7 @@ import LanguageIcon from "./LanguageIcon";
 
 const NavIcons = () => {
   return (
-    <div className="flex items-center gap-2">
+    <div className="justify-self-end flex items-center gap-2">
       <div className="hidden md:flex  items-center gap-2">
         <FullSearchIcon />
         <FullUserIcon />

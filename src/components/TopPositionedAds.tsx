@@ -17,14 +17,16 @@ import "swiper/css";
 import "swiper/css/bundle";
 import ShowHideFastAdsButton from "./ShowHideFastAdsButton";
 import { motion } from "framer-motion";
+import { useLocale } from "next-intl";
 
 const TopPositionedAds = () => {
   const { fastAds } = useContext(StoreContext);
 
   const divRef = useRef<HTMLDivElement | null>(null);
+  const locale = useLocale();
 
   useEffect(() => {
-    fastAds.getAllFastAds();
+    fastAds.getAllFastAds(locale);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

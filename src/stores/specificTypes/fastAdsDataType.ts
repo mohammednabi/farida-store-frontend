@@ -10,6 +10,7 @@ export interface FastAd {
 
 export interface Attributes {
   ad: string;
+  locale: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date;

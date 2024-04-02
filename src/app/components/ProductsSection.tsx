@@ -11,14 +11,16 @@ import FilterSidebarContents from "@/app/components/FilterSidebarContents";
 import RawProductCard from "./RawProductCard";
 import GridStyleView from "./GridStyleView";
 import RowStyleView from "./RowStyleView";
+import { useLocale } from "next-intl";
 
 const ProductsSection = () => {
   const { products, viewStyle, filter } = useContext(StoreContext);
 
   const divRef = useRef<HTMLDivElement>(null);
+  const locale = useLocale();
 
   return (
-    <div className="flex flex-col gap-5 relative ">
+    <div className="flex flex-col gap-5 relative overflow-y-visible overflow-x-hidden">
       {viewStyle.gridView ? <GridStyleView /> : <RowStyleView />}
 
       {/* ============ */}
@@ -36,11 +38,16 @@ const ProductsSection = () => {
           />
         )}
       </AnimatePresence>
+
       <motion.div
         ref={divRef}
-        initial={{ x: -1500 }}
+        initial={{ x: locale === "en" ? -1500 : 1500 }}
         animate={{
-          x: filter.showFilterSideBar ? 0 : -1500,
+          x: filter.showFilterSideBar
+            ? 0
+            : locale === "en" && divRef.current?.offsetHeight
+            ? -divRef.current?.offsetHeight
+            : divRef.current?.offsetHeight,
         }}
         // exit={{
         //   x: divRef.current?.offsetHeight
@@ -51,10 +58,13 @@ const ProductsSection = () => {
           type: "tween",
           duration: 0.5,
         }}
-        className="absolute top-0 left-0 md:left-0 bg-mainWhite  h-auto w-full md:w-auto z-50   "
+        className={`absolute top-0 ${
+          locale === "en" ? "left-0" : "right-0"
+        }  bg-mainWhite  h-auto w-full md:w-auto z-50   `}
       >
         <FilterSidebarContents />
       </motion.div>
+
       {/* <div
         key="white-cover-rectangle"
         className="bg-mainWhite w-10  h-full absolute top-0 left-0 z-[60] hidden md:block"

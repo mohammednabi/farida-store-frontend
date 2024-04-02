@@ -21,6 +21,7 @@ import {
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useLocale } from "next-intl";
 // import 'swiper/css/scrollbar'
 // import "swiper/css/bundle";
 
@@ -31,9 +32,10 @@ type slide = {
 
 const AdsSlider = () => {
   const { ads } = useContext(StoreContext);
+  const locale = useLocale();
 
   useEffect(() => {
-    ads.getAllAds();
+    ads.getAllAds(locale);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -60,7 +62,7 @@ const AdsSlider = () => {
             <img
               src={`${process.env.NEXT_PUBLIC_HOST}${ad.attributes.thumb.data.attributes.url}`}
               alt=""
-              className="w-full h-full "
+              className="w-full aspect-video "
             />
           </SwiperSlide>
         ))}

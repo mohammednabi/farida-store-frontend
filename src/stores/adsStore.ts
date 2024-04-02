@@ -18,9 +18,9 @@ export class AdsSliderStore {
     makeAutoObservable(this);
   }
 
-  getAllAds = async () => {
+  getAllAds = async (locale: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/advertises?populate=*`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/advertises?populate=*&locale=${locale}`,
       this.getOptions
     )
       .then((res) => res.json())
@@ -34,9 +34,9 @@ export class AdsSliderStore {
       .catch((err) => console.log(err));
   };
 
-  getAllMiniAds = async () => {
+  getAllMiniAds = async (locale: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/mini-ads?populate=*`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/mini-ads?populate=*&locale=${locale}`,
       this.getOptions
     )
       .then((res) => res.json())

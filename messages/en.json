@@ -43,5 +43,19 @@
         "merge":"merge your carts ?",
         "yes":"yes",
         "no":"no"
+    },
+    "filters":{
+        "filter":"filter",
+        "sales":"sales only",
+        "popularity":"sort by popularity",
+        "rating":"sort by rating",
+        "newest":"sort by newest",
+        "lowPrice":"sort by : lowest price to highest",
+        "highPrice":"sort by : highest price to lowest",
+        "category":"category",
+        "price":"price",
+        "colors":"colors",
+        "select":"select",
+        "selectPrice":"select price"
     }
 }

@@ -9,16 +9,19 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import ActiveFilters from "./ActiveFilters";
+import { useLocale, useTranslations } from "next-intl";
 
 const FiltersSection = () => {
+  const t = useTranslations("filters");
+  const locale = useLocale();
   const { viewStyle } = useContext(StoreContext);
 
   const selections: { value: string; label: string }[] = [
-    { value: "", label: "sort by popularity" },
-    { value: "rating", label: "sort by rating" },
-    { value: "createdAt:DESC", label: "sort by newest" },
-    { value: "price:ASC", label: " sort by : lowest price to highest" },
-    { value: "price:DESC", label: "sort by : highest price to lowest " },
+    { value: "", label: t("popularity") },
+    { value: "rating", label: t("rating") },
+    { value: "createdAt:DESC", label: t("newest") },
+    { value: "price:ASC", label: t("lowPrice") },
+    { value: "price:DESC", label: t("highPrice") },
   ];
 
   const pageSizeSelections: { value: string; label: string }[] = [
@@ -80,6 +83,7 @@ const FiltersSection = () => {
     <section
       id="filters"
       className="flex flex-col gap-5 px-5 md:px-10 lg:px-20 "
+      dir={locale === "en" ? "ltr" : "rtl"}
     >
       {(searchParams.has("color") ||
         searchParams.has("min_price") ||
@@ -88,7 +92,11 @@ const FiltersSection = () => {
       <div className=" grid grid-rows-3 grid-cols-1 md:grid-rows-1 md:grid-cols-[repeat(3,minmax(0,auto))] items-center  relative pb-5  md:gap-5">
         <div className="grid grid-cols-[1fr_6fr] items-center gap-3 order-3 md:order-1">
           <FilterButton />
-          <div className="hidden md:flex items-center justify-start gap-2 text-lg md:text-2xl pl-1 py-3 cursor-pointer bg-mainGray rounded-md">
+          <div
+            className={`hidden md:flex items-center justify-start gap-2 text-lg md:text-2xl ${
+              locale === "en" ? "pl-1" : "pr-1"
+            } py-3 cursor-pointer bg-mainGray rounded-md`}
+          >
             <Checkbox
               isSelected={salesOnly === "true"}
               color="secondary"
@@ -97,7 +105,7 @@ const FiltersSection = () => {
               }}
               className="pl-5 py-3 "
             >
-              sales only
+              {t("sales")}
             </Checkbox>
           </div>
           {/* this select input will display only on small screens */}
@@ -113,6 +121,7 @@ const FiltersSection = () => {
             classNames={{
               value: "text-xs lmob:text-sm",
             }}
+            dir={locale === "en" ? "ltr" : "rtl"}
           >
             {selections.map((sel) => (
               <SelectItem
@@ -155,9 +164,22 @@ const FiltersSection = () => {
               handleSortSearch(e.target.value);
             }}
             className="hidden md:block"
+            // dir={locale === "en" ? "ltr" : "rtl"}
+            classNames={{
+              // base: `${locale === "en" ? "text-left" : "text-right"}`,
+              value: `${locale === "en" ? "text-left" : "text-right "} `,
+              // trigger: `${locale === "en" ? "text-left" : "text-right"}`,
+              innerWrapper: `${locale === "en" ? "text-left" : "text-right"}`,
+            }}
           >
             {selections.map((sel) => (
-              <SelectItem key={sel.value} value={sel.value}>
+              <SelectItem
+                key={sel.value}
+                value={sel.value}
+                classNames={{
+                  base: `${locale === "en" ? "text-left" : "text-right"}`,
+                }}
+              >
                 {sel.label}
               </SelectItem>
             ))}
@@ -190,7 +212,7 @@ const FiltersSection = () => {
               }}
               className="p-5 py-2"
             >
-              sales only
+              {t("sales")}
             </Checkbox>
           </div>
         </div>

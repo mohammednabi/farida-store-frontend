@@ -9,6 +9,7 @@ export type AdvertiseAttributes = {
   updatedAt: Date;
   publishedAt: Date;
   thumb: Thumb;
+  locale: string;
 };
 
 export type Thumb = {

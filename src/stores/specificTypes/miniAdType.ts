@@ -5,6 +5,7 @@ export type MiniAdType = {
 
 export type Attributes = {
   content: string;
+  locale: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date;

@@ -5,18 +5,19 @@ import { motion } from "framer-motion";
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
 import UserLoggedInUi from "./UserLoggedInUi";
-import GoogleProvider from "@/app/(auth)/GoogleProvider";
+
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { useLocale, useTranslations } from "next-intl";
+import GoogleProvider from "@/app/[locale]/(auth)/GoogleProvider";
 
 const UserDrop = () => {
   const { userDrop, user, loginForm, registerForm } = useContext(StoreContext);
   const [uiCondition, setUiCondition] = useState(!isUserLoggedIn());
 
   const locale = useLocale();
-  const t = useTranslations("userDrop");
+  const t = useTranslations("loginForm");
 
   // onAuthStateChanged(auth, (currentUser) => {
   //   user.setUserData(currentUser);

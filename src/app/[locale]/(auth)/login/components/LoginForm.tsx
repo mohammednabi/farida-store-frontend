@@ -10,12 +10,15 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale, useTranslations } from "next-intl";
 
 const LoginForm = () => {
   const router = useRouter();
   const { isMobile } = useScreenSize({});
 
   const { loginForm } = useContext(StoreContext);
+  const t = useTranslations("loginForm");
+  const locale = useLocale();
 
   const loginWithEmailAndPass = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -44,8 +47,13 @@ const LoginForm = () => {
   }, [loginForm.isLoading]);
 
   return (
-    <div className="w-full flex flex-col p-5 px-7 lmob:px-20 items-center lg:items-start gap-10">
-      <h1 className="text-3xl font-bold capitalize hidden lg:block">Login</h1>
+    <div
+      className="w-full flex flex-col p-5 px-7 lmob:px-20 items-center lg:items-start gap-10"
+      dir={locale === "en" ? "ltr" : "rtl"}
+    >
+      <h1 className="text-3xl font-bold capitalize hidden lg:block">
+        {t("login")}
+      </h1>
       <form className="w-full md:w-2/3 lg:w-1/3 flex flex-col gap-5">
         <Input
           value={loginForm.email}
@@ -54,9 +62,9 @@ const LoginForm = () => {
           color={!loginForm.isValidEmail ? "danger" : "success"}
           isRequired
           type="email"
-          label="Email"
+          label={t("email")}
           labelPlacement="outside"
-          placeholder="Enter your email"
+          placeholder={t("enterEmail")}
           errorMessage={!loginForm.isValidEmail && "Not valid email"}
           radius="none"
           size={isMobile ? "md" : "lg"}
@@ -73,9 +81,9 @@ const LoginForm = () => {
           variant="bordered"
           isRequired
           type={!loginForm.isPasswordVisible ? "password" : "text"}
-          label="Password"
+          label={t("password")}
           labelPlacement="outside"
-          placeholder="Enter your password"
+          placeholder={t("enterPass")}
           radius="none"
           size={isMobile ? "md" : "lg"}
           //   description="write valid email"
@@ -119,7 +127,7 @@ const LoginForm = () => {
               loginWithEmailAndPass(e);
             }}
           >
-            Submit
+            {t("submit")}
           </Button>
           {/* <h1 className='text-red-400'>{loginForm.errorMessage.slice(22,loginForm.errorMessage.length-2) }</h1> */}
           <h1 className="text-red-400 text-sm md:text-lg">
@@ -127,17 +135,15 @@ const LoginForm = () => {
           </h1>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-sm md:text-lg">
-          <h1 className="text-mainBlack/50 underline">
-            Don<span>&apos;</span>t have an account ?
-          </h1>
-          <Link href={"/register"} className="text-blue-500">
-            Register now
+          <h1 className="text-mainBlack/50 underline">{t("noAccount")}</h1>
+          <Link href={`/${locale}/register`} className="text-blue-500">
+            {t("register")}
           </Link>
         </div>
       </form>
       <div className="w-full md:w-2/3 lg:w-1/3 grid grid-cols-[1fr_auto_1fr] justify-between items-center">
         <Divider />
-        <h1 className="text-sm md:text-lg capitalize px-5">or</h1>
+        <h1 className="text-sm md:text-lg capitalize px-5">{t("or")}</h1>
         <Divider />
       </div>
       <GoogleProvider />

@@ -10,31 +10,35 @@ import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import Icon from "./Icon";
+import { useLocale, useTranslations } from "next-intl";
 
 const Footer = () => {
+  const t = useTranslations("footer");
+  const locale = useLocale();
+
   return (
-    <div className=" pt-20 pb-16">
+    <div className=" pt-20 pb-16" dir={locale === "en" ? "ltr" : "rtl"}>
       <Divider />
       <div className="min-h-[20rem] p-5 pb-0 flex flex-col gap-5 ">
         <div className="flex flex-col gap-5">
           <div className="flex flex-col justify-center gap-5 items-center ">
             <div className="flex flex-col items-center text-center">
               <h1 className="text-xl md:text-2xl font-bold capitalize">
-                We are always here to help you{" "}
+                {t("help")}
               </h1>
               <h1 className="text-sm md:text-lg font-bold capitalize text-mainBlack/50">
-                Reach out to us through any of these support channels
+                {t("support")}
               </h1>
             </div>
             <div className="flex flex-wrap gap-5 justify-center items-center">
               <IconCard
                 icon={<TfiEmail className="text-lg md:text-xl" />}
-                topText="email support"
+                topText={t("email")}
                 mainText="store@farida.com"
               />
               <IconCard
                 icon={<TfiHeadphone className="text-lg md:text-xl" />}
-                topText="phone support"
+                topText={t("phone")}
                 mainText="01089953368"
               />
             </div>
@@ -78,7 +82,7 @@ const Footer = () => {
 
           <div className=" flex flex-wrap gap-3 justify-center md:justify-between items-center">
             <h1 className="text-center text-mainBlack/50 text-sm">
-              © 2024 farida store. All Rights Reserved
+              {t("copyrights")}
             </h1>
 
             <div className=" flex gap-5 items-center justify-center">

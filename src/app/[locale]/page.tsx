@@ -16,6 +16,7 @@ const HomePage = ({ params: { locale } }: HomePageProps) => {
       <MiniProducts />
 
       <AdsSlider />
+
       <FiltersSection />
       <ProductsSection />
     </main>

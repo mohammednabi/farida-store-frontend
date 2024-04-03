@@ -20,7 +20,7 @@ const ProductsSection = () => {
   const locale = useLocale();
 
   return (
-    <div className="flex flex-col gap-5 relative overflow-y-visible overflow-x-hidden">
+    <div className="flex flex-col  gap-5 relative ">
       {viewStyle.gridView ? <GridStyleView /> : <RowStyleView />}
 
       {/* ============ */}
@@ -38,32 +38,37 @@ const ProductsSection = () => {
           />
         )}
       </AnimatePresence>
-
-      <motion.div
-        ref={divRef}
-        initial={{ x: locale === "en" ? -1500 : 1500 }}
-        animate={{
-          x: filter.showFilterSideBar
-            ? 0
-            : locale === "en" && divRef.current?.offsetHeight
-            ? -divRef.current?.offsetHeight
-            : divRef.current?.offsetHeight,
-        }}
-        // exit={{
-        //   x: divRef.current?.offsetHeight
-        //     ? -divRef.current?.offsetHeight
-        //     : -1500,
-        // }}
-        transition={{
-          type: "tween",
-          duration: 0.5,
-        }}
-        className={`absolute top-0 ${
-          locale === "en" ? "left-0" : "right-0"
-        }  bg-mainWhite  h-auto w-full md:w-auto z-50   `}
+      <div
+        className={`absolute w-full h-full overflow-hidden  ${
+          filter.showFilterSideBar ? "overflow-y-auto" : "overflow-y-hidden"
+        }`}
       >
-        <FilterSidebarContents />
-      </motion.div>
+        <motion.div
+          ref={divRef}
+          initial={{ x: locale === "en" ? -1500 : 1500 }}
+          animate={{
+            x: filter.showFilterSideBar
+              ? 0
+              : locale === "en" && divRef.current?.offsetHeight
+              ? -divRef.current?.offsetHeight
+              : divRef.current?.offsetHeight,
+          }}
+          // exit={{
+          //   x: divRef.current?.offsetHeight
+          //     ? -divRef.current?.offsetHeight
+          //     : -1500,
+          // }}
+          transition={{
+            type: "tween",
+            duration: 0.5,
+          }}
+          className={`absolute top-0 ${
+            locale === "en" ? "left-0" : "right-0"
+          }  bg-mainWhite  h-auto w-full md:w-auto z-50   `}
+        >
+          <FilterSidebarContents />
+        </motion.div>
+      </div>
 
       {/* <div
         key="white-cover-rectangle"

@@ -71,4 +71,11 @@
         "noProducts":" we could not find any products with applied filters",
         "again":" please try again"
     }
+    ,"footer":{
+        "help":"We are always here to help you",
+        "support":" Reach out to us through any of these support channels",
+        "email":"email support",
+        "phone":"phone support",
+        "copyrights":"  © 2024 farida store. All Rights Reserved"
+    }
 }

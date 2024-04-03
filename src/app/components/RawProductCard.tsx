@@ -18,12 +18,15 @@ import { FaCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
 import ProductTypeLabel from "./ProductTypeLabel";
+import { useLocale, useTranslations } from "next-intl";
 
 interface rawProductProps {
   product: strapiProductType;
 }
 
 const RawProductCard = ({ product }: rawProductProps) => {
+  const locale = useLocale();
+  const t = useTranslations("product");
   const { products, cart, wishlist, user, userWishlist } =
     useContext(StoreContext);
 
@@ -135,12 +138,19 @@ const RawProductCard = ({ product }: rawProductProps) => {
   }, [cart.totalPrice]);
 
   return (
-    <div className="grid items-center grid-cols-1  lmob:grid-cols-2 grid-rows-[auto] gap-5 border-2 border-mainGray shadow-md border-solid h-full p-3 ">
+    <div
+      className="grid items-center grid-cols-1  lmob:grid-cols-2 grid-rows-[auto] gap-5 border-2 border-mainGray shadow-md border-solid h-full p-3 "
+      dir={locale === "en" ? "ltr" : "rtl"}
+    >
       <div className="relative w-full h-auto">
-        <div className="flex flex-col gap-1 absolute top-2 left-2">
+        <div
+          className={`flex flex-col gap-1 absolute top-2 ${
+            locale === "en" ? "left-2" : "right-2"
+          }`}
+        >
           {product.attributes.type === "sale" && (
             <ProductTypeLabel
-              title="sale"
+              title={t("sale")}
               classNames={{
                 container: "bg-red-700",
               }}
@@ -148,7 +158,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
           )}
           {product.attributes.type === "deal" && (
             <ProductTypeLabel
-              title="  top deal"
+              title={t("top")}
               classNames={{
                 container: " bg-green-700",
               }}
@@ -156,7 +166,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
           )}
           {product.attributes.type === "best_seller" && (
             <ProductTypeLabel
-              title="best seller"
+              title={t("best")}
               classNames={{
                 container: " bg-yellow-700",
               }}
@@ -290,7 +300,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
           isDisabled={foundInCart ? true : false}
           onClick={addProductToCart}
         >
-          {foundInCart ? "added" : "add"} to cart
+          {foundInCart ? t("added") : t("add")} {t("cart")}
         </Button>
       </div>
     </div>

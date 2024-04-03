@@ -9,4 +9,5 @@ export type Attributes = {
   updatedAt: Date;
   publishedAt: Date;
   hex: string;
+  locale: string;
 };

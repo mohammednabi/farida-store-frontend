@@ -5,8 +5,10 @@ import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
 import { useParams, useSearchParams, usePathname } from "next/navigation";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale } from "next-intl";
 
 const ProductsPagination = () => {
+  const locale = useLocale();
   const { products, filter } = useContext(StoreContext);
   const [currentPage, setCurrentPage] = useState(1);
   const searchParams = useSearchParams();
@@ -50,7 +52,8 @@ const ProductsPagination = () => {
         min_price ?? "",
         max_price ?? "",
         urlParams.name as string,
-        ""
+        "",
+        locale
       );
 
       filter.hideWholeFilterSidebar();
@@ -62,11 +65,12 @@ const ProductsPagination = () => {
         min_price ?? "",
         max_price ?? "",
         undefined as unknown as string,
-        searchQuery ?? ""
+        searchQuery ?? "",
+        locale
       );
       filter.hideWholeFilterSidebar();
     } else {
-      products.getAllProducts();
+      products.getAllProducts(locale);
 
       filter.hideWholeFilterSidebar();
     }

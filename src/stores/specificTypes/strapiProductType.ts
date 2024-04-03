@@ -10,6 +10,7 @@ export type ProductAttributes = {
   price: number;
   createdAt: Date;
   updatedAt: Date;
+  locale: string;
   publishedAt: Date;
   thumbnail: Thumbnail;
   images: Images;

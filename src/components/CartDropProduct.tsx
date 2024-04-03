@@ -95,7 +95,10 @@ const CartDropProduct = ({ product }: cartDropProductProps) => {
         </div>
         <div className="flex flex-col gap-1  overflow-hidden">
           <h1 className="text-xl capitalize  line-clamp-1 ">{product.title}</h1>
-          <h1 className="text-lg text-mainPink font-bold">{product.price}$</h1>
+          <h1 className="text-lg text-mainPink font-bold">
+            {product.price}
+            <span className="text-sm ml-1">EGP</span>
+          </h1>
           <div className="flex items-center justify-between">
             <div key={"counter"} className="flex items-center">
               <button
@@ -121,7 +124,8 @@ const CartDropProduct = ({ product }: cartDropProductProps) => {
 
           <h1 className="text-xl font-bold text-emerald-500">
             {" "}
-            {(product.price * product.quantity).toFixed(2)}$
+            {(product.price * product.quantity).toFixed(2)}
+            <span className="text-sm ml-1">EGP</span>
           </h1>
         </div>
       </div>

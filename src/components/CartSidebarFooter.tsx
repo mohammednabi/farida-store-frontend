@@ -42,7 +42,8 @@ const CartSidebarFooter = () => {
         <div className="flex justify-between items-center capitalize ">
           <h1 className="text-lg lmob:text-xl">{t("total")} :</h1>
           <h1 className="text-green-500 font-bold text-lg lmob:text-xl">
-            {cart.totalPrice.toFixed(2)} $
+            {cart.totalPrice.toFixed(2)}{" "}
+            <span className="text-sm ml-1">EGP</span>
           </h1>
         </div>
 

@@ -278,7 +278,8 @@ const RawProductCard = ({ product }: rawProductProps) => {
             <div className="relative ">
               <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
               <h2 className="text-sm md:text-xl text-mainBlack/30 font-bold  text-center">
-                {product.attributes.price.toFixed(2)}EGP
+                {product.attributes.price.toFixed(2)}
+                <span className="text-sm ml-1">EGP</span>
               </h2>
             </div>
           )}
@@ -286,7 +287,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
             {getPriceAfterDiscount()
               ? getPriceAfterDiscount()
               : product.attributes.price.toFixed(2)}
-            EGP
+            <span className="text-sm ml-1">EGP</span>
           </h2>
         </div>
 

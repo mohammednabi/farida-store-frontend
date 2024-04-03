@@ -122,7 +122,7 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
               {product.title}
             </h1>
           </Link>
-          <div className="flex items-center">
+          <div className="flex items-center" dir="ltr">
             <button
               className="p-[.125rem] px-1 lmob:p-1 lmob:px-2 border-solid border-1 border-mainBlack/50 rounded-l-full"
               onClick={increase}
@@ -146,7 +146,8 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
             onClick={deleteItem}
           />
           <h1 className="text-green-500 font-bold text-sm lmob:text-lg">
-            {product.price}$
+            {product.price}
+            <span className="text-sm ml-1">EGP</span>
           </h1>
         </div>
       </div>

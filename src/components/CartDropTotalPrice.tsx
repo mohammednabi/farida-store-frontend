@@ -23,7 +23,8 @@ const CartDropTotalPrice = () => {
       <div className="flex items-center justify-between">
         <h1 className="text-xl capitalize">{t("total")} :</h1>
         <h1 className="text-xl font-bold text-emerald-500">
-          {cart.totalPrice.toFixed(2)}$
+          {cart.totalPrice.toFixed(2)}
+          <span className="text-sm ml-1">EGP</span>
         </h1>
       </div>
       <div className="grid grid-cols-2 gap-2">

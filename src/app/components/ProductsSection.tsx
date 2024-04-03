@@ -39,9 +39,11 @@ const ProductsSection = () => {
         )}
       </AnimatePresence>
       <div
-        className={`absolute w-full h-full overflow-hidden  ${
+        className={`absolute ${
+          filter.showBackdrop && "w-full h-full"
+        }  overflow-hidden  ${
           filter.showFilterSideBar ? "overflow-y-auto" : "overflow-y-hidden"
-        }`}
+        } `}
       >
         <motion.div
           ref={divRef}

@@ -19,12 +19,16 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
 import ProductTypeLabel from "./ProductTypeLabel";
+import { useLocale, useTranslations } from "next-intl";
 
 interface productCardProps {
   product: strapiProductType;
 }
 
 const ProductCard = ({ product }: productCardProps) => {
+  const locale = useLocale();
+  const t = useTranslations("product");
+
   const { products, cart, wishlist, user, userWishlist } =
     useContext(StoreContext);
 
@@ -127,12 +131,19 @@ const ProductCard = ({ product }: productCardProps) => {
   }, [cart.totalPrice]);
 
   return (
-    <div className="flex   p-3 lmob:px-2  md:px-10 lg:p-0 w-full shadow-sm">
+    <div
+      className="flex   p-3 lmob:px-2  md:px-10 lg:p-0 w-full shadow-sm"
+      dir={locale === "en" ? "ltr" : "rtl"}
+    >
       <div className="relative flex flex-col w-full ">
-        <div className="flex flex-col gap-1 absolute top-2 left-2">
+        <div
+          className={`flex flex-col gap-1 absolute top-2 ${
+            locale === "en" ? "left-2" : "right-2"
+          }`}
+        >
           {product.attributes.type === "sale" && (
             <ProductTypeLabel
-              title="sale"
+              title={t("sale")}
               classNames={{
                 container: "bg-red-700",
               }}
@@ -140,7 +151,7 @@ const ProductCard = ({ product }: productCardProps) => {
           )}
           {product.attributes.type === "deal" && (
             <ProductTypeLabel
-              title="  top deal"
+              title={t("top")}
               classNames={{
                 container: " bg-green-700",
               }}
@@ -148,14 +159,18 @@ const ProductCard = ({ product }: productCardProps) => {
           )}
           {product.attributes.type === "best_seller" && (
             <ProductTypeLabel
-              title="best seller"
+              title={t("best")}
               classNames={{
                 container: " bg-yellow-700",
               }}
             />
           )}
         </div>
-        <div className="  absolute top-0 right-0 z-20 flex justify-center items-center ">
+        <div
+          className={`  absolute top-0 ${
+            locale === "en" ? "right-0" : "left-0"
+          }  z-20 flex justify-center items-center `}
+        >
           {!foundInWishlist ? (
             <motion.div
               initial={{ scale: 1 }}
@@ -254,7 +269,7 @@ const ProductCard = ({ product }: productCardProps) => {
               isDisabled={foundInCart ? true : false}
               onClick={addProductToCart}
             >
-              {foundInCart ? "added" : "add"} to cart
+              {foundInCart ? t("added") : t("add")} {t("cart")}
             </Button>
           </div>
         </div>

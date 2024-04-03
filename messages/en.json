@@ -57,5 +57,18 @@
         "colors":"colors",
         "select":"select",
         "selectPrice":"select price"
+    },
+    "product":{
+        "sale":"sale",
+        "top":"top deal",
+        "best":"best seller",
+        "add":"add",
+        "added":"added",
+        "cart":"to cart"
+
+    },
+    "emptyProduct":{
+        "noProducts":" we could not find any products with applied filters",
+        "again":" please try again"
     }
 }

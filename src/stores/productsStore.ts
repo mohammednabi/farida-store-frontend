@@ -49,13 +49,13 @@ export class ProductsStore {
 
   // methods to fetching data from api endpoints
 
-  getAllProducts = async () => {
+  getAllProducts = async (locale: string) => {
     runInAction(() => {
       this.productsLoading = true;
     });
 
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&locale=${locale}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -70,9 +70,9 @@ export class ProductsStore {
       .catch((err) => console.log(err));
   };
 
-  getSingleProduct = async (productId: string) => {
+  getSingleProduct = async (productId: string, locale: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/${productId}?populate=*`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/${productId}?populate=*&locale=${locale}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -107,9 +107,9 @@ export class ProductsStore {
     });
   };
 
-  getBestSellerProducts = async () => {
+  getBestSellerProducts = async (locale: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=best_seller&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=best_seller&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&locale=${locale}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -126,9 +126,9 @@ export class ProductsStore {
       .catch((err) => console.log(err));
   };
 
-  getSaleProducts = async () => {
+  getSaleProducts = async (locale: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=sale&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=sale&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&locale=${locale}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -145,9 +145,9 @@ export class ProductsStore {
       .catch((err) => console.log(err));
   };
 
-  getDealProducts = async () => {
+  getDealProducts = async (locale: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=deal&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=deal&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&locale=${locale}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -171,7 +171,8 @@ export class ProductsStore {
     minPrice: string,
     maxPrice: string,
     category: string,
-    searchQuery: string
+    searchQuery: string,
+    locale: string
   ) => {
     runInAction(() => {
       this.productsLoading = true;
@@ -194,6 +195,7 @@ export class ProductsStore {
         "pagination[page]": this.pagination.page,
         "pagination[pageSize]": this.pagination.pageSize,
         sort: sortingType,
+        locale: locale,
       };
 
       if (category) {
@@ -261,6 +263,7 @@ export class ProductsStore {
         populate: "*",
         "pagination[page]": this.pagination.page,
         "pagination[pageSize]": this.pagination.pageSize,
+        locale: locale,
         //  sort: sortingType,
       };
 
@@ -354,14 +357,14 @@ export class ProductsStore {
     }
   };
 
-  getProductFromSearchingBar = async (searchQuery: string) => {
+  getProductFromSearchingBar = async (searchQuery: string, locale: string) => {
     runInAction(() => {
       this.productsLoading = true;
     });
 
     await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}
-   &filters[$or][0][title][$contains]=${searchQuery}&filters[$or][1][description][$contains]=${searchQuery}&filters[$or][2][category][name][$contains]=${searchQuery}&filters[$or][3][colors][name][$contains]=${searchQuery}`,
+   &filters[$or][0][title][$contains]=${searchQuery}&filters[$or][1][description][$contains]=${searchQuery}&filters[$or][2][category][name][$contains]=${searchQuery}&filters[$or][3][colors][name][$contains]=${searchQuery}&locale=${locale}`,
       this.getMethodOptions
     )
       .then((res) => res.json())

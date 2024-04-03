@@ -26,11 +26,16 @@
          "complete":"أكمل الطلب",
         "go":"اذهب الى العربة"
     },
-     "userDrop":{
-        "login":"تسجيل الدخول",
+     "loginForm":{
+        "login":"تسجيل الدخول", 
+        "register":"حساب جديد ",
         "email":"البريد الالكتروني",
         "password":"كلمة المرور",
-        "submit":"ارسال"
+        "submit":"ارسال",
+         "noAccount":" ليس لديك حساب الكتروني ؟",
+        "or":"أو",
+         "enterEmail":"ادخل حسابك الالكتروني",
+        "enterPass":"ادخل كلمة المرور"
     },
     "userLoggedIn":{
         "orders":"طلباتك",

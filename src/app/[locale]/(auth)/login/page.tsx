@@ -1,6 +1,7 @@
 import React from "react";
-import PageTitle from "../../../components/PageTitle";
+
 import LoginForm from "./components/LoginForm";
+import PageTitle from "@/components/PageTitle";
 
 const LoginPage = () => {
   return (

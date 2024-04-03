@@ -28,11 +28,16 @@
         "complete":"complete your order",
         "go":"go to cart"
     },
-    "userDrop":{
+    "loginForm":{
         "login":"login",
-        "email":"email",
-        "password":"password",
-        "submit":"submit"
+        "register":"register now",
+        "email":"Email",
+        "password":"Password",
+        "submit":"submit",
+        "noAccount":" Don't have an account ?",
+        "or":"or",
+        "enterEmail":"Enter your email",
+        "enterPass":"Enter your password"
     },
     "userLoggedIn":{
         "orders":"your orders",

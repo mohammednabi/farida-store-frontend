@@ -8,8 +8,8 @@ import { cartProductType } from "@/stores/specificTypes/cartProductType";
 import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 import { Button, Image } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Link, useRouter } from "@/navigation";
+
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
@@ -205,7 +205,9 @@ const RawProductCard = ({ product }: rawProductProps) => {
 
       <div className="flex flex-col gap-3 py-5">
         <h1 className="text-sm md:text-xl   w-full line-clamp-1">
-          {product.attributes.title}
+          {locale === "en"
+            ? product.attributes.title
+            : product.attributes.localizations.data[0].attributes.title}
         </h1>
         <div className="flex items-center gap-2">
           <Rating

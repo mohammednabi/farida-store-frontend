@@ -21,6 +21,7 @@ export type ProductAttributes = {
   discount: Discount;
   sizes: Category;
   colors: Category;
+  localizations: Localizations;
 };
 
 export type Category = {
@@ -140,4 +141,25 @@ export type StickyAttributes = {
 
 export type Thumbnail = {
   data: ImagesData;
+};
+
+export type Localizations = {
+  data: loDatum[];
+};
+
+export type loDatum = {
+  id: number;
+  attributes: loAttributes;
+};
+
+export type loAttributes = {
+  title: string;
+  description: string;
+  slug: string;
+  price: number;
+  type: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  locale: string;
 };

@@ -67,7 +67,7 @@ const UserDrop = () => {
             className="flex flex-col gap-5"
           >
             <div className="flex flex-col gap-2">
-              <label className="input-label">{t("email")}</label>
+              <label className="input-label">{t("labels.email")}</label>
               <input
                 type="email"
                 className="nav-input"
@@ -85,7 +85,7 @@ const UserDrop = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="input-label">{t("password")}</label>
+              <label className="input-label">{t("labels.password")}</label>
               <input
                 type="password"
                 className="nav-input"

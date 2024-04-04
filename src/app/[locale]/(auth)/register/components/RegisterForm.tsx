@@ -10,10 +10,14 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale, useTranslations } from "next-intl";
+import { isUserLoggedIn } from "@/functions/credentials";
 
 const RegisterForm = () => {
   const { registerForm } = useContext(StoreContext);
   const { isMobile } = useScreenSize({});
+  const t = useTranslations("registerForm");
+  const locale = useLocale();
 
   useEffect(() => {
     registerForm.setDisabledCondition(
@@ -40,16 +44,19 @@ const RegisterForm = () => {
   ]);
 
   useEffect(() => {
-    if (Cookies.get("credentials")) {
+    if (isUserLoggedIn()) {
       redirect("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerForm.isLoading]);
 
   return (
-    <div className="w-full flex flex-col p-5 px-7 lmob:px-20 items-center lg:items-start gap-10">
+    <div
+      className="w-full flex flex-col p-5 px-7 lmob:px-20 items-center lg:items-start gap-10"
+      dir={locale === "en" ? "ltr" : "rtl"}
+    >
       <h1 className="text-3xl font-bold capitalize hidden lg:block">
-        Register
+        {t("register")}
       </h1>
       <form className="w-full md:w-2/3 lg:w-1/3 flex flex-col gap-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-2">
@@ -58,13 +65,16 @@ const RegisterForm = () => {
             variant="bordered"
             isRequired
             type="text"
-            label="First Name"
+            label={t("labels.first")}
             labelPlacement="outside"
-            placeholder=" First  "
+            placeholder={t("placeholders.first")}
             radius="none"
             size={isMobile ? "md" : "lg"}
             onChange={(e) => {
               registerForm.setFirstName(e.target.value);
+            }}
+            classNames={{
+              label: locale === "ar" && "right-3",
             }}
           />
 
@@ -72,14 +82,17 @@ const RegisterForm = () => {
             value={registerForm.lastName}
             variant="bordered"
             type="text"
-            label="Last Name"
+            label={t("labels.last")}
             labelPlacement="outside"
-            placeholder=" Last "
+            placeholder={t("placeholders.last")}
             radius="none"
             size={isMobile ? "md" : "lg"}
             isRequired
             onChange={(e) => {
               registerForm.setlastName(e.target.value);
+            }}
+            classNames={{
+              label: locale === "ar" && "right-3",
             }}
           />
         </div>
@@ -89,13 +102,16 @@ const RegisterForm = () => {
           variant="bordered"
           isRequired
           type="text"
-          label="Username"
+          label={t("labels.username")}
           labelPlacement="outside"
-          placeholder=" Username  "
+          placeholder={t("placeholders.username")}
           radius="none"
           size={isMobile ? "md" : "lg"}
           onChange={(e) => {
             registerForm.setUsername(e.target.value);
+          }}
+          classNames={{
+            label: locale === "ar" && "right-3",
           }}
         />
 
@@ -106,15 +122,18 @@ const RegisterForm = () => {
           color={!registerForm.isValidEmail ? "danger" : "success"}
           isRequired
           type="email"
-          label="Email"
+          label={t("labels.email")}
           labelPlacement="outside"
-          placeholder="Enter your email"
-          errorMessage={!registerForm.isValidEmail && "Not valid email"}
+          placeholder={t("placeholders.email")}
+          errorMessage={!registerForm.isValidEmail && t("errors.email")}
           radius="none"
           size={isMobile ? "md" : "lg"}
           onChange={(e) => {
             registerForm.setEmail(e.target.value);
             registerForm.validateEmail();
+          }}
+          classNames={{
+            label: locale === "ar" && "right-3",
           }}
         />
         <Input
@@ -122,15 +141,13 @@ const RegisterForm = () => {
           variant="bordered"
           isRequired
           type={!registerForm.isPasswordVisible ? "password" : "text"}
-          label="Password"
+          label={t("labels.password")}
           labelPlacement="outside"
-          placeholder="Enter your password"
+          placeholder={t("placeholders.password")}
           radius="none"
           size={isMobile ? "md" : "lg"}
           description={
-            !registerForm.isValidPassword
-              ? "Password must have  (1-6) letters includes at least one number and one uppercase letter  "
-              : ""
+            !registerForm.isValidPassword ? t("errors.password") : ""
           }
           onChange={(e) => {
             registerForm.setPassword(e.target.value);
@@ -149,6 +166,9 @@ const RegisterForm = () => {
               {!registerForm.isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
             </div>
           }
+          classNames={{
+            label: locale === "ar" && "right-3",
+          }}
         />
 
         <Input
@@ -156,9 +176,9 @@ const RegisterForm = () => {
           variant="bordered"
           isRequired
           type={!registerForm.isConfirmedPasswordVisible ? "password" : "text"}
-          label="Confirm Password"
+          label={t("labels.confirm")}
           labelPlacement="outside"
-          placeholder="Confirm your password"
+          placeholder={t("placeholders.confirm")}
           radius="none"
           size={isMobile ? "md" : "lg"}
           color={
@@ -168,7 +188,7 @@ const RegisterForm = () => {
           }
           errorMessage={
             registerForm.confirmedPassword !== registerForm.password
-              ? "Not the same password"
+              ? t("errors.confirm")
               : ""
           }
           onChange={(e) => {
@@ -191,6 +211,9 @@ const RegisterForm = () => {
               )}
             </div>
           }
+          classNames={{
+            label: locale === "ar" && "right-3",
+          }}
         />
 
         <div className="grid grid-rows-2 grid-cols-1 lmob:grid-rows-1 lmob:grid-cols-2 items-center gap-2">
@@ -209,7 +232,7 @@ const RegisterForm = () => {
               registerForm.strapiRegister();
             }}
           >
-            Submit
+            {t("submit")}
           </Button>
           {/* <h1 className='text-red-400'>{errorMessage.slice(22,errorMessage.length-2) }</h1> */}
           <h1 className="text-red-400 text-sm md:text-lg">
@@ -217,18 +240,16 @@ const RegisterForm = () => {
           </h1>
         </div>
         <div className="flex flex-wrap items-center gap-2 text-sm md:text-lg">
-          <h1 className="text-mainBlack/50 underline">
-            Already have an account ?
-          </h1>
-          <Link href={"/login"} className="text-blue-500">
-            login
+          <h1 className="text-mainBlack/50 underline">{t("haveAccount")}</h1>
+          <Link href={`/${locale}/login`} className="text-blue-500">
+            {t("login")}
           </Link>
         </div>
       </form>
 
       <div className="w-full md:w-2/3 lg:w-1/3 grid grid-cols-[1fr_auto_1fr] justify-between items-center">
         <Divider />
-        <h1 className="text-sm md:text-lg capitalize px-5">or</h1>
+        <h1 className="text-sm md:text-lg capitalize px-5">{t("or")}</h1>
         <Divider />
       </div>
       <GoogleProvider />

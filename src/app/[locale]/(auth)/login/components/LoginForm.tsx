@@ -62,9 +62,9 @@ const LoginForm = () => {
           color={!loginForm.isValidEmail ? "danger" : "success"}
           isRequired
           type="email"
-          label={t("email")}
+          label={t("labels.email")}
           labelPlacement="outside"
-          placeholder={t("enterEmail")}
+          placeholder={t("placeholders.email")}
           errorMessage={!loginForm.isValidEmail && "Not valid email"}
           radius="none"
           size={isMobile ? "md" : "lg"}
@@ -81,9 +81,9 @@ const LoginForm = () => {
           variant="bordered"
           isRequired
           type={!loginForm.isPasswordVisible ? "password" : "text"}
-          label={t("password")}
+          label={t("labels.password")}
           labelPlacement="outside"
-          placeholder={t("enterPass")}
+          placeholder={t("placeholders.password")}
           radius="none"
           size={isMobile ? "md" : "lg"}
           //   description="write valid email"

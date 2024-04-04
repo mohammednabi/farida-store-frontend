@@ -13,6 +13,8 @@
         "seen":"Products Recently Seen",
         "menu":"main menu",
         "sections":"sections"
+    },"pageTitle":{
+        "home":"home"
     }
     ,"cartSidebar":{
         "cart":"shopping cart",
@@ -82,5 +84,8 @@
         "email":"email support",
         "phone":"phone support",
         "copyrights":"  © 2024 farida store. All Rights Reserved"
+    },
+    "google":{
+        "continue":"continue with google"
     }
 }

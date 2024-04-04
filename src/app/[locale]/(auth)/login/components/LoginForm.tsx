@@ -72,9 +72,9 @@ const LoginForm = () => {
             loginForm.setEmail(e.target.value);
             loginForm.validateEmail();
           }}
-          // classNames={{
-          //   label: "text-sm md:text-lg",
-          // }}
+          classNames={{
+            label: locale === "ar" && "right-3",
+          }}
         />
         <Input
           value={loginForm.password}
@@ -104,9 +104,9 @@ const LoginForm = () => {
               {!loginForm.isPasswordVisible ? <FaEye /> : <FaEyeSlash />}
             </div>
           }
-          // classNames={{
-          //   label: "text-sm md:text-lg",
-          // }}
+          classNames={{
+            label: locale === "ar" && "right-3",
+          }}
         />
 
         <div className="grid grid-rows-2 grid-cols-1 lmob:grid-rows-1 lmob:grid-cols-2 items-center gap-2">
@@ -122,7 +122,7 @@ const LoginForm = () => {
             type="submit"
             size={isMobile ? "md" : "lg"}
             radius="none"
-            className="bg-mainBlack text-mainWhite "
+            className="bg-mainBlack text-mainWhite capitalize "
             onClick={(e) => {
               loginWithEmailAndPass(e);
             }}

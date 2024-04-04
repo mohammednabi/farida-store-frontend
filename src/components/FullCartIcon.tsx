@@ -9,7 +9,7 @@ import CartDrop2 from "./Cartdrop";
 import { observer } from "mobx-react-lite";
 
 import { StoreContext } from "@/contexts/StoreContext";
-import Link from "next/link";
+import { Link } from "@/navigation";
 
 const FullCartIcon = () => {
   const { cart } = useContext(StoreContext);

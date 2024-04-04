@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 import { FaRegHeart } from "react-icons/fa";
 import Icon from "./Icon";

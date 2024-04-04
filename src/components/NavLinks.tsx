@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+// import Link from "next/link";
+import { Link } from "@/navigation";
 import React from "react";
 
 const NavLinks2 = () => {

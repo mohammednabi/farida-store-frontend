@@ -128,4 +128,22 @@
         "type":"type to search...",
            "results":"show all results"
     }
+    ,
+    "userPage":{
+        "account":"your account",
+        "title":{
+            "orders":" orders",
+            "profile":" profile",
+            "addresses":" addresses",
+            "cart":" cart",
+            "wishlist":" wishlist"
+        },
+         "description":{
+            "orders":"track , return , cancel an order , download invoice or buy again",
+            "profile":"edit your profile settings",
+            "addresses":"edit , remove or set default address",
+            "cart":"view all your cart items",
+            "wishlist":"view all your wishlist items"
+        }
+    }
 }

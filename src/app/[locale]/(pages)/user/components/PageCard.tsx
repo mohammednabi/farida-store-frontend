@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import Link from "next/link";
+// import Link from "next/link";
+import { Link } from "@/navigation";
 import React from "react";
 import { IconType } from "react-icons";
 
@@ -8,9 +9,10 @@ interface pageCard {
   description: string;
   icon: React.ReactNode;
   pageLink: string;
+  locale: string;
 }
 
-const PageCard = ({ title, description, icon, pageLink }: pageCard) => {
+const PageCard = ({ title, description, icon, pageLink, locale }: pageCard) => {
   return (
     <Link
       href={pageLink}
@@ -21,10 +23,18 @@ const PageCard = ({ title, description, icon, pageLink }: pageCard) => {
       </div>
 
       <div className="flex flex-col gap-3">
-        <h1 className="text-xl md:text-2xl text-center lmob:text-left font-semibold capitalize">
+        <h1
+          className="text-xl md:text-2xl text-center lmob:ltr:text-left lmob:rtl:text-right font-semibold capitalize"
+          dir={locale === "en" ? "ltr" : "rtl"}
+        >
           {title}
         </h1>
-        <h2 className="text-sm md:text-lg  capitalize">{description}</h2>
+        <h2
+          className="text-sm md:text-lg  capitalize ltr:text-left rtl:text-right"
+          dir={locale === "en" ? "ltr" : "rtl"}
+        >
+          {description}
+        </h2>
       </div>
     </Link>
   );

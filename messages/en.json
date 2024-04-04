@@ -33,13 +33,47 @@
     "loginForm":{
         "login":"login",
         "register":"register now",
-        "email":"Email",
-        "password":"Password",
+        "labels":{
+ "email":"Email",
+        "password":"Password"
+        },
+        "placeholders":{
+ "email":"Enter your email",
+        "password":"Enter your password"
+        },
+       
         "submit":"submit",
         "noAccount":" Don't have an account ?",
-        "or":"or",
-        "enterEmail":"Enter your email",
-        "enterPass":"Enter your password"
+        "or":"or"
+       
+    },
+    "registerForm":{
+        "login":"login",
+        "register":"register",
+        "labels":{
+                "first":"First Name",
+                "last":"Last Name",
+                "username":"Username",
+                "email":"Email",
+                "password":"Password",
+                "confirm":"Confirm Password"
+        },
+        "placeholders":{
+             "first":"Enter first",
+                "last":"Enter last",
+                "username":"Enter username",
+                "email":"Enter your email",
+                "password":"Enter your password",
+                "confirm":"Confirm your password"
+        },
+        "errors":{
+            "email":"Not valid email",
+            "password":"Password must have  (1-6) letters includes at least one number and one uppercase letter  ",
+            "confirm":"Not the same password"
+        },
+        "submit":"submit",
+        "haveAccount":"Already have an account ?",
+        "or":"or"
     },
     "userLoggedIn":{
         "orders":"your orders",

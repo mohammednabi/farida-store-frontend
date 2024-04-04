@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import createMiddleware from "next-intl/middleware";
+import { locales, localePrefix } from "./navigation";
 
 export default function middleware(req: NextRequest) {
   const token = req.cookies.get("credentials");
+  // const nextLocale = req.cookies.get("NEXT_LOCALE");
 
   if (req.nextUrl.pathname.endsWith("/product")) {
     return NextResponse.redirect(new URL("/", req.url));
@@ -14,7 +16,7 @@ export default function middleware(req: NextRequest) {
       req.nextUrl.pathname.includes("/login") ||
       req.nextUrl.pathname.includes("/register")
     ) {
-      return NextResponse.redirect(new URL("/user", req.url));
+      return NextResponse.redirect(new URL(`/user`, req.url));
     }
 
     // if (
@@ -45,18 +47,21 @@ export default function middleware(req: NextRequest) {
   }
 
   NextResponse.next();
-  return intlMiddleware(req);
+
+  // middleware made by next-intl library
+
+  const handleI18nRouting = createMiddleware({
+    // A list of all locales that are supported
+    defaultLocale: "en",
+    localePrefix,
+    locales,
+    // Used when no locale matches
+  });
+
+  const response = handleI18nRouting(req);
+
+  return response;
 }
-
-// middleware made by next-intl library
-
-const intlMiddleware = createMiddleware({
-  // A list of all locales that are supported
-  locales: ["en", "ar"],
-
-  // Used when no locale matches
-  defaultLocale: "en",
-});
 
 export const config = {
   // Match only internationalized pathnames

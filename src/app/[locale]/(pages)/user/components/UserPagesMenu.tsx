@@ -3,42 +3,42 @@ import React, { useContext, useEffect } from "react";
 import PageCard from "./PageCard";
 import { FaRegAddressCard } from "react-icons/fa";
 import { BsBox2 } from "react-icons/bs";
-import { AiOutlineSecurityScan } from "react-icons/ai";
-import { MdPayment } from "react-icons/md";
 import { BsCart3 } from "react-icons/bs";
 import { TbHearts } from "react-icons/tb";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { StoreContext } from "@/contexts/StoreContext";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { useLocale, useTranslations } from "next-intl";
+import { isUserLoggedIn } from "@/functions/credentials";
 
 const UserPagesMenu = () => {
   const { user } = useContext(StoreContext);
+  const t = useTranslations("userPage");
+  const locale = useLocale();
 
   const router = useRouter();
 
   const pagesCards = [
     {
       id: 1,
-      title: "your orders",
-      description:
-        "track , return , cancel an order , download invoice or buy again",
+      title: t("title.orders"),
+      description: t("description.orders"),
       icon: <BsBox2 />,
-      pageLink: "userorders",
+      pageLink: `/userorders`,
     },
     {
       id: 2,
-      title: "profile ",
-      description: "edit your profile settings",
+      title: t("title.profile"),
+      description: t("description.profile"),
       icon: <RiUserSettingsLine />,
-      pageLink: "/userprofile",
+      pageLink: `/userprofile`,
     },
     {
       id: 3,
-      title: "your addresses",
-      description: "edit , remove or set default address",
+      title: t("title.addresses"),
+      description: t("description.addresses"),
       icon: <FaRegAddressCard />,
-      pageLink: "useraddresses",
+      pageLink: `/useraddresses`,
     },
     // {
     //   id: 4,
@@ -50,22 +50,22 @@ const UserPagesMenu = () => {
     // },
     {
       id: 5,
-      title: "your cart",
-      description: "view all your cart items",
+      title: t("title.cart"),
+      description: t("description.cart"),
       icon: <BsCart3 />,
-      pageLink: "/cart",
+      pageLink: `/cart`,
     },
     {
       id: 6,
-      title: "your wishlist",
-      description: "view all your wishlist items",
+      title: t("title.wishlist"),
+      description: t("description.wishlist"),
       icon: <TbHearts />,
-      pageLink: "/wishlist",
+      pageLink: `/wishlist`,
     },
   ];
 
   useEffect(() => {
-    if (!Cookies.get("credentials")) {
+    if (!isUserLoggedIn()) {
       router.push("/login");
     }
 
@@ -73,7 +73,10 @@ const UserPagesMenu = () => {
   }, [user.isLoading]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-10 px-5  md:px-36 py-10">
+    <div
+      className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-10 px-5  md:px-36 py-10"
+      dir={locale === "en" ? "ltr" : "rtl"}
+    >
       {pagesCards.map((card) => (
         <PageCard
           key={card.id}
@@ -81,6 +84,7 @@ const UserPagesMenu = () => {
           description={card.description}
           icon={card.icon}
           pageLink={card.pageLink}
+          locale={locale}
         />
       ))}
     </div>

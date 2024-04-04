@@ -5,9 +5,12 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 
 const QuickSearchMenu = () => {
   const { searchBox } = useContext(StoreContext);
+  const t = useTranslations("search");
+  const locale = useLocale();
 
   const router = useRouter();
 
@@ -20,7 +23,7 @@ const QuickSearchMenu = () => {
 
   useEffect(() => {
     if (searchBox.searchInputValue.length > 0) {
-      searchBox.quickSearch(searchBox.searchInputValue);
+      searchBox.quickSearch(searchBox.searchInputValue, locale);
     } else {
       searchBox.setQuickProducts([]);
     }
@@ -42,7 +45,7 @@ const QuickSearchMenu = () => {
             searchForResult(searchBox.searchInputValue);
           }}
         >
-          show all results
+          {t("results")}
         </Button>
       )}
     </div>

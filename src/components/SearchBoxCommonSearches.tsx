@@ -3,6 +3,7 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import { Chip } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
+import { useTranslations } from "next-intl";
 import React, { useContext } from "react";
 
 interface commonSearchProps {
@@ -11,13 +12,14 @@ interface commonSearchProps {
 
 const SearchBoxCommonSearches = ({ searchForResult }: commonSearchProps) => {
   const { categories } = useContext(StoreContext);
+  const t = useTranslations("search");
 
   return (
     <div
       key={"common search"}
       className="flex flex-wrap items-center justify-center gap-2 md:gap-5"
     >
-      <h1 className="text-sm md:text-xl capitalize">common search :</h1>
+      <h1 className="text-sm md:text-xl capitalize">{t("common")}</h1>
 
       {categories.someCategories.map((cat) => (
         <div

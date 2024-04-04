@@ -83,5 +83,12 @@
         "copyrights":"  © جميع الحقوق محفوظة لدى فريدة ستور 2024"
     }, "google":{
         "continue":"سجل باستخدام google"
+    },
+    
+    "search":{
+        "search":"البحث عن المنتجات",
+        "common":"عمليات البحث الشعبية",
+        "type":"قم بالكتابة للبحث...",
+        "results":"show all results"
     }
 }

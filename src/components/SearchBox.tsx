@@ -9,7 +9,7 @@ import QuickSearchMenu from "./QuickSearchMenu";
 import { observer } from "mobx-react-lite";
 import SearchBoxCommonSearches from "./SearchBoxCommonSearches";
 import { useScreenSize } from "react-screen-size-helper";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const SearchBox = () => {
   const { searchBox, categories } = useContext(StoreContext);
@@ -19,9 +19,10 @@ const SearchBox = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("q");
   const locale = useLocale();
+  const t = useTranslations("search");
 
   const searchForResult = (query: string) => {
-    router.push(`/search?q=${query}`);
+    router.push(`/${locale}/search?q=${query}`);
     searchBox.hideWholeSearchBox();
 
     searchBox.setSearchInputValue("");
@@ -60,7 +61,7 @@ const SearchBox = () => {
         size={isMobile ? "sm" : isTablet ? "md" : "lg"}
         radius="full"
         value={searchBox.searchInputValue}
-        placeholder={query ? query : "Type to search..."}
+        placeholder={query ? query : t("type")}
         endContent={
           !searchBox.quickProductsLoading ? (
             <SearchIcon

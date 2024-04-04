@@ -49,13 +49,13 @@ export class ProductsStore {
 
   // methods to fetching data from api endpoints
 
-  getAllProducts = async (locale: string) => {
+  getAllProducts = async () => {
     runInAction(() => {
       this.productsLoading = true;
     });
 
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&locale=${locale}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       this.getMethodOptions
     )
       .then((res) => res.json())

@@ -10,13 +10,13 @@ import { FaHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import Icon from "../../components/Icon";
 import Rating from "../../components/Rating";
-import Link from "next/link";
+import { Link, useRouter } from "@/navigation";
 import { observer } from "mobx-react-lite";
 import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 import { cartProductType } from "@/stores/specificTypes/cartProductType";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
 import ProductTypeLabel from "./ProductTypeLabel";
 import { useLocale, useTranslations } from "next-intl";
@@ -225,7 +225,10 @@ const ProductCard = ({ product }: productCardProps) => {
         <div className="p-2 flex flex-col gap-2  ">
           <div className="flex flex-col gap-3">
             <h1 className="text-sm md:text-xl   line-clamp-1 ">
-              {product.attributes.title}{" "}
+              {locale === "en"
+                ? product.attributes.title
+                : product.attributes.localizations.data[0].attributes
+                    .title}{" "}
             </h1>
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2">

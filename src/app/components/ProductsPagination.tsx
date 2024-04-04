@@ -70,7 +70,7 @@ const ProductsPagination = () => {
       );
       filter.hideWholeFilterSidebar();
     } else {
-      products.getAllProducts(locale);
+      products.getAllProducts();
 
       filter.hideWholeFilterSidebar();
     }

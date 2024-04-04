@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
+import { useTranslations } from "next-intl";
 
 interface providerProps {
   format?: "small" | "large";
@@ -15,6 +16,7 @@ interface providerProps {
 const GoogleProvider = ({ format = "large" }: providerProps) => {
   const router = useRouter();
   const { user } = useContext(StoreContext);
+  const t = useTranslations("google");
 
   const googleSign = () => {
     // const provider = new GoogleAuthProvider()
@@ -58,7 +60,7 @@ const GoogleProvider = ({ format = "large" }: providerProps) => {
             className="cursor-pointer h-auto w-full text-sm md:text-lg transition-all border-mainBlack hover:border-mainBlack/50 border-2 border-solid flex items-center justify-center flex-wrap gap-5 p-2 md:p-4"
             onClick={googleSign}
           >
-            <h1 className="capitalize text-center ">continue with google</h1>
+            <h1 className="capitalize text-center ">{t("continue")}</h1>
             <FaGoogle className="text-xl md:text-3xl " />
           </div>
         </div>

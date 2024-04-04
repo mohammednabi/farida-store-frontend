@@ -5,13 +5,17 @@ import SearchBox from "./SearchBox";
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocale, useTranslations } from "next-intl";
 
 const SearchMenu = () => {
   const { searchBox } = useContext(StoreContext);
   const divRef = useRef<HTMLDivElement>(null);
 
+  const t = useTranslations("search");
+  const locale = useLocale();
+
   return (
-    <div>
+    <div dir={locale === "en" ? "ltr" : "rtl"}>
       <AnimatePresence mode="wait">
         {searchBox.showBackdrop && (
           <motion.div
@@ -48,7 +52,7 @@ const SearchMenu = () => {
         </div>
         <div className="flex flex-col gap-14 justify-center items-center">
           <h1 className="text-2xl md:text-6xl capitalize font-bold mt-5 md:mt-0">
-            search products
+            {t("search")}
           </h1>
           <div className="w-full">
             <SearchBox />

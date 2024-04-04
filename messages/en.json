@@ -87,5 +87,11 @@
     },
     "google":{
         "continue":"continue with google"
+    },
+    "search":{
+        "search":"search products",
+        "common":"common search :",
+        "type":"type to search...",
+           "results":"show all results"
     }
 }

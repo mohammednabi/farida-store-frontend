@@ -5,7 +5,7 @@ import { locales, localePrefix } from "./navigation";
 
 export default function middleware(req: NextRequest) {
   const token = req.cookies.get("credentials");
-  // const nextLocale = req.cookies.get("NEXT_LOCALE");
+  const nextLocale = req.cookies.get("NEXT_LOCALE");
 
   if (req.nextUrl.pathname.endsWith("/product")) {
     return NextResponse.redirect(new URL("/", req.url));
@@ -16,7 +16,9 @@ export default function middleware(req: NextRequest) {
       req.nextUrl.pathname.includes("/login") ||
       req.nextUrl.pathname.includes("/register")
     ) {
-      return NextResponse.redirect(new URL(`/user`, req.url));
+      return NextResponse.redirect(
+        new URL(`/${nextLocale ? nextLocale.value : `en`}/user`, req.url)
+      );
     }
 
     // if (
@@ -29,20 +31,26 @@ export default function middleware(req: NextRequest) {
 
   if (!token) {
     if (req.nextUrl.pathname.includes("/user")) {
-      return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect(
+        new URL(`/${nextLocale ? nextLocale.value : `en`}/login`, req.url)
+      );
     }
 
     if (
       req.nextUrl.pathname.includes("/confirmation") ||
       req.nextUrl.pathname.includes("/shipping")
     ) {
-      return NextResponse.redirect(new URL("/cart", req.url));
+      return NextResponse.redirect(
+        new URL(`/${nextLocale ? nextLocale.value : `en`}/cart`, req.url)
+      );
     }
     if (
       req.nextUrl.pathname.includes("/order") ||
       req.nextUrl.pathname.includes("/trackorder")
     ) {
-      return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect(
+        new URL(`/${nextLocale ? nextLocale.value : `en`}/login`, req.url)
+      );
     }
   }
 

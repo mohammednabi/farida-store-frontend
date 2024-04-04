@@ -41,6 +41,9 @@
  "email":"Enter your email",
         "password":"Enter your password"
         },
+         "errors":{
+            "email":"Not valid email"
+        },
        
         "submit":"submit",
         "noAccount":" Don't have an account ?",

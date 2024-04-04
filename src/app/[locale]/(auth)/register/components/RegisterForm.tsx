@@ -1,6 +1,6 @@
 "use client";
 import { Button, Divider, Input } from "@nextui-org/react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -241,7 +241,7 @@ const RegisterForm = () => {
         </div>
         <div className="flex flex-wrap items-center gap-2 text-sm md:text-lg">
           <h1 className="text-mainBlack/50 underline">{t("haveAccount")}</h1>
-          <Link href={`/${locale}/login`} className="text-blue-500">
+          <Link href={`/login`} className="text-blue-500">
             {t("login")}
           </Link>
         </div>

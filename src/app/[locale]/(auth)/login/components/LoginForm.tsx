@@ -1,6 +1,6 @@
 "use client";
 import { Button, Divider, Input } from "@nextui-org/react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -65,7 +65,7 @@ const LoginForm = () => {
           label={t("labels.email")}
           labelPlacement="outside"
           placeholder={t("placeholders.email")}
-          errorMessage={!loginForm.isValidEmail && "Not valid email"}
+          errorMessage={!loginForm.isValidEmail && t("errors.email")}
           radius="none"
           size={isMobile ? "md" : "lg"}
           onChange={(e) => {
@@ -136,7 +136,7 @@ const LoginForm = () => {
         </div>
         <div className="flex flex-wrap items-center gap-2 text-sm md:text-lg">
           <h1 className="text-mainBlack/50 underline">{t("noAccount")}</h1>
-          <Link href={`/${locale}/register`} className="text-blue-500">
+          <Link href={`/register`} className="text-blue-500">
             {t("register")}
           </Link>
         </div>

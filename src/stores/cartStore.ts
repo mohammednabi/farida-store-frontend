@@ -1,5 +1,3 @@
-"use client";
-
 import { makeAutoObservable, runInAction } from "mobx";
 
 import { cartProductType } from "./specificTypes/cartProductType";
@@ -90,6 +88,11 @@ export class CartStore {
               item.product.price
             ),
             quantity: item.quantity,
+            localizatons: {
+              title: item.product.localizations[0].title,
+              description: item.product.localizations[0].description,
+              slug: item.product.localizations[0].slug,
+            },
           };
 
           itemsOfUserCart.push(userCartItem);

@@ -35,6 +35,7 @@ export type Product = {
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date;
+  locale: string;
   type: "none" | "sale" | "deal" | "best_seller";
   thumbnail: Thumbnail;
   images: Thumbnail[];
@@ -43,6 +44,7 @@ export type Product = {
   discount: Discount;
   sizes: any[];
   colors: Category[];
+  localizations: Localization[];
 };
 
 export type Category = {
@@ -119,4 +121,17 @@ export type Review = {
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date;
+};
+
+export type Localization = {
+  id: number;
+  title: string;
+  description: string;
+  slug: string;
+  price: number;
+  type: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  locale: string;
 };

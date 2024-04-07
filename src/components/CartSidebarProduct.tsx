@@ -10,6 +10,7 @@ import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import LoadingOverlay from "./LoadingOverlay";
+import { useLocale } from "next-intl";
 
 interface CartSidebarProductProps {
   product: userCartProductType;
@@ -20,6 +21,7 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { cart, user } = useContext(StoreContext);
+  const locale = useLocale();
 
   const increase = () => {
     setCounter((c) => c + 1);
@@ -119,7 +121,7 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
         <div className="flex flex-col justify-between items-start gap-2 w-full overflow-hidden ">
           <Link href={`/product/${product.id}`}>
             <h1 className="text-sm lmob:text-lg w-full   line-clamp-2">
-              {product.title}
+              {locale === "en" ? product.title : product.localizatons.title}
             </h1>
           </Link>
           <div className="flex items-center" dir="ltr">

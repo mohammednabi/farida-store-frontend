@@ -50,13 +50,13 @@ export class SearchBoxStore {
     }, 500);
   };
 
-  quickSearch = async (searchQuery: string, locale: string) => {
+  quickSearch = async (searchQuery: string) => {
     runInAction(() => {
       this.quickProductsLoading = true;
     });
 
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&pagination[page]=1&pagination[pageSize]=4&filters[$or][0][title][$contains]=${searchQuery}&filters[$or][1][description][$contains]=${searchQuery}&filters[$or][2][category][name][$contains]=${searchQuery}&filters[$or][3][colors][name][$contains]=${searchQuery}&ضشlocale=${locale}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&pagination[page]=1&pagination[pageSize]=4&filters[$or][0][title][$contains]=${searchQuery}&filters[$or][1][description][$contains]=${searchQuery}&filters[$or][2][category][name][$contains]=${searchQuery}&filters[$or][3][colors][name][$contains]=${searchQuery}&filters[$or][4][localizations][title][$contains]=${searchQuery}&filters[$or][5][localizations][description][$contains]=${searchQuery}`,
       this.getMethodOptions
     )
       .then((res) => res.json())

@@ -19,7 +19,7 @@ const FilterSidebarLinks = () => {
       setEditedParam(urlParams.name.replaceAll("%20", " "));
     }
 
-    categories.getAllCategories(locale);
+    categories.getAllCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -33,7 +33,11 @@ const FilterSidebarLinks = () => {
             editedParams === cat.attributes.name && `text-mainPink`
           }`}
         >
-          <h1>{cat.attributes.name}</h1>
+          <h1>
+            {locale === "en"
+              ? cat.attributes.name
+              : cat.attributes.localizations.data[0].attributes.name}
+          </h1>
           <h1>({cat.attributes.products.data.length})</h1>
         </Link>
       ))}

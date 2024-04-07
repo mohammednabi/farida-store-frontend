@@ -17,9 +17,9 @@ export class CategoriesStore {
     makeAutoObservable(this);
   }
 
-  getAllCategories = async (locale: string) => {
+  getAllCategories = async () => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/categories?populate=*&locale=${locale}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/categories?populate=*`,
       this.getOptions
     )
       .then((res) => res.json())

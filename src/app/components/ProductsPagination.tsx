@@ -52,8 +52,8 @@ const ProductsPagination = () => {
         min_price ?? "",
         max_price ?? "",
         urlParams.name as string,
-        "",
-        locale
+        ""
+        // locale
       );
 
       filter.hideWholeFilterSidebar();
@@ -65,8 +65,8 @@ const ProductsPagination = () => {
         min_price ?? "",
         max_price ?? "",
         undefined as unknown as string,
-        searchQuery ?? "",
-        locale
+        searchQuery ?? ""
+        // locale
       );
       filter.hideWholeFilterSidebar();
     } else {

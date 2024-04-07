@@ -107,9 +107,9 @@ export class ProductsStore {
     });
   };
 
-  getBestSellerProducts = async (locale: string) => {
+  getBestSellerProducts = async () => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=best_seller&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&locale=${locale}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=best_seller&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -126,9 +126,9 @@ export class ProductsStore {
       .catch((err) => console.log(err));
   };
 
-  getSaleProducts = async (locale: string) => {
+  getSaleProducts = async () => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=sale&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&locale=${locale}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=sale&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -145,9 +145,9 @@ export class ProductsStore {
       .catch((err) => console.log(err));
   };
 
-  getDealProducts = async (locale: string) => {
+  getDealProducts = async () => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=deal&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}&locale=${locale}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&filters[type][$eq]=deal&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -171,8 +171,8 @@ export class ProductsStore {
     minPrice: string,
     maxPrice: string,
     category: string,
-    searchQuery: string,
-    locale: string
+    searchQuery: string
+    // locale: string
   ) => {
     runInAction(() => {
       this.productsLoading = true;
@@ -195,7 +195,7 @@ export class ProductsStore {
         "pagination[page]": this.pagination.page,
         "pagination[pageSize]": this.pagination.pageSize,
         sort: sortingType,
-        locale: locale,
+        // locale: locale,
       };
 
       if (category) {
@@ -263,7 +263,7 @@ export class ProductsStore {
         populate: "*",
         "pagination[page]": this.pagination.page,
         "pagination[pageSize]": this.pagination.pageSize,
-        locale: locale,
+        // locale: locale,
         //  sort: sortingType,
       };
 
@@ -357,14 +357,14 @@ export class ProductsStore {
     }
   };
 
-  getProductFromSearchingBar = async (searchQuery: string, locale: string) => {
+  getProductFromSearchingBar = async (searchQuery: string) => {
     runInAction(() => {
       this.productsLoading = true;
     });
 
     await fetch(
       `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/?populate=*&pagination[page]=${this.pagination.page}&pagination[pageSize]=${this.pagination.pageSize}
-   &filters[$or][0][title][$contains]=${searchQuery}&filters[$or][1][description][$contains]=${searchQuery}&filters[$or][2][category][name][$contains]=${searchQuery}&filters[$or][3][colors][name][$contains]=${searchQuery}&locale=${locale}`,
+   &filters[$or][0][title][$contains]=${searchQuery}&filters[$or][1][description][$contains]=${searchQuery}&filters[$or][2][category][name][$contains]=${searchQuery}&filters[$or][3][colors][name][$contains]=${searchQuery}`,
       this.getMethodOptions
     )
       .then((res) => res.json())

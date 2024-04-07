@@ -2,6 +2,7 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 import { Image } from "@nextui-org/react";
+import { useLocale } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
@@ -14,6 +15,7 @@ const MiniSearchProduct = ({ product }: miniSearchProductProps) => {
   const { searchBox, products } = useContext(StoreContext);
 
   const router = useRouter();
+  const locale = useLocale();
 
   const handleAllSearchingBoxProcesses = () => {
     router.push(`/product/${product.id}`);
@@ -46,7 +48,9 @@ const MiniSearchProduct = ({ product }: miniSearchProductProps) => {
           onClick={handleAllSearchingBoxProcesses}
         >
           <h1 className="text-xs md:text-xl font-semibold line-clamp-1">
-            {product.attributes.title}
+            {locale === "en"
+              ? product.attributes.title
+              : product.attributes.localizations.data[0].attributes.title}
           </h1>
         </div>
 
@@ -55,7 +59,8 @@ const MiniSearchProduct = ({ product }: miniSearchProductProps) => {
             <div className="relative ">
               <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
               <h2 className="text-sm md:text-2xl text-mainBlack/30 font-bold  text-center">
-                {product.attributes.price.toFixed(2)}$
+                {product.attributes.price.toFixed(2)}
+                <span className="text-sm ml-1">EGP</span>
               </h2>
             </div>
           )}
@@ -63,7 +68,7 @@ const MiniSearchProduct = ({ product }: miniSearchProductProps) => {
             {getPriceAfterDiscount()
               ? getPriceAfterDiscount()
               : product.attributes.price.toFixed(2)}
-            $
+            <span className="text-sm ml-1">EGP</span>
           </h2>
         </div>
       </div>

@@ -11,6 +11,7 @@ export type CategoryAttributes = {
   products: Products;
   thumbnail: Thumbnail;
   locale: string;
+  localizations: Localizations;
 };
 
 export type Products = {
@@ -77,4 +78,21 @@ export type Large = {
   height: number;
   size: number;
   url: string;
+};
+
+export type Localizations = {
+  data: LocalizationsDatum[];
+};
+
+export type LocalizationsDatum = {
+  id: number;
+  attributes: FluffyAttributes;
+};
+
+export type FluffyAttributes = {
+  name: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  locale: string;
 };

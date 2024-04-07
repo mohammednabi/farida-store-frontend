@@ -56,7 +56,7 @@ const ProductsSlider = () => {
   };
 
   useEffect(() => {
-    categories.getAllCategories(locale);
+    categories.getAllCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -83,7 +83,11 @@ const ProductsSlider = () => {
       {categories.categories.map((cat) => (
         <SliderProduct
           isLinkActive={!isDown}
-          title={cat.attributes.name}
+          title={
+            locale === "en"
+              ? cat.attributes.name
+              : cat.attributes.localizations.data[0].attributes.name
+          }
           img={cat.attributes.thumbnail.data.attributes.url}
           key={cat.id}
         />

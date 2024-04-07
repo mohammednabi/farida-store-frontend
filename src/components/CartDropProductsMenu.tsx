@@ -23,7 +23,11 @@ const CartDropProductsMenu = () => {
   ]);
 
   return (
-    <div className="w-full flex flex-col gap-3 h-auto max-h-[55vh] overflow-auto">
+    <div
+      className={`w-full flex flex-col gap-3 h-auto ${
+        user.isMergingOrRemovingLoading ? "max-h-[35vh]" : "max-h-[45vh]"
+      } overflow-auto`}
+    >
       {uiCondition
         ? cart.userCartItems.map((product) => (
             <div key={product.id} className="flex flex-col gap-3">

@@ -81,6 +81,12 @@ const ProductCard = ({ product }: productCardProps) => {
           getPriceAfterDiscount() ??
           Number(product.attributes.price.toFixed(2)),
         quantity: 1,
+        localizatons: {
+          title: product.attributes.localizations.data[0].attributes.title,
+          description:
+            product.attributes.localizations.data[0].attributes.description,
+          slug: product.attributes.localizations.data[0].attributes.slug,
+        },
       };
 
       cart.addProduct(parsedProductToCartProduct);

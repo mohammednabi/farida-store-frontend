@@ -7,4 +7,9 @@ export type cartProductType = {
   prePrice?: number;
   price: number;
   quantity: number;
+  localizatons: {
+    title: string;
+    description: string;
+    slug: string;
+  };
 };

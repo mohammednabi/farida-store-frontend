@@ -23,7 +23,7 @@ const QuickSearchMenu = () => {
 
   useEffect(() => {
     if (searchBox.searchInputValue.length > 0) {
-      searchBox.quickSearch(searchBox.searchInputValue, locale);
+      searchBox.quickSearch(searchBox.searchInputValue);
     } else {
       searchBox.setQuickProducts([]);
     }
@@ -31,7 +31,7 @@ const QuickSearchMenu = () => {
   }, [searchBox.searchInputValue]);
 
   return (
-    <div className="flex flex-col gap-5 items-center justify-center">
+    <div className="flex flex-col gap-5 items-center justify-center  xl:px-28 2xl:px-32">
       <div className="grid grid-cols-1 grid-rows-4 md:grid-cols-2 w-full px-5 md:grid-rows-2 gap-5">
         {searchBox.quickProducts.map((product) => (
           <MiniSearchProduct key={product.id} product={product} />

@@ -10,7 +10,7 @@ const ColorsMenu = () => {
   const locale = useLocale();
 
   useEffect(() => {
-    colors.getAllColors(locale);
+    colors.getAllColors();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -19,7 +19,11 @@ const ColorsMenu = () => {
       {colors.colors.map((clr) => (
         <ColorChoice
           key={clr.id}
-          name={clr.attributes.name}
+          name={
+            locale === "en"
+              ? clr.attributes.name
+              : clr.attributes.localizations?.data[0].attributes.name
+          }
           hex={clr.attributes.hex}
         />
       ))}

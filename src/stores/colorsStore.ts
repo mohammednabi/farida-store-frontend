@@ -8,7 +8,7 @@ export class ColorsStore {
     makeAutoObservable(this);
   }
 
-  getAllColors = async (locale: string) => {
+  getAllColors = async () => {
     const options = {
       method: "GET",
       headers: {
@@ -18,7 +18,7 @@ export class ColorsStore {
     };
 
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/colors?populate=*&locale=${locale}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/colors?populate=*`,
       options
     )
       .then((res) => res.json())

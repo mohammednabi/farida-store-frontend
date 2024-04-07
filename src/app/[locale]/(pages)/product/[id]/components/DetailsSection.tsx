@@ -10,12 +10,15 @@ import Rating from "@/components/Rating";
 import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 import Link from "next/link";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale, useTranslations } from "next-intl";
+import { ProductArabicData } from "@/stores/specificTypes/productArabicDataType";
 
 interface productProps {
   product?: strapiProductType;
   averageRating?: number;
   ratingsLength?: number;
   priceAfterDiscount?: number;
+  arabicData?: ProductArabicData;
 }
 
 const DetailsSection = ({
@@ -23,8 +26,11 @@ const DetailsSection = ({
   averageRating,
   ratingsLength,
   priceAfterDiscount,
+  arabicData,
 }: productProps) => {
   const { currentWidth } = useScreenSize({});
+  const locale = useLocale();
+  const t = useTranslations("productPage");
 
   return (
     <div className="flex flex-col gap-5">
@@ -32,7 +38,9 @@ const DetailsSection = ({
         <Skeleton isLoaded={product?.attributes?.title !== ""}>
           <h1 className="text-lg md:text-2xl ">
             {product?.attributes?.title !== ""
-              ? product?.attributes?.title
+              ? locale === "en"
+                ? product?.attributes?.title
+                : product?.attributes?.localizations?.data[0]?.attributes?.title
               : "kdsjdskjdskjdskd"}
           </h1>
         </Skeleton>
@@ -57,33 +65,36 @@ const DetailsSection = ({
       <div className="flex flex-col gap-3">
         <Skeleton isLoaded={product?.attributes?.description !== ""}>
           <h1 className="capitalize text-sm md:text-xl font-semibold">
-            description :-
+            {t("details.description")} :-
           </h1>
 
           <h1 className="text-sm md:text-xl ">
             {product?.attributes?.description
-              ? product?.attributes?.description
+              ? locale === "en"
+                ? product?.attributes?.description
+                : product?.attributes?.localizations?.data[0]?.attributes
+                    ?.description
               : "ldskdsldslksdk"}
           </h1>
         </Skeleton>
       </div>
 
       <h1 className="text-sm md:text-xl font-semibold capitalize">
-        status :{" "}
+        {t("details.status")} :{" "}
         {product?.attributes?.inventory?.data?.attributes?.available_in_stock &&
         product?.attributes?.inventory?.data?.attributes?.available_in_stock >
           0 ? (
-          <span className="text-green-700"> in stock </span>
+          <span className="text-green-700">{t("details.inStock")}</span>
         ) : (
-          <span className="text-red-700"> out of stock </span>
-        )}{" "}
+          <span className="text-red-700">{t("details.outStock")}</span>
+        )}
       </h1>
 
       <div className="flex flex-col gap-2">
         {product?.attributes?.discount?.data && (
           <div className="bg-green-500 p-1 pr-3 md:p-2 md:pr-5 w-max rounded-r-full">
             <h1 className="capitalize text-white font-semibold text-lg md:text-2xl ">
-              discount{" "}
+              {t("details.discount")}{" "}
               {
                 product?.attributes?.discount?.data?.attributes
                   ?.discount_percent
@@ -99,7 +110,8 @@ const DetailsSection = ({
               <div className="relative ">
                 <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
                 <h2 className="text-xl md:text-3xl text-mainBlack/30 font-bold  text-center">
-                  {product?.attributes?.price}$
+                  {product?.attributes?.price}
+                  <span className="text-sm ml-1">EGP </span>
                 </h2>
               </div>
             )}
@@ -107,7 +119,7 @@ const DetailsSection = ({
               {product?.attributes?.discount?.data
                 ? priceAfterDiscount
                 : product?.attributes?.price}{" "}
-              $
+              <span className="text-sm ml-1">EGP </span>
             </h2>
           </div>
         </Skeleton>
@@ -117,21 +129,40 @@ const DetailsSection = ({
         <Divider />
         <Skeleton isLoaded={product?.attributes?.category?.data ? true : false}>
           <h1 className="text-sm md:text-xl capitalize font-semibold">
-            categories:-
+            {t("details.categories")}:-
           </h1>
           <div className="flex items-center gap-5 flex-wrap mt-5">
-            {product?.attributes?.category?.data.map((cat) => (
-              <Link key={cat?.id} href={`/categories/${cat.attributes.name}`}>
-                <Chip
-                  variant="bordered"
-                  classNames={{
-                    base: "text-xs md:text-lg capitalize hover:text-mainBlack hover:border-mainBlack transition-all ",
-                  }}
-                >
-                  {cat?.attributes?.name}
-                </Chip>
-              </Link>
-            ))}
+            {locale === "en"
+              ? product?.attributes?.category?.data.map((cat) => (
+                  <Link
+                    key={cat?.id}
+                    href={`/categories/${cat.attributes.name}`}
+                  >
+                    <Chip
+                      variant="bordered"
+                      classNames={{
+                        base: "text-xs md:text-lg capitalize hover:text-mainBlack hover:border-mainBlack transition-all ",
+                      }}
+                    >
+                      {cat?.attributes?.name}
+                    </Chip>
+                  </Link>
+                ))
+              : arabicData?.attributes?.category?.data.map((cat) => (
+                  <Link
+                    key={cat?.id}
+                    href={`/categories/${cat.attributes.name}`}
+                  >
+                    <Chip
+                      variant="bordered"
+                      classNames={{
+                        base: "text-xs md:text-lg capitalize hover:text-mainBlack hover:border-mainBlack transition-all ",
+                      }}
+                    >
+                      {cat?.attributes?.name}
+                    </Chip>
+                  </Link>
+                ))}
           </div>
         </Skeleton>
       </div>

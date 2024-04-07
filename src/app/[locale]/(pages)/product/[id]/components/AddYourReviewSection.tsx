@@ -3,6 +3,7 @@ import LoadingOverlay from "@/components/LoadingOverlay";
 import { StoreContext } from "@/contexts/StoreContext";
 import { Button, Textarea } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
+import { useTranslations } from "next-intl";
 import React, { useContext, useState } from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import ReactStars from "react-rating-star-with-type";
@@ -15,6 +16,7 @@ interface AddYourReviewSectionProps {
 const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
   const { user, products } = useContext(StoreContext);
   const { currentWidth } = useScreenSize({});
+  const t = useTranslations("productPage");
 
   const submitReview = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
     <div className="relative mt-10 flex flex-col gap-3">
       {user.userReviewLoading && <LoadingOverlay />}
       <h1 className="text-sm md:text-lg capitalize">
-        add your rating and review
+        {t("details.addReview")}
       </h1>
 
       <form
@@ -42,7 +44,10 @@ const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
         className="flex flex-col items-start gap-5"
       >
         <div className="flex items-center gap-5">
-          <h1 className="text-xs md:text-sm capitalize"> your rating :</h1>
+          <h1 className="text-xs md:text-sm capitalize">
+            {" "}
+            {t("details.rating")} :
+          </h1>
           <ReactStars
             value={user.userReviewRating}
             count={5}
@@ -59,7 +64,7 @@ const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
         </div>
         <Textarea
           value={user.userReviewDescription}
-          placeholder="Your Review"
+          placeholder={t("details.review")}
           radius="none"
           minRows={currentWidth > 768 ? 5 : 3}
           onChange={(e) => {
@@ -72,7 +77,7 @@ const AddYourReviewSection = ({ productId }: AddYourReviewSectionProps) => {
           className="bg-mainBlack text-mainWhite capitalize text-sm md:text-lg"
           type="submit"
         >
-          submit
+          {t("details.submit")}
         </Button>
       </form>
     </div>

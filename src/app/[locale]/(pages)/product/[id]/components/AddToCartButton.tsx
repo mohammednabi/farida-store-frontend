@@ -14,6 +14,7 @@ import { FaCartPlus } from "react-icons/fa6";
 
 import { useScreenSize } from "react-screen-size-helper";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 interface AddToCartButtonProps {
   product: strapiProductType;
@@ -23,6 +24,7 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
   const { cart, user, products, cartSidebar, sidebar, searchBox } =
     useContext(StoreContext);
   const { currentWidth } = useScreenSize({});
+  const t = useTranslations("productPage");
 
   // const [foundInCart, setFoundInCart] = useState<cartProductType | undefined>();
   const [addingToUserCartLoading, setAddingToUserCartLoading] = useState(false);
@@ -57,6 +59,12 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
           getPriceAfterDiscount() ??
           Number(product.attributes.price.toFixed(2)),
         quantity: 1,
+        localizatons: {
+          title: product.attributes.localizations.data[0].attributes.title,
+          description:
+            product.attributes.localizations.data[0].attributes.description,
+          slug: product.attributes.localizations.data[0].attributes.slug,
+        },
       };
 
       cart.addProduct(parsedProductToCartProduct);
@@ -128,8 +136,8 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
         {currentWidth < 768
           ? ""
           : foundInCart
-          ? "added to cart"
-          : "add to cart"}
+          ? t("addedToCart")
+          : t("addToCart")}
       </Button>
     </motion.div>
   );

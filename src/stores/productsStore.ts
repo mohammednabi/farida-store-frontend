@@ -7,6 +7,8 @@ import {
   strapiProductType,
 } from "./specificTypes/strapiProductType";
 import { PopulatedReview } from "./specificTypes/targetProductReviewsType";
+import { ProductArabicData } from "./specificTypes/productArabicDataType";
+// import { ProductArabicData } from "./specificTypes/productArabicDataType";
 
 export type Pagination = {
   page: number;
@@ -24,6 +26,7 @@ export class ProductsStore {
 
   targetProduct: strapiProductType = {} as strapiProductType;
   targetProductReviews: PopulatedReview[] = [];
+  targetProductArabicData: ProductArabicData = {} as ProductArabicData;
   pagination: Pagination = {
     page: 1,
     pageSize: 12,
@@ -70,9 +73,9 @@ export class ProductsStore {
       .catch((err) => console.log(err));
   };
 
-  getSingleProduct = async (productId: string, locale: string) => {
+  getSingleProduct = async (productId: string) => {
     await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/${productId}?populate=*&locale=${locale}`,
+      `${process.env.NEXT_PUBLIC_STRAPI_API_ENDPOINT}/products/${productId}?populate=*`,
       this.getMethodOptions
     )
       .then((res) => res.json())
@@ -88,6 +91,24 @@ export class ProductsStore {
       .catch((err) => console.log(err));
 
     await this.getTargetProductsReviews(productId);
+    await this.getTargetProductArabicData(productId);
+  };
+
+  getTargetProductArabicData = async (productId: string) => {
+    let response = await fetch(
+      `http://localhost:1337/api/products/${productId}?[populate][localizations][populate]=*`,
+      this.getMethodOptions
+    );
+
+    let data = await response.json();
+    runInAction(() => {
+      this.targetProductArabicData = data.data.attributes.localizations.data[0];
+
+      console.log(
+        "this is the target products arabic data : ",
+        data.data.attributes.localizations.data[0]
+      );
+    });
   };
 
   getTargetProductsReviews = async (productId: string) => {

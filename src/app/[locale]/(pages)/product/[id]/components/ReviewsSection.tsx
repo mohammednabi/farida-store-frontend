@@ -13,6 +13,7 @@ import { isUserLoggedIn } from "@/functions/credentials";
 import ReviewSendedSuccesfuly from "./ReviewSendedSuccesfuly";
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale, useTranslations } from "next-intl";
 
 interface reviewProps {
   product: strapiProductType;
@@ -24,6 +25,9 @@ const ReviewsSection = ({ product }: reviewProps) => {
   const { currentWidth } = useScreenSize({});
 
   const [userLoggedin, setUserLoggedin] = useState(false);
+
+  const t = useTranslations("productPage");
+  const locale = useLocale();
 
   useEffect(() => {
     if (isUserLoggedIn()) {
@@ -55,7 +59,9 @@ const ReviewsSection = ({ product }: reviewProps) => {
             title={
               <div className="flex items-center space-x-2">
                 <VscPreview className="text-lg md:text-2xl" />
-                <span className="text-lg md:text-2xl">Reviews</span>
+                <span className="text-lg md:text-2xl">
+                  {t("details.reviews")}
+                </span>
                 <Chip
                   size={currentWidth > 768 ? "md" : "sm"}
                   variant="shadow"
@@ -101,7 +107,9 @@ const ReviewsSection = ({ product }: reviewProps) => {
             title={
               <div className="flex items-center space-x-2">
                 <MdOutlineDescription className="text-lg md:text-2xl" />
-                <span className="text-lg md:text-2xl">Description</span>
+                <span className="text-lg md:text-2xl">
+                  {t("details.description")}
+                </span>
               </div>
             }
           >
@@ -111,7 +119,7 @@ const ReviewsSection = ({ product }: reviewProps) => {
                 className="w-max"
               >
                 <h1 className="capitalize text-sm md:text-xl font-semibold">
-                  description :-
+                  {t("details.description")} :-
                 </h1>
               </Skeleton>
 
@@ -120,7 +128,10 @@ const ReviewsSection = ({ product }: reviewProps) => {
               >
                 <h1 className="text-sm md:text-xl ">
                   {product?.attributes?.description
-                    ? product?.attributes?.description
+                    ? locale === "en"
+                      ? product?.attributes?.description
+                      : product?.attributes?.localizations?.data[0]?.attributes
+                          ?.description
                     : "slkdslk"}
                 </h1>
               </Skeleton>

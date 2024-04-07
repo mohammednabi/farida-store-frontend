@@ -1,152 +1,180 @@
 {
-    "home":{
-        "title":"products"
-    }
-    ,"navbar":{
-        "home":"home",
-        "products":"products",
-        "order":"order",
-        "contact":"contact"
+  "home": {
+    "title": "products"
+  },
+  "navbar": {
+    "home": "home",
+    "products": "products",
+    "order": "order",
+    "contact": "contact"
+  },
+  "sidebar": {
+    "order": "track your order",
+    "seen": "Products Recently Seen",
+    "menu": "main menu",
+    "sections": "sections"
+  },
+  "pageTitle": {
+    "home": "home"
+  },
+  "cartSidebar": {
+    "cart": "shopping cart",
+    "total": "total",
+    "empty": "your cart is empty",
+    "complete": "complete your order"
+  },
+  "cartDrop": {
+    "cart": "shopping cart",
+    "total": "total",
+    "empty": "your cart is empty",
+    "continue": "continue",
+    "complete": "complete your order",
+    "go": "go to cart"
+  },
+  "loginForm": {
+    "login": "login",
+    "register": "register now",
+    "labels": {
+      "email": "Email",
+      "password": "Password"
     },
-    "sidebar":{
-        "order":"track your order",
-        "seen":"Products Recently Seen",
-        "menu":"main menu",
-        "sections":"sections"
-    },"pageTitle":{
-        "home":"home"
-    }
-    ,"cartSidebar":{
-        "cart":"shopping cart",
-        "total":"total",
-        "empty":"your cart is empty",
-        "complete":"complete your order"
+    "placeholders": {
+      "email": "Enter your email",
+      "password": "Enter your password"
     },
-    "cartDrop":{
-         "cart":"shopping cart",
-        "total":"total",
-        "empty":"your cart is empty",
-        "continue":"continue",
-        "complete":"complete your order",
-        "go":"go to cart"
+    "errors": {
+      "email": "Not valid email"
     },
-    "loginForm":{
-        "login":"login",
-        "register":"register now",
-        "labels":{
- "email":"Email",
-        "password":"Password"
-        },
-        "placeholders":{
- "email":"Enter your email",
-        "password":"Enter your password"
-        },
-         "errors":{
-            "email":"Not valid email"
-        },
-       
-        "submit":"submit",
-        "noAccount":" Don't have an account ?",
-        "or":"or"
-       
-    },
-    "registerForm":{
-        "login":"login",
-        "register":"register",
-        "labels":{
-                "first":"First Name",
-                "last":"Last Name",
-                "username":"Username",
-                "email":"Email",
-                "password":"Password",
-                "confirm":"Confirm Password"
-        },
-        "placeholders":{
-             "first":"Enter first",
-                "last":"Enter last",
-                "username":"Enter username",
-                "email":"Enter your email",
-                "password":"Enter your password",
-                "confirm":"Confirm your password"
-        },
-        "errors":{
-            "email":"Not valid email",
-            "password":"Password must have  (1-6) letters includes at least one number and one uppercase letter  ",
-            "confirm":"Not the same password"
-        },
-        "submit":"submit",
-        "haveAccount":"Already have an account ?",
-        "or":"or"
-    },
-    "userLoggedIn":{
-        "orders":"your orders",
-        "profile":"profile settings",
-        "logout":"logout"
-    },
-    "mergeCart":{
-        "merge":"merge your carts ?",
-        "yes":"yes",
-        "no":"no"
-    },
-    "filters":{
-        "filter":"filter",
-        "sales":"sales only",
-        "popularity":"sort by popularity",
-        "rating":"sort by rating",
-        "newest":"sort by newest",
-        "lowPrice":"sort by : lowest price to highest",
-        "highPrice":"sort by : highest price to lowest",
-        "category":"category",
-        "price":"price",
-        "colors":"colors",
-        "select":"select",
-        "selectPrice":"select price"
-    },
-    "product":{
-        "sale":"sale",
-        "top":"top deal",
-        "best":"best seller",
-        "add":"add",
-        "added":"added",
-        "cart":"to cart"
 
+    "submit": "submit",
+    "noAccount": " Don't have an account ?",
+    "or": "or"
+  },
+  "registerForm": {
+    "login": "login",
+    "register": "register",
+    "labels": {
+      "first": "First Name",
+      "last": "Last Name",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirm": "Confirm Password"
     },
-    "emptyProduct":{
-        "noProducts":" we could not find any products with applied filters",
-        "again":" please try again"
-    }
-    ,"footer":{
-        "help":"We are always here to help you",
-        "support":" Reach out to us through any of these support channels",
-        "email":"email support",
-        "phone":"phone support",
-        "copyrights":"  © 2024 farida store. All Rights Reserved"
+    "placeholders": {
+      "first": "Enter first",
+      "last": "Enter last",
+      "username": "Enter username",
+      "email": "Enter your email",
+      "password": "Enter your password",
+      "confirm": "Confirm your password"
     },
-    "google":{
-        "continue":"continue with google"
+    "errors": {
+      "email": "Not valid email",
+      "password": "Password must have  (1-6) letters includes at least one number and one uppercase letter  ",
+      "confirm": "Not the same password"
     },
-    "search":{
-        "search":"search products",
-        "common":"common search :",
-        "type":"type to search...",
-           "results":"show all results"
+    "submit": "submit",
+    "haveAccount": "Already have an account ?",
+    "or": "or"
+  },
+  "userLoggedIn": {
+    "orders": "your orders",
+    "profile": "profile settings",
+    "logout": "logout"
+  },
+  "mergeCart": {
+    "merge": "merge your carts ?",
+    "yes": "yes",
+    "no": "no"
+  },
+  "filters": {
+    "filter": "filter",
+    "sales": "sales only",
+    "popularity": "sort by popularity",
+    "rating": "sort by rating",
+    "newest": "sort by newest",
+    "lowPrice": "sort by : lowest price to highest",
+    "highPrice": "sort by : highest price to lowest",
+    "category": "category",
+    "price": "price",
+    "colors": "colors",
+    "select": "select",
+    "selectPrice": "select price"
+  },
+  "product": {
+    "sale": "sale",
+    "top": "top deal",
+    "best": "best seller",
+    "add": "add",
+    "added": "added",
+    "cart": "to cart"
+  },
+  "emptyProduct": {
+    "noProducts": " we could not find any products with applied filters",
+    "again": " please try again"
+  },
+  "footer": {
+    "help": "We are always here to help you",
+    "support": " Reach out to us through any of these support channels",
+    "email": "email support",
+    "phone": "phone support",
+    "copyrights": "  © 2024 farida store. All Rights Reserved"
+  },
+  "google": {
+    "continue": "continue with google"
+  },
+  "search": {
+    "search": "search products",
+    "common": "common search :",
+    "type": "type to search...",
+    "results": "show all results"
+  },
+  "userPage": {
+    "account": "your account",
+    "title": {
+      "orders": " orders",
+      "profile": " profile",
+      "addresses": " addresses",
+      "cart": " cart",
+      "wishlist": " wishlist"
+    },
+    "description": {
+      "orders": "track , return , cancel an order , download invoice or buy again",
+      "profile": "edit your profile settings",
+      "addresses": "edit , remove or set default address",
+      "cart": "view all your cart items",
+      "wishlist": "view all your wishlist items"
     }
-    ,
-    "userPage":{
-        "account":"your account",
-        "title":{
-            "orders":" orders",
-            "profile":" profile",
-            "addresses":" addresses",
-            "cart":" cart",
-            "wishlist":" wishlist"
-        },
-         "description":{
-            "orders":"track , return , cancel an order , download invoice or buy again",
-            "profile":"edit your profile settings",
-            "addresses":"edit , remove or set default address",
-            "cart":"view all your cart items",
-            "wishlist":"view all your wishlist items"
-        }
-    }
+  },
+  "productPage": {
+    "breads": {
+      "home": "home",
+      "product": "product"
+    },
+    "details": {
+      "description": "description",
+      "status": "status",
+      "inStock": "in stock",
+      "outStock": "out of stock",
+      "categories": "categories",
+      "discount": "discount",
+      "reviews": "reviews",
+      "addReview": "add your rating and review",
+      "rating": "your rating",
+      "review": "your review",
+      "submit": "submit"
+    },
+    "information": {
+      "elevate": "elevate your everyday",
+      "quality": "quality you can trust.",
+      "farida": "farida store",
+      "shipping": "shipping all over egypt",
+      "exchange": "exchange and return with a a 14-Day guarantee",
+      "payments": "all your payments are fully insured"
+    },
+    "bestSeller": "best seller",
+    "addToCart": "add to cart",
+    "addedToCart": "added to cart"
+  }
 }

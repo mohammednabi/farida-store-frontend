@@ -50,14 +50,14 @@ const BestProduct = ({
             <div className="relative ">
               <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
               <h2 className="text-xl md:text-2xl text-mainBlack/30 font-bold  text-center">
-                {prePrice}$
+                {prePrice} <span className="text-sm ml-1">EGP </span>
               </h2>
             </div>
           )}
 
           <Skeleton isLoaded={price > 0}>
             <h2 className="text-xl md:text-2xl text-mainBlack/70 font-bold">
-              {price}$
+              {price} <span className="text-sm ml-1">EGP </span>
             </h2>
           </Skeleton>
         </div>

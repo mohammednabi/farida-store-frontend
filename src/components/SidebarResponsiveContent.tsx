@@ -4,7 +4,7 @@ import { LiaNewspaper } from "react-icons/lia";
 import { FaBackward, FaRegEye } from "react-icons/fa";
 import { Button, Divider } from "@nextui-org/react";
 import { StoreContext } from "@/contexts/StoreContext";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { observer } from "mobx-react-lite";
 import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
@@ -40,7 +40,7 @@ const SidebarResponsiveContent = () => {
   const selectedButton = "bg-mainBlack text-mainWhite border-0";
 
   useEffect(() => {
-    categories.getAllCategories(locale);
+    categories.getAllCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -110,7 +110,9 @@ const SidebarResponsiveContent = () => {
                 }`}
                 onClick={sidebar.hideWholeSidebar}
               >
-                {cat.attributes.name}
+                {locale === "en"
+                  ? cat.attributes.name
+                  : cat.attributes.localizations.data[0].attributes.name}
               </Link>
             ))}
           </div>

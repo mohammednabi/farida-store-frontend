@@ -1,4 +1,7 @@
 {
+  "currency": {
+    "currency": "جنيه"
+  },
   "home": {
     "title": "المنتجات"
   },
@@ -179,5 +182,47 @@
     "addedToCart": "تمت إضافته الى العربة",
     "successRating": "تم إرسال مراجعتك بنجاح , مراجعتك في انتظار التأكيد",
     "reviewCondition": "يجب عليك تسجيل الدخول أولا حتى تتمكن من إضافة مراجعتك على هذا المنتج "
+  },
+  "cartPage": {
+    "title": "العربة ",
+
+    "tabs": {
+      "step1": {
+        "title": "عربة التسوق",
+        "description": "عرض العناصر الخاصة بك "
+      },
+      "step2": {
+        "title": "الشحن والدفع",
+        "description": "أضف بعض التفاصيل عنك"
+      },
+      "step3": {
+        "title": "تأكيد الطلب",
+        "description": "مراجعة طلباتك"
+      }
+    },
+    "emptyCart": {
+      "title": "عربة تسوقك فارغة",
+      "action": "العودة الى الرئيسية"
+    },
+    "cartHome": {
+      "header": {
+        "product": "المنتج",
+        "price": "السعر",
+        "quantity": "الكمية",
+        "total": "المجموع"
+      },
+      "totlaPrice": {
+        "totalItems": "كل العناصر",
+        "items": "المجموع",
+        "shipping": "الشحن",
+        "total": "الإجمالي",
+        "notAvailable": "غير متوفر حاليا",
+        "complete": "أكمل طلبك"
+      },
+      "footer": {
+        "removeAll": " تفريغ العربة",
+        "code": " رمز القسيمة"
+      }
+    }
   }
 }

@@ -9,6 +9,7 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale } from "next-intl";
 
 interface cartTableProductProps {
   product: userCartProductType;
@@ -20,6 +21,8 @@ const CartTableProduct = ({ product }: cartTableProductProps) => {
   const { isDesktop, isLargeDesktop, isMobile, isTablet, currentWidth } =
     useScreenSize({});
 
+  const locale = useLocale();
+
   return (
     <div className="relative">
       {isLoading && <LoadingOverlay />}
@@ -28,13 +31,17 @@ const CartTableProduct = ({ product }: cartTableProductProps) => {
           <CartProductCard
             id={product.id}
             imageUrl={product.imgSrc}
-            description={product.description}
-            title={product.title}
+            description={
+              locale === "en"
+                ? product.description
+                : product.localizatons.description
+            }
+            title={locale === "en" ? product.title : product.localizatons.title}
           />
         </div>
 
         <h1 className="text-center text-xl hidden md:block ">
-          {product.price}$
+          {product.price}
         </h1>
 
         {currentWidth >= 768 && (
@@ -42,24 +49,24 @@ const CartTableProduct = ({ product }: cartTableProductProps) => {
         )}
 
         <h1 className="text-center text-xl hidden md:block">
-          {(product.price * product.quantity).toFixed(2)}$
+          {(product.price * product.quantity).toFixed(2)}
         </h1>
 
         <div className="flex gap-x-5 col-span-5 items-center order-3 lmob:col-span-1 lmob:order-none md:hidden lmob:flex-col gap-2 justify-between smob:justify-center">
           <h1 className="text-center text-sm md:text-xl text-mainBlack/25 hidden smob:block md:hidden">
-            {product.price}$
+            {product.price}
           </h1>
           <QuantityCounter settingLoading={setIsloading} product={product} />
           <h1 className="text-center text-sm md:text-xl hidden smob:block md:hidden">
-            {(product.price * product.quantity).toFixed(2)}$
+            {(product.price * product.quantity).toFixed(2)}{" "}
           </h1>
 
           <div className=" smob:hidden flex flex-col gap-2">
             <h1 className="text-center text-sm md:text-xl  text-mainBlack/25">
-              {product.price}$
+              {product.price}
             </h1>
             <h1 className="text-center text-sm md:text-xl  ">
-              {(product.price * product.quantity).toFixed(2)}$
+              {(product.price * product.quantity).toFixed(2)}{" "}
             </h1>
           </div>
         </div>

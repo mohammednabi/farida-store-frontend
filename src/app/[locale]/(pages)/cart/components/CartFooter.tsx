@@ -2,6 +2,7 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { Button, Input } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 import React, { useContext } from "react";
 import { BiSend } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
@@ -10,6 +11,7 @@ import { useScreenSize } from "react-screen-size-helper";
 const CartFooter = () => {
   const { cart, user } = useContext(StoreContext);
   const { currentWidth } = useScreenSize({});
+  const t = useTranslations("cartPage");
 
   const deleteAllCartProducts = () => {
     if (isUserLoggedIn()) {
@@ -28,7 +30,7 @@ const CartFooter = () => {
     <div className="flex justify-between items-center flex-wrap  gap-3">
       <Input
         type="text"
-        placeholder="promo code"
+        placeholder={t("cartHome.footer.code")}
         radius="sm"
         size={currentWidth > 768 ? "md" : "sm"}
         variant="bordered"
@@ -56,7 +58,7 @@ const CartFooter = () => {
           endContent={<MdDeleteForever className="text-lg md:text-2xl" />}
           onClick={deleteAllCartProducts}
         >
-          remove all
+          {t("cartHome.footer.removeAll")}
         </Button>
 
         {/* <Button

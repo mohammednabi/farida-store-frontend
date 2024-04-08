@@ -11,7 +11,7 @@ import { CgClose } from "react-icons/cg";
 import LoadingOverlay from "./LoadingOverlay";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { userCartProductType } from "@/stores/specificTypes/userCartProductType";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface cartDropProductProps {
   product: userCartProductType;
@@ -21,6 +21,7 @@ const CartDropProduct = ({ product }: cartDropProductProps) => {
   const [counter, setCounter] = useState(product.quantity);
   const [isLoading, setIsLoading] = useState(false);
   const locale = useLocale();
+  const currency = useTranslations("currency");
 
   const { cart, user } = useContext(StoreContext);
 
@@ -136,7 +137,9 @@ const CartDropProduct = ({ product }: cartDropProductProps) => {
           </h1> */}
             <h1 className="text-xl font-bold text-emerald-500 justify-self-end">
               {product.price}
-              <span className="text-sm ml-1">EGP</span>
+              <span className="text-sm ltr:ml-1 rtl:mr-1">
+                {currency("currency")}
+              </span>
             </h1>
           </div>
         </div>

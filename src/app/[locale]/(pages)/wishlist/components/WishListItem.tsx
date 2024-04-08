@@ -9,7 +9,7 @@ import { userWishlistProductType } from "@/stores/specificTypes/wishlistProductT
 
 import { Button, Image } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React, { useContext, useMemo, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { MdAddShoppingCart, MdDelete } from "react-icons/md";

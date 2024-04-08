@@ -1,4 +1,7 @@
 {
+  "currency": {
+    "currency": "EGP"
+  },
   "home": {
     "title": "products"
   },
@@ -178,5 +181,47 @@
     "addedToCart": "added to cart",
     "successRating": "Your review has been sent successfully, your review is awaiting approval",
     "reviewCondition": "you should login first to be enable to add your review for this product"
+  },
+  "cartPage": {
+    "title": "cart",
+
+    "tabs": {
+      "step1": {
+        "title": "shopping cart",
+        "description": "view your items"
+      },
+      "step2": {
+        "title": "shipping and payment",
+        "description": "add some details about you"
+      },
+      "step3": {
+        "title": "confirmation",
+        "description": "review your order"
+      }
+    },
+    "emptyCart": {
+      "title": "your cart is empty",
+      "action": "back to home"
+    },
+    "cartHome": {
+      "header": {
+        "product": "product",
+        "price": "price",
+        "quantity": "quantity",
+        "total": "total"
+      },
+      "totlaPrice": {
+        "totalItems": "total items",
+        "items": "items",
+        "shipping": "shipping",
+        "total": "total",
+        "notAvailable": "not available now",
+        "complete": "complete your order"
+      },
+      "footer": {
+        "removeAll": "remove all",
+        "code": "promo code"
+      }
+    }
   }
 }

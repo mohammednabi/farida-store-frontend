@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@nextui-org/react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React from "react";
 import { LiaShoppingBagSolid } from "react-icons/lia";
 import { VscSignIn } from "react-icons/vsc";

@@ -1,7 +1,7 @@
 import React from "react";
 import Icon from "./Icon";
 import { FaHome } from "react-icons/fa";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";

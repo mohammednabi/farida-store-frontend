@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React, { useContext } from "react";
 import classNames from "classnames";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

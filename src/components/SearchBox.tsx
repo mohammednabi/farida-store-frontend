@@ -2,7 +2,7 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import { Chip, Input, Spinner } from "@nextui-org/react";
 import { SearchIcon } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import QuickSearchMenu from "./QuickSearchMenu";

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React, { useContext, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { motion } from "framer-motion";

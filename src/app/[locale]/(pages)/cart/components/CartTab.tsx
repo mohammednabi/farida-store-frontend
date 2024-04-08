@@ -1,7 +1,7 @@
 "use client";
 import { Chip } from "@nextui-org/react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+
+import { useRouter } from "@/navigation";
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { useScreenSize } from "react-screen-size-helper";

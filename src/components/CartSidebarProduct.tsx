@@ -6,11 +6,11 @@ import { userCartProductType } from "@/stores/specificTypes/userCartProductType"
 
 import { CircularProgress, Image, Spinner, user } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import LoadingOverlay from "./LoadingOverlay";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface CartSidebarProductProps {
   product: userCartProductType;
@@ -22,6 +22,7 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
 
   const { cart, user } = useContext(StoreContext);
   const locale = useLocale();
+  const currency = useTranslations("currency");
 
   const increase = () => {
     setCounter((c) => c + 1);
@@ -149,7 +150,9 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
           />
           <h1 className="text-green-500 font-bold text-sm lmob:text-lg">
             {product.price}
-            <span className="text-sm ml-1">EGP</span>
+            <span className="text-sm ltr:ml-1 rtl:mr-1">
+              {currency("currency")}
+            </span>
           </h1>
         </div>
       </div>

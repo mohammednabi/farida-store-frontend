@@ -3,7 +3,7 @@ import LoadingOverlay from "@/components/LoadingOverlay";
 import { Divider, Image, TableCell, TableRow } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import NextImage from "next/image";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React from "react";
 
 interface CartProductProps {

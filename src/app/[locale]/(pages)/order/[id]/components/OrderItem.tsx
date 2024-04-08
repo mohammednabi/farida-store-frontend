@@ -1,6 +1,6 @@
 "use client";
 import { Divider, Image } from "@nextui-org/react";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React from "react";
 import { LuBox } from "react-icons/lu";
 

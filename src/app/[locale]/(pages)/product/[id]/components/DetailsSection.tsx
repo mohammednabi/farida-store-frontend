@@ -8,7 +8,7 @@ import { FaRegStar } from "react-icons/fa";
 import { Chip, Divider, Skeleton } from "@nextui-org/react";
 import Rating from "@/components/Rating";
 import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { useScreenSize } from "react-screen-size-helper";
 import { useLocale, useTranslations } from "next-intl";
 import { ProductArabicData } from "@/stores/specificTypes/productArabicDataType";
@@ -31,6 +31,7 @@ const DetailsSection = ({
   const { currentWidth } = useScreenSize({});
   const locale = useLocale();
   const t = useTranslations("productPage");
+  const currency = useTranslations("currency");
 
   return (
     <div className="flex flex-col gap-5">
@@ -112,7 +113,9 @@ const DetailsSection = ({
                 <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
                 <h2 className="text-xl md:text-3xl text-mainBlack/30 font-bold  text-center">
                   {product?.attributes?.price}
-                  <span className="text-sm ml-1">EGP </span>
+                  <span className="text-sm ltr:ml-1 rtl:mr-1">
+                    {currency("currency")}
+                  </span>
                 </h2>
               </div>
             )}
@@ -120,7 +123,9 @@ const DetailsSection = ({
               {product?.attributes?.discount?.data
                 ? priceAfterDiscount
                 : product?.attributes?.price}{" "}
-              <span className="text-sm ml-1">EGP </span>
+              <span className="text-sm ltr:ml-1 rtl:mr-1">
+                {currency("currency")}
+              </span>
             </h2>
           </div>
         </Skeleton>

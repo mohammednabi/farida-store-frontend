@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { FaArrowRight, FaRegUserCircle } from "react-icons/fa";
 import UserLoggedInUi from "./UserLoggedInUi";
 import { IoBagOutline } from "react-icons/io5";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { IoIosLogOut } from "react-icons/io";
 import { useRouter } from "next/navigation";

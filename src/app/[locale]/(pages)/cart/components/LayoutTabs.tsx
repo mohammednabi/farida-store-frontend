@@ -2,19 +2,25 @@
 import React from "react";
 import CartTab from "./CartTab";
 import { Progress } from "@nextui-org/react";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/navigation";
+import { useLocale, useTranslations } from "next-intl";
 
 const LayoutTabs = () => {
   const currentLink = usePathname();
+  const t = useTranslations("cartPage");
+  const locale = useLocale();
 
   return (
-    <div className="flex flex-col gap-2 w-full h-auto px-5 md:px-9 lg:px-20 py-3">
+    <div
+      className="flex flex-col gap-2 w-full h-auto px-5 md:px-9 lg:px-20 py-3"
+      dir={locale === "en" ? "ltr" : "rtl"}
+    >
       <div className="w-full  grid grid-rows-[auto_auto_auto] grid-cols-1 gap-y-5 mt-5 md:mt-0 md:grid-cols-3 md:grid-rows-1 gap-x-1  ">
         <div className="grid grid-rows-[auto_auto] grid-cols-1 md:grid-rows-1 gap-2">
           <CartTab
             step={1}
-            title="shopping cart"
-            description="View your items"
+            title={t("tabs.step1.title")}
+            description={t("tabs.step1.description")}
             targetLink={"/cart"}
             opacity={currentLink === "/cart" ? "opacity-100" : "opacity-50"}
             isChecked={
@@ -29,7 +35,7 @@ const LayoutTabs = () => {
             value={100}
             size="sm"
             radius="none"
-            className="w-full md:hidden"
+            className="w-full md:hidden ltr:rotate-0 rtl:rotate-180"
             classNames={{
               indicator: "bg-gradient-to-r from-mainPink to-mainPink",
             }}
@@ -38,8 +44,8 @@ const LayoutTabs = () => {
         <div className="grid grid-rows-[auto_auto] grid-cols-1 md:grid-rows-1 gap-2">
           <CartTab
             step={2}
-            title="Shipping and payment"
-            description="Add some details about you"
+            title={t("tabs.step2.title")}
+            description={t("tabs.step2.description")}
             opacity={
               currentLink === "/cart/shipping" ? "opacity-100" : "opacity-50"
             }
@@ -56,7 +62,7 @@ const LayoutTabs = () => {
             }
             size="sm"
             radius="none"
-            className="w-full md:hidden"
+            className="w-full md:hidden ltr:rotate-0 rtl:rotate-180"
             classNames={{
               indicator: "bg-gradient-to-r from-mainPink to-mainPink",
             }}
@@ -65,8 +71,8 @@ const LayoutTabs = () => {
         <div className="grid grid-rows-[auto_auto] grid-cols-1 md:grid-rows-1 gap-2">
           <CartTab
             step={3}
-            title="Confirmation"
-            description="Review your orders"
+            title={t("tabs.step3.title")}
+            description={t("tabs.step3.description")}
             opacity={
               currentLink === "/cart/confirmation"
                 ? "opacity-100"
@@ -80,7 +86,7 @@ const LayoutTabs = () => {
             value={currentLink === "/cart/confirmation" ? 100 : 0}
             size="sm"
             radius="none"
-            className="w-full md:hidden "
+            className="w-full md:hidden ltr:rotate-0 rtl:rotate-180"
             classNames={{
               indicator: "bg-gradient-to-r from-mainPink to-mainPink",
             }}
@@ -100,7 +106,7 @@ const LayoutTabs = () => {
         }
         size="sm"
         radius="none"
-        className="w-full hidden md:block"
+        className="w-full hidden md:block ltr:rotate-0 rtl:rotate-180"
         classNames={{
           indicator: "bg-gradient-to-r from-mainPink to-mainPink",
         }}

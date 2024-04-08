@@ -3,7 +3,7 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import { useLocale } from "next-intl";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { useParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 

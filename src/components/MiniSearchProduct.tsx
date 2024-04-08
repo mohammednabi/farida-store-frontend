@@ -3,7 +3,7 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 import { Image } from "@nextui-org/react";
 import { useLocale } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 

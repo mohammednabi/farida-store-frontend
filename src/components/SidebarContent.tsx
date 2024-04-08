@@ -4,7 +4,7 @@ import { LiaNewspaper } from "react-icons/lia";
 import { FaRegEye } from "react-icons/fa";
 import { Divider } from "@nextui-org/react";
 import { StoreContext } from "@/contexts/StoreContext";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { observer } from "mobx-react-lite";
 import { useParams } from "next/navigation";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
@@ -24,7 +24,7 @@ const SidebarContent = () => {
   const locale = useLocale();
 
   useEffect(() => {
-    categories.getAllCategories(locale);
+    categories.getAllCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -50,18 +50,31 @@ const SidebarContent = () => {
       </div>
 
       <div className="py-5 flex flex-col gap-3 capitalize px-5">
-        {categories.categories.map((cat) => (
-          <Link
-            key={cat.id}
-            href={`/categories/${cat.attributes.name}`}
-            className={`side-link ${
-              editedParams === cat.attributes.name && `text-mainPink`
-            }`}
-            onClick={sidebar.hideWholeSidebar}
-          >
-            {cat.attributes.name}
-          </Link>
-        ))}
+        {locale === "en"
+          ? categories.categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/categories/${cat.attributes.name}`}
+                className={`side-link ${
+                  editedParams === cat.attributes.name && `text-mainPink`
+                }`}
+                onClick={sidebar.hideWholeSidebar}
+              >
+                {cat.attributes.name}
+              </Link>
+            ))
+          : categories.categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/categories/${cat.attributes.name}`}
+                className={`side-link ${
+                  editedParams === cat.attributes.name && `text-mainPink`
+                }`}
+                onClick={sidebar.hideWholeSidebar}
+              >
+                {cat.attributes.localizations.data[0].attributes.name}
+              </Link>
+            ))}
       </div>
       <div className="flex flex-col ">
         <Divider />

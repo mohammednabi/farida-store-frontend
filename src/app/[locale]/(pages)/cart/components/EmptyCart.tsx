@@ -6,10 +6,11 @@ import ConfirmMergeCart from "@/components/ConfirmMergeCart";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
+import { useTranslations } from "next-intl";
 
 const EmptyCart = () => {
   const { cartSidebar, user } = useContext(StoreContext);
-
+  const t = useTranslations("cartPage");
   const router = useRouter();
 
   const goToHomePage = () => {
@@ -22,14 +23,16 @@ const EmptyCart = () => {
         <div className="flex flex-col gap-5 items-center justify-center">
           <FaBagShopping className="text-7xl md:text-9xl text-mainBlack/10" />
 
-          <h1 className="capitalize text-lg md:text-xl">your cart is empty </h1>
+          <h1 className="capitalize text-lg md:text-xl">
+            {t("emptyCart.title")}{" "}
+          </h1>
         </div>
 
         <button
           className="px-4 py-1 md:px-5 md:py-2 capitalize bg-transparent  text-mainBlack border-mainBlack border-2 border-solid transition-all hover:bg-mainBlack hover:text-mainWhite"
           onClick={goToHomePage}
         >
-          back to home
+          {t("emptyCart.action")}
         </button>
       </div>
 

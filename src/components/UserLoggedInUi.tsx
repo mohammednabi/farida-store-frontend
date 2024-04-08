@@ -6,7 +6,7 @@ import { Button, Chip, Divider, User } from "@nextui-org/react";
 import { IoMdLogOut } from "react-icons/io";
 import { IoBagOutline } from "react-icons/io5";
 import { FaArrowRight } from "react-icons/fa";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/auth";

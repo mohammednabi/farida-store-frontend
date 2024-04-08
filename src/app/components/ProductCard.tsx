@@ -28,6 +28,7 @@ interface productCardProps {
 const ProductCard = ({ product }: productCardProps) => {
   const locale = useLocale();
   const t = useTranslations("product");
+  const currency = useTranslations("currency");
 
   const { products, cart, wishlist, user, userWishlist } =
     useContext(StoreContext);
@@ -254,7 +255,9 @@ const ProductCard = ({ product }: productCardProps) => {
                     <div className="absolute top-1/2 -translate-y-1/2 w-full h-[2px] bg-black/50 -rotate-3" />
                     <h2 className="text-sm md:text-xl text-mainBlack/30 font-bold  text-center">
                       {product.attributes.price.toFixed(2)}
-                      <span className="text-sm ml-1">EGP </span>
+                      <span className="text-sm ltr:ml-1 rtl:mr-1">
+                        {currency("currency")}
+                      </span>
                     </h2>
                   </div>
                 )}
@@ -262,7 +265,9 @@ const ProductCard = ({ product }: productCardProps) => {
                   {getPriceAfterDiscount()
                     ? getPriceAfterDiscount()
                     : product.attributes.price.toFixed(2)}
-                  <span className="text-sm ml-1">EGP</span>
+                  <span className="text-sm ltr:ml-1 rtl:mr-1">
+                    {currency("currency")}
+                  </span>
                 </h2>
               </div>
             </div>

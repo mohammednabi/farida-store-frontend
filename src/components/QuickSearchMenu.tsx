@@ -4,7 +4,7 @@ import MiniSearchProduct from "./MiniSearchProduct";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import { Button } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { useLocale, useTranslations } from "next-intl";
 
 const QuickSearchMenu = () => {

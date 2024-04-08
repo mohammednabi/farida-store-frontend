@@ -10,7 +10,7 @@ import { Link } from "@/navigation";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/auth";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { useTranslations } from "next-intl";
 
 const UserLoggedInUi = () => {

@@ -7,7 +7,7 @@ import { BsCart3 } from "react-icons/bs";
 import { TbHearts } from "react-icons/tb";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { StoreContext } from "@/contexts/StoreContext";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { isUserLoggedIn } from "@/functions/credentials";
 

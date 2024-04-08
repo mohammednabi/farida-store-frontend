@@ -3,7 +3,8 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { Button } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+
+import { useRouter } from "@/navigation";
 import React, { useContext } from "react";
 
 const CartDropTotalPrice = () => {

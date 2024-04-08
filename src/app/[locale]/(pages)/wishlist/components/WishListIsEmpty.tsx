@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import React from "react";
 import { TfiDropbox } from "react-icons/tfi";
 

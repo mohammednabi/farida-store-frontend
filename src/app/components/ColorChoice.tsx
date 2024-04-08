@@ -2,7 +2,8 @@
 import { Link } from "@/navigation";
 import React, { useContext } from "react";
 import classNames from "classnames";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "@/navigation";
 import { StoreContext } from "@/contexts/StoreContext";
 
 interface colorProps {

@@ -4,7 +4,8 @@ import React from "react";
 import Icon from "./Icon";
 import { Avatar, Image, Select, SelectItem, Switch } from "@nextui-org/react";
 import { useLocale } from "next-intl";
-import { usePathname, useRouter } from "next/navigation";
+
+import { useRouter, usePathname } from "@/navigation";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 const LanguageIcon = () => {

@@ -1,7 +1,7 @@
 "use client";
 import { FaBagShopping } from "react-icons/fa6";
 import React, { useContext } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import ConfirmMergeCart from "@/components/ConfirmMergeCart";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { StoreContext } from "@/contexts/StoreContext";

@@ -3,7 +3,7 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { Button, Divider } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import React, { useContext } from "react";
 import { useScreenSize } from "react-screen-size-helper";
 

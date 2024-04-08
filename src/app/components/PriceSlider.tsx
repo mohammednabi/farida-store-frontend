@@ -2,7 +2,8 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import { Button, Slider, SliderValue } from "@nextui-org/react";
 import { useTranslations } from "next-intl";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 
 const PriceSlider = () => {

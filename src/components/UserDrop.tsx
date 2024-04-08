@@ -7,7 +7,7 @@ import { StoreContext } from "@/contexts/StoreContext";
 import UserLoggedInUi from "./UserLoggedInUi";
 
 import { Button } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { useLocale, useTranslations } from "next-intl";
 import GoogleProvider from "@/app/[locale]/(auth)/GoogleProvider";

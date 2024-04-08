@@ -1,8 +1,9 @@
 "use client";
 import { StoreContext } from "@/contexts/StoreContext";
-import { Button, Input } from "@nextui-org/react";
+
 import { observer } from "mobx-react-lite";
-import { usePathname, useRouter } from "next/navigation";
+
+import { useRouter } from "@/navigation";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 

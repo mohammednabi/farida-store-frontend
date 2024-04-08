@@ -6,7 +6,8 @@ import {
   Button,
   Input,
 } from "@nextui-org/react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "@/navigation";
 import React, { useContext } from "react";
 
 import { IoAddCircleOutline } from "react-icons/io5";

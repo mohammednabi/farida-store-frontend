@@ -9,12 +9,14 @@ import EmptyCart from "../../components/EmptyCart";
 import { observer } from "mobx-react-lite";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale } from "next-intl";
 
 const ShippingContent = () => {
   const { cart, userOrders } = useContext(StoreContext);
   const { currentWidth } = useScreenSize({});
+  const locale = useLocale();
   return (
-    <div className="relative">
+    <div className="relative" dir={locale === "en" ? "ltr" : "rtl"}>
       {userOrders.isCreatingOrderLoading && <LoadingOverlay />}
       {cart.productsCount > 0 ? (
         <div className="grid grid-rows-[auto_auto_auto] grid-cols-1 lg:grid-rows-1 lg:grid-cols-[3fr_auto_1.5fr] px-5 md:px-9 lg:px-20 gap-5">

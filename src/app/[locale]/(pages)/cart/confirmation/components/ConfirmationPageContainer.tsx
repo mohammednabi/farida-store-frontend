@@ -6,7 +6,8 @@ import ItemsContainer from "./ItemsContainer";
 import Orderinfo from "./Orderinfo";
 import OrderAddress from "./OrderAddress";
 import { StoreContext } from "@/contexts/StoreContext";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { observer } from "mobx-react-lite";
 import NoOrder from "./NoOrder";
 

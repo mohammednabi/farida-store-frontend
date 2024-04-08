@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import React from "react";
 
 type size =
@@ -31,13 +32,18 @@ const ShippingRowDetails = ({
   titleSize = "text-[1rem]",
   priceSize = "text-lg",
 }: detailsProps) => {
+  const currency = useTranslations("currency");
+
   return (
     <div className="flex  gap-10 items-center justify-between">
       <h1 className={`${titleStyle} text-sm md:text-xl line-clamp-2`}>
         {title}
       </h1>
       <h1 className={`${priceStyle} text-xs  md:text-lg `}>
-        {price.toFixed(2)}$
+        {price.toFixed(2)}{" "}
+        <span className="text-sm ltr:ml-1 rtl:mr-1">
+          {currency("currency")}
+        </span>
       </h1>
     </div>
   );

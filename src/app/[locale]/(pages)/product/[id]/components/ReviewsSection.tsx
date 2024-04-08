@@ -14,6 +14,7 @@ import ReviewSendedSuccesfuly from "./ReviewSendedSuccesfuly";
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
 import { useScreenSize } from "react-screen-size-helper";
 import { useLocale, useTranslations } from "next-intl";
+import ReviewLoginCondition from "./ReviewLoginCondition";
 
 interface reviewProps {
   product: strapiProductType;
@@ -98,7 +99,9 @@ const ReviewsSection = ({ product }: reviewProps) => {
               ) : (
                 <ReviewSendedSuccesfuly />
               )
-            ) : null}
+            ) : (
+              <ReviewLoginCondition />
+            )}
           </Tab>
 
           <Tab

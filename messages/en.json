@@ -153,13 +153,13 @@
       "product": "product"
     },
     "details": {
-      "description": "description",
+      "description": "Description",
       "status": "status",
       "inStock": "in stock",
       "outStock": "out of stock",
       "categories": "categories",
       "discount": "discount",
-      "reviews": "reviews",
+      "reviews": "Reviews",
       "addReview": "add your rating and review",
       "rating": "your rating",
       "review": "your review",
@@ -170,11 +170,13 @@
       "quality": "quality you can trust.",
       "farida": "farida store",
       "shipping": "shipping all over egypt",
-      "exchange": "exchange and return with a a 14-Day guarantee",
+      "exchange": "exchange and return with a  14-Day guarantee",
       "payments": "all your payments are fully insured"
     },
     "bestSeller": "best seller",
     "addToCart": "add to cart",
-    "addedToCart": "added to cart"
+    "addedToCart": "added to cart",
+    "successRating": "Your review has been sent successfully, your review is awaiting approval",
+    "reviewCondition": "you should login first to be enable to add your review for this product"
   }
 }

@@ -7,15 +7,19 @@ import ZoomedImage from "./ZoomedImage";
 import { observer } from "mobx-react-lite";
 import { useParams } from "next/navigation";
 import { Images, ImagesData } from "@/stores/specificTypes/strapiProductType";
+import {
+  ArabicImages,
+  ArabicImagesData,
+} from "@/stores/specificTypes/productArabicDataType";
 
 interface imagesProps {
-  allImages: Images;
+  allImages: Images | ArabicImages;
 }
 
 const ImagesSection = ({ allImages }: imagesProps) => {
-  const [selectedImage, setSelectedImage] = useState<ImagesData>(
-    allImages?.data[0]
-  );
+  const [selectedImage, setSelectedImage] = useState<
+    ImagesData | ArabicImagesData
+  >(allImages?.data[0]);
 
   useEffect(() => {
     setSelectedImage(allImages?.data[0]);

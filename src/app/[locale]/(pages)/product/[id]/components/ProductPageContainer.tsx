@@ -46,7 +46,11 @@ const ProductPageContainer = ({ id }: ProductPageContainerProps) => {
           <div className="flex flex-col gap-20">
             <div className="grid grid-cols-1 grid-rows-[auto_auto] lg:grid-cols-2 lg:grid-rows-1 gap-10">
               <ImagesSection
-                allImages={products.targetProduct?.attributes?.images}
+                allImages={
+                  locale === "en"
+                    ? products.targetProduct?.attributes?.images
+                    : products.targetProductArabicData?.attributes?.images
+                }
               />
               <DetailsSection
                 product={products.targetProduct}

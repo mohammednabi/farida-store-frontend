@@ -2,7 +2,7 @@
 import React from "react";
 import OrderCardInfo from "./OrderCardInfo";
 import { Button } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import { useScreenSize } from "react-screen-size-helper";
 
 interface orderCardProps {

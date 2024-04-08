@@ -2,7 +2,7 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import { Button, Divider } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import ConfirmMergeCart from "./ConfirmMergeCart";
 import { isUserLoggedIn } from "@/functions/credentials";

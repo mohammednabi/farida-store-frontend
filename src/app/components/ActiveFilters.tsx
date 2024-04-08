@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import MiniActiveFilter from "./MiniActiveFilter";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "@/navigation";
 
 const ActiveFilters = () => {
   const searchParams = useSearchParams();

@@ -3,7 +3,7 @@
 import React, { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";

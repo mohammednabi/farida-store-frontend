@@ -223,5 +223,57 @@
         "code": "promo code"
       }
     }
+  },
+  "shippingPage": {
+    "details": {
+      "title": "order details",
+      "code": {
+        "title": "Promo Code",
+        "description": "Do you have promo code? press here",
+        "question": "if you have promo code use it here",
+        "action": "use code"
+      },
+      "form": {
+        "labels": {
+          "phone1": "phone",
+          "phone2": "another phone",
+          "state": "state",
+          "country": "country",
+          "city": "city",
+          "street": "street",
+          "postal": "postal code"
+        },
+        "placeholders": {
+          "phone1": "phone number",
+          "phone2": "another phone number",
+          "state": "pick your state",
+          "country": "your country",
+          "city": "your city",
+          "street": "your street",
+          "postal": "postal code of your address"
+        },
+        "notes": {
+          "title": "more information",
+          "description": "order notes (optional)",
+          "placeholder": "If you have any notes about your order, write it here"
+        },
+        "action": {
+          "complete": "complete your order"
+        }
+      }
+    },
+    "order": {
+      "title": "your order",
+      "check": " please check your order information before confirmation",
+      "table": {
+        "product": "product",
+        "total": "total"
+      },
+      "footer": {
+        "totalPrices": "total prices",
+        "shipping": "shipping",
+        "total": "total"
+      }
+    }
   }
 }

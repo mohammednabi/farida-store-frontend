@@ -4,9 +4,11 @@ import React, { useContext, useEffect } from "react";
 import CompletedOrderedItem from "./CompletedOrderedItem";
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/navigation";
+import OrderItem from "../../../order/[id]/components/OrderItem";
 
-import OrderItem from "@/app/(pages)/order/[id]/components/OrderItem";
+// import OrderItem from "@/app/(pages)/order/[id]/components/OrderItem";
 
 const ItemsContainer = () => {
   const { userOrders } = useContext(StoreContext);

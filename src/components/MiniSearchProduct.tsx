@@ -4,7 +4,7 @@ import { strapiProductType } from "@/stores/specificTypes/strapiProductType";
 import { Image } from "@nextui-org/react";
 import { useLocale } from "next-intl";
 import { Link } from "@/navigation";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import React, { useContext } from "react";
 
 interface miniSearchProductProps {

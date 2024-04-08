@@ -1,13 +1,18 @@
-import React from 'react'
-import ShippingContent from './components/ShippingContent'
+import React from "react";
+import ShippingContent from "./components/ShippingContent";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const ShippingPage = () => {
-  return (
-    <div >
-<ShippingContent />
-
-    </div>
-  )
+interface ShippingPageProps {
+  params: { locale: string };
 }
 
-export default ShippingPage
+const ShippingPage = ({ params: { locale } }: ShippingPageProps) => {
+  unstable_setRequestLocale(locale);
+  return (
+    <div>
+      <ShippingContent />
+    </div>
+  );
+};
+
+export default ShippingPage;

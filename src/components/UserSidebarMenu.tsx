@@ -8,7 +8,7 @@ import { IoBagOutline } from "react-icons/io5";
 import { Link } from "@/navigation";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { IoIosLogOut } from "react-icons/io";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 
 import { observer } from "mobx-react-lite";
 import { StoreContext } from "@/contexts/StoreContext";

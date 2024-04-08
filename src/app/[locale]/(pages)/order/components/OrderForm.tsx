@@ -2,7 +2,7 @@
 import { StoreContext } from "@/contexts/StoreContext";
 import { Button, Input } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import React, { useContext, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useScreenSize } from "react-screen-size-helper";

@@ -9,7 +9,7 @@ import { isUserLoggedIn } from "@/functions/credentials";
 import WishListFliters from "./WishListFliters";
 import { GiSettingsKnobs } from "react-icons/gi";
 import { BsPlus } from "react-icons/bs";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import FiltersDropMenu from "./FiltersDropMenu";
 const WishlistContent = () => {
   const { wishlist, userWishlist, filtersDrop } = useContext(StoreContext);

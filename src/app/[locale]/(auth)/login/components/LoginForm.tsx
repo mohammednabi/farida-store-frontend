@@ -1,11 +1,11 @@
 "use client";
 import { Button, Divider, Input } from "@nextui-org/react";
-import { Link } from "@/navigation";
+import { Link, redirect, useRouter } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import GoogleProvider from "../../GoogleProvider";
-import { redirect, useRouter } from "next/navigation";
+
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";

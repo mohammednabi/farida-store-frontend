@@ -8,7 +8,7 @@ import {
   Textarea,
 } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { MdOutlineDiscount } from "react-icons/md";
@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AddressSelectionModal from "../../confirmation/components/AddressSelectionModal";
 import CustomizedInput from "../components/CustomizedInput";
 import { useScreenSize } from "react-screen-size-helper";
+import { useTranslations } from "next-intl";
 
 const ShippingForm = () => {
   const { handleSubmit, register, reset, setValue } = useForm();
@@ -24,6 +25,7 @@ const ShippingForm = () => {
   const { user, cart, userOrders, selectionAddressModal, userAddresses } =
     useContext(StoreContext);
   const router = useRouter();
+  const t = useTranslations("shippingPage");
 
   const goToConfirmationOrderPage = (orderNumber: string | number) => {
     router.push(`/cart/confirmation?order_number=${orderNumber}`);
@@ -95,13 +97,13 @@ const ShippingForm = () => {
   return (
     <div className="flex flex-col ">
       <h1 className="text-lg md:text-2xl font-bold capitalize">
-        order details
+        {t("details.title")}
       </h1>
 
       <Accordion variant="bordered" className="mt-10">
         <AccordionItem
-          title="Promo Code"
-          subtitle="Do you have promo code? press here"
+          title={t("details.code.title")}
+          subtitle={t("details.code.description")}
           indicator={<MdOutlineDiscount className="text-sm md:text-lg" />}
           classNames={{
             subtitle: "text-mainPink",
@@ -109,7 +111,7 @@ const ShippingForm = () => {
           }}
         >
           <h1 className="text-sm md:text-2xl capitalize pb-5">
-            if you have promo code use it here{" "}
+            {t("details.code.question")}{" "}
           </h1>
           <div className="flex flex-wrap items-center gap-5">
             <Input
@@ -127,7 +129,7 @@ const ShippingForm = () => {
               size={currentWidth > 768 ? "md" : "sm"}
               className="bg-mainBlack text-mainWhite px-5 py-2"
             >
-              use code
+              {t("details.code.action")}
             </Button>
           </div>
         </AccordionItem>
@@ -154,81 +156,83 @@ const ShippingForm = () => {
         <div className="grid grid-rows-2 grid-cols-1 md:grid-rows-1 md:grid-cols-2 items-center gap-5">
           <CustomizedInput
             formHookRegister={register("phone")}
-            label="phone"
+            label={t("details.form.labels.phone1")}
             labelPlacement="top"
             type="tel"
             inputMode="tel"
-            placeholder="phone number"
+            placeholder={t("details.form.placeholders.phone1")}
+            classNames={{ inputContainer: "ltr:text-left rtl:text-right" }}
             required
           />
 
           <CustomizedInput
             formHookRegister={register("second_phone")}
-            label={"another phone "}
+            label={t("details.form.labels.phone2")}
             labelPlacement="top"
             type="tel"
             inputMode="tel"
-            placeholder="another phone number"
+            placeholder={t("details.form.placeholders.phone2")}
+            classNames={{ inputContainer: "ltr:text-left rtl:text-right" }}
           />
         </div>
 
         <CustomizedInput
           formHookRegister={register("state")}
-          label={"state "}
+          label={t("details.form.labels.state")}
           labelPlacement="top"
           type="text"
           inputMode="text"
-          placeholder="pick your state"
+          placeholder={t("details.form.placeholders.state")}
           required
         />
 
         <CustomizedInput
           formHookRegister={register("country")}
-          label={"country "}
+          label={t("details.form.labels.country")}
           labelPlacement="top"
           type="text"
           inputMode="text"
-          placeholder="your country"
+          placeholder={t("details.form.placeholders.country")}
           required
         />
 
         <CustomizedInput
           formHookRegister={register("city")}
-          label={"city "}
+          label={t("details.form.labels.city")}
           labelPlacement="top"
           type="text"
           inputMode="text"
-          placeholder="your city"
+          placeholder={t("details.form.placeholders.city")}
           required
         />
 
         <CustomizedInput
           formHookRegister={register("street")}
-          label={"street "}
+          label={t("details.form.labels.street")}
           labelPlacement="top"
           type="text"
           inputMode="text"
-          placeholder="your street"
+          placeholder={t("details.form.placeholders.street")}
           required
         />
 
         <CustomizedInput
           formHookRegister={register("postal")}
-          label={"postal code "}
+          label={t("details.form.labels.postal")}
           labelPlacement="top"
           type="text"
           inputMode="text"
-          placeholder="postal code of your address"
+          placeholder={t("details.form.placeholders.postal")}
           required
         />
 
         <div className="flex flex-col pt-10 gap-5">
           <div>
             <h1 className="text-lg md:text-2xl font-bold capitalize">
-              more information
+              {t("details.form.notes.title")}
             </h1>
             <h1 className="text-sm md:text-xl text-mainBlack/50 capitalize">
-              Order notes (optional)
+              {t("details.form.notes.description")}
             </h1>
           </div>
 
@@ -237,7 +241,7 @@ const ShippingForm = () => {
               {...register("notes")}
               variant="bordered"
               radius="none"
-              placeholder="If you have any notes about your order, write it here "
+              placeholder={t("details.form.notes.placeholder")}
               minRows={currentWidth > 768 ? 20 : 10}
             />
           </div>
@@ -248,7 +252,7 @@ const ShippingForm = () => {
           className="bg-mainBlack text-mainWhite capitalize "
           type="submit"
         >
-          complete your order
+          {t("details.form.action.complete")}
         </Button>
       </form>
       <ToastContainer />

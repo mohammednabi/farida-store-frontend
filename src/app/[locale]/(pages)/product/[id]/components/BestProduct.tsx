@@ -1,7 +1,7 @@
 "use client";
 import { Image, Skeleton } from "@nextui-org/react";
 // import NextImage from 'next/image'
-import Link from "next/link";
+import { Link } from "@/navigation";
 import React from "react";
 
 interface bestProductProps {

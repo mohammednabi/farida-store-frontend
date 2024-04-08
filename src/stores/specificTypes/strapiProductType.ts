@@ -15,7 +15,7 @@ export type ProductAttributes = {
   thumbnail: Thumbnail;
   images: Images;
   type: "none" | "sale" | "deal" | "best_seller";
-  inventory: Inventory;
+  product_inventory: Inventory;
   category: Category;
   reviews: Reviews;
   discount: Discount;
@@ -63,7 +63,7 @@ export type FluffyAttributes = {
 };
 
 export type Images = {
-  thumbnail: { id: string; url: string };
+  // thumbnail: { id: string; url: string };
   data: ImagesData[];
 };
 

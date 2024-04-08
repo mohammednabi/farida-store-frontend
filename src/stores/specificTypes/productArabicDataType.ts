@@ -14,7 +14,7 @@ export type ProductArabicDataAttributes = {
   publishedAt: Date;
   locale: string;
   thumbnail: Category;
-  images: Images;
+  images: ArabicImages;
   category: Category;
   colors: Colors;
   discount: Discount;
@@ -42,7 +42,7 @@ export type PurpleAttributes = {
   hex?: string;
 };
 
-export type DAT = {
+export type ArabicImagesData = {
   id: number;
   attributes: FluffyAttributes;
 };
@@ -117,8 +117,8 @@ export type TentacledAttributes = {
   publishedAt: Date;
 };
 
-export type Images = {
-  data: DAT[];
+export type ArabicImages = {
+  data: ArabicImagesData[];
 };
 
 export type Localizations = {

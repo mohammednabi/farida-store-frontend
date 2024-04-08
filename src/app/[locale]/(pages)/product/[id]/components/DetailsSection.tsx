@@ -81,9 +81,10 @@ const DetailsSection = ({
 
       <h1 className="text-sm md:text-xl font-semibold capitalize">
         {t("details.status")} :{" "}
-        {product?.attributes?.inventory?.data?.attributes?.available_in_stock &&
-        product?.attributes?.inventory?.data?.attributes?.available_in_stock >
-          0 ? (
+        {product?.attributes?.product_inventory?.data?.attributes
+          ?.available_in_stock &&
+        product?.attributes?.product_inventory?.data?.attributes
+          ?.available_in_stock > 0 ? (
           <span className="text-green-700">{t("details.inStock")}</span>
         ) : (
           <span className="text-red-700">{t("details.outStock")}</span>
@@ -92,7 +93,7 @@ const DetailsSection = ({
 
       <div className="flex flex-col gap-2">
         {product?.attributes?.discount?.data && (
-          <div className="bg-green-500 p-1 pr-3 md:p-2 md:pr-5 w-max rounded-r-full">
+          <div className="bg-green-500 p-1 pr-3 md:p-2 md:pr-5 w-max ltr:rounded-r-full rtl:rounded-l-full">
             <h1 className="capitalize text-white font-semibold text-lg md:text-2xl ">
               {t("details.discount")}{" "}
               {

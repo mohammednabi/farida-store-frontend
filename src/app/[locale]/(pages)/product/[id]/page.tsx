@@ -1,11 +1,13 @@
+import { unstable_setRequestLocale } from "next-intl/server";
 import ProductPageContainer from "./components/ProductPageContainer";
 
-interface productProps {
-  params: { id: string };
+interface productPageProps {
+  params: { id: string; locale: string };
 }
 
-const ProductPage = ({ params }: productProps) => {
-  return <ProductPageContainer id={params.id} />;
+const ProductPage = ({ params: { id, locale } }: productPageProps) => {
+  unstable_setRequestLocale(locale);
+  return <ProductPageContainer id={id} />;
 };
 
 export default ProductPage;

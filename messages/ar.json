@@ -280,5 +280,41 @@
         "total": "الإجمالي"
       }
     }
+  },
+  "confirmationPage": {
+    "thanks": {
+      "thank": "شكرا لك",
+      "message": "تم استلام طلبك بنجاح"
+    },
+    "orderInfo": {
+      "date": {
+        "soon": "قريبا"
+      },
+      "information": {
+        "title": "معلومات الطلب",
+        "orderFor": "مالك الطلب :",
+        "orderNumber": "رقم الطلب :",
+        "orderOn": "تم الطلب يوم :",
+        "arrivedOn": "الوصول يوم :",
+        "totalPrice": "الإجمالي :",
+        "payment": "طريقة الدفع :",
+        "cash": "كاش",
+        "notes": "ملاحظات :"
+      }
+    },
+    "orderAddress": {
+      "title": "عنوان الطلب",
+      "phone1": "الهاتف :",
+      "phone2": " هاتف آخر :",
+      "state": "الدولة :",
+      "country": "البلد :",
+      "city": "المدينة :",
+      "street": "الشارع :",
+      "postal": "الرمز البريدي :"
+    },
+    "orderItems": {
+      "title": "عناصر الطلب",
+      "noOrder": "هذا الطلب غير موجود"
+    }
   }
 }

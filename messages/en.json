@@ -278,5 +278,41 @@
         "total": "total"
       }
     }
+  },
+  "confirmationPage": {
+    "thanks": {
+      "thank": "thank you",
+      "message": " your order was recieved successfully"
+    },
+    "orderInfo": {
+      "date": {
+        "soon": "soon"
+      },
+      "information": {
+        "title": "order information",
+        "orderFor": "order for :",
+        "orderNumber": "order number :",
+        "orderOn": "ordered on  :",
+        "arrivedOn": "arrived on  :",
+        "totalPrice": "total price :",
+        "payment": "payment method :",
+        "cash": "cash",
+        "notes": "order notes :"
+      }
+    },
+    "orderAddress": {
+      "title": "order address",
+      "state": "state :",
+      "country": "country :",
+      "city": "city :",
+      "street": "street :",
+      "postal": "postal code :",
+      "phone1": "phone :",
+      "phone2": "second phone :"
+    },
+    "orderItems": {
+      "title": "order items",
+      "noOrder": "no order found"
+    }
   }
 }

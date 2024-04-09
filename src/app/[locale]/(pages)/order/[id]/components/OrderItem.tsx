@@ -3,6 +3,7 @@ import { Divider, Image } from "@nextui-org/react";
 import { Link } from "@/navigation";
 import React from "react";
 import { LuBox } from "react-icons/lu";
+import { useTranslations } from "next-intl";
 
 interface orderItemProps {
   id: string | number;
@@ -21,6 +22,7 @@ const OrderItem = ({
   price,
   quantity,
 }: orderItemProps) => {
+  const currency = useTranslations("currency");
   return (
     <Link
       href={`/product/${id}`}
@@ -49,10 +51,10 @@ const OrderItem = ({
       </div> */}
 
         <div className="flex flex-col justify-center  gap-2 ">
-          <h1 className="text-sm md:text-xl line-clamp-2 text-center lmob:text-left">
+          <h1 className="text-sm md:text-xl line-clamp-2 text-center lmob:ltr:text-left lmob:rtl:text-right ">
             {title}
           </h1>
-          <h1 className="text-xs md:text-lg text-mainBlack/50 line-clamp-2 text-center lmob:text-left">
+          <h1 className="text-xs md:text-lg text-mainBlack/50 line-clamp-2 text-center lmob:ltr:text-left lmob:rtl:text-right">
             {description}
           </h1>
         </div>
@@ -65,9 +67,12 @@ const OrderItem = ({
           <LuBox className="opacity-50" />
           <h1>{quantity}</h1>
         </div>
-        <h1 className="text-sm md:text-lg justify-self-end">{`${
-          price * quantity
-        } $`}</h1>
+        <h1 className="text-sm md:text-lg justify-self-end">
+          {`${price * quantity} `}{" "}
+          <span className="text-sm ltr:ml-1 rtl:mr-1">
+            {currency("currency")}
+          </span>
+        </h1>
       </div>
     </Link>
   );

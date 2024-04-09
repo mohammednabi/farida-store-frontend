@@ -10,10 +10,11 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/navigation";
 import { observer } from "mobx-react-lite";
 import NoOrder from "./NoOrder";
+import { useLocale } from "next-intl";
 
 const ConfirmationPageContainer = () => {
   const { userOrders, user } = useContext(StoreContext);
-
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -43,7 +44,7 @@ const ConfirmationPageContainer = () => {
   }, [userOrders.isCreatingOrderLoading, user.strapiUserdata.id]);
 
   return (
-    <>
+    <div dir={locale === "en" ? "ltr" : "rtl"}>
       {orderId && userOrders.orderDetails.data && foundedInUserOrders ? (
         <div className="flex flex-col gap-10 mt-20 px-5 md:px-10 lg:px-20">
           <Thanks />
@@ -57,7 +58,7 @@ const ConfirmationPageContainer = () => {
       ) : (
         <NoOrder />
       )}
-    </>
+    </div>
   );
 };
 

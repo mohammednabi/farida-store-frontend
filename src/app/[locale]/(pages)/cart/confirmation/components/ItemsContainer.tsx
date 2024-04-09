@@ -7,12 +7,14 @@ import { StoreContext } from "@/contexts/StoreContext";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/navigation";
 import OrderItem from "../../../order/[id]/components/OrderItem";
+import { useLocale, useTranslations } from "next-intl";
 
 // import OrderItem from "@/app/(pages)/order/[id]/components/OrderItem";
 
 const ItemsContainer = () => {
   const { userOrders } = useContext(StoreContext);
-
+  const t = useTranslations("confirmationPage");
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -30,7 +32,7 @@ const ItemsContainer = () => {
   return (
     <div className="flex flex-col gap-3">
       <h1 className="text-xl font-semibold capitalize text-center">
-        order items
+        {t("orderItems.title")}
       </h1>
       {userOrders?.orderItems?.data?.map((orderItem) => (
         // <CompletedOrderedItem
@@ -44,9 +46,17 @@ const ItemsContainer = () => {
         <OrderItem
           key={orderItem.id}
           id={orderItem.attributes.product.data?.id}
-          title={orderItem.attributes.product.data?.attributes?.title}
+          title={
+            locale === "en"
+              ? orderItem.attributes.product.data?.attributes?.title
+              : orderItem.attributes.product.data.attributes.localizations
+                  .data[0].attributes.title
+          }
           description={
-            orderItem.attributes.product.data?.attributes?.description
+            locale === "en"
+              ? orderItem.attributes.product.data?.attributes?.description
+              : orderItem.attributes.product.data.attributes.localizations
+                  .data[0].attributes.description
           }
           imgsrc={
             orderItem.attributes.product.data?.attributes?.thumbnail?.data

@@ -5,8 +5,9 @@ import Icon from "./Icon";
 import { Avatar, Image, Select, SelectItem, Switch } from "@nextui-org/react";
 import { useLocale } from "next-intl";
 
-import { useRouter, usePathname } from "@/navigation";
+// import { useRouter, usePathname } from "@/navigation";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import { usePathname, useRouter } from "next/navigation";
 
 const LanguageIcon = () => {
   const locale = useLocale();
@@ -15,9 +16,18 @@ const LanguageIcon = () => {
 
   const changeLocale = (locale: string) => {
     if (!pathname) return "/";
-    const segments = pathname.split("/");
+    const url = new URL(window.location.href);
+    const newUrl = new URL(url.href);
+
+    // Update the language segment of the pathname
+    const segments = newUrl.pathname.split("/");
     segments[1] = locale;
-    router.push(segments.join("/"));
+    newUrl.pathname = segments.join("/");
+
+    // Preserve the existing search parameters
+    newUrl.search = url.search;
+
+    router.push(newUrl.href);
   };
 
   return (

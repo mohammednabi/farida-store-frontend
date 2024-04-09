@@ -30,10 +30,12 @@ export interface TentacledAttributes {
   thumbnail: Thumbnail;
   images: Images;
   category: Category;
-  reviews: OrderItems;
+  reviews: Reviews;
   discount: Discount;
-  sizes: OrderItems;
+  sizes: Sizes;
   colors: Category;
+  locale: string;
+  localizations: Localizations;
 }
 
 export interface ProductData {
@@ -164,3 +166,58 @@ export interface Thumbnail {
 }
 
 export interface Meta {}
+
+export interface Localizations {
+  data: LocalizationsDatum[];
+}
+
+export interface LocalizationsDatum {
+  id: number;
+  attributes: HilariousAttributes;
+}
+
+export interface HilariousAttributes {
+  title: string;
+  description: string;
+  slug: string;
+  price: number;
+  type: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  locale: string;
+}
+
+export interface Sizes {
+  data: ProductInventoryData[];
+}
+
+export interface ProductInventoryData {
+  id: number;
+  attributes: AmbitiousAttributes;
+}
+
+export interface AmbitiousAttributes {
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+  value: string;
+}
+
+export interface Reviews {
+  data: ReviewsDatum[];
+}
+
+export interface ReviewsDatum {
+  id: number;
+  attributes: CunningAttributes;
+}
+
+export interface CunningAttributes {
+  description: string;
+  rating: number;
+  allowed: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date;
+}

@@ -1,14 +1,13 @@
-import PageTitle from "@/components/PageTitle";
-import React from "react";
-import AddressesContainer from "./components/AddressesContainer";
+import { unstable_setRequestLocale } from "next-intl/server";
+import UserAddressPageContainer from "./components/UserAddressPageContainer";
 
-const UserAddressesPage = () => {
-  return (
-    <div>
-      <PageTitle title={`your addresses`} />
-      <AddressesContainer />
-    </div>
-  );
+interface UserAddressesPageProps {
+  params: { locale: string };
+}
+
+const UserAddressesPage = ({ params: { locale } }: UserAddressesPageProps) => {
+  unstable_setRequestLocale(locale);
+  return <UserAddressPageContainer />;
 };
 
 export default UserAddressesPage;

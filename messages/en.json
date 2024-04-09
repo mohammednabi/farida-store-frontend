@@ -342,5 +342,48 @@
         "AZ": "A-Z"
       }
     }
+  },
+  "userAdderesses": {
+    "title": "your addresses",
+    "address": {
+      "address": "address",
+      "notFound": "not found",
+      "phone1": "phone :",
+      "phone2": "second phone :",
+      "state": "state :",
+      "country": "country :",
+      "city": "city :",
+      "street": "street :",
+      "postal": "postal code :",
+      "delete": "delete"
+    },
+    "new": "add new address",
+    "empty": {
+      "description": " you have no addresses"
+    },
+    "form": {
+      "new": "new address",
+      "labels": {
+        "phone1": "phone",
+        "phone2": "second phone ",
+        "state": "state",
+        "country": "country",
+        "city": "city",
+        "street": "street",
+        "postal": "postal code"
+      },
+      "placeholders": {
+        "phone1": "phone number",
+        "phone2": "another phone number",
+        "state": "pick your state",
+        "country": "your country",
+        "city": "your city",
+        "street": "your street",
+        "postal": "postal code of your address"
+      },
+      "action": {
+        "submit": "submit"
+      }
+    }
   }
 }

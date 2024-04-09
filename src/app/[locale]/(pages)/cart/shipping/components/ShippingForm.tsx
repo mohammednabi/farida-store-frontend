@@ -141,7 +141,7 @@ const ShippingForm = () => {
           className="bg-mainBlack text-mainWhite text-sm md:text-xl mt-10 capitalize"
           onPress={selectionAddressModal.onOpen}
         >
-          select from your addresses
+          {t("details.addresses.select")}
         </Button>
       )}
 

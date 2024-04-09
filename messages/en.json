@@ -260,6 +260,9 @@
         "action": {
           "complete": "complete your order"
         }
+      },
+      "addresses": {
+        "select": "select from your addresses"
       }
     },
     "order": {

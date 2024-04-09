@@ -1,17 +1,13 @@
+import { unstable_setRequestLocale } from "next-intl/server";
+import WishListContainer from "./components/WishListContainer";
 
-import PageTitle from "@/components/PageTitle"
-import WishlistContent from "./components/WishlistContent"
-import WishListSections from "./components/WishListSections"
-
-
-
-const WishListPage = () => {
-    return (
-        <div>
-            <PageTitle title="wish list" />
-            <WishListSections />
-    </div>
-)
+interface WishListPageProps {
+  params: { locale: string };
 }
 
-export default WishListPage
+const WishListPage = ({ params: { locale } }: WishListPageProps) => {
+  unstable_setRequestLocale(locale);
+  return <WishListContainer />;
+};
+
+export default WishListPage;

@@ -4,9 +4,7 @@ import Rating from "@/components/Rating";
 import { StoreContext } from "@/contexts/StoreContext";
 import { getAverageRatings } from "@/functions/getAverageRatings";
 import { getTheLengthOfAllowedRatings } from "@/functions/getTheLengthOfAllowedRatings";
-import { userCartProductType } from "@/stores/specificTypes/userCartProductType";
 import { userWishlistProductType } from "@/stores/specificTypes/wishlistProductType";
-
 import { Button, Image } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import { Link } from "@/navigation";
@@ -14,6 +12,7 @@ import React, { useContext, useMemo, useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { MdAddShoppingCart, MdDelete } from "react-icons/md";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale, useTranslations } from "next-intl";
 
 interface wishlistItemProps {
   product: userWishlistProductType;
@@ -24,6 +23,9 @@ const WishListItem = ({ product }: wishlistItemProps) => {
   const { isMobile, isTablet, isDesktop, isLargeDesktop } = useScreenSize({});
 
   const [isLoading, setIsloading] = useState(false);
+  const t = useTranslations("wishList");
+  const currency = useTranslations("currency");
+  const locale = useLocale();
 
   const foundedInCart = useMemo(() => {
     if (cart.isInUserCart(Number(product.id))) {
@@ -75,7 +77,7 @@ const WishListItem = ({ product }: wishlistItemProps) => {
         <div className="flex flex-col gap-1  justify-center">
           <Link href={`/product/${product.id}`}>
             <h1 className="text-sm md:text-2xl capitalize line-clamp-1">
-              {product.title}
+              {locale === "en" ? product.title : product.localization.title}
             </h1>
           </Link>
           <div className="flex items-center gap-2">
@@ -88,12 +90,17 @@ const WishListItem = ({ product }: wishlistItemProps) => {
             </h1>
           </div>
           <h1 className="text-xs md:text-xl capitalize text-mainBlack/50   w-full line-clamp-1">
-            {product.description}
+            {locale === "en"
+              ? product.description
+              : product.localization.desscription}
           </h1>
         </div>
         <div className="grid col-span-2 sm:col-auto grid-rows-1 grid-cols-[2fr_4fr] sm:grid-rows-1 sm:grid-cols-1  place-items-center">
           <h1 className="text-sm sm:text-lg md:text-2xl text-center font-bold capitalize text-green-500">
-            {product.price} $
+            {product.price}{" "}
+            <span className="text-sm ltr:ml-1 rtl:mr-1">
+              {currency("currency")}
+            </span>
           </h1>
 
           <div className="grid md:hidden grid-cols-2 items-center justify-self-end sm:justify-self-center gap-2 ">
@@ -135,7 +142,9 @@ const WishListItem = ({ product }: wishlistItemProps) => {
             isDisabled={foundedInCart}
             onClick={addToCart}
           >
-            {foundedInCart ? "added to cart" : "add it to cart"}
+            {foundedInCart
+              ? t("content.item.addedToCart")
+              : t("content.item.addToCart")}
           </Button>
           <Button
             radius="lg"
@@ -143,7 +152,7 @@ const WishListItem = ({ product }: wishlistItemProps) => {
             endContent={<MdDelete className="text-mainWhite" />}
             onClick={removeFromWishlist}
           >
-            delete
+            {t("content.item.delete")}
           </Button>
         </div>
       </div>

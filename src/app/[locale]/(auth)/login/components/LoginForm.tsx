@@ -1,6 +1,6 @@
 "use client";
 import { Button, Divider, Input } from "@nextui-org/react";
-import { Link, redirect, useRouter } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -41,7 +41,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (Cookies.get("credentials")) {
-      redirect("/");
+      router.push("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginForm.isLoading]);

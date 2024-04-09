@@ -9,4 +9,9 @@ export type userWishlistProductType = {
   description: string;
   price: number;
   reviews: Review[];
+  localization: {
+    title: string;
+    desscription: string;
+    slug: string;
+  };
 };

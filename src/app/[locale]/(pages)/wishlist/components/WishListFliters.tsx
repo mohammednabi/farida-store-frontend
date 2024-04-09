@@ -12,6 +12,7 @@ import React, { useContext } from "react";
 
 import { IoAddCircleOutline } from "react-icons/io5";
 import { IoFilterOutline } from "react-icons/io5";
+import { useLocale, useTranslations } from "next-intl";
 
 interface wishListFiltersProps {
   showFilters?: boolean;
@@ -23,12 +24,20 @@ const WishListFliters = ({
   showFilters = true,
 }: wishListFiltersProps) => {
   const { userWishlist } = useContext(StoreContext);
+  const t = useTranslations("wishList");
+  const locale = useLocale();
 
   const filters = [
-    { type: "Rating" },
-    { type: "Prices Up" },
-    { type: "Prices Down" },
-    { type: "A-Z" },
+    { type: "Rating", title: t("content.filters.rating") },
+    {
+      type: "Prices Up",
+      title: t("content.filters.pricesUp"),
+    },
+    {
+      type: "Prices Down",
+      title: t("content.filters.pricesDown"),
+    },
+    { type: "A-Z", title: t("content.filters.AZ") },
   ];
 
   const router = useRouter();
@@ -57,14 +66,14 @@ const WishListFliters = ({
             className="bg-mainBlack text-mainWhite p-5 py-8 text-xl capitalize"
             onClick={goToHomePage}
           >
-            add new item
+            {t("content.filters.action")}
           </Button>
         )}
 
         {showFilters && (
           <Autocomplete
-            label="Filters"
-            placeholder="Filter by ->"
+            label={t("content.filters.filters")}
+            placeholder={t("content.filters.filterBy")}
             defaultItems={filters}
             variant="faded"
             startContent={<IoFilterOutline />}
@@ -79,7 +88,14 @@ const WishListFliters = ({
             }}
           >
             {(item) => (
-              <AutocompleteItem key={item.type}>{item.type}</AutocompleteItem>
+              <AutocompleteItem
+                key={item.type}
+                classNames={{
+                  base: `${locale === "en" ? `text-left` : `text-right`}  `,
+                }}
+              >
+                {item.title}
+              </AutocompleteItem>
             )}
           </Autocomplete>
         )}

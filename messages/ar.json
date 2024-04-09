@@ -262,6 +262,9 @@
         "action": {
           "complete": "أكمل طلبك"
         }
+      },
+      "addresses": {
+        "select": "اختار من عناوينك"
       }
     },
     "order": {

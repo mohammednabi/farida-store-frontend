@@ -314,5 +314,33 @@
       "title": "order items",
       "noOrder": "no order found"
     }
+  },
+  "wishList": {
+    "title": "wish list",
+    "noSignIn": {
+      "descritpion": "sign in first to see your wish list",
+      "action": "sign in"
+    },
+    "content": {
+      "items": "wish list items",
+      "emptyWishlist": {
+        "empty": "your wish list is empty",
+        "action": "explore"
+      },
+      "item": {
+        "addToCart": "add to cart",
+        "addedToCart": "added to cart",
+        "delete": "delete"
+      },
+      "filters": {
+        "action": "add new item",
+        "filters": "Filters",
+        "filterBy": "Filter by ->",
+        "rating": "Rating",
+        "pricesUp": "Prices Up",
+        "pricesDown": "Prices Down",
+        "AZ": "A-Z"
+      }
+    }
   }
 }

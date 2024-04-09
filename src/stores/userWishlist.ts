@@ -51,6 +51,11 @@ export class userWishListStore {
               item.product.price
             ),
             reviews: item.product.reviews,
+            localization: {
+              title: item.product.localizations[0].title,
+              desscription: item.product.localizations[0].description,
+              slug: item.product.localizations[0].slug,
+            },
           };
 
           itemsOfUserWishlist.push(userWishListItem);

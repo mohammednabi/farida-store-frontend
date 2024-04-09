@@ -11,9 +11,11 @@ import { GiSettingsKnobs } from "react-icons/gi";
 import { BsPlus } from "react-icons/bs";
 import { useRouter } from "@/navigation";
 import FiltersDropMenu from "./FiltersDropMenu";
+import { useTranslations } from "next-intl";
 const WishlistContent = () => {
   const { wishlist, userWishlist, filtersDrop } = useContext(StoreContext);
   const router = useRouter();
+  const t = useTranslations("wishList");
 
   const goToHomePage = () => {
     router.push("/");
@@ -29,7 +31,7 @@ const WishlistContent = () => {
           className="text-mainBlack bg-mainWhite xl:hidden"
           onClick={goToHomePage}
         />
-        <h1>wish list items</h1>
+        <h1> {t("content.items")}</h1>
 
         <Button
           size="sm"

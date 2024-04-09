@@ -316,5 +316,33 @@
       "title": "عناصر الطلب",
       "noOrder": "هذا الطلب غير موجود"
     }
+  },
+  "wishList": {
+    "title": "قائمة الرغبات",
+    "noSignIn": {
+      "descritpion": "قم بتسجيل الدخول أولا حتى تتمكن من رؤية قائمة رغباتك",
+      "action": "تسجيل الدخول"
+    },
+    "content": {
+      "items": "العناصر",
+      "emptyWishlist": {
+        "empty": "قائمة رغباتك فارغة",
+        "action": "تصفح"
+      },
+      "item": {
+        "addToCart": "أضف الى العربة",
+        "addedToCart": "تمت الإضافة ",
+        "delete": "حذف"
+      },
+      "filters": {
+        "action": "إضافة عنصر جديد",
+        "filters": "الفلاتر",
+        "filterBy": "ترتيب حسب ->",
+        "rating": "التقييم",
+        "pricesUp": "السعر تصاعديا",
+        "pricesDown": "السعر تنازليا",
+        "AZ": "أ-ي"
+      }
+    }
   }
 }

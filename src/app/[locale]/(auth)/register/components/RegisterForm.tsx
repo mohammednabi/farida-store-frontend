@@ -1,11 +1,11 @@
 "use client";
 import { Button, Divider, Input } from "@nextui-org/react";
-import { Link } from "@/navigation";
+import { Link, useRouter } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import GoogleProvider from "../../GoogleProvider";
-import { redirect } from "next/navigation";
+
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
@@ -18,6 +18,7 @@ const RegisterForm = () => {
   const { isMobile } = useScreenSize({});
   const t = useTranslations("registerForm");
   const locale = useLocale();
+  const router = useRouter();
 
   useEffect(() => {
     registerForm.setDisabledCondition(
@@ -45,7 +46,7 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (isUserLoggedIn()) {
-      redirect("/");
+      router.push("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [registerForm.isLoading]);

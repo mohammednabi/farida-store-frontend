@@ -3,9 +3,11 @@ import { Button } from "@nextui-org/react";
 import { useRouter } from "@/navigation";
 import React from "react";
 import { TfiDropbox } from "react-icons/tfi";
+import { useTranslations } from "next-intl";
 
 const WishListIsEmpty = () => {
   const router = useRouter();
+  const t = useTranslations("wishList");
 
   const goToHomePage = () => {
     router.push("/");
@@ -16,14 +18,14 @@ const WishListIsEmpty = () => {
       <div className="flex flex-col items-center gap-2">
         <TfiDropbox className="text-9xl md:text-[12rem] text-mainBlack/50" />
         <h1 className="text-lg md:text-2xl text-mainBlack/50 capitalize text-center">
-          your wishlist is empty
+          {t("content.emptyWishlist.empty")}
         </h1>
       </div>
       <Button
         className="bg-mainBlack text-sm md:text-xl text-mainWhite capitalize py-3 px-10 md:py-6 md:px-20"
         onClick={goToHomePage}
       >
-        explore
+        {t("content.emptyWishlist.action")}
       </Button>
     </div>
   );

@@ -6,6 +6,7 @@ import { MdOutlineDelete } from "react-icons/md";
 import { StoreContext } from "@/contexts/StoreContext";
 import LoadingOverlay from "@/components/LoadingOverlay";
 import { useScreenSize } from "react-screen-size-helper";
+import { useTranslations } from "next-intl";
 
 interface userAddressProps {
   addressId: number | string;
@@ -30,14 +31,16 @@ const UserAddress = ({
   secondPhone,
   postalCode,
 }: userAddressProps) => {
+  const t = useTranslations("userAdderesses");
+
   const information: { title: string; description: string }[] = [
-    { title: "state :", description: state },
-    { title: "country :", description: country },
-    { title: "city :", description: city },
-    { title: "street :", description: street },
-    { title: "postal code :", description: postalCode },
-    { title: "phone :", description: phone },
-    { title: "second_phone :", description: secondPhone },
+    { title: t("address.state"), description: state },
+    { title: t("address.country"), description: country },
+    { title: t("address.city"), description: city },
+    { title: t("address.street"), description: street },
+    { title: t("address.postal"), description: postalCode },
+    { title: t("address.phone1"), description: phone },
+    { title: t("address.phone2"), description: secondPhone },
   ];
 
   const { userAddresses } = useContext(StoreContext);
@@ -63,7 +66,7 @@ const UserAddress = ({
       {isLoading && <LoadingOverlay />}
       <div className="p-5 border-2 border-solid border-mainBlack/25 flex flex-col gap-3">
         <h1 className="text-lg md:text-xl font-semibold text-center capitalize">
-          address {index}
+          {t("address.address")} {index}
         </h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 px-5 mt-3">
           {information.map((info) => (
@@ -81,7 +84,7 @@ const UserAddress = ({
           endContent={<MdOutlineDelete />}
           onClick={deleteTheAddress}
         >
-          delete
+          {t("address.delete")}
         </Button>
       </div>
     </div>

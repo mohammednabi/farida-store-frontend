@@ -9,11 +9,13 @@ import { observer } from "mobx-react-lite";
 import EmptyAddress from "./EmptyAddress";
 import AddNewAddressModal from "./AddNewAddressModal";
 import { useScreenSize } from "react-screen-size-helper";
+import { useTranslations } from "next-intl";
 
 const AddressesContainer = () => {
   const { userAddresses, userOrders, addressModal } = useContext(StoreContext);
 
   const { currentWidth } = useScreenSize({});
+  const t = useTranslations("userAdderesses");
 
   useEffect(() => {
     userAddresses.getAllUserAddresses();
@@ -32,7 +34,7 @@ const AddressesContainer = () => {
             endContent={<FaPlus />}
             onPress={addressModal.onOpen}
           >
-            add new address
+            {t("new")}
           </Button>
           <div className="grid grid-cols-1 md:grid-cols-2 mt-5 gap-5">
             {userAddresses.userAddresses.map((add, index) => (

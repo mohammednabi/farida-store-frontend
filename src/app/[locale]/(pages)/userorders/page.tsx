@@ -1,14 +1,14 @@
-import PageTitle from "@/components/PageTitle";
 import React from "react";
-import OrderCardsContainer from "./components/OrderCardsContainer";
+import { unstable_setRequestLocale } from "next-intl/server";
+import UserOrdersPageContainer from "./components/UserOrdersPageContainer";
 
-const UserOrdersPage = () => {
-  return (
-    <div>
-      <PageTitle title="your orders" />
-      <OrderCardsContainer />
-    </div>
-  );
+interface UserOrdersPageProps {
+  params: { locale: string };
+}
+
+const UserOrdersPage = ({ params: { locale } }: UserOrdersPageProps) => {
+  unstable_setRequestLocale(locale);
+  return <UserOrdersPageContainer />;
 };
 
 export default UserOrdersPage;

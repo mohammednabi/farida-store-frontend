@@ -385,5 +385,59 @@
         "submit": "submit"
       }
     }
+  },
+
+  "userOrders": {
+    "title": "your orders",
+    "empty": "you have no orders",
+    "details": {
+      "orderNumber": "order number :",
+      "numberOfItems": "number of items :",
+      "orderedOn": "ordered on :",
+      "arrivedOn": "arrived on :",
+      "totalPrice": "total price :",
+      "items": "items",
+      "actions": {
+        "seeDetails": "see details",
+        "trackOrder": "track order"
+      }
+    },
+    "orderPage": {
+      "title": "order",
+      "orderItems": "order items"
+    },
+    "trackOrderPage": {
+      "title": "track order",
+      "empty": {
+        "description": "no order with this number",
+        "action": "make an order"
+      },
+      "recieved": {
+        "placed": "order placed",
+        "confirm": "congratiulations your order was received successfully",
+        "address": "your order will be shipped soon to"
+      },
+      "shipped": {
+        "way": "order on the way",
+        "shipped": "your order was shipped successfully",
+        "deliveredDate": "it should be delivered at",
+        "progress": "progress of the order",
+        "soon": "soon",
+        "done": "done",
+        "deliveredSuccess": "delivered successfully",
+        "fewHours": "few hours left",
+        "days": "days",
+        "daysLeft": "days left"
+      },
+      "paid": {
+        "arrived": "order arrived",
+        "receive": "you will pay for your items after you receive them"
+      },
+      "status": {
+        "completed": "completed",
+        "progress": "in progress",
+        "hold": "on hold"
+      }
+    }
   }
 }

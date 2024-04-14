@@ -6,6 +6,7 @@ import { useRouter } from "@/navigation";
 import React, { useContext, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale, useTranslations } from "next-intl";
 
 const OrderForm = () => {
   const { currentWidth } = useScreenSize({});
@@ -14,6 +15,8 @@ const OrderForm = () => {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations("trackOrderPage");
+  const locale = useLocale();
 
   const goToOrder = (data: FieldValues) => {
     // console.log({ data });
@@ -30,7 +33,7 @@ const OrderForm = () => {
         router.push(`trackorder/${data.onumber}`);
         setIsLoading(false);
       } else {
-        setErrorMessage("invalid information");
+        setErrorMessage(t("form.invalidInfo"));
         setIsLoading(false);
       }
       // console.log({ order });
@@ -39,10 +42,13 @@ const OrderForm = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-10 p-5 px-7 lmob:px-20">
-      <h1 className=" w-full md:w-8/12 lg:w-5/12 text-sm md:text-xl">
+      {/* <h1 className=" w-full md:w-8/12 lg:w-5/12 text-sm md:text-xl">
         Please enter your order number in the box below and press the “Track
         Order” button to view its status. You can find the order number in the
         mail sent to you containing the order confirmation Receipt.
+      </h1> */}
+      <h1 className=" w-full md:w-8/12 lg:w-5/12 text-sm md:text-xl">
+        {t("description")}
       </h1>
 
       <form
@@ -54,31 +60,31 @@ const OrderForm = () => {
         <Input
           {...register("onumber")}
           isRequired
-          label="Order number"
+          label={t("form.labels.orderNumber")}
           labelPlacement="outside"
-          placeholder="You will find it in your order confirmation message"
+          placeholder={t("form.placeholders.orderNumber")}
           radius="none"
           type="text"
           variant="bordered"
           size={currentWidth > 768 ? "lg" : "md"}
           className="w-full text-sm md:text-lg"
           classNames={{
-            label: "text-sm md:text-lg",
+            label: `text-sm md:text-lg ${locale === "ar" && "right-3"}`,
           }}
         />
         <Input
           {...register("email")}
           isRequired
-          label="Receipt email"
+          label={t("form.labels.receiptEmail")}
           labelPlacement="outside"
-          placeholder="The email you used to complete the order"
+          placeholder={t("form.placeholders.receiptEmail")}
           radius="none"
           type="email"
           variant="bordered"
           size={currentWidth > 768 ? "lg" : "md"}
           className="w-full text-sm md:text-lg"
           classNames={{
-            label: "text-sm md:text-lg",
+            label: `text-sm md:text-lg ${locale === "ar" && "right-3"}`,
           }}
         />
         <h1 className="text-red-500 text-sm md:text-xl">{errorMessage}</h1>
@@ -90,7 +96,7 @@ const OrderForm = () => {
           size={currentWidth > 768 ? "lg" : "md"}
           className="bg-mainBlack text-mainWhite capitalize text-sm md:text-xl"
         >
-          track order
+          {t("form.action")}
         </Button>
       </form>
     </div>

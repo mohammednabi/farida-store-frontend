@@ -1,5 +1,6 @@
 "use client";
 import { Button, Input, Textarea } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useScreenSize } from "react-screen-size-helper";
@@ -10,33 +11,35 @@ const ComplaintForm = () => {
   const { currentWidth } = useScreenSize({});
   const { register, handleSubmit } = useForm();
 
+  const t = useTranslations("contactPage");
+
   const submitcomplaint = () => {
-    toast("your complaint was send");
+    toast(t("form.sended"));
   };
 
   return (
     <div className="w-full px-5 medmob:px-10 lmob:px-20  md:px-28 flex flex-col gap-10">
       <div className="flex flex-col gap-3">
         <h1 className="text-2xl md:text-4xl font-bold capitalize">
-          Do you have a complaint or inquiry?
+          {t("form.title")}
         </h1>
         <h1 className="text-sm md:text-xl text-mainBlack/50 capitalize">
-          Please do not hesitate to call or write to us to help you
+          {t("form.subTitle")}
         </h1>
       </div>
 
       <form
         onSubmit={handleSubmit((data) => {
           submitcomplaint();
-          console.log({ data });
+          // console.log({ data });
         })}
         className="w-full flex flex-col gap-5"
       >
         <Input
           {...register("name")}
           isRequired
-          label="Name"
-          placeholder="Your name"
+          label={t("form.labels.name")}
+          placeholder={t("form.placeholders.name")}
           labelPlacement="outside"
           variant="bordered"
           radius="none"
@@ -44,12 +47,15 @@ const ComplaintForm = () => {
           inputMode="text"
           size={currentWidth > 768 ? "lg" : "md"}
           className="w-full "
+          classNames={{
+            label: "rtl:right-0",
+          }}
         />
         <Input
           {...register("email")}
           isRequired
-          label="Email"
-          placeholder="Your email"
+          label={t("form.labels.email")}
+          placeholder={t("form.placeholders.email")}
           labelPlacement="outside"
           variant="bordered"
           radius="none"
@@ -57,13 +63,16 @@ const ComplaintForm = () => {
           inputMode="email"
           size={currentWidth > 768 ? "lg" : "md"}
           className="w-full "
+          classNames={{
+            label: "rtl:right-0",
+          }}
         />
         <Textarea
           {...register("message")}
           isRequired
           minRows={20}
-          label="Message"
-          placeholder="Your message"
+          label={t("form.labels.message")}
+          placeholder={t("form.placeholders.message")}
           labelPlacement="outside"
           variant="bordered"
           radius="none"
@@ -78,7 +87,7 @@ const ComplaintForm = () => {
           size={currentWidth > 768 ? "lg" : "md"}
           className="bg-mainBlack text-mainWhite text-sm md:text-xl"
         >
-          Send
+          {t("form.action")}
         </Button>
       </form>
       <ToastContainer />

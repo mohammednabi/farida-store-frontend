@@ -455,5 +455,33 @@
       "action": "track order",
       "invalidInfo": "invalid information"
     }
+  },
+  "contactPage": {
+    "title": "contact us ",
+    "branches": {
+      "title": "We welcome you to visit us at any time:-",
+      "branch": "branch",
+
+      "city_state": "cairo,egypt",
+
+      "times1": "sun-thurs:9:00-20:00",
+      " times2": "fri-sat:11:00-15:00"
+    },
+    "form": {
+      "title": "Do you have a complaint or inquiry?",
+      "subTitle": "Please do not hesitate to call or write to us to help you",
+      "labels": {
+        "name": "Name",
+        "email": "Email",
+        "message": "Message"
+      },
+      "placeholders": {
+        "name": "Your name",
+        "email": "Your email",
+        "message": "Your message"
+      },
+      "action": "send",
+      "sended": "your complaint was send"
+    }
   }
 }

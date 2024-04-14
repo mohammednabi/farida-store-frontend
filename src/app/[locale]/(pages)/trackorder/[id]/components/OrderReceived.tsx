@@ -1,5 +1,6 @@
 "use client";
 import { Image } from "@nextui-org/react";
+import { useTranslations } from "next-intl";
 import React from "react";
 import { RiCheckboxCircleFill } from "react-icons/ri";
 
@@ -9,6 +10,8 @@ interface orderReceivedProps {
 }
 
 const OrderReceived = ({ status, address }: orderReceivedProps) => {
+  const t = useTranslations("userOrders");
+
   return (
     <div
       className={`${status === "in progress" && `scale-105 md:scale-110`} ${
@@ -23,22 +26,26 @@ const OrderReceived = ({ status, address }: orderReceivedProps) => {
                 status === "in progress" ? `text-emerald-500` : ``
               }`}
             >
-              {status}
+              {status === "completed"
+                ? t("trackOrderPage.status.completed")
+                : status === "in progress"
+                ? t("trackOrderPage.status.progress")
+                : t("trackOrderPage.status.hold")}
             </h1>
             {status === "completed" && (
               <RiCheckboxCircleFill className="text-emerald-500" />
             )}
           </div>
           <h2 className="capitalize font-bold text-lg md:text-2xl">
-            1. order placed{" "}
+            1.{t("trackOrderPage.recieved.placed")}
           </h2>
         </div>
         <div>
           <p className="capitalize font-semibold text-xs md:text-lg">
-            congratiulations your order was received successfully{" "}
+            {t("trackOrderPage.recieved.confirm")}{" "}
           </p>
           <p className="capitalize  text-xs md:text-lg">
-            your order will be shipped soon to:{" "}
+            {t("trackOrderPage.recieved.address")}:{" "}
           </p>
         </div>
         <h3 className="text-xs md:text-lg font-bold">{address}</h3>

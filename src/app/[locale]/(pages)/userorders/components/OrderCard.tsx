@@ -4,6 +4,7 @@ import OrderCardInfo from "./OrderCardInfo";
 import { Button } from "@nextui-org/react";
 import { useRouter } from "@/navigation";
 import { useScreenSize } from "react-screen-size-helper";
+import { useLocale, useTranslations } from "next-intl";
 
 interface orderCardProps {
   orderNumber: number;
@@ -20,13 +21,17 @@ const OrderCard = ({
   arrivedOn,
   orderItemsCount,
 }: orderCardProps) => {
-  const orderedOnDate = new Date(orderedOn).toLocaleDateString("en", {
+  const locale = useLocale();
+  const t = useTranslations("userOrders");
+  const currency = useTranslations("currency");
+
+  const orderedOnDate = new Date(orderedOn).toLocaleDateString(locale, {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
   const arrivedOnDate = arrivedOn
-    ? new Date(arrivedOn).toLocaleDateString("en", {
+    ? new Date(arrivedOn).toLocaleDateString(locale, {
         day: "numeric",
         month: "short",
         year: "numeric",
@@ -34,11 +39,17 @@ const OrderCard = ({
     : "soon";
 
   const information: { title: string; description: string }[] = [
-    { title: "order number:", description: `${orderNumber}` },
-    { title: "number of items:", description: `${orderItemsCount} items` },
-    { title: "ordered on:", description: orderedOnDate },
-    { title: "arrived on:", description: arrivedOnDate },
-    { title: "total price:", description: `${totalPrice} $` },
+    { title: t("details.orderNumber"), description: `${orderNumber}` },
+    {
+      title: t("details.numberOfItems"),
+      description: `${orderItemsCount} ${t("details.items")}`,
+    },
+    { title: t("details.orderedOn"), description: orderedOnDate },
+    { title: t("details.arrivedOn"), description: arrivedOnDate },
+    {
+      title: t("details.totalPrice"),
+      description: `${totalPrice} ${currency("currency")}`,
+    },
   ];
 
   const router = useRouter();
@@ -71,7 +82,7 @@ const OrderCard = ({
             radius="none"
             onClick={goToDetails}
           >
-            see details
+            {t("details.actions.seeDetails")}
           </Button>
           <Button
             size={currentWidth > 768 ? "md" : "sm"}
@@ -79,7 +90,7 @@ const OrderCard = ({
             radius="none"
             onClick={goToTrackOrder}
           >
-            track order
+            {t("details.actions.trackOrder")}
           </Button>
         </div>
       </div>

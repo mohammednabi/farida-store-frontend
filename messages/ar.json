@@ -387,5 +387,58 @@
         "submit": "ارسال"
       }
     }
+  },
+  "userOrders": {
+    "title": "طلباتك",
+    "empty": "ليس لديك طلبات",
+    "details": {
+      "orderNumber": "رقم الطلب :",
+      "numberOfItems": "عدد العناصر :",
+      "orderedOn": "تم الطلب يوم :",
+      "arrivedOn": "الوصول يوم :",
+      "totalPrice": "الإجمالي :",
+      "items": "العناصر",
+      "actions": {
+        "seeDetails": "شاهد التفاصيل",
+        "trackOrder": "تتبع الطلب"
+      }
+    },
+    "orderPage": {
+      "title": "الطلب",
+      "orderItems": "عناصر الطلب"
+    },
+    "trackOrderPage": {
+      "title": "تتبع الطلب",
+      "empty": {
+        "description": "لا يوجد طلب بهذا الرقم",
+        "action": "قم بعمل طلب"
+      },
+      "recieved": {
+        "placed": "تم الطلب",
+        "confirm": "تهانينا تم استلام طلبك بنجاح",
+        "address": "سيتم شحن طلبك قريبا إلى"
+      },
+      "shipped": {
+        "way": "الطلب في الطريق",
+        "shipped": "تم شحن طلبك بنجاح",
+        "deliveredDate": "سوف يتم التسليم خلال :",
+        "progress": "تقدم الطلب",
+        "soon": "قريبا",
+        "done": "تم",
+        "deliveredSuccess": "تم تسليمها بنجاح",
+        "fewHours": "بضع ساعات متبقيه",
+        "days": "أيام",
+        "daysLeft": "أيام متبقية"
+      },
+      "paid": {
+        "arrived": "وصل الطلب",
+        "receive": "سوف تدفع ثمن العناصر الخاصة بك بعد استلامها"
+      },
+      "status": {
+        "completed": "مكتمل",
+        "progress": "في تقدم",
+        "hold": "في الانتظار"
+      }
+    }
   }
 }

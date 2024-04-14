@@ -483,5 +483,22 @@
       "action": "إرسال",
       "sended": "تم ارسال الشكوى"
     }
+  },
+  "userProfilePage": {
+    "title": "الحساب الشخصي",
+    "userDetails": {
+      "email": " البريد الإلكتروني :",
+      "username": " اسم المستخدم :",
+      "firstName": " الإسم الأول :",
+      "lastName": "الإسم الأخير :"
+    },
+    "actions": {
+      "main": "تعديل البيانات",
+      "modal": "حفظ"
+    },
+    "messages": {
+      "success": "تم تحديث البيانات",
+      "failed": "فشل تحديث البيانات"
+    }
   }
 }

@@ -4,12 +4,19 @@ import React, { useContext } from "react";
 import ModalDataContainer from "./ModalDataContainer";
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
+import { useScreenSize } from "react-screen-size-helper";
 
 const EditProfileModal = () => {
   const { profileModal } = useContext(StoreContext);
 
+  const { currentWidth } = useScreenSize({});
+
   return (
-    <Modal isOpen={profileModal.isOpen} onClose={profileModal.onClose}>
+    <Modal
+      size={currentWidth > 768 ? "md" : "full"}
+      isOpen={profileModal.isOpen}
+      onClose={profileModal.onClose}
+    >
       <ModalContent className="p-5">
         {() => <ModalDataContainer />}
       </ModalContent>

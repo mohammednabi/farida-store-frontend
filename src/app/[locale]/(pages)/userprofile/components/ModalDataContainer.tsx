@@ -1,5 +1,5 @@
 "use client";
-import CustomizedInput from "@/app/cart/shipping/components/CustomizedInput";
+
 import { StoreContext } from "@/contexts/StoreContext";
 import { Button } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
@@ -7,12 +7,18 @@ import React, { useContext, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CustomizedInput from "../../cart/shipping/components/CustomizedInput";
+import { useLocale, useTranslations } from "next-intl";
+import { useScreenSize } from "react-screen-size-helper";
 
 const ModalDataContainer = () => {
   const { register, setValue, handleSubmit } = useForm();
   const { user } = useContext(StoreContext);
   const [loading, setLoading] = useState(false);
   const { profileModal } = useContext(StoreContext);
+  const t = useTranslations("userProfilePage");
+  const locale = useLocale();
+  const { currentWidth } = useScreenSize({});
 
   const setFormValues = () => {
     setValue("username", user.strapiUserdata.username);
@@ -37,11 +43,11 @@ const ModalDataContainer = () => {
     user
       .updateUserData(newData)
       .then(() => {
-        toast.success("updated successfully");
+        toast.success(t("messages.success"));
         // profileModal.onClose();
       })
       .catch((err) => {
-        toast.error("failed to update");
+        toast.error(t("messages.failed"));
       })
       .finally(() => {
         setLoading(false);
@@ -60,28 +66,33 @@ const ModalDataContainer = () => {
           updateTheUserData(data);
         })}
         className="flex flex-col gap-3"
+        dir={locale === "en" ? "ltr" : "rtl"}
       >
         <CustomizedInput
           formHookRegister={register("username")}
-          label="username :"
+          label={t("userDetails.username")}
         />
-        <CustomizedInput formHookRegister={register("email")} label="email :" />
+        <CustomizedInput
+          formHookRegister={register("email")}
+          label={t("userDetails.email")}
+        />
         <CustomizedInput
           formHookRegister={register("first_name")}
-          label="first name :"
+          label={t("userDetails.firstName")}
         />
         <CustomizedInput
           formHookRegister={register("last_name")}
-          label="last name :"
+          label={t("userDetails.lastName")}
         />
         <Button
           type="submit"
-          className="bg-mainBlack text-mainWhite text-xl capitalize"
+          className="bg-mainBlack text-mainWhite text-sm md:text-xl capitalize"
           radius="none"
           isLoading={loading}
           isDisabled={loading}
+          size={currentWidth > 768 ? "md" : "sm"}
         >
-          save
+          {t("actions.modal")}
         </Button>
       </form>
       <ToastContainer />

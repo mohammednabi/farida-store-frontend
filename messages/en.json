@@ -483,5 +483,22 @@
       "action": "send",
       "sended": "your complaint was send"
     }
+  },
+  "userProfilePage": {
+    "title": "user profile",
+    "userDetails": {
+      "email": "email :",
+      "username": "username :",
+      "firstName": "first name :",
+      "lastName": "last name :"
+    },
+    "actions": {
+      "main": "edit the profile",
+      "modal": "save"
+    },
+    "messages": {
+      "success": "updated successfully",
+      "failed": "failed to update"
+    }
   }
 }

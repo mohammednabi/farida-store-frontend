@@ -439,5 +439,21 @@
         "hold": "on hold"
       }
     }
+  },
+  "trackOrderPage": {
+    "title": "track order",
+    "description": "Please enter your order number in the box below and press the \u201cTrack Order\u201d button to view its status. You can find the order number in the mail sent to you containing the order confirmation Receipt.",
+    "form": {
+      "labels": {
+        "orderNumber": "Order number",
+        "receiptEmail": "Receipt email"
+      },
+      "placeholders": {
+        "orderNumber": "You will find it in your order confirmation message",
+        "receiptEmail": "The email you used to complete the order"
+      },
+      "action": "track order",
+      "invalidInfo": "invalid information"
+    }
   }
 }

@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
 import CartFloatingButton from "@/components/CartFloatingButton";
 import CartSideBar from "@/components/CartSideBar";
-import Uiproviders from "@/providers/UiProviders";
+import UiProviders from "@/providers/UiProviders";
 import TopPositionedAds from "@/components/TopPositionedAds";
 import BottomNavigation from "@/components/BottomNavigation";
 import GoTopFloatingButton from "@/components/GoTopFloatingButton";
@@ -51,7 +51,7 @@ export default function RootLayout({
       // style={{ direction: locale === "en" ? "ltr" : "rtl" }}
     >
       <body className={`font-cairo flex flex-col `}>
-        <Uiproviders>
+        <UiProviders>
           <StoreContextProvider>
             <NextIntlClientProvider locale={locale} messages={messages}>
               <div className="h-full   flex flex-col">
@@ -73,7 +73,7 @@ export default function RootLayout({
               </div>
             </NextIntlClientProvider>
           </StoreContextProvider>
-        </Uiproviders>
+        </UiProviders>
       </body>
     </html>
   );

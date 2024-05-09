@@ -37,7 +37,7 @@ const MiniSearchProduct = ({ product }: miniSearchProductProps) => {
     >
       <div className="w-full h-auto aspect-square cursor-pointer">
         <Image
-          src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
+          src={`${product.attributes.thumbnail.data.attributes.url}`}
           alt=""
           className="w-full h-full object-contain"
         />

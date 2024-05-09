@@ -80,7 +80,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
       setAddingToUserCartLoading(true);
       const parsedProductToCartProduct: cartProductType = {
         id: product.id,
-        imgSrc: `${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`,
+        imgSrc: `${product.attributes.thumbnail.data.attributes.url}`,
         title: product.attributes.title,
         slug: product.attributes.slug,
         description: product.attributes.description,
@@ -188,7 +188,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
         >
           <Image
             //   as={NextImage}
-            src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
+            src={`${product.attributes.thumbnail.data.attributes.url}`}
             //   quality={100}
             alt="product image"
             radius="sm"
@@ -199,7 +199,7 @@ const RawProductCard = ({ product }: rawProductProps) => {
           />
           {/* <Image
             //   as={NextImage}
-            src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
+            src={`${product.attributes.thumbnail.data.attributes.url}`}
             radius="sm"
             //   quality={100}
             alt="product image"

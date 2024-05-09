@@ -22,7 +22,7 @@ const SliderProduct = ({ img, title, isLinkActive }: sliderProductProps) => {
     >
       <div className=" w-full  sm:w-full   h-auto  aspect-square grid place-items-center">
         <img
-          src={`${process.env.NEXT_PUBLIC_HOST}${img}`}
+          src={`${img}`}
           alt="product image"
           className="w-full h-full object-contain p-2 sm:p-0"
         />

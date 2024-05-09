@@ -31,7 +31,7 @@ const OrderItem = ({
       <div className="grid  grid-cols-1 grid-rows-[auto_auto] lmob:grid-cols-2 lmob:grid-rows-1 px-3">
         <div className="flex justify-self-center w-32  lmob:w-40 md:w-52 aspect-square p-5">
           <Image
-            src={`${process.env.NEXT_PUBLIC_HOST}${imgsrc}`}
+            src={`${imgsrc}`}
             alt=""
             classNames={{
               img: "w-full h-full object-contain",
@@ -42,7 +42,7 @@ const OrderItem = ({
         {/* <div className="w-14 medmob:w-20 aspect-square flex justify-center items-center">
         <Image
           radius="none"
-          src={`${process.env.NEXT_PUBLIC_HOST}${imgsrc}`}
+          src={`${imgsrc}`}
           alt=""
           classNames={{
             img: "w-full h-full object-contain",

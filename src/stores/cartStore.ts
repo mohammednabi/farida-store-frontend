@@ -77,7 +77,7 @@ export class CartStore {
           const userCartItem: userCartProductType = {
             cartItemId: item.id,
             id: item.product.id,
-            imgSrc: `${process.env.NEXT_PUBLIC_HOST}${item.product.thumbnail.url}`,
+            imgSrc: `${item.product.thumbnail.url}`,
             title: item.product.title,
             slug: item.product.slug,
             description: item.product.description,

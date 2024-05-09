@@ -60,7 +60,7 @@ const AdsSlider = () => {
         {ads.ads.map((ad) => (
           <SwiperSlide key={ad.id} className="w-full h-full ">
             <img
-              src={`${process.env.NEXT_PUBLIC_HOST}${ad.attributes.thumb.data.attributes.url}`}
+              src={`${ad.attributes.thumb.data.attributes.url}`}
               alt=""
               className="w-full aspect-video "
             />

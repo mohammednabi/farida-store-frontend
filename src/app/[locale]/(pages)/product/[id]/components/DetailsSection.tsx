@@ -138,37 +138,21 @@ const DetailsSection = ({
             {t("details.categories")}:-
           </h1>
           <div className="flex items-center gap-5 flex-wrap mt-5">
-            {locale === "en"
-              ? product?.attributes?.category?.data.map((cat) => (
-                  <Link
-                    key={cat?.id}
-                    href={`/categories/${cat.attributes.name}`}
-                  >
-                    <Chip
-                      variant="bordered"
-                      classNames={{
-                        base: "text-xs md:text-lg capitalize hover:text-mainBlack hover:border-mainBlack transition-all ",
-                      }}
-                    >
-                      {cat?.attributes?.name}
-                    </Chip>
-                  </Link>
-                ))
-              : arabicData?.attributes?.category?.data.map((cat) => (
-                  <Link
-                    key={cat?.id}
-                    href={`/categories/${cat.attributes.name}`}
-                  >
-                    <Chip
-                      variant="bordered"
-                      classNames={{
-                        base: "text-xs md:text-lg capitalize hover:text-mainBlack hover:border-mainBlack transition-all ",
-                      }}
-                    >
-                      {cat?.attributes?.name}
-                    </Chip>
-                  </Link>
-                ))}
+            {product?.attributes?.category?.data.map((cat, index) => (
+              <Link key={cat?.id} href={`/categories/${cat.attributes.name}`}>
+                <Chip
+                  variant="bordered"
+                  classNames={{
+                    base: "text-xs md:text-lg capitalize hover:text-mainBlack hover:border-mainBlack transition-all ",
+                  }}
+                >
+                  {locale === "en"
+                    ? cat?.attributes?.name
+                    : arabicData?.attributes?.category?.data[index]?.attributes
+                        ?.name}
+                </Chip>
+              </Link>
+            ))}
           </div>
         </Skeleton>
       </div>

@@ -10,16 +10,13 @@ export class FastAdsStore {
   }
 
   getAllFastAds = async (locale: string) => {
-    let response = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/fast-ads?locale=${locale}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
-        },
-      }
-    );
+    let response = await fetch(`/api/fast-ads?locale=${locale}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN}`,
+      },
+    });
 
     if (response.ok) {
       let data: FastAdsMainResponse = await response.json();

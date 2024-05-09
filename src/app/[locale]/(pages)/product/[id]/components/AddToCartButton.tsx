@@ -48,7 +48,7 @@ const AddToCartButton = ({ product }: AddToCartButtonProps) => {
       setAddingToUserCartLoading(true);
       const parsedProductToCartProduct: cartProductType = {
         id: product.id,
-        imgSrc: `${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`,
+        imgSrc: `${product.attributes.thumbnail.data.attributes.url}`,
         title: product.attributes.title,
         slug: product.attributes.slug,
         description: product.attributes.description,

@@ -52,7 +52,7 @@ const UserLoggedInUi = () => {
             name={user.strapiUserdata?.username}
             description={user.strapiUserdata?.email}
             // avatarProps={{
-            //   src: `${process.env.NEXT_PUBLIC_HOST}${user.strapiUserdata.avatar?.url}`,
+            //   src: `${user.strapiUserdata.avatar?.url}`,
             // }}
             className="px-3 lowercase"
           />

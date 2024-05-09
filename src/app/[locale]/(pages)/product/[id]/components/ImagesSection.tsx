@@ -27,9 +27,7 @@ const ImagesSection = ({ allImages }: imagesProps) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <ZoomedImage
-        src={`${process.env.NEXT_PUBLIC_HOST}${selectedImage?.attributes.url}`}
-      />
+      <ZoomedImage src={`${selectedImage?.attributes.url}`} />
 
       <div className="grid grid-cols-5 gap-2  ">
         {allImages?.data?.map((img) => (
@@ -45,7 +43,7 @@ const ImagesSection = ({ allImages }: imagesProps) => {
             }}
           >
             <Image
-              src={`${process.env.NEXT_PUBLIC_HOST}${img.attributes.url}`}
+              src={`${img.attributes.url}`}
               radius="none"
               alt=""
               className="w-full h-auto aspect-square object-contain"

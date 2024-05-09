@@ -24,7 +24,7 @@ const BestSellerMenu = () => {
         <div key={p.id}>
           <BestProduct
             id={`${p.id}`}
-            imageUrl={`${process.env.NEXT_PUBLIC_HOST}${p.attributes.thumbnail.data.attributes.url}`}
+            imageUrl={`${p.attributes.thumbnail.data.attributes.url}`}
             title={
               locale === "en"
                 ? p.attributes.title

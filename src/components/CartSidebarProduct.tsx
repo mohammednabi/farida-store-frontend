@@ -108,7 +108,7 @@ const CartSidebarProduct = ({ product }: CartSidebarProductProps) => {
            
             <Image
               //   as={NextImage}
-              src={`${process.env.NEXT_PUBLIC_HOST}${product.attributes.thumbnail.data.attributes.url}`}
+              src={`${product.attributes.thumbnail.data.attributes.url}`}
               radius="sm"
               //   quality={100}
               alt="product image"

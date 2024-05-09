@@ -10,7 +10,7 @@ import { Button } from "@nextui-org/react";
 import { useRouter } from "@/navigation";
 import { isUserLoggedIn } from "@/functions/credentials";
 import { useLocale, useTranslations } from "next-intl";
-import GoogleProvider from "@/app/[locale]/(auth)/GoogleProvider";
+import GoogleProvider from "@/app/[locale]/(auth)/components/GoogleProvider";
 
 const UserDrop = () => {
   const { userDrop, user, loginForm, registerForm } = useContext(StoreContext);

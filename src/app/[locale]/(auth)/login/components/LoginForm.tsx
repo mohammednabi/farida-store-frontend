@@ -4,13 +4,13 @@ import { Link, useRouter } from "@/navigation";
 import React, { useContext, useEffect } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import GoogleProvider from "../../GoogleProvider";
 
 import { StoreContext } from "@/contexts/StoreContext";
 import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
 import { useScreenSize } from "react-screen-size-helper";
 import { useLocale, useTranslations } from "next-intl";
+import GoogleProvider from "../../components/GoogleProvider";
 
 const LoginForm = () => {
   const router = useRouter();

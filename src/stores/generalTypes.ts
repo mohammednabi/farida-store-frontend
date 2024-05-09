@@ -1,5 +1,5 @@
-import { product } from "./productsStore";
+// import { product } from "./productsStore";
 
-export type cartProduct = product & {
-  quantity: number;
-};
+// export type cartProduct = product & {
+//   quantity: number;
+// };

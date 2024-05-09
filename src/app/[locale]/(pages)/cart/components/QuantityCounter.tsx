@@ -1,13 +1,15 @@
 "use client";
-import LoadingOverlay from "@/components/LoadingOverlay";
+// import LoadingOverlay from "@/components/LoadingOverlay";
 import { StoreContext } from "@/contexts/StoreContext";
 import { isUserLoggedIn } from "@/functions/credentials";
-import { cartProduct } from "@/stores/generalTypes";
+// import { cartProductType } from "@/stores/specificTypes/cartProductType";
+// import { cartProduct } from "@/stores/generalTypes";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect, useState } from "react";
+import { userCartProductType } from "@/stores/specificTypes/userCartProductType";
 
 interface quantityCounterProps {
-  product: cartProduct;
+  product: userCartProductType;
   settingLoading: (val: React.SetStateAction<boolean>) => void;
 }
 

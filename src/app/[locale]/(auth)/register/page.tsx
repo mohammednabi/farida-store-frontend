@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 import RegisterForm from "./components/RegisterForm";
@@ -10,7 +11,7 @@ interface RegisterPageProps {
 }
 
 const RegisterPage = ({ params: { locale } }: RegisterPageProps) => {
-  unstable_setRequestLocale(locale);
+  // unstable_setRequestLocale(locale);
   const t = useTranslations("registerForm");
   return (
     <div className="w-full h-auto">

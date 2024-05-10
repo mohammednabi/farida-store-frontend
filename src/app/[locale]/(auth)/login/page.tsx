@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 import LoginForm from "./components/LoginForm";
@@ -10,7 +11,7 @@ interface LoginPageProps {
 }
 
 const LoginPage = ({ params: { locale } }: LoginPageProps) => {
-  unstable_setRequestLocale(locale);
+  // unstable_setRequestLocale(locale);
   const t = useTranslations("loginForm");
 
   return (

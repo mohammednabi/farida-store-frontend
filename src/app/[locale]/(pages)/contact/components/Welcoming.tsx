@@ -12,19 +12,19 @@ const Welcoming = () => {
     times2: string;
   }[] = [
     {
-      city_state: t("branches.city_state"),
+      city_state: t("branches.citystate"),
       phone: "01089759963",
       times1: t("branches.times1"),
       times2: t("branches.times2"),
     },
     {
-      city_state: t("branches.city_state"),
+      city_state: t("branches.citystate"),
       phone: "01089759963",
       times1: t("branches.times1"),
       times2: t("branches.times2"),
     },
     {
-      city_state: t("branches.city_state"),
+      city_state: t("branches.citystate"),
       phone: "01089759963",
       times1: t("branches.times1"),
       times2: t("branches.times2"),

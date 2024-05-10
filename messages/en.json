@@ -462,10 +462,10 @@
       "title": "We welcome you to visit us at any time:-",
       "branch": "branch",
 
-      "city_state": "cairo,egypt",
+      "citystate": "cairo,egypt",
 
       "times1": "sun-thurs:9:00-20:00",
-      " times2": "fri-sat:11:00-15:00"
+      "times2": "fri-sat:11:00-15:00"
     },
     "form": {
       "title": "Do you have a complaint or inquiry?",

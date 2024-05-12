@@ -1,11 +1,9 @@
 import "./globals.css";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 
 import NavBar from "@/components/Navbar";
-
-import StoreContextProvider from "@/stores";
 
 import Footer from "@/components/Footer";
 import Sidebar from "@/components/Sidebar";
@@ -18,6 +16,7 @@ import GoTopFloatingButton from "@/components/GoTopFloatingButton";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 import NextUiLibraryProviders from "@/providers/NextUiLibraryProviders";
+import StoreContextProvider from "@/stores";
 
 export const metadata = {
   title: "Farida Store",
